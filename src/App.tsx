@@ -9,14 +9,58 @@ import { LodgingStrategy } from './components/LodgingStrategy';
 import { PreTripChecklist } from './components/PreTripChecklist';
 import { OfficialSources } from './components/OfficialSources';
 import { PrintRoadbookModal } from './components/PrintRoadbookModal';
+import { AlternativePlansPage } from './components/AlternativePlansPage';
 import { Footer } from './components/Footer';
 
 export const App: React.FC = () => {
+  const [pageMode, setPageMode] = useState<'main' | 'alternatives'>(() => {
+    return window.location.hash === '#alternatives' ? 'alternatives' : 'main';
+  });
   const [activeSection, setActiveSection] = useState<string>('overview');
   const [isPrintModalOpen, setIsPrintModalOpen] = useState<boolean>(false);
 
-  // Smooth scroll handler
+  // Switch Page Mode & URL Hash
+  const handleSwitchPageMode = (mode: 'main' | 'alternatives') => {
+    setPageMode(mode);
+    if (mode === 'alternatives') {
+      window.location.hash = 'alternatives';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.location.hash = 'main';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  // Listen to browser hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#alternatives') {
+        setPageMode('alternatives');
+      } else if (window.location.hash === '#main' || !window.location.hash) {
+        setPageMode('main');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  // Smooth scroll handler for main section
   const handleNavigate = (sectionId: string) => {
+    if (pageMode !== 'main') {
+      setPageMode('main');
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const navHeight = 70;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+      }, 100);
+      return;
+    }
+
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     if (element) {
@@ -33,6 +77,8 @@ export const App: React.FC = () => {
 
   // Observe scroll to update active section in navbar
   useEffect(() => {
+    if (pageMode !== 'main') return;
+
     const handleScroll = () => {
       const sections = ['overview', 'bookings', 'map-section', 'roadbook', 'decisions', 'lodging', 'checklist', 'sources'];
       const scrollPosition = window.scrollY + 100;
@@ -52,7 +98,7 @@ export const App: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [pageMode]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-900">
@@ -61,38 +107,53 @@ export const App: React.FC = () => {
         activeSection={activeSection}
         onNavigate={handleNavigate}
         onOpenPrint={() => setIsPrintModalOpen(true)}
+        pageMode={pageMode}
+        onSwitchPageMode={handleSwitchPageMode}
       />
 
-      {/* Main Content Sections */}
+      {/* Main Content Areas */}
       <main>
-        {/* 1. Hero Overview */}
-        <HeroHeader
-          onExploreMap={() => handleNavigate('map-section')}
-          onExploreRoadbook={() => handleNavigate('roadbook')}
-          onExploreDecisions={() => handleNavigate('decisions')}
-          onExploreBookings={() => handleNavigate('bookings')}
-        />
+        {pageMode === 'alternatives' ? (
+          /* Dedicated Alternative Plans & Route Visualization Page */
+          <AlternativePlansPage 
+            onBackToMain={() => handleSwitchPageMode('main')}
+          />
+        ) : (
+          /* Standard Baseline Plan 0 (Loop) Sections */
+          <>
+            {/* 1. Hero Overview */}
+            <HeroHeader
+              onExploreMap={() => handleNavigate('map-section')}
+              onExploreRoadbook={() => handleNavigate('roadbook')}
+              onExploreDecisions={() => handleNavigate('decisions')}
+              onExploreBookings={() => handleNavigate('bookings')}
+              onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
+            />
 
-        {/* 2. Flight & Car Rental Time Constraint Hub */}
-        <BookingInfoCard />
+            {/* 2. Flight & Car Rental Time Constraint Hub */}
+            <BookingInfoCard />
 
-        {/* 3. Interactive Map */}
-        <InteractiveMap />
+            {/* 3. Interactive Map */}
+            <InteractiveMap />
 
-        {/* 4. Day-by-Day Roadbook with Rich Photos */}
-        <DailyRoadbook />
+            {/* 4. Day-by-Day Roadbook with Rich Photos */}
+            <DailyRoadbook />
 
-        {/* 5. Team Consensus & Voting Matrix with Imagery */}
-        <DecisionMatrix />
+            {/* 5. Team Consensus & Voting Matrix with Imagery */}
+            <DecisionMatrix 
+              onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
+            />
 
-        {/* 6. Lodging & Cost Optimization */}
-        <LodgingStrategy />
+            {/* 6. Lodging & Cost Optimization */}
+            <LodgingStrategy />
 
-        {/* 7. Pre-Trip Checklist & Packing */}
-        <PreTripChecklist />
+            {/* 7. Pre-Trip Checklist & Packing */}
+            <PreTripChecklist />
 
-        {/* 8. Official Sources & References */}
-        <OfficialSources />
+            {/* 8. Official Sources & References */}
+            <OfficialSources />
+          </>
+        )}
       </main>
 
       {/* Footer */}

@@ -270,7 +270,15 @@ export const InteractiveMap: React.FC = () => {
     }
   }, []);
 
-  // Init Map
+  // Keep refs to the latest render functions so the init effect can call them
+  // without having them in its dependency array (which would destroy & recreate
+  // the map on every re-render, orphaning the layerGroupRef / poiLayerGroupRef).
+  const renderMapLayersRef = useRef(renderMapLayers);
+  renderMapLayersRef.current = renderMapLayers;
+  const renderPoiLayerRef = useRef(renderPoiLayer);
+  renderPoiLayerRef.current = renderPoiLayer;
+
+  // Init Map — runs ONCE on mount only.
   useEffect(() => {
     if (!mapContainerRef.current || mapInstanceRef.current) return;
 
@@ -290,14 +298,37 @@ export const InteractiveMap: React.FC = () => {
     L.control.scale({ imperial: false }).addTo(map);
 
     mapInstanceRef.current = map;
-    renderMapLayers('all');
-    renderPoiLayer();
+    renderMapLayersRef.current('all');
+    renderPoiLayerRef.current();
+
+    const t1 = setTimeout(() => map.invalidateSize(), 100);
+    const t2 = setTimeout(() => map.invalidateSize(), 350);
+    const t3 = setTimeout(() => map.invalidateSize(), 700);
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (window.ResizeObserver && mapContainerRef.current) {
+      resizeObserver = new ResizeObserver(() => {
+        map.invalidateSize();
+      });
+      resizeObserver.observe(mapContainerRef.current);
+    }
 
     return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+      // Reset layer group refs so that on re-mount (or StrictMode
+      // double-invoke) fresh layer groups are created on the new map.
+      layerGroupRef.current = null;
+      poiLayerGroupRef.current = null;
       map.remove();
       mapInstanceRef.current = null;
     };
-  }, [renderMapLayers, renderPoiLayer]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Re-render POI layer when categories change
   useEffect(() => {

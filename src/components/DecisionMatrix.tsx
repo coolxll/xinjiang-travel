@@ -3,7 +3,11 @@ import { decisionItems } from '../data/consensusData';
 import { Vote, Check, ShieldCheck, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-export const DecisionMatrix: React.FC = () => {
+interface DecisionMatrixProps {
+  onExploreAlternatives?: () => void;
+}
+
+export const DecisionMatrix: React.FC<DecisionMatrixProps> = ({ onExploreAlternatives }) => {
   // Store user votes in state and localStorage
   const [userVotes, setUserVotes] = useState<Record<string, 'A' | 'B'>>(() => {
     try {
@@ -44,6 +48,33 @@ export const DecisionMatrix: React.FC = () => {
   return (
     <section id="decisions" className="py-12 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Top Alternatives Callout Banner */}
+        {onExploreAlternatives && (
+          <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-purple-900 via-indigo-900 to-slate-900 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/30 border border-purple-400/40 flex items-center justify-center text-lg flex-shrink-0">
+                🔀
+              </div>
+              <div>
+                <h4 className="font-extrabold text-sm sm:text-base text-white">
+                  担心 10/2 转场太累（600km）、阿勒泰降雪封路或天价住宿？
+                </h4>
+                <p className="text-xs text-purple-200 mt-0.5">
+                  已规划 4 套针对性备选方案（纯阿勒泰慢环线 / 伊犁河谷 / 东疆大海道沙漠 / 南疆帕米尔）
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={onExploreAlternatives}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500 text-slate-950 hover:bg-amber-400 font-extrabold text-xs transition-colors shadow-sm whitespace-nowrap flex-shrink-0"
+            >
+              <span>查看 4 套备用选线与决策矩阵</span>
+              <Sparkles className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs font-bold mb-3">

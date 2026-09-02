@@ -7,6 +7,7 @@ interface HeroHeaderProps {
   onExploreRoadbook: () => void;
   onExploreDecisions: () => void;
   onExploreBookings: () => void;
+  onExploreAlternatives?: () => void;
 }
 
 export const HeroHeader: React.FC<HeroHeaderProps> = ({
@@ -14,6 +15,7 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
   onExploreRoadbook,
   onExploreDecisions,
   onExploreBookings,
+  onExploreAlternatives,
 }) => {
   return (
     <section id="overview" className="relative overflow-hidden bg-gradient-to-b from-amber-500/10 via-sky-500/5 to-transparent pt-8 pb-12">
@@ -52,6 +54,14 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                 查看每日路书时刻
                 <ArrowRight className="w-4 h-4" />
               </button>
+              {onExploreAlternatives && (
+                <button
+                  onClick={onExploreAlternatives}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-700 to-indigo-800 text-white text-sm font-bold shadow-md shadow-purple-900/20 hover:from-purple-800 hover:to-indigo-900 transition-all hover:translate-y-[-1px]"
+                >
+                  <span>🔀 4 套备用方案选线</span>
+                </button>
+              )}
               <button
                 onClick={onExploreBookings}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold shadow-sm hover:bg-slate-800 transition-all"
