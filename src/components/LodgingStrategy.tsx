@@ -9,6 +9,7 @@ import {
 
 export const LodgingStrategy: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'tracker' | 'strategy'>('tracker');
+  const confirmedBookings = DAILY_HOTEL_BOOKINGS.filter(b => b.status === 'confirmed');
 
   return (
     <section id="lodging" className="py-12 bg-slate-50 border-b border-slate-200">
@@ -33,16 +34,16 @@ export const LodgingStrategy: React.FC = () => {
             <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4 text-xs font-bold text-slate-700">
               <div>
                 <div className="text-[10px] text-slate-400">已锁定间夜</div>
-                <div className="text-emerald-600 font-extrabold text-sm">{HOTEL_BOOKING_SUMMARY.confirmedNights} / {HOTEL_BOOKING_SUMMARY.totalNights} 晚</div>
+                <div className="text-emerald-600 font-extrabold text-sm">{HOTEL_BOOKING_SUMMARY.confirmedNights} / {HOTEL_BOOKING_SUMMARY.totalNights} 晚 ({HOTEL_BOOKING_SUMMARY.confirmedRooms}间)</div>
               </div>
               <div className="w-px h-8 bg-slate-100" />
               <div>
-                <div className="text-[10px] text-slate-400">已锁定房费 (2间)</div>
+                <div className="text-[10px] text-slate-400">已锁定房费 (实付)</div>
                 <div className="text-amber-600 font-extrabold text-sm">¥{HOTEL_BOOKING_SUMMARY.confirmedTotalCost.toFixed(2)}</div>
               </div>
               <div className="w-px h-8 bg-slate-100" />
               <div>
-                <div className="text-[10px] text-slate-400">首晚取消截止</div>
+                <div className="text-[10px] text-slate-400">最近取消截止</div>
                 <div className="text-sky-600 font-extrabold text-sm">9/25 23:00</div>
               </div>
             </div>
@@ -62,7 +63,7 @@ export const LodgingStrategy: React.FC = () => {
             <Building2 className="w-4 h-4" />
             <span>📋 10 晚逐日真实预订看板</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
-              已锁定 1 晚
+              已锁定 {HOTEL_BOOKING_SUMMARY.confirmedNights} 晚
             </span>
           </button>
 
@@ -82,101 +83,125 @@ export const LodgingStrategy: React.FC = () => {
         {/* TAB 1: 📋 10 晚逐日真实预订跟踪看板 */}
         {activeTab === 'tracker' && (
           <div className="space-y-6">
-            {/* Confirmed Order Spotlight Card (9/26 星程酒店) */}
-            <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-950 text-white rounded-3xl p-5 sm:p-7 border border-emerald-800/60 shadow-lg relative overflow-hidden">
-              <div className="absolute -right-12 -top-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
-              
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 flex-shrink-0">
-                    <CheckCircle className="w-6 h-6 text-emerald-400" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <span className="text-xs font-black bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-2.5 py-0.5 rounded-full">
-                        Night 0 · 9/26 已预订成功
-                      </span>
-                      <span className="text-xs text-slate-300 font-medium">
-                        华住会官方订单
-                      </span>
+            {/* Confirmed Orders Spotlight Cards */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                  <span>✅ 已锁定订单明细 ({confirmedBookings.length} 晚 · 共 {HOTEL_BOOKING_SUMMARY.confirmedRooms} 间房)</span>
+                </h3>
+                <span className="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-xl">
+                  已锁定总金额：¥{HOTEL_BOOKING_SUMMARY.confirmedTotalCost.toFixed(2)}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {confirmedBookings.map((booking) => (
+                  <div
+                    key={booking.nightIndex}
+                    className="bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-950 text-white rounded-3xl p-5 sm:p-6 border border-emerald-800/60 shadow-lg relative overflow-hidden flex flex-col justify-between"
+                  >
+                    <div className="absolute -right-12 -top-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
+                    
+                    <div>
+                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-white/10">
+                        <div className="flex items-start gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 flex-shrink-0 mt-0.5">
+                            <CheckCircle className="w-5 h-5 text-emerald-400" />
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2 flex-wrap mb-1">
+                              <span className="text-xs font-black bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-md">
+                                Night {booking.nightIndex} · {booking.date} 已锁定
+                              </span>
+                              <span className="text-[11px] text-slate-300">
+                                {booking.brand || booking.bookingChannel}
+                              </span>
+                            </div>
+                            <h4 className="text-base sm:text-lg font-black text-white leading-tight">
+                              {booking.hotelName}
+                            </h4>
+                          </div>
+                        </div>
+
+                        <div className="text-left sm:text-right flex-shrink-0">
+                          <div className="text-[10px] text-slate-400">2间总额 ({booking.payType})</div>
+                          <div className="text-xl font-black text-amber-300">
+                            ¥{booking.totalCost?.toFixed(2)}
+                          </div>
+                          {booking.avgPricePerRoom && (
+                            <div className="text-[10px] text-slate-400">
+                              (均价 ¥{booking.avgPricePerRoom.toFixed(2)}/间)
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Highlights Grid */}
+                      <div className="grid grid-cols-2 gap-2.5 py-3 text-xs">
+                        <div className="bg-white/5 p-2.5 rounded-xl border border-white/10">
+                          <div className="text-slate-400 flex items-center gap-1 mb-0.5 text-[11px]">
+                            <Clock className="w-3 h-3 text-amber-400" />
+                            <span>入离时段</span>
+                          </div>
+                          <div className="font-bold text-white text-xs">{booking.date} ➔ 次日离店</div>
+                          <div className="text-[10px] text-slate-300 mt-0.5">{booking.stayText.split('(')[0]}</div>
+                        </div>
+
+                        <div className="bg-white/5 p-2.5 rounded-xl border border-white/10">
+                          <div className="text-slate-400 flex items-center gap-1 mb-0.5 text-[11px]">
+                            <BedDouble className="w-3 h-3 text-sky-400" />
+                            <span>预订房型</span>
+                          </div>
+                          <div className="font-bold text-white text-xs">{booking.roomCount} 间房 (4人)</div>
+                          <div className="text-[10px] text-slate-300 mt-0.5 truncate">{booking.roomType.split('(')[0]}</div>
+                        </div>
+
+                        <div className="bg-white/5 p-2.5 rounded-xl border border-white/10">
+                          <div className="text-slate-400 flex items-center gap-1 mb-0.5 text-[11px]">
+                            <ShieldAlert className="w-3 h-3 text-rose-400" />
+                            <span>取消政策</span>
+                          </div>
+                          <div className="font-bold text-rose-300 text-xs truncate">{booking.cancellationPolicy?.split('(')[0]}</div>
+                          <div className="text-[10px] text-slate-400 mt-0.5">到期前可免费退</div>
+                        </div>
+
+                        <div className="bg-white/5 p-2.5 rounded-xl border border-white/10">
+                          <div className="text-slate-400 flex items-center gap-1 mb-0.5 text-[11px]">
+                            <Utensils className="w-3 h-3 text-emerald-400" />
+                            <span>入住凭证 / 特色</span>
+                          </div>
+                          <div className="font-bold text-emerald-300 text-xs">{booking.orderNumber || booking.breakfast || '在线选房'}</div>
+                          <div className="text-[10px] text-slate-300 mt-0.5 truncate">{booking.address ? booking.address.split('街道')[1] || booking.address : '城市中心'}</div>
+                        </div>
+                      </div>
                     </div>
-                    <h3 className="text-lg sm:text-2xl font-black text-white">
-                      星程乌鲁木齐天山国际机场迎宾路酒店
-                    </h3>
+
+                    {/* Bottom Action Note & Navigation */}
+                    <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                      <div className="text-slate-300 text-[11px] leading-relaxed">
+                        💡 {booking.notes}
+                      </div>
+
+                      {booking.amapSearchUrl && (
+                        <a
+                          href={booking.amapSearchUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-all flex-shrink-0 text-xs shadow-xs"
+                        >
+                          <MapPin className="w-3 h-3" />
+                          <span>导航</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
-
-                <div className="text-left lg:text-right">
-                  <div className="text-xs text-slate-400">2 间大床房到店实付</div>
-                  <div className="text-2xl sm:text-3xl font-black text-amber-300">
-                    ¥420.70
-                    <span className="text-xs text-slate-400 font-normal ml-1">
-                      (均价 ¥210.35/间·晚)
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Order Highlights Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-4 text-xs">
-                <div className="bg-white/5 p-3.5 rounded-2xl border border-white/10">
-                  <div className="text-slate-400 flex items-center gap-1.5 mb-1">
-                    <Clock className="w-3.5 h-3.5 text-amber-400" />
-                    <span>入住 / 离店时段</span>
-                  </div>
-                  <div className="font-extrabold text-white text-sm">09月26日 ➔ 09月27日</div>
-                  <div className="text-[11px] text-slate-300 mt-0.5">12:00 可入 · 最晚 16:00 离店</div>
-                </div>
-
-                <div className="bg-white/5 p-3.5 rounded-2xl border border-white/10">
-                  <div className="text-slate-400 flex items-center gap-1.5 mb-1">
-                    <BedDouble className="w-3.5 h-3.5 text-sky-400" />
-                    <span>预订房型与数量</span>
-                  </div>
-                  <div className="font-extrabold text-white text-sm">大床房 2 间 (4人)</div>
-                  <div className="text-[11px] text-slate-300 mt-0.5">20–30㎡ · 1张 2.0×1.8m 大床</div>
-                </div>
-
-                <div className="bg-white/5 p-3.5 rounded-2xl border border-white/10">
-                  <div className="text-slate-400 flex items-center gap-1.5 mb-1">
-                    <Utensils className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>早餐与会员权益</span>
-                  </div>
-                  <div className="font-extrabold text-white text-sm">赠 2 份早餐</div>
-                  <div className="text-[11px] text-emerald-300 mt-0.5">提前3天预订折上92折</div>
-                </div>
-
-                <div className="bg-white/5 p-3.5 rounded-2xl border border-white/10">
-                  <div className="text-slate-400 flex items-center gap-1.5 mb-1">
-                    <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
-                    <span>取消政策</span>
-                  </div>
-                  <div className="font-extrabold text-rose-300 text-sm">9/25 23:00 前免费取消</div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">23:00 后不可免费取消</div>
-                </div>
-              </div>
-
-              {/* Action Note & Amap Link */}
-              <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                <div className="text-slate-300 leading-relaxed">
-                  💡 <strong>行程闭环考量：</strong>9/26 22:00 航班落地后快速入住；次日 9/27 09:00 租车行直接送车至该酒店门口交付，足不出户无缝衔接。
-                </div>
-
-                <a
-                  href="https://uri.amap.com/search?keyword=星程乌鲁木齐天山国际机场迎宾路酒店"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-all flex-shrink-0 shadow-xs"
-                >
-                  <MapPin className="w-3.5 h-3.5" />
-                  <span>高德地图导航</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
+                ))}
               </div>
             </div>
 
             {/* 10 Nights Daily Cards Grid */}
-            <div className="space-y-3">
+            <div className="space-y-3 pt-2">
               <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
                 <span>📅 9/26 ~ 10/5 全程 10 晚住宿清单</span>
                 <span className="text-xs font-normal text-slate-500">（支持后续预订持续更新）</span>

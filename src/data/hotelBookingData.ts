@@ -57,17 +57,25 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     nightIndex: 1,
     date: '9/27',
     fullDate: '2026年9月27日 (周日)',
-    stayText: '9/27 入住 ➔ 9/28 离店 (1晚)',
-    cityRegion: '阿勒泰市市区 (如克兰河畔)',
-    status: 'pending',
-    statusBadge: '⏳ 待预订',
-    hotelName: '阿勒泰市区品质商务/度假酒店 (待选定)',
-    roomType: '标间 / 大床房 2间',
+    stayText: '9/27 14:00后入住 ➔ 9/28 16:00前退房 (1晚)',
+    cityRegion: '阿勒泰市市区 (红墩路)',
+    status: 'confirmed',
+    statusBadge: '✅ 预订成功 (待入住)',
+    hotelName: '阿勒泰桔子水晶酒店',
+    brand: '华住会 / 桔子水晶酒店 (中高端品质)',
+    roomType: '观景豪华双床房 2 间 (4人入住 · 高品质双床)',
     roomCount: 2,
-    targetBudget: '约 ¥200–350/间 · 2间预计 ¥400–700',
-    payType: '待预订',
-    notes: '首晚改住阿勒泰市，作为次日 08:45 直上 G681 阿禾公路的天然顺路起点，免去传统布尔津往返折返 1.5 小时。城市级供暖与热水充足。',
-    features: ['阿禾公路最顺路起点', '城市成熟餐饮补给', '出发前油箱加满']
+    totalCost: 1061.94,
+    payType: '已在线支付',
+    avgPricePerRoom: 530.97,
+    cancellationPolicy: '09月26日 23:00 前可免费取消 (23:00后不可取消)',
+    freeCancelDeadline: '2026-09-26 23:00',
+    address: '新疆阿勒泰地区阿勒泰市恰秀路街道红墩路161号',
+    orderNumber: '入住码: DBA95G',
+    features: ['华住会中高端品质', '观景豪华双床房', '阿禾公路天然起点', '距离阿禾公路入口仅15分钟'],
+    notes: '首晚直接住阿勒泰市，高标准供暖热水洗去沙漠长途疲劳；次日 9/28 清晨在阿勒泰加满油，直上 G681 阿禾公路，免去布尔津往返折返 1.5 小时！',
+    bookingChannel: '华住会官方预订',
+    amapSearchUrl: 'https://uri.amap.com/search?keyword=阿勒泰桔子水晶酒店'
   },
   {
     nightIndex: 2,
@@ -202,16 +210,24 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
 // 统计与汇总信息
 export const HOTEL_BOOKING_SUMMARY = {
   totalNights: 10,
-  confirmedNights: 1,
-  confirmedTotalCost: 420.70, // 9/26 华住会星程 2间到店付
-  confirmedRooms: 2,
+  confirmedNights: 2,
+  confirmedTotalCost: 1482.64, // 9/26 星程 ¥420.70 + 9/27 桔子水晶 ¥1,061.94
+  confirmedRooms: 4, // 9/26 2间 + 9/27 2间
   confirmedGuests: 4,
-  confirmedHotelList: ['星程乌鲁木齐天山国际机场迎宾路酒店'],
+  confirmedHotelList: [
+    '星程乌鲁木齐天山国际机场迎宾路酒店 (9/26)',
+    '阿勒泰桔子水晶酒店 (9/27)'
+  ],
   freeCancellationDeadlines: [
     {
       night: '9/26 晚 (星程乌市机场店)',
       deadline: '2026-09-25 23:00',
       policy: '9月25日 23:00 前免费取消'
+    },
+    {
+      night: '9/27 晚 (阿勒泰桔子水晶店)',
+      deadline: '2026-09-26 23:00',
+      policy: '9月26日 23:00 前免费取消'
     }
   ]
 };
