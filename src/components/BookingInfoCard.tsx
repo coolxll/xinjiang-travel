@@ -176,7 +176,7 @@ export const BookingInfoCard: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-700 text-xs">
               <div className="text-amber-400 font-bold mb-1">1. 9/26 22:00 落地集结</div>
-              <p className="text-[11px] text-slate-400 leading-relaxed">GS7588 深夜抵乌，专车入住机场周边酒店洗漱休整，当天不租车不开夜路。</p>
+              <p className="text-[11px] text-slate-400 leading-relaxed">GS7588 深夜抵乌，入住星程乌鲁木齐天山机场迎宾路酒店（已锁定2间到店付¥420.70），当晚不开夜路，次日09:00酒店门口无缝接车。</p>
             </div>
 
             <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-700 text-xs">

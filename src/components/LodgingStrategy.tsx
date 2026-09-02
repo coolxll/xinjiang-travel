@@ -1,109 +1,349 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { lodgingOptions } from '../data/lodgingData';
-import { Hotel, TrendingDown, CheckCircle, HelpCircle } from 'lucide-react';
+import { DAILY_HOTEL_BOOKINGS, HOTEL_BOOKING_SUMMARY } from '../data/hotelBookingData';
+import { 
+  Hotel, TrendingDown, CheckCircle, HelpCircle, 
+  MapPin, Clock, DollarSign, ShieldAlert, 
+  ExternalLink, Building2, BedDouble, Utensils
+} from 'lucide-react';
 
 export const LodgingStrategy: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'tracker' | 'strategy'>('tracker');
+
   return (
     <section id="lodging" className="py-12 bg-slate-50 border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-200">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-bold mb-2">
-              <Hotel className="w-3.5 h-3.5" />
-              <span>住宿选址与成本优化拆解</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-bold mb-2 shadow-2xs">
+              <Hotel className="w-3.5 h-3.5 text-emerald-700" />
+              <span>逐日真实酒店预订跟踪 · 住宿选址与成本优化</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              为什么这样住？核心选址与环境
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
+              10 晚酒店预订看板与选址策略
             </h2>
-            <p className="text-sm text-slate-600 mt-1">
-              不盲目追求“全程住景区内”，以极致顺路、控制高价房天数、保障次日体力和还车缓冲为核心
+            <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl leading-relaxed">
+              基准：<strong>4人出行 (2间房)</strong> · 覆盖 <strong>9/26 至 10/5 共 10 晚</strong> 真实酒店预订状态、房型价格、免费取消节点与降本避坑逻辑。
             </p>
           </div>
 
-          <div className="mt-4 md:mt-0 bg-white p-3 rounded-xl border border-slate-200 text-xs text-slate-700 shadow-2xs">
-            <span className="font-bold text-emerald-700">💰 预算成效：</span>
-            <span>比传统全景区方案人均节省 1,500元+，减免4小时冗余山路</span>
+          {/* Quick Stats Pill */}
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4 text-xs font-bold text-slate-700">
+              <div>
+                <div className="text-[10px] text-slate-400">已锁定间夜</div>
+                <div className="text-emerald-600 font-extrabold text-sm">{HOTEL_BOOKING_SUMMARY.confirmedNights} / {HOTEL_BOOKING_SUMMARY.totalNights} 晚</div>
+              </div>
+              <div className="w-px h-8 bg-slate-100" />
+              <div>
+                <div className="text-[10px] text-slate-400">已锁定房费 (2间)</div>
+                <div className="text-amber-600 font-extrabold text-sm">¥{HOTEL_BOOKING_SUMMARY.confirmedTotalCost.toFixed(2)}</div>
+              </div>
+              <div className="w-px h-8 bg-slate-100" />
+              <div>
+                <div className="text-[10px] text-slate-400">首晚取消截止</div>
+                <div className="text-sky-600 font-extrabold text-sm">9/25 23:00</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Lodging Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {lodgingOptions.map((opt) => (
-            <div
-              key={opt.id}
-              className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:border-slate-300 hover:shadow-md transition-all group"
-            >
-              {/* Lodging Image Thumbnail */}
-              {opt.imageUrl && (
-                <div className="relative h-40 w-full overflow-hidden bg-slate-900">
-                  <img
-                    src={opt.imageUrl}
-                    alt={opt.location}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute top-3 left-3">
-                    <span className="text-xs font-black text-amber-900 bg-amber-200/90 backdrop-blur-md px-2.5 py-0.5 rounded-full shadow-xs">
-                      {opt.dateRange}
-                    </span>
+        {/* Tab Switcher */}
+        <div className="flex items-center gap-2 border-b border-slate-200">
+          <button
+            onClick={() => setActiveTab('tracker')}
+            className={`flex items-center gap-2 py-3 px-4 text-xs sm:text-sm font-extrabold border-b-2 transition-all ${
+              activeTab === 'tracker'
+                ? 'border-emerald-600 text-emerald-800'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
+            }`}
+          >
+            <Building2 className="w-4 h-4" />
+            <span>📋 10 晚逐日真实预订看板</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+              已锁定 1 晚
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('strategy')}
+            className={`flex items-center gap-2 py-3 px-4 text-xs sm:text-sm font-extrabold border-b-2 transition-all ${
+              activeTab === 'strategy'
+                ? 'border-emerald-600 text-emerald-800'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
+            }`}
+          >
+            <TrendingDown className="w-4 h-4" />
+            <span>💡 为什么这样住？5 大选址降本拆解</span>
+          </button>
+        </div>
+
+        {/* TAB 1: 📋 10 晚逐日真实预订跟踪看板 */}
+        {activeTab === 'tracker' && (
+          <div className="space-y-6">
+            {/* Confirmed Order Spotlight Card (9/26 星程酒店) */}
+            <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-950 text-white rounded-3xl p-5 sm:p-7 border border-emerald-800/60 shadow-lg relative overflow-hidden">
+              <div className="absolute -right-12 -top-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
+              
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-white/10">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 flex-shrink-0">
+                    <CheckCircle className="w-6 h-6 text-emerald-400" />
                   </div>
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <h3 className="text-base font-black truncate">
-                      {opt.location}
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <span className="text-xs font-black bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-2.5 py-0.5 rounded-full">
+                        Night 0 · 9/26 已预订成功
+                      </span>
+                      <span className="text-xs text-slate-300 font-medium">
+                        华住会官方订单
+                      </span>
+                    </div>
+                    <h3 className="text-lg sm:text-2xl font-black text-white">
+                      星程乌鲁木齐天山国际机场迎宾路酒店
                     </h3>
                   </div>
                 </div>
-              )}
 
-              <div className="p-5 flex-1 flex flex-col justify-between">
-                <div>
-                  <p className="text-xs font-bold text-sky-700 mb-3">
-                    {opt.strategyName}
-                  </p>
-
-                  {/* Summary Box */}
-                  <p className="text-xs text-slate-600 leading-relaxed mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200/70">
-                    {opt.strategySummary}
-                  </p>
-
-                  {/* Why this choice */}
-                  <div className="mb-4">
-                    <h4 className="text-xs font-extrabold text-slate-800 mb-1 flex items-center gap-1">
-                      <HelpCircle className="w-3.5 h-3.5 text-amber-600" />
-                      <span>核心考量逻辑</span>
-                    </h4>
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      {opt.whyThisChoice}
-                    </p>
+                <div className="text-left lg:text-right">
+                  <div className="text-xs text-slate-400">2 间大床房到店实付</div>
+                  <div className="text-2xl sm:text-3xl font-black text-amber-300">
+                    ¥420.70
+                    <span className="text-xs text-slate-400 font-normal ml-1">
+                      (均价 ¥210.35/间·晚)
+                    </span>
                   </div>
-
-                  {/* Pros list */}
-                  <div className="space-y-1.5 mb-4">
-                    {opt.pros.map((pro, i) => (
-                      <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
-                        <CheckCircle className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                        <span>{pro}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Bottom Cost Saving Tip */}
-                <div className="pt-3 border-t border-slate-100 bg-emerald-50/60 -mx-5 -mb-5 p-4 border-emerald-100 text-xs text-emerald-950 mt-4">
-                  <div className="flex items-center gap-1.5 font-bold text-emerald-800 mb-0.5">
-                    <TrendingDown className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>降本提效关键</span>
-                  </div>
-                  <p className="text-[11px] leading-relaxed text-emerald-900">
-                    {opt.costSavingTips}
-                  </p>
                 </div>
               </div>
+
+              {/* Order Highlights Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-4 text-xs">
+                <div className="bg-white/5 p-3.5 rounded-2xl border border-white/10">
+                  <div className="text-slate-400 flex items-center gap-1.5 mb-1">
+                    <Clock className="w-3.5 h-3.5 text-amber-400" />
+                    <span>入住 / 离店时段</span>
+                  </div>
+                  <div className="font-extrabold text-white text-sm">09月26日 ➔ 09月27日</div>
+                  <div className="text-[11px] text-slate-300 mt-0.5">12:00 可入 · 最晚 16:00 离店</div>
+                </div>
+
+                <div className="bg-white/5 p-3.5 rounded-2xl border border-white/10">
+                  <div className="text-slate-400 flex items-center gap-1.5 mb-1">
+                    <BedDouble className="w-3.5 h-3.5 text-sky-400" />
+                    <span>预订房型与数量</span>
+                  </div>
+                  <div className="font-extrabold text-white text-sm">大床房 2 间 (4人)</div>
+                  <div className="text-[11px] text-slate-300 mt-0.5">20–30㎡ · 1张 2.0×1.8m 大床</div>
+                </div>
+
+                <div className="bg-white/5 p-3.5 rounded-2xl border border-white/10">
+                  <div className="text-slate-400 flex items-center gap-1.5 mb-1">
+                    <Utensils className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>早餐与会员权益</span>
+                  </div>
+                  <div className="font-extrabold text-white text-sm">赠 2 份早餐</div>
+                  <div className="text-[11px] text-emerald-300 mt-0.5">提前3天预订折上92折</div>
+                </div>
+
+                <div className="bg-white/5 p-3.5 rounded-2xl border border-white/10">
+                  <div className="text-slate-400 flex items-center gap-1.5 mb-1">
+                    <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
+                    <span>取消政策</span>
+                  </div>
+                  <div className="font-extrabold text-rose-300 text-sm">9/25 23:00 前免费取消</div>
+                  <div className="text-[11px] text-slate-400 mt-0.5">23:00 后不可免费取消</div>
+                </div>
+              </div>
+
+              {/* Action Note & Amap Link */}
+              <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div className="text-slate-300 leading-relaxed">
+                  💡 <strong>行程闭环考量：</strong>9/26 22:00 航班落地后快速入住；次日 9/27 09:00 租车行直接送车至该酒店门口交付，足不出户无缝衔接。
+                </div>
+
+                <a
+                  href="https://uri.amap.com/search?keyword=星程乌鲁木齐天山国际机场迎宾路酒店"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-all flex-shrink-0 shadow-xs"
+                >
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>高德地图导航</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
             </div>
-          ))}
-        </div>
+
+            {/* 10 Nights Daily Cards Grid */}
+            <div className="space-y-3">
+              <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                <span>📅 9/26 ~ 10/5 全程 10 晚住宿清单</span>
+                <span className="text-xs font-normal text-slate-500">（支持后续预订持续更新）</span>
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {DAILY_HOTEL_BOOKINGS.map((night) => (
+                  <div
+                    key={night.nightIndex}
+                    className={`rounded-2xl p-5 border transition-all ${
+                      night.status === 'confirmed'
+                        ? 'bg-emerald-50/40 border-emerald-300 shadow-sm ring-1 ring-emerald-200'
+                        : 'bg-white border-slate-200 hover:border-slate-300 shadow-xs'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-100">
+                      <div className="flex items-center gap-2">
+                        <span className={`text-xs font-black px-2.5 py-0.5 rounded-lg ${
+                          night.status === 'confirmed'
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-slate-100 text-slate-700'
+                        }`}>
+                          Night {night.nightIndex} · {night.date}
+                        </span>
+                        <span className="text-xs font-bold text-slate-500">
+                          {night.fullDate.split(' ')[1]}
+                        </span>
+                      </div>
+
+                      <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${
+                        night.status === 'confirmed'
+                          ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                          : 'bg-amber-100 text-amber-800 border-amber-200'
+                      }`}>
+                        {night.statusBadge}
+                      </span>
+                    </div>
+
+                    <div className="space-y-2 text-xs">
+                      <div className="flex items-start justify-between gap-2">
+                        <h4 className="font-extrabold text-slate-900 text-sm">
+                          {night.hotelName}
+                        </h4>
+                        {night.totalCost && (
+                          <span className="font-black text-amber-600 text-sm flex-shrink-0">
+                            ¥{night.totalCost.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="text-slate-500 flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+                        <span>{night.cityRegion}</span>
+                      </div>
+
+                      <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100 text-slate-700 leading-relaxed">
+                        {night.notes}
+                      </div>
+
+                      {night.targetBudget && (
+                        <div className="text-[11px] text-amber-800 font-semibold flex items-center gap-1">
+                          <DollarSign className="w-3 h-3 text-amber-600" />
+                          <span>预算指引：{night.targetBudget}</span>
+                        </div>
+                      )}
+
+                      {night.features && (
+                        <div className="flex flex-wrap gap-1.5 pt-1">
+                          {night.features.map((feat, i) => (
+                            <span
+                              key={i}
+                              className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md border border-slate-200"
+                            >
+                              {feat}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 2: 💡 为什么这样住？5 大核心选址与成本优化拆解 */}
+        {activeTab === 'strategy' && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {lodgingOptions.map((opt) => (
+                <div
+                  key={opt.id}
+                  className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:border-slate-300 hover:shadow-md transition-all group"
+                >
+                  {/* Lodging Image Thumbnail */}
+                  {opt.imageUrl && (
+                    <div className="relative h-40 w-full overflow-hidden bg-slate-900">
+                      <img
+                        src={opt.imageUrl}
+                        alt={opt.location}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="absolute top-3 left-3">
+                        <span className="text-xs font-black text-amber-900 bg-amber-200/90 backdrop-blur-md px-2.5 py-0.5 rounded-full shadow-xs">
+                          {opt.dateRange}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-3 left-3 right-3 text-white">
+                        <h3 className="text-base font-black truncate">
+                          {opt.location}
+                        </h3>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <p className="text-xs font-bold text-sky-700 mb-3">
+                        {opt.strategyName}
+                      </p>
+
+                      {/* Summary Box */}
+                      <p className="text-xs text-slate-600 leading-relaxed mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200/70">
+                        {opt.strategySummary}
+                      </p>
+
+                      {/* Why this choice */}
+                      <div className="mb-4">
+                        <h4 className="text-xs font-extrabold text-slate-800 mb-1 flex items-center gap-1">
+                          <HelpCircle className="w-3.5 h-3.5 text-amber-600" />
+                          <span>核心考量逻辑</span>
+                        </h4>
+                        <p className="text-xs text-slate-600 leading-relaxed">
+                          {opt.whyThisChoice}
+                        </p>
+                      </div>
+
+                      {/* Pros list */}
+                      <div className="space-y-1.5 mb-4">
+                        {opt.pros.map((pro, i) => (
+                          <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
+                            <CheckCircle className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                            <span>{pro}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Bottom Cost Saving Tip */}
+                    <div className="pt-3 border-t border-slate-100 bg-emerald-50/60 -mx-5 -mb-5 p-4 border-emerald-100 text-xs text-emerald-950 mt-4">
+                      <div className="flex items-center gap-1.5 font-bold text-emerald-800 mb-0.5">
+                        <TrendingDown className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>降本提效关键</span>
+                      </div>
+                      <p className="text-[11px] leading-relaxed text-emerald-900">
+                        {opt.costSavingTips}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
