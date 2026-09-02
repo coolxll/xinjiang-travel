@@ -6,12 +6,14 @@ import {
   dayRoutePolylines, 
   ExtendedRoutePoint
 } from '../data/mapData';
+import { travelPois, TravelPoi, PoiCategory } from '../data/poiData';
 import { 
   Navigation, Compass, Layers, RotateCcw, Copy, Check, 
-  Globe, Mountain, Gauge, Calendar, Sparkles, MapPin 
+  Map as MapIcon, Globe, Mountain, Gauge, Calendar, Sparkles,
+  Camera, Fuel, ShieldCheck
 } from 'lucide-react';
 
-type MapTileLayerType = 'amap' | 'satellite' | 'voyager';
+type MapTileLayerType = 'streets' | 'satellite' | 'terrain';
 
 interface TileProviderConfig {
   name: string;
@@ -23,28 +25,26 @@ interface TileProviderConfig {
 }
 
 const TILE_PROVIDERS: Record<MapTileLayerType, TileProviderConfig> = {
-  amap: {
-    name: '高德公路',
-    url: 'https://wprd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=7',
-    subdomains: ['1', '2', '3', '4'],
-    attribution: '&copy; 高德地图 AutoNavi',
-    maxZoom: 18,
-    icon: '🚗'
+  streets: {
+    name: '详尽公路/山水 (OSM)',
+    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19,
+    icon: '🗺️'
   },
   satellite: {
-    name: '卫星实景',
+    name: '高精卫星实景',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: 'Tiles &copy; Esri &mdash; USGS, AeroGRID, IGN',
     maxZoom: 18,
     icon: '🛰️'
   },
-  voyager: {
-    name: '旅行清爽',
-    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-    subdomains: ['a', 'b', 'c', 'd'],
-    attribution: '&copy; CARTO &copy; OpenStreetMap',
-    maxZoom: 19,
-    icon: '🎨'
+  terrain: {
+    name: '高山地形等高线',
+    url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+    attribution: 'Map data: &copy; OpenStreetMap, SRTM | OpenTopoMap',
+    maxZoom: 17,
+    icon: '🏔️'
   }
 };
 
@@ -52,17 +52,32 @@ export const InteractiveMap: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const layerGroupRef = useRef<L.LayerGroup | null>(null);
+  const poiLayerGroupRef = useRef<L.LayerGroup | null>(null);
   const currentTileLayerRef = useRef<L.TileLayer | null>(null);
 
   const [selectedScheduleKey, setSelectedScheduleKey] = useState<string>('all');
-  const [currentLayerType, setCurrentLayerType] = useState<MapTileLayerType>('amap');
-  const [copiedId, setCopiedId] = useState<number | null>(null);
+  const [currentLayerType, setCurrentLayerType] = useState<MapTileLayerType>('streets');
+  const [activePoiCategories, setActivePoiCategories] = useState<Record<PoiCategory, boolean>>({
+    photo: true,
+    gas: true,
+    hub: true,
+    food: true,
+  });
+  const [copiedId, setCopiedId] = useState<number | string | null>(null);
 
   // Helper to copy GPS coordinates
-  const handleCopyGps = (point: ExtendedRoutePoint) => {
-    navigator.clipboard.writeText(`${point.coords[0]}, ${point.coords[1]}`);
-    setCopiedId(point.id);
+  const handleCopyGps = (coords: [number, number], id: number | string) => {
+    navigator.clipboard.writeText(`${coords[0]}, ${coords[1]}`);
+    setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  // Toggle POI category
+  const togglePoiCategory = (cat: PoiCategory) => {
+    setActivePoiCategories(prev => ({
+      ...prev,
+      [cat]: !prev[cat]
+    }));
   };
 
   // Switch Tile Layer
@@ -84,6 +99,78 @@ export const InteractiveMap: React.FC = () => {
     currentTileLayerRef.current = newLayer;
     setCurrentLayerType(layerType);
   };
+
+  // Render POI Layer
+  const renderPoiLayer = useCallback(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    if (!poiLayerGroupRef.current) {
+      poiLayerGroupRef.current = L.layerGroup().addTo(map);
+    } else {
+      poiLayerGroupRef.current.clearLayers();
+    }
+    const plg = poiLayerGroupRef.current;
+
+    travelPois.forEach((poi: TravelPoi) => {
+      if (!activePoiCategories[poi.category]) return;
+
+      const badgeBg = poi.category === 'photo' 
+        ? 'bg-rose-500 text-white' 
+        : poi.category === 'gas' 
+          ? 'bg-amber-500 text-slate-950' 
+          : 'bg-indigo-600 text-white';
+
+      const customPoiIcon = L.divIcon({
+        className: 'custom-poi-marker',
+        html: `<div class="flex items-center justify-center w-7 h-7 rounded-full ${badgeBg} shadow-md border-2 border-white text-xs font-bold transform hover:scale-125 transition-transform">
+          ${poi.icon}
+        </div>`,
+        iconSize: [28, 28],
+        iconAnchor: [14, 14],
+      });
+
+      const marker = L.marker(poi.coords, { icon: customPoiIcon });
+
+      const popupContent = `
+        <div style="font-family: system-ui, -apple-system, sans-serif; min-width: 250px; padding: 4px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <span style="font-size: 14px;">${poi.icon}</span>
+              <span style="font-weight: 800; font-size: 14px; color: #0f172a;">${poi.name}</span>
+            </div>
+            <span style="background: #f1f5f9; color: #475569; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 9999px;">${poi.categoryLabel}</span>
+          </div>
+
+          <p style="font-size: 12px; font-weight: bold; color: #0284c7; margin: 0 0 4px 0;">${poi.tagline}</p>
+          
+          ${poi.bestTime ? `<p style="font-size: 11px; color: #d97706; margin: 0 0 4px 0;">⏰ <strong>最佳光影：</strong>${poi.bestTime}</p>` : ''}
+          ${poi.altitude ? `<p style="font-size: 11px; color: #64748b; margin: 0 0 4px 0;">⛰️ <strong>海拔：</strong>${poi.altitude}</p>` : ''}
+
+          <div style="background: #f8fafc; border-left: 3px solid #f59e0b; padding: 4px 6px; font-size: 11px; color: #475569; border-radius: 0 4px 4px 0; margin-bottom: 8px; line-height: 1.4;">
+            💡 ${poi.tips}
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid #f1f5f9; padding-top: 6px;">
+            <a href="${poi.amapUrl}" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 4px; background: #0284c7; color: white; text-decoration: none; padding: 5px 8px; border-radius: 6px; font-size: 11px; font-weight: bold;">
+              🚗 在高德地图中打开 / 导航
+            </a>
+            <div style="display: flex; gap: 4px;">
+              <a href="${poi.googleMapsUrl}" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; background: #f1f5f9; color: #334155; text-decoration: none; padding: 4px; border-radius: 6px; font-size: 10px; font-weight: 600;">
+                🌍 Google Maps
+              </a>
+              <button onclick="navigator.clipboard.writeText('${poi.coords[0]}, ${poi.coords[1]}'); alert('GPS坐标已复制: ${poi.coords[0]}, ${poi.coords[1]}');" style="flex: 1; background: #fef3c7; color: #92400e; border: none; padding: 4px; border-radius: 6px; font-size: 10px; font-weight: 600; cursor: pointer;">
+                📋 复制坐标
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      marker.bindPopup(popupContent, { maxWidth: 320 });
+      plg.addLayer(marker);
+    });
+  }, [activePoiCategories]);
 
   // Synchronous, zero-lag map layer renderer
   const renderMapLayers = useCallback((activeKey: string) => {
@@ -127,8 +214,8 @@ export const InteractiveMap: React.FC = () => {
       lg.addLayer(mainLine);
     });
 
-    // 2. Render Point Markers
-    routePoints.forEach((point) => {
+    // 2. Render Main Route Point Markers
+    routePoints.forEach((point: ExtendedRoutePoint) => {
       const isPointHighlighted = activeKey === 'all' || activePointIds.includes(point.id);
 
       const customIcon = L.divIcon({
@@ -192,11 +279,11 @@ export const InteractiveMap: React.FC = () => {
       scrollWheelZoom: false,
     }).setView([46.2, 85.5], 6);
 
-    const initialProvider = TILE_PROVIDERS.amap;
+    const initialProvider = TILE_PROVIDERS.streets;
     const initialTile = L.tileLayer(initialProvider.url, {
       attribution: initialProvider.attribution,
       maxZoom: initialProvider.maxZoom,
-      subdomains: initialProvider.subdomains || '1234',
+      subdomains: initialProvider.subdomains || 'abc',
     }).addTo(map);
 
     currentTileLayerRef.current = initialTile;
@@ -204,12 +291,18 @@ export const InteractiveMap: React.FC = () => {
 
     mapInstanceRef.current = map;
     renderMapLayers('all');
+    renderPoiLayer();
 
     return () => {
       map.remove();
       mapInstanceRef.current = null;
     };
-  }, [renderMapLayers]);
+  }, [renderMapLayers, renderPoiLayer]);
+
+  // Re-render POI layer when categories change
+  useEffect(() => {
+    renderPoiLayer();
+  }, [renderPoiLayer]);
 
   // Handle Day Switch
   const handleSelectSchedule = (key: string) => {
@@ -227,13 +320,13 @@ export const InteractiveMap: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold mb-2">
               <Compass className="w-3.5 h-3.5" />
-              <span>多源实景底图 · 高德与Google一键导航</span>
+              <span>高信息量地理底图 · 核心机位与加油站中枢</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              北疆 9 天自驾动态路线地图
+              北疆 9 天自驾动态路线与 POI 地图
             </h2>
             <p className="text-sm text-slate-600 mt-1">
-              默认搭载【高德官方公路图】（支持无缝切换【卫星实景 / 旅行清爽】），点击地标可一键发起真机导航
+              默认搭载【OpenStreetMap 高密度详尽底图】，叠加【📸 摄影机位 / ⛽ 加油服务区 / 🅿️ 换乘站】，支持一键发起真机导航
             </p>
           </div>
 
@@ -244,19 +337,19 @@ export const InteractiveMap: React.FC = () => {
               <span>全程实测：<strong className="text-amber-600">2,300+ km</strong></span>
             </div>
 
-            {/* Map Tile Layer Switcher (AMap / Satellite / Voyager) */}
+            {/* Map Tile Layer Switcher */}
             <div className="bg-slate-100 p-1 rounded-xl border border-slate-200 flex items-center gap-1 shadow-2xs">
               <button
-                onClick={() => switchTileLayer('amap')}
+                onClick={() => switchTileLayer('streets')}
                 className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
-                  currentLayerType === 'amap'
+                  currentLayerType === 'streets'
                     ? 'bg-sky-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
-                title="高德官方中文标准路网（国内直连秒开）"
+                title="OpenStreetMap 详尽路网与山水地名（高信息量）"
               >
-                <MapPin className="w-3.5 h-3.5" />
-                <span>高德公路</span>
+                <MapIcon className="w-3.5 h-3.5" />
+                <span>详尽公路</span>
               </button>
               <button
                 onClick={() => switchTileLayer('satellite')}
@@ -271,16 +364,16 @@ export const InteractiveMap: React.FC = () => {
                 <span>🛰️ 卫星实景</span>
               </button>
               <button
-                onClick={() => switchTileLayer('voyager')}
+                onClick={() => switchTileLayer('terrain')}
                 className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
-                  currentLayerType === 'voyager'
+                  currentLayerType === 'terrain'
                     ? 'bg-emerald-700 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
-                title="Carto 旅行定制极简清爽底图"
+                title="OpenTopoMap 高山等高线与山脉地形"
               >
                 <Mountain className="w-3.5 h-3.5" />
-                <span>旅行清爽</span>
+                <span>高山地形</span>
               </button>
             </div>
 
@@ -294,6 +387,57 @@ export const InteractiveMap: React.FC = () => {
               </button>
             )}
           </div>
+        </div>
+
+        {/* POI Layer Toggle Filters */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-3 bg-slate-50 p-2.5 rounded-2xl border border-slate-200">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-extrabold text-slate-700 flex items-center gap-1">
+              <Layers className="w-3.5 h-3.5 text-slate-500" />
+              <span>自驾 POI 图层：</span>
+            </span>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <button
+                onClick={() => togglePoiCategory('photo')}
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold border transition-all ${
+                  activePoiCategories.photo
+                    ? 'bg-rose-50 border-rose-300 text-rose-700 shadow-2xs'
+                    : 'bg-white border-slate-200 text-slate-400 opacity-60'
+                }`}
+              >
+                <Camera className="w-3 h-3 text-rose-600" />
+                <span>📸 核心机位 ({travelPois.filter(p => p.category === 'photo').length})</span>
+              </button>
+
+              <button
+                onClick={() => togglePoiCategory('gas')}
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold border transition-all ${
+                  activePoiCategories.gas
+                    ? 'bg-amber-50 border-amber-300 text-amber-800 shadow-2xs'
+                    : 'bg-white border-slate-200 text-slate-400 opacity-60'
+                }`}
+              >
+                <Fuel className="w-3 h-3 text-amber-600" />
+                <span>⛽ 加油/服务区 ({travelPois.filter(p => p.category === 'gas').length})</span>
+              </button>
+
+              <button
+                onClick={() => togglePoiCategory('hub')}
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold border transition-all ${
+                  activePoiCategories.hub
+                    ? 'bg-indigo-50 border-indigo-300 text-indigo-700 shadow-2xs'
+                    : 'bg-white border-slate-200 text-slate-400 opacity-60'
+                }`}
+              >
+                <ShieldCheck className="w-3 h-3 text-indigo-600" />
+                <span>🅿️ 换乘门票站 ({travelPois.filter(p => p.category === 'hub').length})</span>
+              </button>
+            </div>
+          </div>
+
+          <span className="text-[11px] text-slate-500 hidden sm:inline">
+            点击地图上任意 POI 徽章可查看摄影时段与高德导航
+          </span>
         </div>
 
         {/* 11-Day Schedule Selector Horizontal Bar (D0 - D10) */}
@@ -357,7 +501,7 @@ export const InteractiveMap: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-4 h-4 rounded-full bg-amber-500 border border-white text-white text-[9px] font-bold flex items-center justify-center">1</span>
-                <span>核心节点（点击直达高德/Google导航）</span>
+                <span>核心节点 ｜ 📸 绝美摄影 ｜ ⛽ 关键加油</span>
               </div>
             </div>
           </div>
@@ -401,7 +545,7 @@ export const InteractiveMap: React.FC = () => {
                 乌鲁木齐 ⇄ 阿勒泰 ⇄ 喀纳斯 ⇄ 赛湖
               </h4>
               <p className="text-xs text-slate-600 leading-relaxed">
-                全行程 11 天，自驾 9 天，主线里程 ~2,300km。点击上方【D0–D10】按钮可逐日平滑查看每天具体线路与重点。
+                全行程 11 天，自驾 9 天，主线里程 ~2,300km。可自由勾选上方【📸 核心机位 / ⛽ 加油站 / 🅿️ 换乘站】查看详细自驾点位。
               </p>
             </div>
           )}
@@ -467,7 +611,7 @@ export const InteractiveMap: React.FC = () => {
                     </a>
 
                     <button
-                      onClick={() => handleCopyGps(pt)}
+                      onClick={() => handleCopyGps(pt.coords, pt.id)}
                       className="p-1 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition-colors"
                       title="复制 GPS 坐标"
                     >
