@@ -8,32 +8,43 @@ import {
 } from '../data/mapData';
 import { 
   Navigation, Compass, Layers, RotateCcw, Copy, Check, 
-  Map as MapIcon, Globe, Mountain, Gauge, Calendar, Sparkles 
+  Globe, Mountain, Gauge, Calendar, Sparkles, MapPin 
 } from 'lucide-react';
 
-type MapTileLayerType = 'streets' | 'satellite' | 'terrain';
+type MapTileLayerType = 'amap' | 'satellite' | 'voyager';
 
-const TILE_PROVIDERS: Record<MapTileLayerType, { name: string; url: string; attribution: string; maxZoom: number; icon: string }> = {
-  streets: {
-    name: '标准公路图',
-    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 19,
-    icon: '🗺️'
+interface TileProviderConfig {
+  name: string;
+  url: string;
+  attribution: string;
+  maxZoom: number;
+  subdomains?: string[] | string;
+  icon: string;
+}
+
+const TILE_PROVIDERS: Record<MapTileLayerType, TileProviderConfig> = {
+  amap: {
+    name: '高德公路',
+    url: 'https://wprd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=7',
+    subdomains: ['1', '2', '3', '4'],
+    attribution: '&copy; 高德地图 AutoNavi',
+    maxZoom: 18,
+    icon: '🚗'
   },
   satellite: {
-    name: '高精卫星实景',
+    name: '卫星实景',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, USGS, AeroGRID, IGN',
+    attribution: 'Tiles &copy; Esri &mdash; USGS, AeroGRID, IGN',
     maxZoom: 18,
     icon: '🛰️'
   },
-  terrain: {
-    name: '高山地形等高线',
-    url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-    attribution: 'Map data: &copy; OpenStreetMap, SRTM | OpenTopoMap',
-    maxZoom: 17,
-    icon: '🏔️'
+  voyager: {
+    name: '旅行清爽',
+    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    subdomains: ['a', 'b', 'c', 'd'],
+    attribution: '&copy; CARTO &copy; OpenStreetMap',
+    maxZoom: 19,
+    icon: '🎨'
   }
 };
 
@@ -44,7 +55,7 @@ export const InteractiveMap: React.FC = () => {
   const currentTileLayerRef = useRef<L.TileLayer | null>(null);
 
   const [selectedScheduleKey, setSelectedScheduleKey] = useState<string>('all');
-  const [currentLayerType, setCurrentLayerType] = useState<MapTileLayerType>('streets');
+  const [currentLayerType, setCurrentLayerType] = useState<MapTileLayerType>('amap');
   const [copiedId, setCopiedId] = useState<number | null>(null);
 
   // Helper to copy GPS coordinates
@@ -67,6 +78,7 @@ export const InteractiveMap: React.FC = () => {
     const newLayer = L.tileLayer(provider.url, {
       attribution: provider.attribution,
       maxZoom: provider.maxZoom,
+      subdomains: provider.subdomains || 'abc',
     }).addTo(map);
 
     currentTileLayerRef.current = newLayer;
@@ -98,7 +110,7 @@ export const InteractiveMap: React.FC = () => {
         const glowLine = L.polyline(coords, {
           color: isScenic ? '#10b981' : '#0284c7',
           weight: isScenic ? 9 : 8,
-          opacity: 0.3,
+          opacity: 0.35,
         });
         lg.addLayer(glowLine);
       }
@@ -107,9 +119,9 @@ export const InteractiveMap: React.FC = () => {
       const mainLine = L.polyline(coords, {
         color: isDayActive
           ? (isScenic ? '#059669' : '#0284c7')
-          : '#cbd5e1',
+          : '#94a3b8',
         weight: isDayActive ? (isScenic ? 6 : 5) : 3,
-        opacity: isDayActive ? 0.95 : 0.4,
+        opacity: isDayActive ? 0.95 : 0.45,
         dashArray: isScenic ? '8, 6' : undefined,
       });
       lg.addLayer(mainLine);
@@ -180,9 +192,11 @@ export const InteractiveMap: React.FC = () => {
       scrollWheelZoom: false,
     }).setView([46.2, 85.5], 6);
 
-    const initialTile = L.tileLayer(TILE_PROVIDERS.streets.url, {
-      attribution: TILE_PROVIDERS.streets.attribution,
-      maxZoom: TILE_PROVIDERS.streets.maxZoom,
+    const initialProvider = TILE_PROVIDERS.amap;
+    const initialTile = L.tileLayer(initialProvider.url, {
+      attribution: initialProvider.attribution,
+      maxZoom: initialProvider.maxZoom,
+      subdomains: initialProvider.subdomains || '1234',
     }).addTo(map);
 
     currentTileLayerRef.current = initialTile;
@@ -219,7 +233,7 @@ export const InteractiveMap: React.FC = () => {
               北疆 9 天自驾动态路线地图
             </h2>
             <p className="text-sm text-slate-600 mt-1">
-              支持按 D0–D10 逐日聚焦切换，自由切换【卫星实景 / 公路 / 地形】，点击地标可一键发起真机导航
+              默认搭载【高德官方公路图】（支持无缝切换【卫星实景 / 旅行清爽】），点击地标可一键发起真机导航
             </p>
           </div>
 
@@ -230,18 +244,19 @@ export const InteractiveMap: React.FC = () => {
               <span>全程实测：<strong className="text-amber-600">2,300+ km</strong></span>
             </div>
 
-            {/* Map Tile Layer Switcher */}
+            {/* Map Tile Layer Switcher (AMap / Satellite / Voyager) */}
             <div className="bg-slate-100 p-1 rounded-xl border border-slate-200 flex items-center gap-1 shadow-2xs">
               <button
-                onClick={() => switchTileLayer('streets')}
+                onClick={() => switchTileLayer('amap')}
                 className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
-                  currentLayerType === 'streets'
-                    ? 'bg-white text-slate-900 shadow-xs'
+                  currentLayerType === 'amap'
+                    ? 'bg-sky-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
+                title="高德官方中文标准路网（国内直连秒开）"
               >
-                <MapIcon className="w-3.5 h-3.5 text-sky-600" />
-                <span>公路</span>
+                <MapPin className="w-3.5 h-3.5" />
+                <span>高德公路</span>
               </button>
               <button
                 onClick={() => switchTileLayer('satellite')}
@@ -250,20 +265,22 @@ export const InteractiveMap: React.FC = () => {
                     ? 'bg-amber-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
+                title="Esri 全球高精卫星影像（看雪山与湖泊）"
               >
                 <Globe className="w-3.5 h-3.5" />
-                <span>🛰️ 卫星图</span>
+                <span>🛰️ 卫星实景</span>
               </button>
               <button
-                onClick={() => switchTileLayer('terrain')}
+                onClick={() => switchTileLayer('voyager')}
                 className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
-                  currentLayerType === 'terrain'
+                  currentLayerType === 'voyager'
                     ? 'bg-emerald-700 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
+                title="Carto 旅行定制极简清爽底图"
               >
                 <Mountain className="w-3.5 h-3.5" />
-                <span>地形</span>
+                <span>旅行清爽</span>
               </button>
             </div>
 
