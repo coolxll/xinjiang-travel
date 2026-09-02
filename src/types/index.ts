@@ -1,0 +1,90 @@
+export interface ItineraryDay {
+  id: string;
+  dayNumber: number; // 0 for 9/26, 1 for 9/27 ... 10 for 10/6
+  date: string; // e.g. "9/27"
+  fullDate: string; // e.g. "2026年9月27日 (周日)"
+  title: string; // e.g. "乌鲁木齐 → S21 → 阿勒泰市"
+  tagline: string; // e.g. "穿越沙漠公路直达阿勒泰，抢占阿禾起点"
+  wakeTime: string; // e.g. "08:30"
+  departTime: string; // e.g. "09:30"
+  travelDuration: string; // e.g. "约6–7小时"
+  travelDurationDetail: string; // e.g. "纯驾驶约5–5.5小时 + 服务区休息"
+  distance: string; // e.g. "约500–520km"
+  distanceKm: number;
+  lodging: string; // e.g. "阿勒泰市市区"
+  lodgingStrategy: string;
+  highlights: string[];
+  keyNotes: string;
+  driverBottomLine?: string; // 驾驶底线与安全警告
+  diningTips?: string;
+  gasAndSupplyTips?: string;
+  isKeyHighlight?: boolean;
+  statusBadge?: string;
+}
+
+export interface RoutePoint {
+  id: number;
+  name: string;
+  coords: [number, number]; // [lat, lng]
+  dayText: string;
+  description: string;
+  category: 'city' | 'scenic' | 'transfer';
+  elevation?: string;
+  tips?: string;
+}
+
+export interface DecisionItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  iconName: string;
+  context: string;
+  optionA: {
+    title: string;
+    description: string;
+    pros: string[];
+    cons: string[];
+  };
+  optionB: {
+    title: string;
+    description: string;
+    pros: string[];
+    cons: string[];
+  };
+  consensusRecommendation: string;
+  bottomLine: string;
+}
+
+export interface LodgingOption {
+  id: string;
+  dateRange: string;
+  location: string;
+  strategyName: string;
+  strategySummary: string;
+  whyThisChoice: string;
+  costSavingTips: string;
+  pros: string[];
+  isRecommendedAlternative?: string;
+}
+
+export interface ChecklistCategory {
+  id: string;
+  title: string;
+  icon: string;
+  description: string;
+  items: {
+    id: string;
+    text: string;
+    badge?: string;
+    critical?: boolean;
+  }[];
+}
+
+export interface OfficialSource {
+  id: string;
+  section: string;
+  publicRef: string;
+  itineraryStandard: string;
+  url: string;
+  note: string;
+}

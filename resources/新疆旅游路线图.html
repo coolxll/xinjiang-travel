@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北疆9天自驾路书 - 阿勒泰阿禾公路版</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+        
+        .route-info {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 380px;
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 1000;
+            font-size: 14px;
+        }
+        
+        .route-info h2 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 20px;
+        }
+        
+        .route-info h3 {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            color: #34495e;
+            font-size: 16px;
+        }
+        
+        .route-info ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .route-info li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .route-info li:last-child {
+            border-bottom: none;
+        }
+        
+        .day-badge {
+            background: #3498db;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 10px;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .distance-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 11px;
+            margin-left: auto;
+        }
+        
+        .custom-marker {
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            font-size: 13px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        
+        .legend-line {
+            width: 30px;
+            height: 4px;
+            background: #3498db;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .legend-line.scenic {
+            background: repeating-linear-gradient(
+                to right,
+                #27ae60 0,
+                #27ae60 7px,
+                transparent 7px,
+                transparent 11px
+            );
+        }
+        
+        .legend-marker {
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            z-index: 2000;
+            font-size: 16px;
+        }
+        
+        .route-summary {
+            background: #ecf0f1;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="loading" class="loading">🚗 正在规划真实公路路线...</div>
+    
+    <div class="route-info">
+        <h2>🗺️ 北疆9天自驾路书</h2>
+        <p><strong>版本：</strong>阿勒泰 + G681阿禾公路</p>
+        <p><strong>自驾时间：</strong>2026年9月27日 - 10月5日</p>
+        <p><strong>完整出行：</strong>2026年9月26日 - 10月6日</p>
+        
+        <div class="route-summary">
+            <strong>📊 路线统计</strong><br>
+            <span>计划主线约 2,233–2,314km（不含赛湖环湖）</span><br>
+            <span id="totalDistance">正在计算地图路线...</span>
+        </div>
+        
+        <h3>📍 每日行程</h3>
+        <ul>
+            <li><span class="day-badge">9/26</span>上海 → 乌鲁木齐（抵达）</li>
+            <li><span class="day-badge">9/27</span>乌鲁木齐 → S21 → 阿勒泰市 <span class="distance-badge">约500–520km</span></li>
+            <li><span class="day-badge">9/28</span>阿勒泰市 → G681阿禾公路 → 禾木 <span class="distance-badge">209.45km</span></li>
+            <li><span class="day-badge">9/29</span>禾木完整日（住宿可投票搬至入口）</li>
+            <li><span class="day-badge">9/30</span>禾木 → 贾登峪 → 喀纳斯 <span class="distance-badge">约64–65km</span></li>
+            <li><span class="day-badge">10/1</span>喀纳斯完整日</li>
+            <li><span class="day-badge">10/2</span>贾登峪 → 奎屯 <span class="distance-badge">约570–600km</span></li>
+            <li><span class="day-badge">10/3</span>奎屯 → 赛里木湖 <span class="distance-badge">约320–350km</span></li>
+            <li><span class="day-badge">10/4</span>上午赛里木湖 → 下午精河 <span class="distance-badge">约150km</span></li>
+            <li><span class="day-badge">10/5</span>精河 → 乌鲁木齐（21:00还车） <span class="distance-badge">约420km</span></li>
+            <li><span class="day-badge">10/6</span>乌鲁木齐 → 上海（返程）</li>
+        </ul>
+    </div>
+    
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-marker"></div>
+            <span>景点标记</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-line"></div>
+            <span>实际公路路线（OSRM）</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-line scenic"></div>
+            <span>G681阿禾公路景观段（示意）</span>
+        </div>
+    </div>
+
+    <script>
+        // 初始化地图
+        const map = L.map('map').setView([46.5, 87.0], 6);
+        
+        // 添加地图图层
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(map);
+        
+        // 定义路线上的各个点（经纬度坐标）
+        const routePoints = [
+            {
+                name: '乌鲁木齐',
+                coords: [43.8256, 87.6168],
+                day: '9/26-27, 10/5-6',
+                description: '起点和终点，天山国际机场',
+                number: 1
+            },
+            {
+                name: '阿勒泰市',
+                coords: [47.8484, 88.1318],
+                day: '9/27-28',
+                description: '9/27住宿；G681阿禾公路的顺路起点',
+                number: 2
+            },
+            {
+                name: 'G681阿禾公路',
+                coords: [48.08, 87.90],
+                day: '9/28',
+                description: '全长209.45km；按5–6小时边走边停的景观公路玩法',
+                number: 3
+            },
+            {
+                name: '禾木',
+                coords: [48.57, 87.43],
+                day: '9/28-30',
+                description: '9/28区间车进村；9/29完整游玩，晨雾自愿',
+                number: 4
+            },
+            {
+                name: '贾登峪 / 喀纳斯',
+                coords: [48.70, 87.02],
+                day: '9/30-10/2',
+                description: '9/30下午入景区；10/1完整游玩；10/2从贾登峪南下',
+                number: 5
+            },
+            {
+                name: '奎屯',
+                coords: [44.4269, 84.9018],
+                day: '10/2-3',
+                description: '长途转场住宿点；当天不再叠加魔鬼城等景点',
+                number: 6
+            },
+            {
+                name: '赛里木湖',
+                coords: [44.60, 81.15],
+                day: '10/3-4',
+                description: '10/3下午 + 10/4上午拆开环湖，只住1晚',
+                number: 7
+            },
+            {
+                name: '精河',
+                coords: [44.60, 82.89],
+                day: '10/4-5',
+                description: '10/4晚住宿；10/5为返乌鲁木齐保留还车缓冲',
+                number: 8
+            }
+        ];
+        
+        // 创建自定义图标
+        function createCustomIcon(number) {
+            return L.divIcon({
+                className: 'custom-marker',
+                html: number,
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+            });
+        }
+        
+        // 添加标记点
+        routePoints.forEach(point => {
+            const marker = L.marker(point.coords, {
+                icon: createCustomIcon(point.number)
+            }).addTo(map);
+            
+            marker.bindPopup(`
+                <div style="min-width: 200px;">
+                    <h3 style="margin: 0 0 10px 0; color: #2c3e50;">${point.number}. ${point.name}</h3>
+                    <p style="margin: 5px 0;"><strong>时间：</strong>${point.day}</p>
+                    <p style="margin: 5px 0;"><strong>亮点：</strong>${point.description}</p>
+                </div>
+            `);
+        });
+        
+        // 使用 OSRM API 获取真实公路路线
+        async function fetchRoute(from, to) {
+            // OSRM 使用 [经度, 纬度] 格式
+            const url = `https://router.project-osrm.org/route/v1/driving/${from[1]},${from[0]};${to[1]},${to[0]}?overview=full&geometries=geojson`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.code === 'Ok' && data.routes.length > 0) {
+                    return {
+                        coordinates: data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]),
+                        distance: data.routes[0].distance,
+                        duration: data.routes[0].duration
+                    };
+                }
+            } catch (error) {
+                console.error('Route fetch error:', error);
+            }
+            return null;
+        }
+        
+        // 绘制所有路线
+        async function drawRoutes() {
+            const routeSegments = [
+                { from: 0, to: 1 },
+                { from: 1, to: 2, mode: 'scenic', plannedDistance: 104700 },
+                { from: 2, to: 3, mode: 'scenic', plannedDistance: 104750 },
+                { from: 3, to: 4 },
+                { from: 4, to: 5 },
+                { from: 5, to: 6 },
+                { from: 6, to: 7 },
+                { from: 7, to: 0 }
+            ];
+            
+            let totalDistance = 0;
+            const allBounds = [];
+            
+            for (let i = 0; i < routeSegments.length; i++) {
+                const segment = routeSegments[i];
+                const fromPoint = routePoints[segment.from].coords;
+                const toPoint = routePoints[segment.to].coords;
+
+                // G681尚可能未被公共路线服务完整收录，用绿色虚线表达景观公路走向，
+                // 并按行程基准中的209.45km计入总里程，避免被导航服务绕回传统道路。
+                if (segment.mode === 'scenic') {
+                    L.polyline([fromPoint, toPoint], {
+                        color: '#27ae60',
+                        weight: 5,
+                        opacity: 0.9,
+                        dashArray: '10, 8'
+                    }).addTo(map);
+
+                    totalDistance += segment.plannedDistance;
+                    allBounds.push(fromPoint, toPoint);
+                    continue;
+                }
+                
+                const route = await fetchRoute(fromPoint, toPoint);
+                
+                if (route) {
+                    // 绘制实际公路路线
+                    const routeLine = L.polyline(route.coordinates, {
+                        color: '#3498db',
+                        weight: 4,
+                        opacity: 0.8
+                    }).addTo(map);
+                    
+                    // 添加路线阴影效果
+                    L.polyline(route.coordinates, {
+                        color: '#2c3e50',
+                        weight: 6,
+                        opacity: 0.3
+                    }).addTo(map);
+                    
+                    // 累计地图服务返回的路线距离；每日计划里程以右侧路书为准
+                    const distanceKm = Math.round(route.distance / 1000);
+                    const durationHours = (route.duration / 3600).toFixed(1);
+                    
+                    totalDistance += route.distance;
+                    allBounds.push(...route.coordinates);
+                    
+                    // 在路线中间添加距离标签
+                    const midIndex = Math.floor(route.coordinates.length / 2);
+                    const midPoint = route.coordinates[midIndex];
+                    
+                    L.marker(midPoint, {
+                        icon: L.divIcon({
+                            className: 'distance-label',
+                            html: `<div style="background: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; color: #3498db; border: 2px solid #3498db; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">${distanceKm}km / ${durationHours}h</div>`,
+                            iconSize: [80, 28],
+                            iconAnchor: [40, 14]
+                        })
+                    }).addTo(map);
+                } else {
+                    // 如果获取路线失败，使用直线
+                    const fallbackLine = L.polyline([fromPoint, toPoint], {
+                        color: '#95a5a6',
+                        weight: 3,
+                        opacity: 0.6,
+                        dashArray: '10, 10'
+                    }).addTo(map);
+                    
+                    allBounds.push(fromPoint, toPoint);
+                }
+            }
+            
+            // 更新总距离
+            const totalKm = Math.round(totalDistance / 1000);
+            document.getElementById('totalDistance').innerHTML = `地图服务估算：<strong>${totalKm}km</strong>（仅供示意）`;
+            
+            // 调整地图视图
+            if (allBounds.length > 0) {
+                map.fitBounds(allBounds, { padding: [50, 50] });
+            }
+            
+            // 隐藏加载提示
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        // 添加比例尺
+        L.control.scale({ imperial: false }).addTo(map);
+        
+        // 开始绘制路线
+        drawRoutes();
+    </script>
+</body>
+</html>
