@@ -88,7 +88,7 @@ export const routePoints: ExtendedRoutePoint[] = [
     elevation: '450m',
     tips: '长途转场中继站，不塞魔鬼城等疲劳景点，吃大餐洗热水澡养精蓄锐',
     navSearchQuery: '奎屯市中心/迎宾大道',
-    amapUrl: 'https://uri.amap.com/marker?position=84.9018,44.4269&name=%E5%A5%8E%E5% reliance%9F%E5%B8%82',
+    amapUrl: 'https://uri.amap.com/marker?position=84.9018,44.4269&name=%E5%A5%8E%E5%B8%82',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=44.4269,84.9018',
     gpsCoordsString: '44.4269° N, 84.9018° E'
   },
@@ -122,114 +122,275 @@ export const routePoints: ExtendedRoutePoint[] = [
   }
 ];
 
-export interface MapSegment {
-  fromIndex: number;
-  toIndex: number;
-  fromName: string;
-  toName: string;
-  dayText: string;
+export interface MapDaySchedule {
+  key: string;
+  dayNumber: number;
+  date: string;
+  shortLabel: string;
+  title: string;
+  routeLabel: string;
+  roadName: string;
   distanceKm: number;
   durationText: string;
-  isScenic: boolean;
-  roadName: string;
+  activePointIds: number[];
+  isScenicStay: boolean;
+  bounds: [ [number, number], [number, number] ];
   description: string;
 }
 
-export const routeSegments: MapSegment[] = [
+export const mapDaySchedules: MapDaySchedule[] = [
   {
-    fromIndex: 0, // 乌鲁木齐
-    toIndex: 1, // 阿勒泰
-    fromName: '乌鲁木齐',
-    toName: '阿勒泰市',
-    dayText: '9/27 (D1)',
+    key: 'day-0',
+    dayNumber: 0,
+    date: '9/26',
+    shortLabel: 'D0 抵乌',
+    title: '上海浦东 → 乌鲁木齐天山机场 (集结)',
+    routeLabel: 'GS7588 航班 22:00 落地 ｜ 专车接送至机场酒店',
+    roadName: '民航机动接送',
+    distanceKm: 0,
+    durationText: '飞行5h5m',
+    activePointIds: [1],
+    isScenicStay: false,
+    bounds: [[43.85, 87.40], [43.95, 87.55]],
+    description: 'GS7588 航班 22:00 抵达乌鲁木齐天山国际机场 T2 航站楼。当天入住机场周边品质酒店，不开夜车，养精蓄锐。'
+  },
+  {
+    key: 'day-1',
+    dayNumber: 1,
+    date: '9/27',
+    shortLabel: 'D1 驶向阿勒泰',
+    title: '乌鲁木齐 → S21沙漠高速 → 阿勒泰市',
+    routeLabel: 'S21阿乌沙漠高速直达 ｜ 穿行沙漠戈壁',
+    roadName: 'S21阿乌高速 (设计时速120km/h)',
     distanceKm: 510,
     durationText: '约6–7h',
-    isScenic: false,
-    roadName: 'S21阿乌高速 (阿勒泰-乌鲁木齐)',
-    description: '穿行古尔班通古特沙漠，路况极佳，设计时速120km/h'
+    activePointIds: [1, 2],
+    isScenicStay: false,
+    bounds: [[43.80, 87.30], [47.95, 88.25]],
+    description: '09:00 酒店门口送车验车，09:30 启程穿越古尔班通古特沙漠，傍晚抵达阿勒泰市。进山前加满油，住克兰河畔。'
   },
   {
-    fromIndex: 1, // 阿勒泰
-    toIndex: 2, // 阿禾公路中段
-    fromName: '阿勒泰市',
-    toName: 'G681阿禾公路',
-    dayText: '9/28 (D2)',
-    distanceKm: 105,
-    durationText: '约2.5–3h',
-    isScenic: true,
-    roadName: 'G681阿禾公路前段',
-    description: '从阿勒泰市区驶入高山峡谷，沿途白桦林与溪流'
+    key: 'day-2',
+    dayNumber: 2,
+    date: '9/28',
+    shortLabel: 'D2 阿禾天路',
+    title: '阿勒泰市 → G681阿禾公路 → 禾木村',
+    routeLabel: 'G681阿禾天花板公路 ｜ 209.45km 高山天路',
+    roadName: 'G681 阿禾公路景观大道',
+    distanceKm: 209,
+    durationText: '约5–6h (景观游玩)',
+    activePointIds: [2, 3, 4],
+    isScenicStay: false,
+    bounds: [[47.75, 87.30], [48.65, 88.25]],
+    description: '08:45 出发，09:30 前驶入全新 G681 阿禾公路，穿行阿尔泰深山森林与高山草甸，下午抵禾木门票站换乘区间车进村。'
   },
   {
-    fromIndex: 2, // 阿禾公路中段
-    toIndex: 3, // 禾木
-    fromName: 'G681阿禾公路',
-    toName: '禾木',
-    dayText: '9/28 (D2)',
-    distanceKm: 105,
-    durationText: '约2.5–3h',
-    isScenic: true,
-    roadName: 'G681阿禾公路后段',
-    description: '高山草甸与森林全景切换，抵达禾木门票站换乘区间车'
+    key: 'day-3',
+    dayNumber: 3,
+    date: '9/29',
+    shortLabel: 'D3 禾木漫步',
+    title: '禾木村落深度慢游 · 哈登观景台 · 白桦林',
+    routeLabel: '神之自留地 ｜ 晨雾自愿早起 ｜ 白桦林徒步骑马',
+    roadName: '禾木景区内部木栈道与区间车',
+    distanceKm: 0,
+    durationText: '全天慢游',
+    activePointIds: [4],
+    isScenicStay: true,
+    bounds: [[48.52, 87.38], [48.62, 87.48]],
+    description: '禾木全天沉浸体验！清晨晨雾自愿早起（不强制），白天漫步白桦林或骑马至美丽峰。傍晚可弹性搬迁至入口服务区降本。'
   },
   {
-    fromIndex: 3, // 禾木
-    toIndex: 4, // 贾登峪
-    fromName: '禾木',
-    toName: '贾登峪 / 喀纳斯',
-    dayText: '9/30 (D4)',
+    key: 'day-4',
+    dayNumber: 4,
+    date: '9/30',
+    shortLabel: 'D4 翻山贾登峪',
+    title: '禾木 → 禾贾公路 → 贾登峪综合服务区',
+    routeLabel: '翻山转场 ｜ 进驻喀纳斯大本营',
+    roadName: '禾贾公路 (盘山路段需减速慢行)',
     distanceKm: 65,
     durationText: '约1.5–2h',
-    isScenic: false,
-    roadName: '禾贾公路',
-    description: '短途翻越山脉，盘山弯道较多需缓速慢行'
+    activePointIds: [4, 5],
+    isScenicStay: false,
+    bounds: [[48.50, 86.95], [48.75, 87.50]],
+    description: '上午自驾翻山前往贾登峪，入住酒店卸下重行李。下午可轻松初探喀纳斯景区大门与周边秋色，连住贾登峪两晚。'
   },
   {
-    fromIndex: 4, // 贾登峪
-    toIndex: 5, // 奎屯
-    fromName: '贾登峪',
-    toName: '奎屯',
-    dayText: '10/2 (D6)',
+    key: 'day-5',
+    dayNumber: 5,
+    date: '10/1',
+    shortLabel: 'D5 喀纳斯湖',
+    title: '喀纳斯三湾（神仙/月亮/卧龙）· 喀纳斯湖深处',
+    routeLabel: '国庆喀纳斯核心 ｜ 三湾漫步栈道 ｜ 观鱼台弹性取舍',
+    roadName: '喀纳斯景区区间车主干线',
+    distanceKm: 0,
+    durationText: '全天游玩',
+    activePointIds: [5],
+    isScenicStay: true,
+    bounds: [[48.65, 86.95], [48.80, 87.10]],
+    description: '全天沉浸喀纳斯！上午顺光慢走月亮湾-卧龙湾最美木栈道，下午探访喀纳斯湖；观鱼台若排队>45分钟果断放弃，享受慢节奏。'
+  },
+  {
+    key: 'day-6',
+    dayNumber: 6,
+    date: '10/2',
+    shortLabel: 'D6 南下奎屯',
+    title: '贾登峪 → 奎阿高速 → 奎屯市',
+    routeLabel: '贾登峪直发 ｜ 减免旧版盘山路 ｜ 专心转场休整',
+    roadName: 'S232 / G217 / G3014 奎阿高速',
     distanceKm: 580,
     durationText: '约8–9h',
-    isScenic: false,
-    roadName: 'S232 / G217 / G3014奎阿高速',
-    description: '一路南下长途转场，省去旧版山路，直达奎屯'
+    activePointIds: [5, 6],
+    isScenicStay: false,
+    bounds: [[44.35, 84.80], [48.75, 87.10]],
+    description: '长途转场日！从贾登峪直接出发，比旧版省1.5-2小时山路。当天坚决不加魔鬼城，直达奎屯吃大餐洗热水澡养精蓄锐。'
   },
   {
-    fromIndex: 5, // 奎屯
-    toIndex: 6, // 赛里木湖
-    fromName: '奎屯',
-    toName: '赛里木湖',
-    dayText: '10/3 (D7)',
+    key: 'day-7',
+    dayNumber: 7,
+    date: '10/3',
+    shortLabel: 'D7 赛里木湖',
+    title: '奎屯 → G30连霍高速 → 赛里木湖东门',
+    routeLabel: '大西洋最后一滴眼泪 ｜ 下午环湖南线光影',
+    roadName: 'G30 连霍高速',
     distanceKm: 340,
     durationText: '约4–4.5h',
-    isScenic: false,
-    roadName: 'G30连霍高速',
-    description: '途径精河直插赛里木湖东门，沿途天山北麓风光'
+    activePointIds: [6, 7],
+    isScenicStay: false,
+    bounds: [[44.35, 81.05], [44.70, 85.00]],
+    description: '中午前抵达赛里木湖东门入园，下午自驾环湖南段看天鹅与金秋落日。晚上入住东门周边营地或酒店，严格只住 1 晚。'
   },
   {
-    fromIndex: 6, // 赛里木湖
-    toIndex: 7, // 精河
-    fromName: '赛里木湖',
-    toName: '精河',
-    dayText: '10/4 (D8)',
+    key: 'day-8',
+    dayNumber: 8,
+    date: '10/4',
+    shortLabel: 'D8 撤往精河',
+    title: '赛里木湖环湖北段 → 果子沟远眺 → 精河县',
+    routeLabel: '上午顺光环湖 ｜ 下午东撤精河降本减压',
+    roadName: '赛湖环湖路 / G30 连霍高速',
     distanceKm: 150,
     durationText: '约2–2.5h',
-    isScenic: false,
-    roadName: 'G30连霍高速',
-    description: '从湖区东撤至精河县城，为还车节省路程与住宿成本'
+    activePointIds: [7, 8],
+    isScenicStay: false,
+    bounds: [[44.45, 81.05], [44.70, 83.00]],
+    description: '清晨看赛湖晨光与果子沟大桥，中午出景区东撤至精河县城入住。房价降低60%+，并将次日返乌车程缩短至420km。'
   },
   {
-    fromIndex: 7, // 精河
-    toIndex: 0, // 乌鲁木齐
-    fromName: '精河',
-    toName: '乌鲁木齐',
-    dayText: '10/5 (D9)',
+    key: 'day-9',
+    dayNumber: 9,
+    date: '10/5',
+    shortLabel: 'D9 返乌还车',
+    title: '精河县 → G30连霍高速 → 乌市机场 21:00 还车',
+    routeLabel: '从容返程 ｜ 预留 3.5h+ 充裕缓冲 ｜ 机场酒店入住',
+    roadName: 'G30 连霍高速 / 乌奎高速',
     distanceKm: 420,
     durationText: '约5–5.5h',
-    isScenic: false,
-    roadName: 'G30连霍高速 / 乌奎高速',
-    description: '平稳归途，预留3.5h+充裕时间用于加油、洗车与21:00前还车'
+    activePointIds: [8, 1],
+    isScenicStay: false,
+    bounds: [[43.80, 82.80], [44.70, 87.60]],
+    description: '10:00 出发，预计 16:30–17:30 抵达乌鲁木齐，留足 3.5 小时加油、洗车与 21:00 机场还车，入住机场酒店保障次日早班机。'
+  },
+  {
+    key: 'day-10',
+    dayNumber: 10,
+    date: '10/6',
+    shortLabel: 'D10 破晓返沪',
+    title: '乌鲁木齐天山机场 T2 → 上海浦东 T2 (圆满收官)',
+    routeLabel: 'GS7587 航班 07:00 起飞 ｜ 05:00 抵达航站楼',
+    roadName: '天津航空 GS7587 (07:00-13:45)',
+    distanceKm: 0,
+    durationText: '飞行6h45m',
+    activePointIds: [1],
+    isScenicStay: false,
+    bounds: [[43.85, 87.40], [43.95, 87.55]],
+    description: '清晨 05:00 步行或乘 5 分钟班车直达 T2 航站楼值机安检，07:00 乘 GS7587 航班破晓返沪，13:45 顺利抵达上海浦东 T2。'
   }
 ];
+
+// Pre-defined road coordinate paths for instant, zero-lag map rendering
+export const loopRouteCoordinates: [number, number][] = [
+  // 1. 乌鲁木齐 -> 阿勒泰 (S21)
+  [43.9075, 87.4744],
+  [44.30, 87.55],
+  [45.10, 87.70],
+  [46.00, 87.85],
+  [46.80, 88.00],
+  [47.8484, 88.1318],
+
+  // 2. 阿勒泰 -> 阿禾公路 -> 禾木 (G681)
+  [48.08, 87.90],
+  [48.35, 87.70],
+  [48.57, 87.43],
+
+  // 3. 禾木 -> 贾登峪
+  [48.65, 87.20],
+  [48.70, 87.02],
+
+  // 4. 贾登峪 -> 奎屯 (S232 / G217 / G3014)
+  [48.10, 86.85],
+  [47.20, 86.00],
+  [46.10, 85.50],
+  [45.00, 85.00],
+  [44.4269, 84.9018],
+
+  // 5. 奎屯 -> 赛里木湖 (G30)
+  [44.50, 83.80],
+  [44.60, 82.89],
+  [44.60, 81.15],
+
+  // 6. 赛里木湖 -> 精河 (G30)
+  [44.60, 82.89],
+
+  // 7. 精河 -> 乌鲁木齐 (G30)
+  [44.50, 83.80],
+  [44.4269, 84.9018],
+  [44.15, 86.20],
+  [43.9075, 87.4744]
+];
+
+// Specific segment coordinates mapping for clean daily lighting
+export const dayRoutePolylines: Record<string, [number, number][]> = {
+  'day-1': [
+    [43.9075, 87.4744],
+    [44.30, 87.55],
+    [45.10, 87.70],
+    [46.00, 87.85],
+    [46.80, 88.00],
+    [47.8484, 88.1318]
+  ],
+  'day-2': [
+    [47.8484, 88.1318],
+    [48.08, 87.90],
+    [48.35, 87.70],
+    [48.57, 87.43]
+  ],
+  'day-4': [
+    [48.57, 87.43],
+    [48.65, 87.20],
+    [48.70, 87.02]
+  ],
+  'day-6': [
+    [48.70, 87.02],
+    [48.10, 86.85],
+    [47.20, 86.00],
+    [46.10, 85.50],
+    [45.00, 85.00],
+    [44.4269, 84.9018]
+  ],
+  'day-7': [
+    [44.4269, 84.9018],
+    [44.50, 83.80],
+    [44.60, 82.89],
+    [44.60, 81.15]
+  ],
+  'day-8': [
+    [44.60, 81.15],
+    [44.60, 82.89]
+  ],
+  'day-9': [
+    [44.60, 82.89],
+    [44.50, 83.80],
+    [44.4269, 84.9018],
+    [44.15, 86.20],
+    [43.9075, 87.4744]
+  ]
+};
