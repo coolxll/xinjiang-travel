@@ -312,9 +312,11 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
     }
 
     const map = L.map(mapContainerRef.current, {
-      zoomControl: true,
+      zoomControl: false,
       scrollWheelZoom: false,
     }).setView([45.0, 86.0], 6);
+
+    L.control.zoom({ position: 'topright' }).addTo(map);
 
     const initialProvider = TILE_PROVIDERS.streets;
     const initialTile = L.tileLayer(initialProvider.url, {
