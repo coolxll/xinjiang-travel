@@ -15,13 +15,16 @@ export interface TicketReservationItem {
   advanceDays: number;
   suggestedActionDate: string;
   channel: string;
-  channelUrl?: string;
+  wechatMiniProgram?: string;
+  otaUrl?: string;
+  otaName?: string;
+  officialNoticeUrl?: string;
+  officialNoticeName?: string;
   requiredInfo: string;
   keyActionNotes: string;
   preTripVerification: string;
   status: '待办' | '需复核' | '已完成';
   source: string;
-  sourceUrl?: string;
 }
 
 export interface ActionTimelineStep {
@@ -34,6 +37,8 @@ export interface ActionTimelineStep {
   whyThisDay: string;
   completionCriteria: string;
   tips: string;
+  actionUrl?: string;
+  wechatMiniProgram?: string;
 }
 
 export interface RuleSourceItem {
@@ -82,7 +87,7 @@ export const KEY_RESERVATION_TAKEAWAYS = [
     level: 'P0+ 最高优先级',
     levelColor: 'bg-rose-50 text-rose-900 border-rose-300',
     summary: '2026-08-20 起赛里木湖自驾服务费由按人改为【按车收取】（5座及以下 120元/车），并实行严格的自驾车辆提前 3 天预约制。',
-    action: '若计划 10/4 环湖自驾，必须在 10/1 开放预约时第一时间通过微信小程序抢订名额（名额当日有效，额满关闭）。',
+    action: '若计划 10/4 环湖自驾，必须在 10/1 开放预约时第一时间通过微信小程序【赛里木湖旅游】抢订名额（名额当日有效，额满关闭）。',
     tip: '9/27 乌鲁木齐天山机场取车后，第一时间拍照留存【车牌号】与【行驶证核定座位数】，抢约时需要秒填车辆数据。'
   }
 ];
@@ -103,8 +108,10 @@ export const TICKET_RESERVATION_ITEMS: TicketReservationItem[] = [
     totalEstimatedPrice: 920,
     advanceDays: 8,
     suggestedActionDate: '2026-09-20 (周日)',
-    channel: '“喀纳斯景区”公众号 / “原行网” / “智游阿勒泰” / 携程 / 美团',
-    channelUrl: 'https://gs.ctrip.com/html5/you/sight/816.html',
+    channel: '微信小程序“喀纳斯原行网” / “智游阿勒泰” / 携程 / 美团',
+    wechatMiniProgram: '喀纳斯原行网',
+    otaUrl: 'https://you.ctrip.com/sight/burqin178/816.html',
+    otaName: '携程直达购票',
     requiredInfo: '4人二代身份证原件号码、优惠证件；先确认住宿是在景区内还是贾登峪。',
     keyActionNotes: '若 9/28 住喀纳斯村木屋选“一进”；若住贾登峪且 9/29 打算再进景区则选“二进”。',
     preTripVerification: '9/20 左右先锁票并复核规则；入园前一天确认贾登峪换乘中心区间车首末班运营时刻。',
@@ -126,7 +133,9 @@ export const TICKET_RESERVATION_ITEMS: TicketReservationItem[] = [
     advanceDays: 2,
     suggestedActionDate: '2026-09-29 (出发前2天复核)',
     channel: '“阿勒泰零距离”公众号 / 新疆交警 / 阿勒泰市融媒体中心',
-    channelUrl: 'https://www.aksxw.com/sy/rdxw/xj/202605/t20260511_34373389.html',
+    wechatMiniProgram: '阿勒泰零距离',
+    officialNoticeUrl: 'https://www.aksxw.com/sy/rdxw/xj/202605/t20260511_34373389.html',
+    officialNoticeName: '阿勒泰官方通行公告',
     requiredInfo: '实际车辆必须为 7 座及以下（途岳为 5 座合规）；出发前加满油箱；保存车辆离线地图。',
     keyActionNotes: '无需单独买票。阿禾全长约 209km 山区多处无信号，且无大型加油站，需从容规划。',
     preTripVerification: '9/29 再核一次最新通行时段与天气结冰预警；10/1 早晨出发前在阿勒泰交警公众号查看即时路况。',
@@ -147,8 +156,10 @@ export const TICKET_RESERVATION_ITEMS: TicketReservationItem[] = [
     totalEstimatedPrice: 300,
     advanceDays: 8,
     suggestedActionDate: '2026-09-23 (周三)',
-    channel: '“喀纳斯景区”公众号 / “原行网” / “智游阿勒泰” / 携程 / 美团',
-    channelUrl: 'https://gs.ctrip.com/html5/you/sight/816.html',
+    channel: '微信小程序“喀纳斯原行网” / “智游阿勒泰” / 携程 / 美团',
+    wechatMiniProgram: '喀纳斯原行网',
+    otaUrl: 'https://you.ctrip.com/sight/burqin178/141014.html',
+    otaName: '携程直达购票',
     requiredInfo: '4 人身份证；提前联系村内预订民宿，确认民宿电瓶车接驳点、行李转运及最晚进村时间。',
     keyActionNotes: '自驾车只能停在禾木门票站停车场，换乘区间车进入禾木老村/新村。',
     preTripVerification: '9/23 左右下单锁票；进村前一天与民宿老板确认当天末班车时刻与行李托运策略。',
@@ -169,8 +180,12 @@ export const TICKET_RESERVATION_ITEMS: TicketReservationItem[] = [
     totalEstimatedPrice: 400,
     advanceDays: 3,
     suggestedActionDate: '2026-10-01 00:00/开放时 (提前3天)',
-    channel: '微信小程序“赛里木湖旅游” / 携程 / 抖音官方小程序',
-    channelUrl: 'https://www.xjboz.gov.cn/xjboz/c125795/202608/80097089e11f4d4db3e3fa1760c3e443.shtml',
+    channel: '微信小程序【赛里木湖旅游】(自驾唯一入口) / 携程 / 抖音官方小程序',
+    wechatMiniProgram: '赛里木湖旅游',
+    otaUrl: 'https://you.ctrip.com/sight/bole447/1335.html',
+    otaName: '携程门票直达',
+    officialNoticeUrl: 'https://www.xjboz.gov.cn/xjboz/c125795/202608/80097089e11f4d4db3e3fa1760c3e443.shtml',
+    officialNoticeName: '博州政府网 8/20 新规公告',
     requiredInfo: '租车真实车牌号、行驶证核定座位数照片、4人身份证原件。9/27 取车后立即拍好行驶证！',
     keyActionNotes: '若 10/4 游览，10/1 一开放自驾预约通道必须第一时间抢名额；名额仅限预约当日有效。',
     preTripVerification: '10/1 准点抢约并核实自驾车辆入园口（东门/南门/北门）；10/3 入园前一天确认次日湖区天气与风浪管控。',
@@ -190,7 +205,9 @@ export const RESERVATION_TIMELINE: ActionTimelineStep[] = [
     priority: 'P0',
     whyThisDay: '距 9/28 游览提前 8 天，避开 9 月底秋色高峰与国庆前夕门票售罄风险。',
     completionCriteria: '4人实名门票已下单成功；确认好一进还是二进票型。',
-    tips: '若住喀纳斯村木屋选一进（¥230/人）；若住贾登峪且次日再次入园选二进（¥270/人）。'
+    tips: '若住喀纳斯村木屋选一进（¥230/人）；若住贾登峪且次日再次入园选二进（¥270/人）。',
+    actionUrl: 'https://you.ctrip.com/sight/burqin178/816.html',
+    wechatMiniProgram: '喀纳斯原行网'
   },
   {
     id: 'step-2',
@@ -201,7 +218,9 @@ export const RESERVATION_TIMELINE: ActionTimelineStep[] = [
     priority: 'P0',
     whyThisDay: '距 10/1 禾木行程提前 8 天，国庆第一天客流极高，严防现场限流。',
     completionCriteria: '4人禾木门票+区间车（¥75/人）已下单成功。',
-    tips: '同步微信联系禾木村内民宿，确认最晚区间车进村时间、下车点及行李接驳方式。'
+    tips: '同步微信联系禾木村内民宿，确认最晚区间车进村时间、下车点及行李接驳方式。',
+    actionUrl: 'https://you.ctrip.com/sight/burqin178/141014.html',
+    wechatMiniProgram: '喀纳斯原行网'
   },
   {
     id: 'step-3',
@@ -223,7 +242,8 @@ export const RESERVATION_TIMELINE: ActionTimelineStep[] = [
     priority: 'P0',
     whyThisDay: '第三方平台常残留过时信息；临近出发 2 天向阿勒泰交警/文旅核实最准。',
     completionCriteria: '确认 10/1 放行时段（通常为 9:30–15:00）、无需边防证政策无变动、山区无大雪封路。',
-    tips: '关注“阿勒泰零距离”与“阿勒泰交警”最新发布的每日路况简报。'
+    tips: '关注“阿勒泰零距离”与“阿勒泰交警”最新发布的每日路况简报。',
+    wechatMiniProgram: '阿勒泰零距离'
   },
   {
     id: 'step-5',
@@ -233,8 +253,9 @@ export const RESERVATION_TIMELINE: ActionTimelineStep[] = [
     target: '赛里木湖自驾 (10/4游览)',
     priority: 'P0+',
     whyThisDay: '2026-08-20 新规公开口径为【提前 3 天开放自驾预约】，10/4 游览需在 10/1 当天抢约。',
-    completionCriteria: '在“赛里木湖旅游”小程序成功预约 10/4 自驾车辆配额（120元/车）及 4 人门票（70元/人）。',
-    tips: '名额仅限当日有效，一旦当日自驾名额约满将关闭入口，务必一开放就办理！'
+    completionCriteria: '在“赛里木湖旅游”微信小程序成功预约 10/4 自驾车辆配额（120元/车）及 4 人门票（70元/人）。',
+    tips: '名额仅限当日有效，一旦当日自驾名额约满将关闭入口，务必一开放就办理！',
+    wechatMiniProgram: '赛里木湖旅游'
   },
   {
     id: 'step-6',
@@ -245,7 +266,9 @@ export const RESERVATION_TIMELINE: ActionTimelineStep[] = [
     priority: 'P1',
     whyThisDay: '确认次日导航入口（东门/南门）、开园时间、湖区天气及大风管控。',
     completionCriteria: '自驾预约二维码/车牌绑定有效；备好防风保暖衣物。',
-    tips: '秋季赛湖水面风大温差剧烈，自驾环湖顺时针光线最佳（东门进 ➔ 南门出）。'
+    tips: '秋季赛湖水面风大温差剧烈，自驾环湖顺时针光线最佳（东门进 ➔ 南门出）。',
+    actionUrl: 'https://you.ctrip.com/sight/bole447/1335.html',
+    wechatMiniProgram: '赛里木湖旅游'
   }
 ];
 
@@ -255,7 +278,7 @@ export const RESERVATION_SOURCES: RuleSourceItem[] = [
     topic: '喀纳斯 / 禾木门票政策',
     latestConclusion: '携程/原行网当前显示喀纳斯 230 元起、禾木 75 元起且可直接实名订票；已取消单独分时预约门槛。',
     whyRecheck: '2026 年内曾发生过分时预约与实名购票的切换；团队出行处于 9 月底秋色绝景 + 国庆超大客流，需提早锁定。',
-    sourceUrl: 'https://gs.ctrip.com/html5/you/sight/816.html'
+    sourceUrl: 'https://you.ctrip.com/sight/burqin178/816.html'
   },
   {
     topic: 'G681 阿禾公路通行公告',

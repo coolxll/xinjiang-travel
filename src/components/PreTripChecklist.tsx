@@ -10,14 +10,15 @@ import {
 import { 
   CheckSquare, Check, Car, Briefcase, Shirt, FileCheck, RefreshCw, 
   Calendar, Clock, Ticket, ShieldAlert, 
-  ExternalLink, DollarSign, Info
+  ExternalLink, DollarSign, Info, Copy, MessageSquare
 } from 'lucide-react';
 
 type ChecklistTab = 'tickets' | 'timeline' | 'gear';
 
 export const PreTripChecklist: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ChecklistTab>('tickets');
-  
+  const [copiedMiniProgram, setCopiedMiniProgram] = useState<string | null>(null);
+
   // 1. Gear Checklist Checked State
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>(() => {
     try {
@@ -80,6 +81,12 @@ export const PreTripChecklist: React.FC = () => {
     } catch {
       // ignore
     }
+  };
+
+  const handleCopyMiniProgram = (name: string) => {
+    navigator.clipboard.writeText(name);
+    setCopiedMiniProgram(name);
+    setTimeout(() => setCopiedMiniProgram(null), 3000);
   };
 
   const handleResetAll = () => {
@@ -341,6 +348,16 @@ export const PreTripChecklist: React.FC = () => {
         {/* 5. TAB 1: 🎟️ Ticket & Pass Reservation Checklist Table */}
         {activeTab === 'tickets' && (
           <div className="space-y-4">
+            {copiedMiniProgram && (
+              <div className="p-3 bg-emerald-600 text-white rounded-2xl text-xs font-bold shadow-md flex items-center justify-between gap-2 animate-bounce">
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4" />
+                  <span>已成功复制微信小程序名称「{copiedMiniProgram}」！请打开微信搜索并在 10/1 准时抢订。</span>
+                </div>
+                <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full">已存剪贴板</span>
+              </div>
+            )}
+
             <div className="grid grid-cols-1 gap-4">
               {TICKET_RESERVATION_ITEMS.map((item) => {
                 const isChecked = !!checkedTickets[item.id];
@@ -424,23 +441,52 @@ export const PreTripChecklist: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Action Notes & Pre-trip Verification */}
-                    <div className="mt-3 p-3 bg-amber-50/60 rounded-xl border border-amber-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                    {/* Multi-channel Action Buttons Box */}
+                    <div className="mt-3 p-3 bg-amber-50/60 rounded-xl border border-amber-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                       <div className="text-amber-950">
                         <strong>复核要点：</strong>{item.preTripVerification}
                       </div>
 
-                      {item.channelUrl && (
-                        <a
-                          href={item.channelUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-600 text-white font-bold hover:bg-amber-700 transition-colors flex-shrink-0 text-xs shadow-2xs"
-                        >
-                          <span>查看官方/购票入口</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      )}
+                      <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
+                        {/* 1. WeChat Mini-Program Copy Button */}
+                        {item.wechatMiniProgram && (
+                          <button
+                            onClick={() => handleCopyMiniProgram(item.wechatMiniProgram!)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition-all text-xs shadow-2xs"
+                            title={`复制微信小程序名称「${item.wechatMiniProgram}」`}
+                          >
+                            <MessageSquare className="w-3.5 h-3.5" />
+                            <span>微信小程序【{item.wechatMiniProgram}】</span>
+                            <Copy className="w-3 h-3 ml-0.5 opacity-80" />
+                          </button>
+                        )}
+
+                        {/* 2. Direct OTA Ticket Portal Link (Ctrip/Tongcheng) */}
+                        {item.otaUrl && (
+                          <a
+                            href={item.otaUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold transition-all text-xs shadow-2xs"
+                          >
+                            <span>{item.otaName || '携程门票直达'}</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+
+                        {/* 3. Official Policy Notice Link */}
+                        {item.officialNoticeUrl && (
+                          <a
+                            href={item.officialNoticeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold transition-all text-xs shadow-2xs"
+                          >
+                            <span>{item.officialNoticeName || '政策公告'}</span>
+                            <ExternalLink className="w-3 h-3 text-slate-400" />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 );
@@ -510,6 +556,33 @@ export const PreTripChecklist: React.FC = () => {
                           💡 <strong>备忘提醒：</strong>{step.tips}
                         </div>
                       </div>
+
+                      {/* Timeline action buttons */}
+                      {(step.wechatMiniProgram || step.actionUrl) && (
+                        <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center gap-2">
+                          {step.wechatMiniProgram && (
+                            <button
+                              onClick={() => handleCopyMiniProgram(step.wechatMiniProgram!)}
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 text-[11px] font-bold transition-all"
+                            >
+                              <MessageSquare className="w-3 h-3" />
+                              <span>复制微信小程序【{step.wechatMiniProgram}】</span>
+                              <Copy className="w-2.5 h-2.5" />
+                            </button>
+                          )}
+                          {step.actionUrl && (
+                            <a
+                              href={step.actionUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-sky-50 text-sky-800 border border-sky-200 hover:bg-sky-100 text-[11px] font-bold transition-all"
+                            >
+                              <span>携程订票通道</span>
+                              <ExternalLink className="w-2.5 h-2.5" />
+                            </a>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 );
@@ -618,7 +691,7 @@ export const PreTripChecklist: React.FC = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-[11px] font-bold text-sky-700 hover:text-sky-900 mt-1"
                 >
-                  <span>查看官方公告原文</span>
+                  <span>查看官方公告/购票渠道原文</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
