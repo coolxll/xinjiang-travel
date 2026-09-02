@@ -546,13 +546,13 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
 
           {/* Floating Card: All-Routes Comparison Legend OR Single Plan Stats */}
           {showAllRoutesOverlay ? (
-            <div className="absolute top-4 left-4 z-20 bg-slate-950/92 backdrop-blur-md text-white p-3.5 rounded-2xl border border-white/20 shadow-2xl max-w-xs sm:max-w-sm">
-              <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-white/15">
-                <div className="flex items-center gap-1.5 text-amber-400 font-extrabold text-xs">
-                  <Layers className="w-4 h-4 text-amber-400 animate-pulse" />
-                  <span>全疆 4 套备选路线总览网络</span>
+            <div className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200/90 shadow-xl max-w-xs sm:max-w-sm">
+              <div className="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-slate-100">
+                <div className="flex items-center gap-1.5 text-slate-900 font-extrabold text-xs">
+                  <Layers className="w-4 h-4 text-amber-600" />
+                  <span>全疆 4 套备选路线总览</span>
                 </div>
-                <span className="text-[10px] text-slate-300 bg-white/10 px-2 py-0.5 rounded-full font-semibold">
+                <span className="text-[10px] text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-bold">
                   点击色卡直接切换
                 </span>
               </div>
@@ -565,29 +565,31 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
                       onClick={() => onSelectPlan(plan.id)}
                       className={`w-full flex items-center justify-between p-2 rounded-xl text-left transition-all border ${
                         isCurrent
-                          ? 'bg-white/20 border-white/70 shadow-sm ring-2 ring-white/50'
-                          : 'bg-white/5 border-white/10 hover:bg-white/15 hover:border-white/20'
+                          ? 'bg-slate-900 text-white border-slate-900 shadow-sm ring-2 ring-slate-900/20'
+                          : 'bg-slate-50/90 hover:bg-slate-100 text-slate-800 border-slate-200/80 hover:border-slate-300'
                       }`}
                     >
                       <div className="flex items-center gap-2 min-w-0">
                         <span
-                          className="w-3.5 h-3.5 rounded-full flex-shrink-0 ring-2 ring-white/50"
+                          className={`w-3.5 h-3.5 rounded-full flex-shrink-0 ${
+                            isCurrent ? 'ring-2 ring-white' : 'ring-2 ring-slate-200'
+                          }`}
                           style={{ backgroundColor: plan.themeColor }}
                         />
                         <div className="min-w-0">
-                          <div className="font-extrabold text-xs text-white truncate">
+                          <div className={`font-extrabold text-xs truncate ${isCurrent ? 'text-white' : 'text-slate-900'}`}>
                             {plan.title.split('：')[0]}
                           </div>
-                          <div className="text-[10px] text-slate-300 truncate">
+                          <div className={`text-[10px] truncate ${isCurrent ? 'text-slate-300' : 'text-slate-500'}`}>
                             {plan.title.split('：')[1]}
                           </div>
                         </div>
                       </div>
                       <div className="text-right flex-shrink-0 ml-2">
-                        <div className="font-black text-[11px] text-amber-300">
+                        <div className={`font-black text-[11px] ${isCurrent ? 'text-amber-300' : 'text-slate-900'}`}>
                           {plan.keyStats.totalDistanceKm} km
                         </div>
-                        <div className="text-[9px] text-slate-400">
+                        <div className={`text-[9px] font-medium ${isCurrent ? 'text-slate-300' : 'text-slate-400'}`}>
                           {plan.keyStats.scenicSpotCount} 景点
                         </div>
                       </div>
