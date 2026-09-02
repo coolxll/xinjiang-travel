@@ -22,16 +22,16 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
       <div className="absolute top-1/3 left-10 -z-10 w-80 h-80 bg-sky-300/20 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Banner Pill */}
+        {/* Banner Pill - Non-wrapping and clean */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-300/40 text-amber-900 text-xs sm:text-sm font-semibold mb-6 shadow-2xs">
-          <Sparkles className="w-4 h-4 text-amber-600 animate-pulse" />
-          <span>2026 金秋北疆 · G681 阿禾公路新版自驾路书</span>
+          <Sparkles className="w-4 h-4 text-amber-600 animate-pulse flex-shrink-0" />
+          <span className="whitespace-nowrap">2026 金秋北疆 · G681 阿禾公路新版自驾路书</span>
         </div>
 
         {/* Hero Title & Subtitle */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7">
-            <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight sm:leading-none mb-4">
+            <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-snug sm:leading-tight mb-4">
               奔赴金秋阿勒泰，<br className="hidden sm:inline" />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-orange-600 to-sky-700">
                 穿行阿禾天花板景观公路
