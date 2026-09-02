@@ -107,34 +107,119 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
     }
     const lg = layerGroupRef.current;
 
-    // 1. If All-Routes Overlay is toggled on, render other plans in distinct semi-transparent colors
+    // 1. If All-Routes Overlay is toggled on, render other plans in high-saturation solid colors with glow & landmark badges
     if (showAllRoutesOverlay) {
       allPlans.forEach((plan) => {
         const isCurrent = plan.id === selectedPlan.id;
         if (!isCurrent) {
-          // Road polyline
-          const bgLine = L.polyline(plan.routePolyline, {
+          // Outer Glow
+          const bgGlow = L.polyline(plan.routePolyline, {
             color: plan.themeColor,
-            weight: 4,
-            opacity: 0.4,
-            dashArray: '6, 6',
+            weight: 10,
+            opacity: 0.35,
             lineJoin: 'round',
             lineCap: 'round',
           });
-          bgLine.bindTooltip(`<b>${plan.title.split('：')[0]}</b>: ${plan.tagline}`, { sticky: true });
-          bgLine.on('click', () => onSelectPlan(plan.id));
-          lg.addLayer(bgLine);
+          bgGlow.on('click', () => onSelectPlan(plan.id));
+          lg.addLayer(bgGlow);
 
-          // Flight line if present
+          // Road polyline (solid & highly visible)
+          const bgLine = L.polyline(plan.routePolyline, {
+            color: plan.themeColor,
+            weight: 5,
+            opacity: 0.9,
+            lineJoin: 'round',
+            lineCap: 'round',
+          });
+
+          // Inner accent dash for visual depth
+          const bgAccent = L.polyline(plan.routePolyline, {
+            color: '#ffffff',
+            weight: 1.5,
+            opacity: 0.6,
+            dashArray: '8, 12',
+            lineJoin: 'round',
+            lineCap: 'round',
+          });
+
+          const tooltipContent = `
+            <div style="font-family: system-ui, -apple-system, sans-serif; padding: 2px 4px; min-width: 180px;">
+              <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
+                <span style="display: inline-block; width: 10px; height: 10px; border-radius: 9999px; background: ${plan.themeColor};"></span>
+                <strong style="color: #0f172a; font-size: 12px;">${plan.title.split('：')[0]}</strong>
+              </div>
+              <div style="font-size: 11px; color: #475569; line-height: 1.3; margin-bottom: 4px;">${plan.tagline}</div>
+              <div style="font-size: 10.5px; color: #0284c7; font-weight: 700; border-top: 1px dashed #e2e8f0; padding-top: 3px;">
+                🚗 全程约 ${plan.keyStats.totalDistanceKm} km · 点击直接切换
+              </div>
+            </div>
+          `;
+
+          bgLine.bindTooltip(tooltipContent, { sticky: true });
+          bgLine.on('click', () => onSelectPlan(plan.id));
+          bgAccent.on('click', () => onSelectPlan(plan.id));
+
+          lg.addLayer(bgLine);
+          lg.addLayer(bgAccent);
+
+          // Flight line if present (e.g. Option 4 Kashgar)
           if (plan.flightPolyline) {
-            const flightLine = L.polyline(plan.flightPolyline, {
-              color: plan.themeColor,
-              weight: 3,
+            const flightGlow = L.polyline(plan.flightPolyline, {
+              color: '#f43f5e',
+              weight: 8,
               opacity: 0.35,
-              dashArray: '4, 8',
+              dashArray: '6, 6'
             });
+            flightGlow.on('click', () => onSelectPlan(plan.id));
+            lg.addLayer(flightGlow);
+
+            const flightLine = L.polyline(plan.flightPolyline, {
+              color: '#e11d48',
+              weight: 3.5,
+              opacity: 0.95,
+              dashArray: '6, 8',
+              lineCap: 'round'
+            });
+            flightLine.bindTooltip('✈️ <b>乌鲁木齐 ⇄ 喀什</b> 内陆往返航班 (2h) · 点击切换', { sticky: true });
+            flightLine.on('click', () => onSelectPlan(plan.id));
             lg.addLayer(flightLine);
           }
+
+          // Render 2-3 Core Key Landmark Badges for this non-selected plan to identify where it goes
+          const keyLandmarks = plan.waypoints.filter(w => w.category !== 'city').slice(0, 3);
+          keyLandmarks.forEach((wp) => {
+            const landmarkIcon = L.divIcon({
+              className: 'alt-landmark-badge',
+              html: `
+                <div style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 3px;
+                  background: ${plan.themeColor};
+                  color: #ffffff;
+                  font-size: 10px;
+                  font-weight: 800;
+                  padding: 2px 7px;
+                  border-radius: 9999px;
+                  border: 2px solid #ffffff;
+                  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+                  white-space: nowrap;
+                  cursor: pointer;
+                  transition: transform 0.2s ease;
+                ">
+                  <span>${wp.icon || '📍'}</span>
+                  <span>${wp.name.split(' ')[0]}</span>
+                </div>
+              `,
+              iconSize: [80, 24],
+              iconAnchor: [40, 12],
+            });
+
+            const lmMarker = L.marker(wp.coords, { icon: landmarkIcon });
+            lmMarker.bindTooltip(`<b>${plan.title.split('：')[0]}</b>: ${wp.name}<br/><span style="color:#0284c7;font-weight:bold;">点击切换至此方案</span>`, { sticky: true });
+            lmMarker.on('click', () => onSelectPlan(plan.id));
+            lg.addLayer(lmMarker);
+          });
         }
       });
     }
@@ -292,10 +377,10 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
     // 5. Smooth Fly To Plan Bounds
     if (showAllRoutesOverlay) {
       const allXinjiangBounds: L.LatLngBoundsExpression = [
-        [36.5, 73.5],
-        [49.5, 95.5]
+        [37.0, 74.2],
+        [49.2, 94.6]
       ];
-      map.flyToBounds(allXinjiangBounds, { padding: [30, 30], duration: 0.8 });
+      map.flyToBounds(allXinjiangBounds, { padding: [35, 35], duration: 0.8 });
     } else {
       map.flyToBounds(selectedPlan.mapBounds, { padding: [50, 50], duration: 0.8 });
     }
@@ -459,40 +544,93 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
         <div className="relative h-[480px] sm:h-[560px]">
           <div ref={mapContainerRef} className="w-full h-full" />
 
-          {/* Floating Quick Route Stats Pill */}
-          <div className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200/90 shadow-md text-xs text-slate-700 max-w-xs sm:max-w-sm hidden sm:block">
-            <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-100">
-              <span className="font-extrabold text-slate-900 flex items-center gap-1.5">
-                <Gauge className="w-4 h-4 text-amber-600" />
-                <span>本方案自驾核心指标</span>
-              </span>
-              <span 
-                className="text-[10px] font-black px-2 py-0.5 rounded-full text-white"
-                style={{ backgroundColor: selectedPlan.themeColor }}
-              >
-                {selectedPlan.keyStats.scenicSpotCount} 大标注节点 (1➔{selectedPlan.waypoints.length})
-              </span>
+          {/* Floating Card: All-Routes Comparison Legend OR Single Plan Stats */}
+          {showAllRoutesOverlay ? (
+            <div className="absolute top-4 left-4 z-20 bg-slate-950/92 backdrop-blur-md text-white p-3.5 rounded-2xl border border-white/20 shadow-2xl max-w-xs sm:max-w-sm">
+              <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-white/15">
+                <div className="flex items-center gap-1.5 text-amber-400 font-extrabold text-xs">
+                  <Layers className="w-4 h-4 text-amber-400 animate-pulse" />
+                  <span>全疆 4 套备选路线总览网络</span>
+                </div>
+                <span className="text-[10px] text-slate-300 bg-white/10 px-2 py-0.5 rounded-full font-semibold">
+                  点击色卡直接切换
+                </span>
+              </div>
+              <div className="space-y-1.5 text-xs">
+                {allPlans.map((plan) => {
+                  const isCurrent = plan.id === selectedPlan.id;
+                  return (
+                    <button
+                      key={plan.id}
+                      onClick={() => onSelectPlan(plan.id)}
+                      className={`w-full flex items-center justify-between p-2 rounded-xl text-left transition-all border ${
+                        isCurrent
+                          ? 'bg-white/20 border-white/70 shadow-sm ring-2 ring-white/50'
+                          : 'bg-white/5 border-white/10 hover:bg-white/15 hover:border-white/20'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span
+                          className="w-3.5 h-3.5 rounded-full flex-shrink-0 ring-2 ring-white/50"
+                          style={{ backgroundColor: plan.themeColor }}
+                        />
+                        <div className="min-w-0">
+                          <div className="font-extrabold text-xs text-white truncate">
+                            {plan.title.split('：')[0]}
+                          </div>
+                          <div className="text-[10px] text-slate-300 truncate">
+                            {plan.title.split('：')[1]}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-right flex-shrink-0 ml-2">
+                        <div className="font-black text-[11px] text-amber-300">
+                          {plan.keyStats.totalDistanceKm} km
+                        </div>
+                        <div className="text-[9px] text-slate-400">
+                          {plan.keyStats.scenicSpotCount} 景点
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
+          ) : (
+            <div className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200/90 shadow-md text-xs text-slate-700 max-w-xs sm:max-w-sm hidden sm:block">
+              <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-100">
+                <span className="font-extrabold text-slate-900 flex items-center gap-1.5">
+                  <Gauge className="w-4 h-4 text-amber-600" />
+                  <span>本方案自驾核心指标</span>
+                </span>
+                <span 
+                  className="text-[10px] font-black px-2 py-0.5 rounded-full text-white"
+                  style={{ backgroundColor: selectedPlan.themeColor }}
+                >
+                  {selectedPlan.keyStats.scenicSpotCount} 大标注节点 (1➔{selectedPlan.waypoints.length})
+                </span>
+              </div>
 
-            <div className="grid grid-cols-2 gap-2 text-[11px]">
-              <div className="bg-slate-50 p-2 rounded-xl border border-slate-100">
-                <div className="text-slate-400 text-[10px]">全程主线里程</div>
-                <div className="font-black text-slate-900 text-sm">{selectedPlan.keyStats.totalDistanceKm} km</div>
-              </div>
-              <div className="bg-slate-50 p-2 rounded-xl border border-slate-100">
-                <div className="text-slate-400 text-[10px]">日均驾驶时长</div>
-                <div className="font-black text-slate-900 text-sm">{selectedPlan.keyStats.avgDailyDrivingHours}</div>
-              </div>
-              <div className="bg-slate-50 p-2 rounded-xl border border-slate-100">
-                <div className="text-slate-400 text-[10px]">国庆住宿成本</div>
-                <div className="font-bold text-slate-800">{selectedPlan.keyStats.hotelCostIndex}</div>
-              </div>
-              <div className="bg-slate-50 p-2 rounded-xl border border-slate-100">
-                <div className="text-slate-400 text-[10px]">天气安全指数</div>
-                <div className="font-bold text-emerald-700">{selectedPlan.keyStats.weatherSafetyIndex}</div>
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div className="bg-slate-50 p-2 rounded-xl border border-slate-100">
+                  <div className="text-slate-400 text-[10px]">全程主线里程</div>
+                  <div className="font-black text-slate-900 text-sm">{selectedPlan.keyStats.totalDistanceKm} km</div>
+                </div>
+                <div className="bg-slate-50 p-2 rounded-xl border border-slate-100">
+                  <div className="text-slate-400 text-[10px]">日均驾驶时长</div>
+                  <div className="font-black text-slate-900 text-sm">{selectedPlan.keyStats.avgDailyDrivingHours}</div>
+                </div>
+                <div className="bg-slate-50 p-2 rounded-xl border border-slate-100">
+                  <div className="text-slate-400 text-[10px]">国庆住宿成本</div>
+                  <div className="font-bold text-slate-800">{selectedPlan.keyStats.hotelCostIndex}</div>
+                </div>
+                <div className="bg-slate-50 p-2 rounded-xl border border-slate-100">
+                  <div className="text-slate-400 text-[10px]">天气安全指数</div>
+                  <div className="font-bold text-emerald-700">{selectedPlan.keyStats.weatherSafetyIndex}</div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Floating Switcher between Plans for quick map testing */}
           <div className="absolute bottom-4 right-4 z-20 bg-white/95 backdrop-blur-md p-2 rounded-2xl border border-slate-200/90 shadow-lg flex items-center gap-1.5 overflow-x-auto max-w-[90vw] no-scrollbar">

@@ -46,11 +46,17 @@
 }
 
 /* Numbered Node Pin for Alternative Routes */
-.alt-numbered-marker {
+.alt-numbered-marker,
+.alt-landmark-badge {
   background: transparent !important;
   border: none !important;
   pointer-events: auto;
   cursor: pointer;
+}
+
+.alt-landmark-badge:hover > div {
+  transform: scale(1.12) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5) !important;
 }
 
 .alt-numbered-pin {
