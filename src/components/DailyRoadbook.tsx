@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { itineraryDays } from '../data/itineraryData';
+import { routePoints } from '../data/mapData';
 import { 
   Calendar, Clock, Navigation, Fuel, Utensils, 
-  ShieldAlert, Sparkles, ChevronDown, ChevronUp, CheckCircle2, Image as ImageIcon 
+  ShieldAlert, Sparkles, ChevronDown, ChevronUp, CheckCircle2, Image as ImageIcon,
+  Globe
 } from 'lucide-react';
 
 export const DailyRoadbook: React.FC = () => {
@@ -35,6 +37,24 @@ export const DailyRoadbook: React.FC = () => {
     return true;
   });
 
+  // Helper to get matching route point navigation
+  const getMatchingPoint = (dayNumber: number) => {
+    switch (dayNumber) {
+      case 0: return routePoints[0]; // 乌鲁木齐
+      case 1: return routePoints[1]; // 阿勒泰市
+      case 2: return routePoints[2]; // 阿禾公路
+      case 3: return routePoints[3]; // 禾木
+      case 4: return routePoints[4]; // 贾登峪
+      case 5: return routePoints[4]; // 喀纳斯
+      case 6: return routePoints[5]; // 奎屯
+      case 7: return routePoints[6]; // 赛里木湖
+      case 8: return routePoints[7]; // 精河
+      case 9: return routePoints[0]; // 乌鲁木齐
+      case 10: return routePoints[0]; // 乌鲁木齐
+      default: return routePoints[0];
+    }
+  };
+
   return (
     <section id="roadbook" className="py-12 bg-slate-50 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,7 +69,7 @@ export const DailyRoadbook: React.FC = () => {
               每日行程与图文路书
             </h2>
             <p className="text-sm text-slate-600 mt-1">
-              “路上时间”按旅行实际占用估算（含阿禾景观游玩、区间车换乘与排队），非单纯导航时间
+              “路上时间”按旅行实际占用估算（含阿禾景观游玩、区间车换乘与排队），支持一键发起高德导航
             </p>
           </div>
 
@@ -120,6 +140,8 @@ export const DailyRoadbook: React.FC = () => {
         <div className="space-y-8">
           {filteredDays.map((day) => {
             const isExpanded = expandedDetails[day.id] !== false;
+            const targetPoint = getMatchingPoint(day.dayNumber);
+
             return (
               <div
                 key={day.id}
@@ -163,8 +185,25 @@ export const DailyRoadbook: React.FC = () => {
                           {day.title}
                         </h3>
                       </div>
-                      <div className="text-xs text-slate-300 bg-white/10 backdrop-blur-md px-3 py-1 rounded-xl border border-white/10 self-start sm:self-auto">
-                        📍 {day.imageCaption || day.lodging.split('（')[0]}
+                      <div className="flex items-center gap-2">
+                        <a
+                          href={targetPoint.amapUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs font-bold bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-xl transition-colors shadow-md"
+                        >
+                          <Navigation className="w-3.5 h-3.5" />
+                          <span>导航直达</span>
+                        </a>
+                        <a
+                          href={targetPoint.googleMapsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-xl bg-white/20 backdrop-blur-md hover:bg-white/30 text-white border border-white/20 transition-colors"
+                          title="在 Google Maps 中查看"
+                        >
+                          <Globe className="w-3.5 h-3.5" />
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -262,20 +301,34 @@ export const DailyRoadbook: React.FC = () => {
                       )}
                     </div>
 
-                    {/* Dining & Fueling Tips */}
-                    <div className="flex flex-wrap gap-4 pt-2 border-t border-slate-100 text-xs text-slate-600">
-                      {day.diningTips && (
-                        <div className="flex items-center gap-2">
-                          <Utensils className="w-3.5 h-3.5 text-amber-600" />
-                          <span><strong>餐饮建议：</strong>{day.diningTips}</span>
-                        </div>
-                      )}
-                      {day.gasAndSupplyTips && (
-                        <div className="flex items-center gap-2">
-                          <Fuel className="w-3.5 h-3.5 text-sky-600" />
-                          <span><strong>加油与物资：</strong>{day.gasAndSupplyTips}</span>
-                        </div>
-                      )}
+                    {/* Dining, Fueling & Navigation Actions */}
+                    <div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-slate-100 text-xs text-slate-600">
+                      <div className="flex flex-wrap gap-4">
+                        {day.diningTips && (
+                          <div className="flex items-center gap-1.5">
+                            <Utensils className="w-3.5 h-3.5 text-amber-600" />
+                            <span><strong>餐饮：</strong>{day.diningTips}</span>
+                          </div>
+                        )}
+                        {day.gasAndSupplyTips && (
+                          <div className="flex items-center gap-1.5">
+                            <Fuel className="w-3.5 h-3.5 text-sky-600" />
+                            <span><strong>补能：</strong>{day.gasAndSupplyTips}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <a
+                          href={targetPoint.amapUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-[11px] font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1 rounded-lg transition-colors"
+                        >
+                          <Navigation className="w-3 h-3" />
+                          <span>高德导航到目的地</span>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 )}
