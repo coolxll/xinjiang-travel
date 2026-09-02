@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroHeader } from './components/HeroHeader';
+import { BookingInfoCard } from './components/BookingInfoCard';
 import { InteractiveMap } from './components/InteractiveMap';
 import { DailyRoadbook } from './components/DailyRoadbook';
 import { DecisionMatrix } from './components/DecisionMatrix';
@@ -33,7 +34,7 @@ export const App: React.FC = () => {
   // Observe scroll to update active section in navbar
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['overview', 'map-section', 'roadbook', 'decisions', 'lodging', 'checklist', 'sources'];
+      const sections = ['overview', 'bookings', 'map-section', 'roadbook', 'decisions', 'lodging', 'checklist', 'sources'];
       const scrollPosition = window.scrollY + 100;
 
       for (const sectionId of sections) {
@@ -69,24 +70,28 @@ export const App: React.FC = () => {
           onExploreMap={() => handleNavigate('map-section')}
           onExploreRoadbook={() => handleNavigate('roadbook')}
           onExploreDecisions={() => handleNavigate('decisions')}
+          onExploreBookings={() => handleNavigate('bookings')}
         />
 
-        {/* 2. Interactive Map */}
+        {/* 2. Flight & Car Rental Time Constraint Hub */}
+        <BookingInfoCard />
+
+        {/* 3. Interactive Map */}
         <InteractiveMap />
 
-        {/* 3. Day-by-Day Roadbook */}
+        {/* 4. Day-by-Day Roadbook with Rich Photos */}
         <DailyRoadbook />
 
-        {/* 4. Team Consensus & Voting Matrix */}
+        {/* 5. Team Consensus & Voting Matrix with Imagery */}
         <DecisionMatrix />
 
-        {/* 5. Lodging & Cost Optimization */}
+        {/* 6. Lodging & Cost Optimization */}
         <LodgingStrategy />
 
-        {/* 6. Pre-Trip Checklist & Packing */}
+        {/* 7. Pre-Trip Checklist & Packing */}
         <PreTripChecklist />
 
-        {/* 7. Official Sources & References */}
+        {/* 8. Official Sources & References */}
         <OfficialSources />
       </main>
 

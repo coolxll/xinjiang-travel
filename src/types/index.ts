@@ -15,11 +15,14 @@ export interface ItineraryDay {
   lodgingStrategy: string;
   highlights: string[];
   keyNotes: string;
-  driverBottomLine?: string; // 驾驶底线与安全警告
+  driverBottomLine?: string;
   diningTips?: string;
   gasAndSupplyTips?: string;
   isKeyHighlight?: boolean;
   statusBadge?: string;
+  imageUrl?: string;
+  imageTag?: string;
+  imageCaption?: string;
 }
 
 export interface RoutePoint {
@@ -39,6 +42,8 @@ export interface DecisionItem {
   subtitle: string;
   iconName: string;
   context: string;
+  imageUrl?: string;
+  imageCaption?: string;
   optionA: {
     title: string;
     description: string;
@@ -65,6 +70,7 @@ export interface LodgingOption {
   costSavingTips: string;
   pros: string[];
   isRecommendedAlternative?: string;
+  imageUrl?: string;
 }
 
 export interface ChecklistCategory {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { itineraryDays } from '../data/itineraryData';
 import { lodgingOptions } from '../data/lodgingData';
-import { X, Printer, Sparkles } from 'lucide-react';
+import { flightBookings, carRentalBooking } from '../data/bookingData';
+import { X, Printer, Sparkles, Plane, Car } from 'lucide-react';
 
 interface PrintRoadbookModalProps {
   isOpen: boolean;
@@ -63,6 +64,43 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
             </p>
           </div>
 
+          {/* Confirmed Flight & Car Rental Table */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-white p-4 rounded-xl border border-slate-200">
+              <h2 className="font-bold text-slate-900 text-xs sm:text-sm mb-2 flex items-center gap-1.5">
+                <Plane className="w-4 h-4 text-sky-600" />
+                <span>已确认往返航班时刻表</span>
+              </h2>
+              <div className="space-y-2 text-xs">
+                {flightBookings.map((f, i) => (
+                  <div key={i} className="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                    <div className="font-bold text-slate-900">{f.type === 'outbound' ? '去程 (9/26)' : '返程 (10/6)'} · {f.airline} {f.flightNumber}</div>
+                    <div className="text-sky-700 font-medium text-[11px]">{f.departureTime} {f.departureAirport.split('国际')[0]} → {f.arrivalTime} {f.arrivalAirport.split('国际')[0]}</div>
+                    <div className="text-[10px] text-slate-500 mt-0.5">{f.ruleNotes[0]}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+              <div>
+                <h2 className="font-bold text-slate-900 text-xs sm:text-sm mb-2 flex items-center gap-1.5">
+                  <Car className="w-4 h-4 text-amber-600" />
+                  <span>自驾租车时间锚点</span>
+                </h2>
+                <div className="space-y-1.5 text-xs text-slate-700">
+                  <div><strong>车型类别：</strong>{carRentalBooking.vehicleType}</div>
+                  <div><strong>取车时间：</strong>{carRentalBooking.pickupTime}（店员送车上门）</div>
+                  <div><strong>还车时间：</strong>{carRentalBooking.dropoffTime}（机场还车）</div>
+                  <div><strong>租期状态：</strong>{carRentalBooking.durationText} ｜ {carRentalBooking.statusText}</div>
+                </div>
+              </div>
+              <div className="text-[10px] text-amber-900 bg-amber-50 p-2 rounded-lg border border-amber-200 mt-2">
+                10/5 目标 16:30 抵乌市，留足 3.5h 用于洗车加油与 21:00 还车，入住机场酒店迎接 10/6 07:00 早班机。
+              </div>
+            </div>
+          </div>
+
           {/* 4 Core Principles */}
           <div className="bg-amber-50/80 p-4 rounded-xl border border-amber-200">
             <h2 className="font-bold text-amber-900 text-sm mb-2 flex items-center gap-1.5">
@@ -73,7 +111,7 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
               <li><strong>9/28 阿禾公路是一整天主角：</strong> 全长209.45km，按5-6小时边走边停游玩；进山前加满油。</li>
               <li><strong>禾木晨雾自愿早起：</strong> 06:30早起 vs 09:30睡饱，绝不道德绑架；第2晚可搬至入口服务区压成本。</li>
               <li><strong>10/2 长途转场大幅减压：</strong> 从贾登峪直发奎屯，省掉旧版禾木至贾登峪盘山路，当天不加魔鬼城。</li>
-              <li><strong>赛里木湖只住1晚：</strong> 10/3下午+10/4上午拆开玩；10/4下午撤至精河，为10/5乌市21:00还车预留3h+缓冲。</li>
+              <li><strong>赛里木湖只住1晚：</strong> 10/3下午+10/4上午拆开玩；10/4下午撤至精河，为10/5乌市21:00还车预留3.5h+缓冲。</li>
             </ul>
           </div>
 
@@ -128,7 +166,7 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
             <p className="leading-relaxed mb-2">
               1. 9/27在阿勒泰市区将油箱完全加满！阿禾山区无大型补能站。<br />
               2. 遇雨雪、结冰或交警管制，坚决走布尔津备选主干道，安全第一。<br />
-              3. 10/5精河出发目标16:30–17:30抵达乌市，21:00还车留足3小时机动缓冲。
+              3. 10/5精河出发目标16:30–17:30抵达乌市，21:00还车留足3.5小时机动缓冲，住机场周边。
             </p>
             <p className="text-[11px] text-rose-800 font-mono">
               救援电话：高速救援 12122 ｜ 喀纳斯旅游急救 0906-6524464 ｜ 赛里木湖服务 0909-7659990

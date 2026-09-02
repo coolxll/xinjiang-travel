@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { itineraryDays } from '../data/itineraryData';
 import { 
   Calendar, Clock, Navigation, Fuel, Utensils, 
-  ShieldAlert, Sparkles, ChevronDown, ChevronUp, CheckCircle2 
+  ShieldAlert, Sparkles, ChevronDown, ChevronUp, CheckCircle2, Image as ImageIcon 
 } from 'lucide-react';
 
 export const DailyRoadbook: React.FC = () => {
   const [selectedDayId, setSelectedDayId] = useState<string>('day-1');
   const [filterType, setFilterType] = useState<'all' | 'key' | 'driving'>('all');
   const [expandedDetails, setExpandedDetails] = useState<Record<string, boolean>>({
+    'day-0': true,
     'day-1': true,
     'day-2': true,
     'day-3': true,
@@ -18,6 +19,7 @@ export const DailyRoadbook: React.FC = () => {
     'day-7': true,
     'day-8': true,
     'day-9': true,
+    'day-10': true,
   });
 
   const toggleExpand = (dayId: string) => {
@@ -44,7 +46,7 @@ export const DailyRoadbook: React.FC = () => {
               <span>9/26 - 10/6 逐日时刻表与驾驶路书</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              每日行程与操作指南
+              每日行程与图文路书
             </h2>
             <p className="text-sm text-slate-600 mt-1">
               “路上时间”按旅行实际占用估算（含阿禾景观游玩、区间车换乘与排队），非单纯导航时间
@@ -115,59 +117,85 @@ export const DailyRoadbook: React.FC = () => {
         </div>
 
         {/* Day Cards Stack */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           {filteredDays.map((day) => {
             const isExpanded = expandedDetails[day.id] !== false;
             return (
               <div
                 key={day.id}
                 id={day.id}
-                className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden shadow-xs ${
+                className={`bg-white rounded-3xl border transition-all duration-200 overflow-hidden shadow-sm ${
                   day.isKeyHighlight
-                    ? 'border-amber-300 ring-1 ring-amber-400/20'
+                    ? 'border-amber-300 ring-2 ring-amber-400/20'
                     : 'border-slate-200 hover:border-slate-300'
                 }`}
               >
-                {/* Card Header */}
-                <div 
-                  onClick={() => toggleExpand(day.id)}
-                  className="p-4 sm:p-6 cursor-pointer bg-gradient-to-r from-slate-50/80 via-white to-amber-50/20 flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100"
-                >
-                  <div className="flex items-start gap-3.5">
-                    {/* Day Badge */}
-                    <div className="flex flex-col items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-b from-amber-500 to-amber-600 text-white shadow-sm flex-shrink-0">
-                      <span className="text-[10px] font-bold uppercase tracking-wider opacity-90">Day {day.dayNumber}</span>
-                      <span className="text-lg font-black leading-none">{day.date}</span>
+                {/* Top Image Banner for Expanded view */}
+                {day.imageUrl && (
+                  <div className="relative h-48 sm:h-64 w-full overflow-hidden bg-slate-900 group">
+                    <img
+                      src={day.imageUrl}
+                      alt={day.imageCaption || day.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+
+                    {/* Image Floating Overlays */}
+                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-extrabold border border-white/20 flex items-center gap-1.5">
+                        <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
+                        <span>{day.imageTag || '金秋北疆'}</span>
+                      </span>
+                      {day.isKeyHighlight && (
+                        <span className="px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-black shadow-md">
+                          ⭐ 核心高光
+                        </span>
+                      )}
                     </div>
 
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2 mb-1">
-                        <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">
+                    <div className="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2 text-white">
+                      <div>
+                        <span className="text-xs font-bold text-amber-400 font-mono tracking-wider uppercase">
+                          DAY {day.dayNumber} · {day.fullDate}
+                        </span>
+                        <h3 className="text-xl sm:text-2xl font-black tracking-tight drop-shadow-md">
                           {day.title}
                         </h3>
-                        {day.statusBadge && (
-                          <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
-                            day.isKeyHighlight 
-                              ? 'bg-amber-100 text-amber-800 border border-amber-300'
-                              : 'bg-sky-100 text-sky-800 border border-sky-200'
-                          }`}>
-                            {day.statusBadge}
-                          </span>
-                        )}
                       </div>
-                      <p className="text-xs sm:text-sm text-slate-600 font-medium">
+                      <div className="text-xs text-slate-300 bg-white/10 backdrop-blur-md px-3 py-1 rounded-xl border border-white/10 self-start sm:self-auto">
+                        📍 {day.imageCaption || day.lodging.split('（')[0]}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Card Summary Header Bar */}
+                <div 
+                  onClick={() => toggleExpand(day.id)}
+                  className="p-4 sm:p-5 cursor-pointer bg-slate-50/90 flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100"
+                >
+                  <div className="flex items-center gap-3">
+                    {!day.imageUrl && (
+                      <div className="flex flex-col items-center justify-center w-12 h-12 rounded-xl bg-amber-500 text-white shadow-sm flex-shrink-0">
+                        <span className="text-[10px] font-bold">D{day.dayNumber}</span>
+                        <span className="text-sm font-black leading-none">{day.date}</span>
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-xs sm:text-sm text-slate-700 font-semibold">
                         {day.tagline}
                       </p>
                     </div>
                   </div>
 
-                  {/* Summary Bar */}
+                  {/* Summary Badges */}
                   <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm">
-                    <div className="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-xl text-slate-700 font-semibold">
+                    <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-xl text-slate-700 font-semibold border border-slate-200">
                       <Clock className="w-4 h-4 text-amber-600" />
                       <span>起/发：<strong>{day.wakeTime}</strong> / <strong>{day.departTime}</strong></span>
                     </div>
-                    <div className="flex items-center gap-1.5 bg-sky-50 px-3 py-1.5 rounded-xl text-sky-800 font-semibold border border-sky-100">
+                    <div className="flex items-center gap-1.5 bg-sky-50 px-3 py-1.5 rounded-xl text-sky-800 font-semibold border border-sky-200">
                       <Navigation className="w-4 h-4 text-sky-600" />
                       <span>{day.travelDuration} ({day.distance})</span>
                     </div>
@@ -181,7 +209,7 @@ export const DailyRoadbook: React.FC = () => {
                 {isExpanded && (
                   <div className="p-4 sm:p-6 space-y-6">
                     {/* Time & Duration Breakdown Box */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200/80 text-xs">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200/80 text-xs">
                       <div>
                         <span className="text-slate-400 font-semibold uppercase block mb-1">⏰ 建议时间节奏</span>
                         <p className="text-slate-800 font-bold text-sm">起床 {day.wakeTime} ｜ 出发 {day.departTime}</p>
@@ -206,7 +234,7 @@ export const DailyRoadbook: React.FC = () => {
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                         {day.highlights.map((hl, i) => (
-                          <div key={i} className="flex items-start gap-2 bg-amber-50/30 p-2.5 rounded-xl border border-amber-100/60 text-xs text-slate-800">
+                          <div key={i} className="flex items-start gap-2 bg-amber-50/40 p-3 rounded-xl border border-amber-200/60 text-xs text-slate-800">
                             <CheckCircle2 className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
                             <span className="leading-relaxed">{hl}</span>
                           </div>
@@ -216,7 +244,7 @@ export const DailyRoadbook: React.FC = () => {
 
                     {/* Core Note & Bottom Line */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                      <div className="bg-sky-50/60 border border-sky-200/80 p-3.5 rounded-xl text-xs">
+                      <div className="bg-sky-50/70 border border-sky-200 p-4 rounded-xl text-xs">
                         <div className="font-extrabold text-sky-900 mb-1 flex items-center gap-1.5">
                           <span>📌 当天核心要领</span>
                         </div>
@@ -224,7 +252,7 @@ export const DailyRoadbook: React.FC = () => {
                       </div>
 
                       {day.driverBottomLine && (
-                        <div className="bg-rose-50/60 border border-rose-200/80 p-3.5 rounded-xl text-xs">
+                        <div className="bg-rose-50/70 border border-rose-200 p-4 rounded-xl text-xs">
                           <div className="font-extrabold text-rose-900 mb-1 flex items-center gap-1.5">
                             <ShieldAlert className="w-4 h-4 text-rose-600" />
                             <span>⚠️ 驾驶底线与避坑提示</span>

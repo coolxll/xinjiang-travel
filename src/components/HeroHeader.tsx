@@ -1,16 +1,19 @@
 import React from 'react';
-import { Sparkles, Calendar, Users, Map, Gauge, ArrowRight, ShieldAlert, Mountain, Sun, Clock } from 'lucide-react';
+import { Sparkles, Calendar, Users, Map, Gauge, ArrowRight, ShieldAlert, Mountain, Sun, Clock, Plane } from 'lucide-react';
+import { scenicImages } from '../data/scenicImages';
 
 interface HeroHeaderProps {
   onExploreMap: () => void;
   onExploreRoadbook: () => void;
   onExploreDecisions: () => void;
+  onExploreBookings: () => void;
 }
 
 export const HeroHeader: React.FC<HeroHeaderProps> = ({
   onExploreMap,
   onExploreRoadbook,
   onExploreDecisions,
+  onExploreBookings,
 }) => {
   return (
     <section id="overview" className="relative overflow-hidden bg-gradient-to-b from-amber-500/10 via-sky-500/5 to-transparent pt-8 pb-12">
@@ -50,11 +53,18 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
+                onClick={onExploreBookings}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold shadow-sm hover:bg-slate-800 transition-all"
+              >
+                <Plane className="w-4 h-4 text-sky-400" />
+                航班与租车中枢
+              </button>
+              <button
                 onClick={onExploreMap}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 text-sm font-bold shadow-xs hover:bg-slate-50 transition-all"
               >
                 <Map className="w-4 h-4 text-sky-600" />
-                交互式路线地图
+                交互地图
               </button>
               <button
                 onClick={onExploreDecisions}
@@ -65,42 +75,64 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
             </div>
           </div>
 
-          {/* Quick Metrics Cards */}
-          <div className="lg:col-span-5 grid grid-cols-2 gap-3 sm:gap-4">
-            <div className="bg-white/80 backdrop-blur-xs p-4 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
-              <div className="flex items-center gap-2 text-amber-600 mb-1">
-                <Gauge className="w-5 h-5" />
-                <span className="text-xs font-semibold text-slate-500 uppercase">计划总里程</span>
+          {/* Quick Visual Montage & Metrics Cards */}
+          <div className="lg:col-span-5 space-y-4">
+            {/* Top Scenic Image Banner */}
+            <div className="relative h-44 sm:h-52 rounded-2xl overflow-hidden border border-slate-200 shadow-md group">
+              <img
+                src={scenicImages.day2.url}
+                alt="阿禾公路金秋"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute top-3 left-3">
+                <span className="px-2.5 py-1 rounded-full bg-amber-500 text-white text-[11px] font-black shadow-sm">
+                  🌲 2026 金秋全新公路
+                </span>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900">2,300<span className="text-sm font-medium text-slate-500"> km+</span></div>
-              <p className="text-xs text-slate-500 mt-1">主线自驾实测口径（不含赛湖环湖）</p>
+              <div className="absolute bottom-3 left-3 right-3 text-white">
+                <div className="text-xs font-bold text-amber-300">G681 阿禾公路 · 209.45km</div>
+                <div className="text-sm font-black truncate">穿行阿尔泰深山，高山草甸与金色白桦林</div>
+              </div>
             </div>
 
-            <div className="bg-white/80 backdrop-blur-xs p-4 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
-              <div className="flex items-center gap-2 text-sky-600 mb-1">
-                <Calendar className="w-5 h-5" />
-                <span className="text-xs font-semibold text-slate-500 uppercase">出行周期</span>
+            {/* Metrics Grid */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-1.5 text-amber-600 mb-1">
+                  <Gauge className="w-4 h-4" />
+                  <span className="text-[11px] font-semibold text-slate-500 uppercase">计划总里程</span>
+                </div>
+                <div className="text-2xl font-black text-slate-900">2,300<span className="text-xs font-medium text-slate-500"> km+</span></div>
+                <p className="text-[10px] text-slate-500 mt-0.5">主线实测口径（不含赛湖环湖）</p>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900">9<span className="text-sm font-medium text-slate-500"> 天自驾</span></div>
-              <p className="text-xs text-slate-500 mt-1">2026.9.27–10.5（全行程11天）</p>
-            </div>
 
-            <div className="bg-white/80 backdrop-blur-xs p-4 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
-              <div className="flex items-center gap-2 text-emerald-600 mb-1">
-                <Users className="w-5 h-5" />
-                <span className="text-xs font-semibold text-slate-500 uppercase">团队编制</span>
+              <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-1.5 text-sky-600 mb-1">
+                  <Calendar className="w-4 h-4" />
+                  <span className="text-[11px] font-semibold text-slate-500 uppercase">出行周期</span>
+                </div>
+                <div className="text-2xl font-black text-slate-900">9<span className="text-xs font-medium text-slate-500"> 天自驾</span></div>
+                <p className="text-[10px] text-slate-500 mt-0.5">2026.9.27–10.5（全行程11天）</p>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900">4<span className="text-sm font-medium text-slate-500"> 人一车</span></div>
-              <p className="text-xs text-slate-500 mt-1">SUV/商务车，严控行李规格</p>
-            </div>
 
-            <div className="bg-white/80 backdrop-blur-xs p-4 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
-              <div className="flex items-center gap-2 text-indigo-600 mb-1">
-                <Mountain className="w-5 h-5" />
-                <span className="text-xs font-semibold text-slate-500 uppercase">核心高光</span>
+              <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-1.5 text-emerald-600 mb-1">
+                  <Users className="w-4 h-4" />
+                  <span className="text-[11px] font-semibold text-slate-500 uppercase">团队编制</span>
+                </div>
+                <div className="text-2xl font-black text-slate-900">4<span className="text-xs font-medium text-slate-500"> 人一车</span></div>
+                <p className="text-[10px] text-slate-500 mt-0.5">SUV/商务车，严控行李规格</p>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900">4<span className="text-sm font-medium text-slate-500"> 大胜地</span></div>
-              <p className="text-xs text-slate-500 mt-1">阿禾公路 · 禾木 · 喀纳斯 · 赛湖</p>
+
+              <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-1.5 text-indigo-600 mb-1">
+                  <Mountain className="w-4 h-4" />
+                  <span className="text-[11px] font-semibold text-slate-500 uppercase">核心高光</span>
+                </div>
+                <div className="text-2xl font-black text-slate-900">4<span className="text-xs font-medium text-slate-500"> 大胜地</span></div>
+                <p className="text-[10px] text-slate-500 mt-0.5">阿禾公路 · 禾木 · 喀纳斯 · 赛湖</p>
+              </div>
             </div>
           </div>
         </div>

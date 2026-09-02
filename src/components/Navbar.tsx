@@ -1,5 +1,5 @@
 import React from 'react';
-import { Compass, MapPin, Calendar, Vote, Hotel, CheckSquare, FileText, Printer } from 'lucide-react';
+import { Compass, MapPin, Calendar, Vote, Hotel, CheckSquare, FileText, Printer, Plane } from 'lucide-react';
 
 interface NavbarProps {
   activeSection: string;
@@ -10,6 +10,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpenPrint }) => {
   const navItems = [
     { id: 'overview', label: '行程概览', icon: Compass },
+    { id: 'bookings', label: '航班租车', icon: Plane },
     { id: 'map-section', label: '交互地图', icon: MapPin },
     { id: 'roadbook', label: '每日路书', icon: Calendar },
     { id: 'decisions', label: '同行共识', icon: Vote },
@@ -42,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          <nav className="hidden xl:flex items-center space-x-1">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeSection === item.id;
@@ -78,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
       </div>
 
       {/* Mobile Subnav Scrollable */}
-      <div className="lg:hidden border-t border-slate-100 bg-slate-50/90 overflow-x-auto no-scrollbar py-2 px-4 flex gap-2">
+      <div className="xl:hidden border-t border-slate-100 bg-slate-50/90 overflow-x-auto no-scrollbar py-2 px-4 flex gap-2">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeSection === item.id;
