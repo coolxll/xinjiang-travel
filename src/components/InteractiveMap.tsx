@@ -6,6 +6,11 @@ import {
   dayRoutePolylines, 
   ExtendedRoutePoint
 } from '../data/mapData';
+import { 
+  XINJIANG_BORDER_POLYLINE, 
+  NEIGHBOR_COUNTRIES, 
+  BORDER_PORT_LANDMARKS 
+} from '../data/xinjiangBorderData';
 import { travelPois, TravelPoi, PoiCategory } from '../data/poiData';
 import { 
   Navigation, Compass, Layers, RotateCcw, Copy, Check, 
@@ -186,6 +191,106 @@ export const InteractiveMap: React.FC = () => {
 
     const currentSchedule = mapDaySchedules.find(s => s.key === activeKey);
     const activePointIds = currentSchedule ? currentSchedule.activePointIds : [];
+
+    // 0. Render China Xinjiang National Border Line & Neighbor Countries
+    const borderGlow = L.polyline(XINJIANG_BORDER_POLYLINE, {
+      color: '#e11d48',
+      weight: 6,
+      opacity: 0.35,
+      lineJoin: 'round',
+      lineCap: 'round',
+    });
+    lg.addLayer(borderGlow);
+
+    const borderLine = L.polyline(XINJIANG_BORDER_POLYLINE, {
+      color: '#be123c',
+      weight: 2.8,
+      opacity: 0.95,
+      dashArray: '12, 6, 3, 6',
+      lineJoin: 'round',
+      lineCap: 'round',
+    });
+    borderLine.bindTooltip('🇨🇳 <b>中华人民共和国国界线 (中国新疆段)</b><br/><span style="color:#64748b;">全长约 5,600 km · 陆上接壤 8 个邻国</span>', { sticky: true });
+    lg.addLayer(borderLine);
+
+    const borderAccent = L.polyline(XINJIANG_BORDER_POLYLINE, {
+      color: '#ffffff',
+      weight: 1,
+      opacity: 0.7,
+      dashArray: '4, 18',
+      lineJoin: 'round',
+    });
+    lg.addLayer(borderAccent);
+
+    NEIGHBOR_COUNTRIES.forEach((c) => {
+      const countryIcon = L.divIcon({
+        className: 'alt-neighbor-badge',
+        html: `
+          <div style="
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(15, 23, 42, 0.88);
+            color: #ffffff;
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 2.5px 7.5px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+            white-space: nowrap;
+            pointer-events: none;
+          ">
+            <span>${c.flag}</span>
+            <span>${c.name}</span>
+          </div>
+        `,
+        iconSize: [110, 24],
+        iconAnchor: [55, 12],
+      });
+      const countryMarker = L.marker(c.coords, { icon: countryIcon, interactive: false });
+      lg.addLayer(countryMarker);
+    });
+
+    BORDER_PORT_LANDMARKS.forEach((bp) => {
+      const portIcon = L.divIcon({
+        className: 'alt-port-badge',
+        html: `
+          <div style="
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            background: #991b1b;
+            color: #ffffff;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1.5px solid #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+            white-space: nowrap;
+            cursor: pointer;
+          ">
+            <span>🏛️</span>
+            <span>${bp.name}</span>
+          </div>
+        `,
+        iconSize: [90, 20],
+        iconAnchor: [45, 10],
+      });
+      const portMarker = L.marker(bp.coords, { icon: portIcon });
+      portMarker.bindPopup(`
+        <div style="font-family: system-ui; padding: 2px; min-width: 200px;">
+          <div style="display:flex;align-items:center;gap:4px;font-weight:800;color:#991b1b;font-size:13px;border-bottom:1px solid #f1f5f9;padding-bottom:4px;margin-bottom:4px;">
+            <span>🏛️</span>
+            <span>${bp.name}</span>
+          </div>
+          <div style="font-size:11px;color:#0284c7;font-weight:700;margin-bottom:2px;">📌 ${bp.neighbor} ${bp.elevation ? `· 海拔 ${bp.elevation}` : ''}</div>
+          <div style="font-size:11px;color:#475569;line-height:1.4;">${bp.desc}</div>
+        </div>
+      `);
+      lg.addLayer(portMarker);
+    });
 
     // 1. Render all background highway paths
     Object.entries(dayRoutePolylines).forEach(([dayKey, coords]) => {

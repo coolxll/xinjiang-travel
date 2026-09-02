@@ -45,16 +45,19 @@
   transform: scale(1.22);
 }
 
-/* Numbered Node Pin for Alternative Routes */
+/* Numbered Node Pin & Badges for Alternative Routes */
 .alt-numbered-marker,
-.alt-landmark-badge {
+.alt-landmark-badge,
+.alt-neighbor-badge,
+.alt-port-badge {
   background: transparent !important;
   border: none !important;
   pointer-events: auto;
   cursor: pointer;
 }
 
-.alt-landmark-badge:hover > div {
+.alt-landmark-badge:hover > div,
+.alt-port-badge:hover > div {
   transform: scale(1.12) !important;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5) !important;
 }

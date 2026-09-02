@@ -5,6 +5,11 @@ import {
   AlternativePlanWaypoint 
 } from '../data/alternativePlansData';
 import { 
+  XINJIANG_BORDER_POLYLINE, 
+  NEIGHBOR_COUNTRIES, 
+  BORDER_PORT_LANDMARKS 
+} from '../data/xinjiangBorderData';
+import { 
   Map as MapIcon, Globe, Mountain, Gauge, 
   RotateCcw, Layers, Navigation, Copy, Check
 } from 'lucide-react';
@@ -56,6 +61,7 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
 
   const [currentLayerType, setCurrentLayerType] = useState<MapTileLayerType>('streets');
   const [showAllRoutesOverlay, setShowAllRoutesOverlay] = useState<boolean>(false);
+  const [showBorderLayer, setShowBorderLayer] = useState<boolean>(true);
   const [copiedId, setCopiedId] = useState<number | null>(null);
 
   const handleCopyGps = (coords: [number, number], index: number) => {
@@ -106,6 +112,113 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
       layerGroupRef.current.clearLayers();
     }
     const lg = layerGroupRef.current;
+
+    // 0. Render China Xinjiang National Border Line & Neighbor Countries
+    if (showBorderLayer) {
+      // Outer Soft Crimson Glow
+      const borderGlow = L.polyline(XINJIANG_BORDER_POLYLINE, {
+        color: '#e11d48',
+        weight: 6,
+        opacity: 0.35,
+        lineJoin: 'round',
+        lineCap: 'round',
+      });
+      lg.addLayer(borderGlow);
+
+      // Core Cartographic Dotted-Dash Border Line
+      const borderLine = L.polyline(XINJIANG_BORDER_POLYLINE, {
+        color: '#be123c',
+        weight: 2.8,
+        opacity: 0.95,
+        dashArray: '12, 6, 3, 6',
+        lineJoin: 'round',
+        lineCap: 'round',
+      });
+      borderLine.bindTooltip('🇨🇳 <b>中华人民共和国国界线 (中国新疆段)</b><br/><span style="color:#64748b;">全长约 5,600 km · 陆上接壤 8 个邻国</span>', { sticky: true });
+      lg.addLayer(borderLine);
+
+      // Inner White Accent Dash for high contrast against dark terrain/satellite tiles
+      const borderAccent = L.polyline(XINJIANG_BORDER_POLYLINE, {
+        color: '#ffffff',
+        weight: 1,
+        opacity: 0.7,
+        dashArray: '4, 18',
+        lineJoin: 'round',
+      });
+      lg.addLayer(borderAccent);
+
+      // Neighboring Country Badges (outside China)
+      NEIGHBOR_COUNTRIES.forEach((c) => {
+        const countryIcon = L.divIcon({
+          className: 'alt-neighbor-badge',
+          html: `
+            <div style="
+              display: inline-flex;
+              align-items: center;
+              gap: 4px;
+              background: rgba(15, 23, 42, 0.88);
+              color: #ffffff;
+              font-size: 10.5px;
+              font-weight: 800;
+              padding: 2.5px 7.5px;
+              border-radius: 9999px;
+              border: 1px solid rgba(255, 255, 255, 0.35);
+              box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+              white-space: nowrap;
+              pointer-events: none;
+            ">
+              <span>${c.flag}</span>
+              <span>${c.name}</span>
+            </div>
+          `,
+          iconSize: [110, 24],
+          iconAnchor: [55, 12],
+        });
+        const countryMarker = L.marker(c.coords, { icon: countryIcon, interactive: false });
+        lg.addLayer(countryMarker);
+      });
+
+      // Famous Border Landmarks
+      BORDER_PORT_LANDMARKS.forEach((bp) => {
+        const portIcon = L.divIcon({
+          className: 'alt-port-badge',
+          html: `
+            <div style="
+              display: inline-flex;
+              align-items: center;
+              gap: 3px;
+              background: #991b1b;
+              color: #ffffff;
+              font-size: 9.5px;
+              font-weight: 800;
+              padding: 2px 6px;
+              border-radius: 6px;
+              border: 1.5px solid #ffffff;
+              box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+              white-space: nowrap;
+              cursor: pointer;
+            ">
+              <span>🏛️</span>
+              <span>${bp.name}</span>
+            </div>
+          `,
+          iconSize: [90, 20],
+          iconAnchor: [45, 10],
+        });
+        const portMarker = L.marker(bp.coords, { icon: portIcon });
+        portMarker.bindPopup(`
+          <div style="font-family: system-ui; padding: 2px; min-width: 200px;">
+            <div style="display:flex;align-items:center;gap:4px;font-weight:800;color:#991b1b;font-size:13px;border-bottom:1px solid #f1f5f9;padding-bottom:4px;margin-bottom:4px;">
+              <span>🏛️</span>
+              <span>${bp.name}</span>
+            </div>
+            <div style="font-size:11px;color:#0284c7;font-weight:700;margin-bottom:2px;">📌 ${bp.neighbor} ${bp.elevation ? `· 海拔 ${bp.elevation}` : ''}</div>
+            <div style="font-size:11px;color:#475569;line-height:1.4;">${bp.desc}</div>
+          </div>
+        `);
+        lg.addLayer(portMarker);
+      });
+    }
 
     // 1. If All-Routes Overlay is toggled on, render other plans in high-saturation solid colors with glow & landmark badges
     if (showAllRoutesOverlay) {
@@ -384,7 +497,7 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
     } else {
       map.flyToBounds(selectedPlan.mapBounds, { padding: [50, 50], duration: 0.8 });
     }
-  }, [selectedPlan, allPlans, showAllRoutesOverlay, activeDayFilter, onSelectPlan]);
+  }, [selectedPlan, allPlans, showAllRoutesOverlay, showBorderLayer, activeDayFilter, onSelectPlan]);
 
   // 1. Initialize Map on Mount only ONCE
   useEffect(() => {
@@ -478,6 +591,21 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
 
           {/* Action Controls */}
           <div className="flex flex-wrap items-center gap-2">
+            {/* Border Layer Toggle */}
+            <button
+              onClick={() => setShowBorderLayer(!showBorderLayer)}
+              className={`inline-flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
+                showBorderLayer
+                  ? 'bg-rose-500/20 text-rose-300 border-rose-400/40 shadow-xs'
+                  : 'bg-white/10 text-slate-300 border-white/20 hover:bg-white/20'
+              }`}
+              title="显示/隐藏中国新疆国界线与周边 8 大邻国"
+            >
+              <span>🇨🇳</span>
+              <span className="hidden sm:inline">{showBorderLayer ? '高亮国界' : '隐藏国界'}</span>
+              <span className="sm:hidden">国界</span>
+            </button>
+
             {/* All routes overlay toggle */}
             <button
               onClick={() => setShowAllRoutesOverlay(!showAllRoutesOverlay)}
