@@ -88,5 +88,21 @@ export const officialSources: OfficialSource[] = [
     itineraryStandard: '预留 5–5.5h；16:30–17:30抵乌市留3h+缓冲',
     url: 'https://lxs.cncn.com/88804/n1009536',
     note: '给21:00还车预留3小时以上用于加油、洗车、拥堵及行李整理'
+  },
+  {
+    id: 's12',
+    section: '赛里木湖自驾 8/20 官方新规',
+    publicRef: '2026-08-20 起自驾按车收费 (5座120元/车)，提前 3 天自驾预约',
+    itineraryStandard: '10/1 开放抢约 10/4 自驾车辆配额，备好行驶证',
+    url: 'https://www.xjboz.gov.cn/xjboz/c125795/202608/80097089e11f4d4db3e3fa1760c3e443.shtml',
+    note: '博州人民政府网官方公告；名额每日设承载上限，需第一时间在“赛里木湖旅游”小程序办理'
+  },
+  {
+    id: 's13',
+    section: '阿禾公路无需办理边境通行证',
+    publicRef: '阿勒泰市融媒体 2026-05 官方提醒无需办理边防通行证',
+    itineraryStandard: '7座及以下 9:30–15:00 放行，凭身份证通行',
+    url: 'https://www.aksxw.com/sy/rdxw/xj/202605/t20260511_34373389.html',
+    note: '纠正网络旧攻略中的边防证旧说法；临行前2天向交警复核山区路况与天气管制'
   }
 ];
