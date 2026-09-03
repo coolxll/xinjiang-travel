@@ -1,5 +1,5 @@
 import React from 'react';
-import { Compass, MapPin, Calendar, Vote, Hotel, CheckSquare, FileText, Printer, Plane, Shuffle, ArrowLeft } from 'lucide-react';
+import { Compass, MapPin, Calendar, Vote, Hotel, CheckSquare, FileText, Printer, Plane, Shuffle, ArrowLeft, Layers } from 'lucide-react';
 
 interface NavbarProps {
   activeSection: string;
@@ -20,6 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'overview', label: '行程概览', icon: Compass },
     { id: 'bookings', label: '航班租车', icon: Plane },
     { id: 'map-section', label: '交互地图', icon: MapPin },
+    { id: 'modular-architecture', label: '4模块积木', icon: Layers },
     { id: 'roadbook', label: '每日路书', icon: Calendar },
     { id: 'decisions', label: '同行共识', icon: Vote },
     { id: 'lodging', label: '住宿策略', icon: Hotel },

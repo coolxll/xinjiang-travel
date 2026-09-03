@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import { HeroHeader } from './components/HeroHeader';
 import { BookingInfoCard } from './components/BookingInfoCard';
 import { InteractiveMap } from './components/InteractiveMap';
+import { ModularArchitectureVisualizer } from './components/ModularArchitectureVisualizer';
 import { DailyRoadbook } from './components/DailyRoadbook';
 import { DecisionMatrix } from './components/DecisionMatrix';
 import { LodgingStrategy } from './components/LodgingStrategy';
@@ -91,7 +92,7 @@ export const App: React.FC = () => {
     if (pageMode !== 'main') return;
 
     const handleScroll = () => {
-      const sections = ['overview', 'bookings', 'map-section', 'roadbook', 'decisions', 'lodging', 'checklist', 'sources'];
+      const sections = ['overview', 'bookings', 'map-section', 'modular-architecture', 'roadbook', 'decisions', 'lodging', 'checklist', 'sources'];
       const scrollPosition = window.scrollY + 100;
 
       for (const sectionId of sections) {
@@ -146,6 +147,7 @@ export const App: React.FC = () => {
             {/* 1. Hero Overview */}
             <HeroHeader
               onExploreMap={() => handleNavigate('map-section')}
+              onExploreModularArchitecture={() => handleNavigate('modular-architecture')}
               onExploreRoadbook={() => handleNavigate('roadbook')}
               onExploreDecisions={() => handleNavigate('decisions')}
               onExploreBookings={() => handleNavigate('bookings')}
@@ -158,21 +160,24 @@ export const App: React.FC = () => {
             {/* 3. Interactive Map */}
             <InteractiveMap />
 
-            {/* 4. Day-by-Day Roadbook with Rich Photos */}
+            {/* 4. 4-Module Architecture & 2N Elastic Pool Visualizer */}
+            <ModularArchitectureVisualizer />
+
+            {/* 5. Day-by-Day Roadbook with Rich Photos */}
             <DailyRoadbook />
 
-            {/* 5. Team Consensus & Voting Matrix with Imagery */}
+            {/* 6. Team Consensus & Voting Matrix with Imagery */}
             <DecisionMatrix
               onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
             />
 
-            {/* 6. Lodging & Cost Optimization */}
+            {/* 7. Lodging & Cost Optimization */}
             <LodgingStrategy />
 
-            {/* 7. Pre-Trip Checklist & Packing */}
+            {/* 8. Pre-Trip Checklist & Packing */}
             <PreTripChecklist />
 
-            {/* 8. Official Sources & References */}
+            {/* 9. Official Sources & References */}
             <OfficialSources />
           </>
         )}

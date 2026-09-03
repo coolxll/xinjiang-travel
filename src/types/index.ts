@@ -1,10 +1,18 @@
+export interface ModuleTag {
+  code: 'A' | 'B1' | 'B2' | 'C' | 'D1' | 'D2' | 'FIXED';
+  name: string; // e.g. "模块 A · 北上中继" | "模块 D1 · 自由余量" | "模块 B1 · 喀纳斯组合"
+  shortCode: string; // "模块 A" | "模块 B1" | "模块 B2" | "模块 C" | "模块 D1" | "模块 D2" | "固定锚点"
+  color: 'amber' | 'blue' | 'purple' | 'emerald' | 'slate';
+  description: string;
+}
+
 export interface ItineraryDay {
   id: string;
   dayNumber: number; // 0 for 9/26, 1 for 9/27 ... 10 for 10/6
   date: string; // e.g. "9/27"
   fullDate: string; // e.g. "2026年9月27日 (周日)"
-  title: string; // e.g. "乌鲁木齐 → S21 → 阿勒泰市"
-  tagline: string; // e.g. "穿越沙漠公路直达阿勒泰，抢占阿禾起点"
+  title: string; // e.g. "乌鲁木齐 → G30连霍高速 → 精河县"
+  tagline: string; // e.g. "09:00 酒店无缝接车，沿连霍高速一路向西..."
   wakeTime: string; // e.g. "08:30"
   departTime: string; // e.g. "09:30"
   travelDuration: string; // e.g. "约6–7小时"
@@ -15,6 +23,7 @@ export interface ItineraryDay {
   lodgingStrategy: string;
   highlights: string[];
   keyNotes: string;
+  moduleTag?: ModuleTag;
   driverBottomLine?: string;
   diningTips?: string;
   gasAndSupplyTips?: string;

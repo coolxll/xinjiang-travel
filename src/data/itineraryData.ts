@@ -17,6 +17,13 @@ export const itineraryDays: ItineraryDay[] = [
     distanceKm: 0,
     lodging: '星程乌鲁木齐天山国际机场迎宾路酒店 (已预订 ✅)',
     lodgingStrategy: '已锁定大床房 2 间 (到店付 ¥420.70 · 赠双早 · 9/25 23:00前可免费取消) · 22:00 落地后快速入住，次日 09:00 酒店门口无缝接收租车送达',
+    moduleTag: {
+      code: 'FIXED',
+      name: '起点锚定 · 航班集结',
+      shortCode: '固定锚点',
+      color: 'slate',
+      description: '9/26 深夜抵乌，入住迎宾路星程酒店'
+    },
     highlights: [
       '✈️ 14:55 搭乘天津航空 GS7588 从上海浦东国际机场 T2 准时起飞',
       '22:00 降落乌鲁木齐天山国际机场（原地窝堡），感受天山脚下清爽夜风',
@@ -47,6 +54,13 @@ export const itineraryDays: ItineraryDay[] = [
     distanceKm: 410,
     lodging: '星程精河连霍高速路口酒店 (已预订 ✅)',
     lodgingStrategy: '已锁定舒压大床房 2 间 (实付 ¥389.30 · 09/27 20:00前可免取 · 入住码: D7J2YJ) · 华住高性价比舒适休整，次日 1.5h 直达赛里木湖',
+    moduleTag: {
+      code: 'FIXED',
+      name: '西进坦途 · 精河前哨',
+      shortCode: '固定前哨',
+      color: 'slate',
+      description: '连霍高速 G30 坦途，入住精河星程酒店'
+    },
     highlights: [
       '🚗 09:00 租车店员送车至酒店门口，全车高清视频环绕验车（轮胎、底盘、备胎与随车工具）',
       '行驶在中国最长横向大动脉【G30 连霍高速】（全线八车道平坦平原高速，远眺天山雪峰）',
@@ -78,6 +92,13 @@ export const itineraryDays: ItineraryDay[] = [
     distanceKm: 180,
     lodging: '赛里木湖城际酒店 (已预订 ✅)',
     lodgingStrategy: '已锁定城际豪华大床房 2 间 (实付 ¥1,970.30 · 09/28 20:00前可免取 · 入住码: DBE2U8) · 位于新游客中心旁 500 米，德系高端湖畔度假体验',
+    moduleTag: {
+      code: 'FIXED',
+      name: '圣湖自驾 · 湖畔度假',
+      shortCode: '固定高光',
+      color: 'slate',
+      description: '开自己的车进景区自驾环湖，入住赛湖城际酒店'
+    },
     highlights: [
       '🚗 真正的自驾自由！凭 8/20 新规自驾预约直接开车进入景区，不坐公交区间车',
       '顺时针环湖 90km 自由自驾：月亮湾、三台草原、亲水滩、点将台、松树头',
@@ -100,7 +121,7 @@ export const itineraryDays: ItineraryDay[] = [
     dayNumber: 3,
     date: '9/29',
     fullDate: '2026年9月29日 (周二)',
-    title: '赛里木湖 → 模块A北上中继 → 奎屯 / 独山子',
+    title: '赛里木湖 → G30连霍高速 → 奎屯市 / 独山子',
     tagline: '上午领略赛湖晨曦，中午从容启程沿 G30 北上中继，下榻奎屯商务商圈',
     wakeTime: '08:30',
     departTime: '11:00 (依离湖节奏而定)',
@@ -109,14 +130,21 @@ export const itineraryDays: ItineraryDay[] = [
     distance: '约 300 km',
     distanceKm: 300,
     lodging: '奎屯市区高品质商务酒店 (待选定)',
-    lodgingStrategy: '【模块 A 北上中继】：视当天离开赛湖时间落脚奎屯，2间房约 ¥300~450，享受繁华商圈美食，为后续北上喀纳斯蓄力',
+    lodgingStrategy: '【模块 A 北上中继 1N】：视离开赛湖时间落脚奎屯，2间房约 ¥300~450，享受繁华商圈美食，为后续北上喀纳斯蓄力',
+    moduleTag: {
+      code: 'A',
+      name: '模块 A · 北上中继 (1N)',
+      shortCode: '模块 A',
+      color: 'amber',
+      description: '离开赛湖后的北上中转站，下榻奎屯现代商圈，休整蓄力'
+    },
     highlights: [
       '清晨在赛里木湖畔看晨雾日出，观赏天鹅在金色波光中戏水',
       '依节奏从容离开赛湖，沿连霍高速 G30 驶向北疆金三角枢纽奎屯',
       '途中经过五台服务区休息补给，感受天山北坡荒原辽阔',
       '傍晚抵达奎屯市区，享受现代城市舒适洗浴与正宗大盘鸡大餐'
     ],
-    keyNotes: '【模块 A 北上中继 1N】：若离开赛湖早亦可顺延挺进克拉玛依/乌尔禾；主线宿奎屯，节奏极其从容。',
+    keyNotes: '【模块 A 架构定位】：赛湖出来后的第一晚中继，消化 300km 高速；若离湖早也可顺延至克拉玛依/乌尔禾。',
     driverBottomLine: '高速公路行驶平坦轻松，注意安全巡航。',
     diningTips: '晚上在奎屯品尝特色沙湾大盘鸡、椒麻鸡、烤包子、老牌拌面。',
     gasAndSupplyTips: '奎屯市区加油洗车极为便利，把车辆外观清洗干净。',
@@ -139,9 +167,16 @@ export const itineraryDays: ItineraryDay[] = [
     distance: '约 240 km',
     distanceKm: 240,
     lodging: '乌尔禾品质度假酒店 / 克拉玛依酒店 (待选定)',
-    lodgingStrategy: '【模块 D1 自由余量】：国庆前夕提前进驻乌尔禾（2间约 ¥300~450），避开国庆大潮，次日直达布尔津',
+    lodgingStrategy: '【模块 D1 自由余量 1N】：国庆前夕提前进驻乌尔禾（2间约 ¥300~450），避开国庆大潮，次日直达布尔津',
+    moduleTag: {
+      code: 'D1',
+      name: '模块 D1 · 自由余量 (1N)',
+      shortCode: '模块 D1',
+      color: 'emerald',
+      description: '前置弹性插板：独山子大峡谷 + 乌尔禾魔鬼城，避开国庆人潮'
+    },
     highlights: [
-      '【模块 D1 自由余量】：上午打卡【独山子大峡谷】（天山雪水冲刷的亿年大地裂缝、悬崖秋千与玻璃桥）',
+      '【模块 D1 插板】：上午打卡【独山子大峡谷】（天山雪水冲刷的亿年大地裂缝、悬崖秋千与玻璃桥）',
       '沿奎阿高速北上，穿越“百里油田、磕头机林立”的克拉玛依工业奇观',
       '【随缘停靠】傍晚探访【乌尔禾世界魔鬼城】（百万年风蚀雅丹，落日下如异星世界）',
       '入住乌尔禾小镇，享受安静宁谧的戈壁小镇之夜'
@@ -170,6 +205,13 @@ export const itineraryDays: ItineraryDay[] = [
     distanceKm: 220,
     lodging: '布尔津县城高星级品质酒店 (待选定)',
     lodgingStrategy: '【模块 B1 喀纳斯组合】：国庆当天别人在景区排队挤大巴，你们在布尔津高星级酒店舒适休整（2间约 ¥400~500），为次日一早进喀纳斯蓄满精力',
+    moduleTag: {
+      code: 'B1',
+      name: '模块 B1 · 喀纳斯黄金组合 (2N之1)',
+      shortCode: '模块 B1',
+      color: 'blue',
+      description: '国庆当天逆向错峰，进驻童话边城布尔津休整，次日 2h 入山'
+    },
     highlights: [
       '🇨🇳 国庆黄金周第一天，全员睡到自然醒，逆向错开大客流',
       '沿宽阔平坦的奎阿高速向北畅快自驾，天高地阔',
@@ -200,6 +242,13 @@ export const itineraryDays: ItineraryDay[] = [
     distanceKm: 140,
     lodging: '贾登峪综合服务区度假酒店 (待选定 · 仅住1晚)',
     lodgingStrategy: '【模块 B2 喀纳斯组合】：大行李留在自驾车后备箱，大巴轻装游三湾，傍晚回贾登峪入住（2间约 ¥600~800），彻底不住村内天价破木屋，单日净省数千元！',
+    moduleTag: {
+      code: 'B2',
+      name: '模块 B2 · 喀纳斯核心三湾 (2N之2)',
+      shortCode: '模块 B2',
+      color: 'blue',
+      description: '第一批进喀纳斯畅游三湾湖区，傍晚宿贾登峪大本营仅 1 晚'
+    },
     highlights: [
       '08:30 刷二代身份证第一批进喀纳斯，避开团队大客流',
       '深度游览喀纳斯标志性三湾：神仙湾晨雾、月亮湾碧绿大拐弯、卧龙湾恐龙岛',
@@ -231,6 +280,13 @@ export const itineraryDays: ItineraryDay[] = [
     distanceKm: 275,
     lodging: '阿勒泰市市区高品质酒店 (待选定 · 至少住1晚)',
     lodgingStrategy: '【模块 C 阿勒泰 1N】：开完阿禾公路出来后直接入住阿勒泰市（2间约 ¥400~500），高标准供暖热水洗去风尘，吃地道美食！',
+    moduleTag: {
+      code: 'C',
+      name: '模块 C · 阿勒泰大休整 (1N)',
+      shortCode: '模块 C',
+      color: 'purple',
+      description: '翻越阿禾天路平替禾木后，出山至少住 1 晚，舒适大休整'
+    },
     highlights: [
       '🔥 深度自驾体验新晋自驾天花板【G681 阿禾公路】（全长 209.45km）',
       '从贾登峪经禾贾公路直接顺接阿禾公路，开自己的车穿行阿尔泰山脉腹地',
@@ -253,7 +309,7 @@ export const itineraryDays: ItineraryDay[] = [
     dayNumber: 8,
     date: '10/4',
     fullDate: '2026年10月4日 (周日)',
-    title: '阿勒泰市 → 模块D2自由余量 → 富蕴 / 可可托海',
+    title: '阿勒泰市 → G216国道 → 富蕴 / 可可托海大峡谷',
     tagline: '探访额尔齐斯大峡谷与神钟山，或打卡乌伦古湖海上魔鬼城，宿富蕴县城',
     wakeTime: '08:30',
     departTime: '09:30',
@@ -262,9 +318,16 @@ export const itineraryDays: ItineraryDay[] = [
     distance: '约 260 km',
     distanceKm: 260,
     lodging: '富蕴县城 / 可可托海镇品质酒店 (待选定)',
-    lodgingStrategy: '【模块 D2 自由余量】：利用第 2 个自由余量探秘可可托海与额尔齐斯大峡谷，宿富蕴县城（2间约 ¥300~400），次日从容返回乌市',
+    lodgingStrategy: '【模块 D2 自由余量 1N】：利用第 2 个自由余量探秘可可托海与额尔齐斯大峡谷，宿富蕴县城（2间约 ¥300~400），次日从容返回乌市',
+    moduleTag: {
+      code: 'D2',
+      name: '模块 D2 · 自由余量 (1N)',
+      shortCode: '模块 D2',
+      color: 'emerald',
+      description: '后置弹性插板：额尔齐斯大峡谷 + 神钟山 + 三号矿坑地质传奇'
+    },
     highlights: [
-      '【模块 D2 自由余量】：沿 G216 国道驶向富蕴与【可可托海风景区】',
+      '【模块 D2 插板】：沿 G216 国道驶向富蕴与【可可托海风景区】',
       '漫步额尔齐斯大峡谷，打卡标志性花岗岩奇峰【神钟山】与额河清流',
       '探访三号矿坑地质奇迹，感受阿尔泰东脉矿业传奇',
       '【备选】：亦可选择前往乌伦古湖看“海上魔鬼城”水上雅丹或在阿勒泰市连住深度休闲'
@@ -293,6 +356,13 @@ export const itineraryDays: ItineraryDay[] = [
     distanceKm: 430,
     lodging: '星程乌鲁木齐天山国际机场迎宾路酒店 (已预订 ✅)',
     lodgingStrategy: '已锁定大床房 2 间 (实付 ¥491.30 · 10/05 20:00前可免取 · 入住码: DG223B) · 21:00 机场还车后无缝入住，次日清晨 05:00 快速抵达候机楼，100% 稳妥返程！',
+    moduleTag: {
+      code: 'FIXED',
+      name: '终点锚定 · 21:00还车',
+      shortCode: '固定终点',
+      color: 'slate',
+      description: '南下抵乌留足半天，21:00 前机场还车，宿迎宾路星程'
+    },
     highlights: [
       '沿 S21 沙漠高速或 G216 从容南下穿越准噶尔盆地返回乌鲁木齐',
       '下午 15:30 抵达乌鲁木齐，漫步新疆国际大巴扎、采购特色伴手礼',
@@ -324,6 +394,13 @@ export const itineraryDays: ItineraryDay[] = [
     distanceKm: 0,
     lodging: '温馨的家',
     lodgingStrategy: '返回温暖的家，整理旅行摄影大片与视频',
+    moduleTag: {
+      code: 'FIXED',
+      name: '圆满收官 · 破晓返沪',
+      shortCode: '固定航班',
+      color: 'slate',
+      description: '07:00 GS7587 航班飞越天山，13:45 平安抵沪'
+    },
     highlights: [
       '清晨从迎宾路星程酒店乘 5 分钟免费班车或步行抵达 T2 航站楼',
       '05:00-06:00 办理行李托运、安检与登机手续',

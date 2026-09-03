@@ -608,8 +608,11 @@ export const InteractiveMap: React.FC = () => {
                   {sched.date}
                 </span>
                 <span>{sched.shortLabel}</span>
+                {sched.dayNumber === 7 && (
+                  <span className="text-[10px] bg-purple-800/90 px-1 rounded text-white font-mono">阿禾天路</span>
+                )}
                 {sched.dayNumber === 2 && (
-                  <span className="text-[10px] bg-emerald-800/80 px-1 rounded text-white font-mono">天路</span>
+                  <span className="text-[10px] bg-emerald-800/90 px-1 rounded text-white font-mono">赛湖自驾</span>
                 )}
               </button>
             );

@@ -7,6 +7,7 @@ interface HeroHeaderProps {
   onExploreRoadbook: () => void;
   onExploreDecisions: () => void;
   onExploreBookings: () => void;
+  onExploreModularArchitecture?: () => void;
   onExploreAlternatives?: () => void;
 }
 
@@ -15,6 +16,7 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
   onExploreRoadbook,
   onExploreDecisions,
   onExploreBookings,
+  onExploreModularArchitecture,
   onExploreAlternatives,
 }) => {
   return (
@@ -27,7 +29,7 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
         {/* Banner Pill - Non-wrapping and clean */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-300/40 text-amber-900 text-xs sm:text-sm font-semibold mb-6 shadow-2xs">
           <Sparkles className="w-4 h-4 text-amber-600 animate-pulse flex-shrink-0" />
-          <span className="whitespace-nowrap">2026 金秋北疆 · G681 阿禾公路新版自驾路书</span>
+          <span className="whitespace-nowrap">2026 金秋北疆 · 4 模块积木化 + 2N 全局弹性池自驾路书</span>
         </div>
 
         {/* Hero Title & Subtitle */}
@@ -46,13 +48,21 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
 
             {/* Quick Action Buttons */}
             <div className="flex flex-wrap gap-3 mb-8">
+              {onExploreModularArchitecture && (
+                <button
+                  onClick={onExploreModularArchitecture}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-slate-900 to-indigo-950 text-white text-sm font-bold shadow-md shadow-slate-900/20 hover:bg-slate-800 transition-all hover:translate-y-[-1px] ring-1 ring-amber-400/30"
+                >
+                  <span>🧩 4 模块积木图解</span>
+                  <ArrowRight className="w-4 h-4 text-amber-400" />
+                </button>
+              )}
               <button
                 onClick={onExploreRoadbook}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white text-sm font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-amber-800 transition-all hover:translate-y-[-1px]"
               >
                 <Calendar className="w-4 h-4" />
                 查看每日路书时刻
-                <ArrowRight className="w-4 h-4" />
               </button>
               {onExploreAlternatives && (
                 <button
@@ -64,10 +74,10 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               )}
               <button
                 onClick={onExploreBookings}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold shadow-sm hover:bg-slate-800 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 text-slate-800 text-sm font-bold shadow-xs hover:bg-slate-200 border border-slate-300 transition-all"
               >
-                <Plane className="w-4 h-4 text-sky-400" />
-                航班与租车中枢
+                <Plane className="w-4 h-4 text-sky-600" />
+                航班与租车
               </button>
               <button
                 onClick={onExploreMap}
