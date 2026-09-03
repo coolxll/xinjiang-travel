@@ -105,13 +105,13 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
           <div className="bg-amber-50/80 p-4 rounded-xl border border-amber-200">
             <h2 className="font-bold text-amber-900 text-sm mb-2 flex items-center gap-1.5">
               <Sparkles className="w-4 h-4 text-amber-600" />
-              同行人 4 大核心原则速览 (公路自由版)
+              同行人 4 大核心原则速览 (4 模块 + 2N 弹性池架构)
             </h2>
             <ul className="list-disc list-inside space-y-1 text-xs text-amber-950">
-              <li><strong>9/28 阿禾公路全景平替禾木：</strong> 全长209.45km，饱览90%以上阿尔泰秋色，彻底不进村排队挤大巴，直通禾贾公路抵贾登峪。</li>
-              <li><strong>提前出山，拒绝挨宰：</strong> 9/28 贾登峪住 1 晚，9/29 玩完三湾傍晚撤至布尔津，城市品质酒店舒适省大钱。</li>
-              <li><strong>沿途景点随缘偶遇：</strong> 魔鬼城、五彩滩、大峡谷顺路随缘停靠，不设死板打卡，每天车程轻松。</li>
-              <li><strong>独库公路 A/B 明确 + 21:00 还车：</strong> 10/2 晚核验路况决定独库北段 (Plan A) 或连霍美食 (Plan B)，10/5 留足半天还车缓冲。</li>
+              <li><strong>先西进赛湖，90km 自驾环湖：</strong> 9/27 直达精河，9/28 开自己的车进赛里木湖环湖赏落日，宿湖畔城际酒店。</li>
+              <li><strong>北上中继与国庆错峰：</strong> 9/29 奎屯中继，9/30 乌尔禾魔鬼城，10/1 错峰入住童话边城布尔津吃烤狗鱼。</li>
+              <li><strong>喀纳斯核心 + G681 阿禾天路平替禾木：</strong> 10/2 第一批进喀纳斯三湾；10/3 穿越 209km 阿禾公路全景平替禾木，直达阿勒泰市大休整！</li>
+              <li><strong>全局 2N 自由弹性池 + 21:00 还车：</strong> 10/4 富蕴/可可托海深度游，10/5 留足半天还车缓冲，入住机场迎宾路星程酒店。</li>
             </ul>
           </div>
 
@@ -148,7 +148,7 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
 
           {/* Lodging Summary */}
           <div>
-            <h2 className="font-bold text-slate-900 text-sm mb-3">🏨 5 大住宿节点与选址逻辑</h2>
+            <h2 className="font-bold text-slate-900 text-sm mb-3">🏨 住宿节点与选址逻辑</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               {lodgingOptions.map((opt) => (
                 <div key={opt.id} className="bg-white p-3 rounded-xl border border-slate-200">
@@ -164,9 +164,9 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
           <div className="bg-rose-50 p-4 rounded-xl border border-rose-200 text-xs text-rose-950">
             <h2 className="font-bold text-rose-900 text-sm mb-1">⚠️ 关键驾驶底线与紧急联系</h2>
             <p className="leading-relaxed mb-2">
-              1. 9/27在阿勒泰市区将油箱完全加满！阿禾山区无大型补能站。<br />
-              2. 遇雨雪、结冰或交警管制，坚决走布尔津备选主干道，安全第一。<br />
-              3. 10/5精河出发目标16:30–17:30抵达乌市，21:00还车留足3.5小时机动缓冲，住机场周边。
+              1. 9/25 准时预约 9/28 赛里木湖自驾名额；9/27 乌鲁木齐取车后拍好行驶证！<br />
+              2. 10/3 进阿禾公路前在贾登峪加满油箱；遇雨雪或管制走布尔津备用通道，安全第一。<br />
+              3. 10/5 南下返乌 21:00 还车留足 3.5 小时机动缓冲，入住机场迎宾路星程酒店锁定次日 07:00 早班机。
             </p>
             <p className="text-[11px] text-rose-800 font-mono">
               救援电话：高速救援 12122 ｜ 喀纳斯旅游急救 0906-6524464 ｜ 赛里木湖服务 0909-7659990

@@ -40,8 +40,8 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               </span>
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
-              主线：<strong>乌鲁木齐 → S21沙漠高速 → 阿勒泰市 → G681阿禾公路 (平替禾木) → 贾登峪/喀纳斯 → 布尔津 → 奎屯 → 赛里木湖 → 独库/精河 → 乌鲁木齐</strong>。
-              深度整合实际换乘、山区弹性、住宿降本与舒适节奏，专为同行队友打造的清晰行动指南。
+              主线：<strong>乌鲁木齐 → 精河 → 赛里木湖自驾 → 奎屯 (中继) → 乌尔禾 (余量) → 布尔津 → 喀纳斯核心 → G681阿禾天路 (平替禾木) → 阿勒泰市 → 富蕴/可可托海 → 乌鲁木齐</strong>。
+              4 大积木模块 + 2N 全局弹性池架构，深度整合实际换乘、山区弹性、住宿降本与舒适节奏，专为同行队友打造的清晰行动指南。
             </p>
 
             {/* Quick Action Buttons */}

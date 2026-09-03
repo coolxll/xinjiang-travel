@@ -83,8 +83,7 @@ export const AlternativePlansPage: React.FC<AlternativePlansPageProps> = ({ onBa
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 max-w-4xl leading-relaxed mb-8">
-              当前主规划（方案 0：阿禾公路 + 禾木喀纳斯 + 赛里木湖大环线）最大的痛点是 <strong className="text-amber-300">10/2 贾登峪到奎屯约 600 公里（8～9 小时）的超长途转场</strong>，且赛湖往返拉扯大、国庆阿勒泰住宿极贵并伴随降雪封路风险。
-              在此提供 4 套针对性替代方案，支持同底图交互比对。
+              当前主线规划已全面升级为 <strong className="text-amber-300">4 模块积木化 + 2N 全局弹性池架构</strong>（先西进赛湖自驾 ➔ 北上中继 ➔ 喀纳斯核心三湾 ➔ 阿禾天路平替禾木 ➔ 阿勒泰市 ➔ 弹性余量富蕴/可可托海），单日车程仅 2～4 小时。在此亦提供多种不同探索偏好的备选方案，支持同底图交互比对。
             </p>
 
             {/* Locked Constraints Alert Cards */}
