@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroHeader } from './components/HeroHeader';
 import { BookingInfoCard } from './components/BookingInfoCard';
@@ -8,9 +8,20 @@ import { DecisionMatrix } from './components/DecisionMatrix';
 import { LodgingStrategy } from './components/LodgingStrategy';
 import { PreTripChecklist } from './components/PreTripChecklist';
 import { OfficialSources } from './components/OfficialSources';
-import { PrintRoadbookModal } from './components/PrintRoadbookModal';
-import { AlternativePlansPage } from './components/AlternativePlansPage';
 import { Footer } from './components/Footer';
+
+// Dynamic lazy imports for heavy standalone pages & modals to optimize bundle size
+const AlternativePlansPage = lazy(() =>
+  import('./components/AlternativePlansPage').then((m) => ({
+    default: m.AlternativePlansPage,
+  }))
+);
+
+const PrintRoadbookModal = lazy(() =>
+  import('./components/PrintRoadbookModal').then((m) => ({
+    default: m.PrintRoadbookModal,
+  }))
+);
 
 export const App: React.FC = () => {
   const [pageMode, setPageMode] = useState<'main' | 'alternatives'>(() => {
@@ -70,7 +81,7 @@ export const App: React.FC = () => {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   };
@@ -114,12 +125,23 @@ export const App: React.FC = () => {
       {/* Main Content Areas */}
       <main>
         {pageMode === 'alternatives' ? (
-          /* Dedicated Alternative Plans & Route Visualization Page */
-          <AlternativePlansPage 
-            onBackToMain={() => handleSwitchPageMode('main')}
-          />
+          /* Dedicated Alternative Plans & Route Visualization Page (Lazy Loaded) */
+          <Suspense
+            fallback={
+              <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white p-8">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin" />
+                  <span className="text-sm font-bold text-slate-300">正在加载 4 套备选方案高精度全景数据...</span>
+                </div>
+              </div>
+            }
+          >
+            <AlternativePlansPage
+              onBackToMain={() => handleSwitchPageMode('main')}
+            />
+          </Suspense>
         ) : (
-          /* Standard Baseline Plan 0 (Loop) Sections */
+          /* Standard Baseline Highway Freedom Sections */
           <>
             {/* 1. Hero Overview */}
             <HeroHeader
@@ -140,7 +162,7 @@ export const App: React.FC = () => {
             <DailyRoadbook />
 
             {/* 5. Team Consensus & Voting Matrix with Imagery */}
-            <DecisionMatrix 
+            <DecisionMatrix
               onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
             />
 
@@ -159,11 +181,15 @@ export const App: React.FC = () => {
       {/* Footer */}
       <Footer />
 
-      {/* Offline / Print Modal */}
-      <PrintRoadbookModal
-        isOpen={isPrintModalOpen}
-        onClose={() => setIsPrintModalOpen(false)}
-      />
+      {/* Offline / Print Modal (Lazy Loaded) */}
+      {isPrintModalOpen && (
+        <Suspense fallback={null}>
+          <PrintRoadbookModal
+            isOpen={isPrintModalOpen}
+            onClose={() => setIsPrintModalOpen(false)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 };
