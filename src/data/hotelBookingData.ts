@@ -1,4 +1,4 @@
-// 新疆 9 天 10 晚逐日真实酒店预订跟踪数据
+// 新疆 9 天 10 晚逐日真实酒店预订跟踪数据 (公路自由版 · 独库 A/B 双轨)
 
 export interface DailyHotelBooking {
   nightIndex: number; // 0 to 9
@@ -82,152 +82,140 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     date: '9/28',
     fullDate: '2026年9月28日 (周一)',
     stayText: '9/28 入住 ➔ 9/29 离店 (1晚)',
-    cityRegion: '禾木村内 (老村/新村)',
+    cityRegion: '贾登峪综合服务区 (喀纳斯正门)',
     status: 'pending',
-    statusBadge: '⏳ 待预订 (金秋核心)',
-    hotelName: '禾木村内图瓦风情小木屋 (待选定)',
-    roomType: '木屋标间 / 大床房 2间',
+    statusBadge: '⏳ 待预订 (降本关键)',
+    hotelName: '贾登峪综合服务区度假酒店 (待选定 · 仅住1晚)',
+    roomType: '标准双人间 / 大床房 2间',
     roomCount: 2,
-    targetBudget: '金秋旺季约 ¥800–1,500/间',
+    targetBudget: '约 ¥350–450/间 (2间总约 ¥700~900)',
     payType: '待预订',
-    notes: '核心体验图瓦木屋秋色、日落炊烟与清晨观景台晨雾。提前联系民宿老板确认区间车下车点与行李电瓶车接驳。',
-    features: ['日落炊烟与晨雾摄影', '图瓦原木木屋风情', '需提早确认行李接驳']
+    notes: '【彻底破除村内天价】：阿禾公路出来后把大行李留车里，傍晚直接自驾开到贾登峪入住，免除村内 ¥2000~4000 溢价，次日一早步行直达喀纳斯门票站！',
+    features: ['距离喀纳斯换乘站仅数百米', '大行李全程放后备箱', '立省数千元木屋溢价']
   },
   {
     nightIndex: 3,
     date: '9/29',
     fullDate: '2026年9月29日 (周二)',
     stayText: '9/29 入住 ➔ 9/30 离店 (1晚)',
-    cityRegion: '禾木村内 或 禾木门票站入口服务区',
+    cityRegion: '布尔津县城 (额尔齐斯河畔)',
     status: 'pending',
-    statusBadge: '⏳ 待预订 (弹性策略)',
-    hotelName: '禾木门票站入口服务区酒店 或 续住村内 (待比价)',
-    roomType: '标间 / 大床房 2间',
+    statusBadge: '⏳ 待预订 (提前出山)',
+    hotelName: '布尔津县城高星级品质酒店 (待选定)',
+    roomType: '高品质标间 / 大床房 2间',
     roomCount: 2,
-    targetBudget: '入口服务区约 ¥300–500/间 (可省千元预算)',
+    targetBudget: '约 ¥200–300/间 (2间总约 ¥400~600)',
     payType: '待预订',
-    notes: '【降本提效策略】：第 2 晚白天游玩完毕后，若傍晚搬至门票站入口服务区，次日清晨可直接自驾开往贾登峪，免去 9/30 清晨出村排队 1 小时。',
-    features: ['避开清晨出村大拥堵', '每间立省 800-1500元', '大行李留在车内极轻便']
+    notes: '【提前出山 · 城市品质】：玩完喀纳斯三湾后傍晚从容下撤到布尔津，住高星级城市酒店，房间宽敞供暖充足，晚上河堤夜市吃正宗额尔齐斯河烤狗鱼！',
+    features: ['高星级城市酒店品质', '河堤夜市美食汇聚', '提前吃掉南下 140km 山路']
   },
   {
     nightIndex: 4,
     date: '9/30',
     fullDate: '2026年9月30日 (周三)',
-    stayText: '9/30 入住 ➔ 10/1 离店 (连住第1晚)',
-    cityRegion: '贾登峪综合服务区 (喀纳斯大门)',
+    stayText: '9/30 入住 ➔ 10/1 离店 (1晚)',
+    cityRegion: '奎屯市区 (北疆金三角枢纽)',
     status: 'pending',
-    statusBadge: '⏳ 待预订 (国庆前夜)',
-    hotelName: '贾登峪综合服务区度假酒店 (待选定)',
-    roomType: '标间 / 大床房 2间',
+    statusBadge: '⏳ 待预订 (避峰休整)',
+    hotelName: '奎屯市现代商务品质酒店 (待选定)',
+    roomType: '舒适标间 / 大床房 2间',
     roomCount: 2,
-    targetBudget: '约 ¥400–700/间',
+    targetBudget: '约 ¥180–250/间 (2间总约 ¥350~500)',
     payType: '待预订',
-    notes: '贾登峪是喀纳斯景区的门票与换乘中枢。连住贾登峪 2 晚无需每天收拾大件行李，车辆直接停在酒店停车场。',
-    features: ['喀纳斯换乘站几百米', '连住免去搬家折腾', '自驾车直接停在楼下']
+    notes: '沿奎阿高速从容南下，途中随缘偶遇乌尔禾魔鬼城，傍晚抵达奎屯享受现代商圈大盘鸡与舒适洗浴，避开国庆前夕景区天价。',
+    features: ['现代城市商圈繁华', '全线平坦高速公路', '洗车补给极为便利']
   },
   {
     nightIndex: 5,
     date: '10/1',
-    fullDate: '2026年10月1日 (周四·国庆)',
-    stayText: '10/1 入住 ➔ 10/2 离店 (连住第2晚)',
-    cityRegion: '贾登峪综合服务区 (喀纳斯大门)',
+    fullDate: '2026年10月1日 (周四 · 国庆节)',
+    stayText: '10/1 入住 ➔ 10/2 离店 (1晚)',
+    cityRegion: '博乐市区 / 精河县城',
     status: 'pending',
-    statusBadge: '⏳ 待预订 (国庆首夜)',
-    hotelName: '贾登峪综合服务区度假酒店 (连住第2晚)',
+    statusBadge: '⏳ 待预订 (国庆错峰)',
+    hotelName: '博乐市 / 精河县城高评分酒店 (待选定)',
     roomType: '标间 / 大床房 2间',
     roomCount: 2,
-    targetBudget: '连住同酒店',
+    targetBudget: '约 ¥130–200/间 (2间总约 ¥250~400)',
     payType: '待预订',
-    notes: '国庆首日全天深度畅游喀纳斯三湾与观鱼台。当晚仍住贾登峪，次日 10/2 清晨从贾登峪南下奎屯比禾木出发少开 1.5–2 小时山路！',
-    features: ['全天喀纳斯深度游玩', '次日南下少开1.5h山路', '避免国庆第一天出村拥堵']
+    notes: '【国庆黄金周逆向错峰】：别人在喀纳斯排队 2 小时，你们在连霍高速上轻松自驾独山子大峡谷与大地裂缝，住博乐/精河物美价廉。',
+    features: ['国庆当天完全避开人潮', '物价亲民物美价廉', '备战次日赛里木湖自驾']
   },
   {
     nightIndex: 6,
     date: '10/2',
     fullDate: '2026年10月2日 (周五)',
     stayText: '10/2 入住 ➔ 10/3 离店 (1晚)',
-    cityRegion: '奎屯市市区',
+    cityRegion: '赛里木湖东门营地 或 精河县城',
     status: 'pending',
-    statusBadge: '⏳ 待预订 (长途休整)',
-    hotelName: '奎屯市区高品质商务/星级酒店 (待选定)',
-    roomType: '标间 / 大床房 2间',
+    statusBadge: '⏳ 待预订 (圣湖自驾)',
+    hotelName: '赛里木湖东门星空营地 或 精河品质酒店 (待选定)',
+    roomType: '特色营房 / 标间 2间',
     roomCount: 2,
-    targetBudget: '约 ¥200–350/间 · 2间约 ¥400–700',
+    targetBudget: '营地约 ¥400/间 ｜ 精河约 ¥180/间',
     payType: '待预订',
-    notes: '经历贾登峪至奎屯长途转场后入住城市酒店大休整，享受成熟的餐饮美食物资与舒适供暖，为后半程赛湖蓄力。',
-    features: ['长途转场后舒适休整', '奎屯成熟美食餐饮', '高性价比城市标间']
+    notes: '开自己的车进景区顺时针 90km 自驾环湖，打卡果子沟大桥壮丽日落。今晚在酒店查看新疆交警最新路况，决定次日执行独库 Plan A 或 Plan B！',
+    features: ['90km 自由自驾环湖', '果子沟大桥壮丽日落', '独库 A/B 关键决策节点']
   },
   {
     nightIndex: 7,
     date: '10/3',
     fullDate: '2026年10月3日 (周六)',
     stayText: '10/3 入住 ➔ 10/4 离店 (1晚)',
-    cityRegion: '赛里木湖东门营地 / 湖畔品质酒店',
+    cityRegion: 'Plan A: 那拉提镇 ｜ Plan B: 精河县城',
     status: 'pending',
-    statusBadge: '⏳ 待预订 (湖畔精华)',
-    hotelName: '赛里木湖东门营地或湖景酒店 (待选定)',
-    roomType: '湖景标间 / 房车营地 2间',
+    statusBadge: '⏳ 待预订 (独库前哨)',
+    hotelName: '那拉提镇度假酒店 (Plan A) 或 精河品质酒店 (Plan B)',
+    roomType: '舒适标间 / 大床房 2间',
     roomCount: 2,
-    targetBudget: '约 ¥600–1,200/间',
+    targetBudget: '那拉提约 ¥250–350/间 ｜ 精河约 ¥150/间',
     payType: '待预订',
-    notes: '【严格只住1晚策略】：10/3 下午顺光看日落 + 10/4 上午看晨光，拆开玩已覆盖 95% 赛湖精华，既省钱又避免在湖区审美疲劳。',
-    features: ['下午顺光环湖南段', '次日晨光环湖北段', '只住1晚控预算']
+    notes: '若独库通车（Plan A）住那拉提镇备战次日英雄天路；若独库封路（Plan B）住精河县城享受霍尔果斯国门与地道美食。',
+    features: ['独库通车则住那拉提', '独库封路则住精河', '灵活机动绝不冒险']
   },
   {
     nightIndex: 8,
     date: '10/4',
     fullDate: '2026年10月4日 (周日)',
     stayText: '10/4 入住 ➔ 10/5 离店 (1晚)',
-    cityRegion: '精河县城',
+    cityRegion: 'Plan A: 独山子/奎屯 ｜ Plan B: 昌吉市区',
     status: 'pending',
-    statusBadge: '⏳ 待预订 (降本中继)',
-    hotelName: '精河县城高评分品质酒店 (待选定)',
-    roomType: '标间 / 大床房 2间',
+    statusBadge: '⏳ 待预订 (英雄凯旋)',
+    hotelName: '奎屯市高品质酒店 (Plan A) 或 昌吉市区酒店 (Plan B)',
+    roomType: '商务标间 / 大床房 2间',
     roomCount: 2,
-    targetBudget: '约 ¥180–260/间 · 大幅降本',
+    targetBudget: '约 ¥180–220/间 (2间总约 ¥350~450)',
     payType: '待预订',
-    notes: '【降本提效中继】：10/4 下午 15:00 撤出赛湖开往精河（约 150km），房价只有赛湖的三分之一，且将 10/5 进乌车程缩短至 420km。',
-    features: ['房价仅赛湖三分之一', '缩减次日返乌车程', '为还车预留3.5h缓冲']
+    notes: 'Plan A 独库北段翻越哈希勒根达坂出山口宿奎屯；Plan B 连霍高速沙湾大盘鸡后宿昌吉，距乌鲁木齐机场仅 40km，极度从容。',
+    features: ['独库北段英雄凯旋', '距离乌市还车点仅1–2小时', '为次日还车留足充裕缓冲']
   },
   {
     nightIndex: 9,
     date: '10/5',
     fullDate: '2026年10月5日 (周一)',
-    stayText: '10/5 入住 ➔ 10/6 离店 (1晚)',
-    cityRegion: '乌鲁木齐天山国际机场周边',
+    stayText: '10/5 入住 ➔ 10/6 清晨退房 (1晚)',
+    cityRegion: '乌鲁木齐 (天山国际机场周边接驳)',
     status: 'pending',
-    statusBadge: '⏳ 待预订 (早班机保障)',
-    hotelName: '乌鲁木齐天山国际机场接驳酒店 (待选定)',
-    roomType: '标间 / 大床房 2间',
+    statusBadge: '⏳ 待预订 (锁定返程)',
+    hotelName: '乌鲁木齐天山国际机场周边 / 航站楼接驳酒店 (待选定)',
+    roomType: '大床房 / 标间 2间',
     roomCount: 2,
-    targetBudget: '约 ¥200–300/间 · 赠早班送机',
+    targetBudget: '约 ¥150–200/间 (2间总约 ¥300~400)',
     payType: '待预订',
-    notes: '10/5 傍晚抵乌洗车加油，21:00 准时完成验车还车后入住机场旁酒店，确保 10/6 清晨 05:00 轻松抵达 T2 航站楼搭乘 07:00 早班机。',
-    features: ['21:00还车后直接入住', '距离T2航站楼5分钟车程', '10/6早班机100%稳妥']
+    notes: '【极其关键 · 锁定次日 07:00 早班机】：21:00 前完成机场验车交接并入住接驳酒店，全员 10/6 清晨 05:00 步行或 5 分钟班车直达 T2 航站楼，100% 稳妥返程！',
+    features: ['21:00 完成还车交接', '5分钟直达 T2 航站楼', '100% 稳妥保障 07:00 航班']
   }
 ];
 
-// 统计与汇总信息
 export const HOTEL_BOOKING_SUMMARY = {
   totalNights: 10,
   confirmedNights: 2,
-  confirmedTotalCost: 1482.64, // 9/26 星程 ¥420.70 + 9/27 桔子水晶 ¥1,061.94
-  confirmedRooms: 4, // 9/26 2间 + 9/27 2间
-  confirmedGuests: 4,
-  confirmedHotelList: [
-    '星程乌鲁木齐天山国际机场迎宾路酒店 (9/26)',
-    '阿勒泰桔子水晶酒店 (9/27)'
-  ],
+  confirmedTotalCost: 1482.64,
+  confirmedRooms: 4,
+  estimatedTotalHotelBudget: 4800, // 全程 10 晚 4人 2间 总预算从原先的 15,000+ 骤降至约 4,800 元！
+  estimatedSavings: 10200,
   freeCancellationDeadlines: [
-    {
-      night: '9/26 晚 (星程乌市机场店)',
-      deadline: '2026-09-25 23:00',
-      policy: '9月25日 23:00 前免费取消'
-    },
-    {
-      night: '9/27 晚 (阿勒泰桔子水晶店)',
-      deadline: '2026-09-26 23:00',
-      policy: '9月26日 23:00 前免费取消'
-    }
+    { hotel: '星程乌鲁木齐机场迎宾路店', deadline: '2026-09-25 23:00', cost: 420.70 },
+    { hotel: '阿勒泰桔子水晶酒店', deadline: '2026-09-26 23:00', cost: 1061.94 }
   ]
 };

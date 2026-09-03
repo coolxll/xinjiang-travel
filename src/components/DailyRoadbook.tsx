@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { itineraryDays } from '../data/itineraryData';
 import { routePoints } from '../data/mapData';
 import { 
-  Calendar, Clock, Navigation, Fuel, Utensils, 
+  Clock, Navigation, Fuel, Utensils, 
   ShieldAlert, Sparkles, ChevronDown, ChevronUp, CheckCircle2, Image as ImageIcon,
-  Globe
+  Globe, Compass, AlertCircle
 } from 'lucide-react';
 
 export const DailyRoadbook: React.FC = () => {
   const [selectedDayId, setSelectedDayId] = useState<string>('day-1');
   const [filterType, setFilterType] = useState<'all' | 'key' | 'driving'>('all');
+  const [dukuActivePlan, setDukuActivePlan] = useState<'planA' | 'planB'>('planA');
   const [expandedDetails, setExpandedDetails] = useState<Record<string, boolean>>({
     'day-0': true,
     'day-1': true,
@@ -43,12 +44,12 @@ export const DailyRoadbook: React.FC = () => {
       case 0: return routePoints[0]; // 乌鲁木齐
       case 1: return routePoints[1]; // 阿勒泰市
       case 2: return routePoints[2]; // 阿禾公路
-      case 3: return routePoints[3]; // 禾木
-      case 4: return routePoints[4]; // 贾登峪
-      case 5: return routePoints[4]; // 喀纳斯
-      case 6: return routePoints[5]; // 奎屯
-      case 7: return routePoints[6]; // 赛里木湖
-      case 8: return routePoints[7]; // 精河
+      case 3: return routePoints[5]; // 布尔津县城
+      case 4: return routePoints[7]; // 奎屯市
+      case 5: return routePoints[11]; // 精河/博乐
+      case 6: return routePoints[8]; // 赛里木湖
+      case 7: return dukuActivePlan === 'planA' ? routePoints[9] : routePoints[11]; // 那拉提 或 精河
+      case 8: return dukuActivePlan === 'planA' ? routePoints[7] : routePoints[0]; // 独山子/奎屯 或 昌吉/乌市
       case 9: return routePoints[0]; // 乌鲁木齐
       case 10: return routePoints[0]; // 乌鲁木齐
       default: return routePoints[0];
@@ -61,15 +62,15 @@ export const DailyRoadbook: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold mb-2">
-              <Calendar className="w-3.5 h-3.5" />
-              <span>9/26 - 10/6 逐日时刻表与驾驶路书</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-bold mb-2 shadow-2xs">
+              <Compass className="w-3.5 h-3.5 text-emerald-700" />
+              <span>公路自由版 · 独库公路 A/B 双轨决策路书</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              每日行程与图文路书
+              9/26 - 10/6 每日自驾时刻与图文路书
             </h2>
-            <p className="text-sm text-slate-600 mt-1">
-              “路上时间”按旅行实际占用估算（含阿禾景观游玩、区间车换乘与排队），支持一键发起高德导航
+            <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl leading-relaxed">
+              核心原则：<strong>阿禾公路+赛湖环湖深度体验</strong> · 沿途魔鬼城/大峡谷随缘停靠 · <strong>10/3-10/4 独库公路 A/B 方案明确</strong> · 10/5 21:00 乌市还车留足半天安全缓冲。
             </p>
           </div>
 
@@ -97,7 +98,7 @@ export const DailyRoadbook: React.FC = () => {
                 filterType === 'driving' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              🚗 长途自驾日
+              🚗 畅快公路日
             </button>
           </div>
         </div>
@@ -116,13 +117,13 @@ export const DailyRoadbook: React.FC = () => {
                 }}
                 className={`flex-shrink-0 px-3.5 py-2 rounded-xl text-left border transition-all ${
                   isSelected
-                    ? 'bg-amber-600 text-white border-amber-600 shadow-md scale-[1.02]'
-                    : 'bg-white text-slate-700 border-slate-200 hover:border-amber-300 hover:bg-amber-50/40'
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-md scale-[1.02]'
+                    : 'bg-white text-slate-700 border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/40'
                 }`}
               >
                 <div className="flex items-center gap-1.5 mb-0.5">
                   <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
-                    isSelected ? 'bg-amber-700 text-white' : 'bg-slate-100 text-slate-600'
+                    isSelected ? 'bg-emerald-700 text-white' : 'bg-slate-100 text-slate-600'
                   }`}>
                     {day.date}
                   </span>
@@ -141,6 +142,7 @@ export const DailyRoadbook: React.FC = () => {
           {filteredDays.map((day) => {
             const isExpanded = expandedDetails[day.id] !== false;
             const targetPoint = getMatchingPoint(day.dayNumber);
+            const hasDukuOption = day.dukuPlanA && day.dukuPlanB;
 
             return (
               <div
@@ -148,7 +150,7 @@ export const DailyRoadbook: React.FC = () => {
                 id={day.id}
                 className={`bg-white rounded-3xl border transition-all duration-200 overflow-hidden shadow-sm ${
                   day.isKeyHighlight
-                    ? 'border-amber-300 ring-2 ring-amber-400/20'
+                    ? 'border-emerald-300 ring-2 ring-emerald-400/20'
                     : 'border-slate-200 hover:border-slate-300'
                 }`}
               >
@@ -164,14 +166,14 @@ export const DailyRoadbook: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
 
                     {/* Image Floating Overlays */}
-                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                    <div className="absolute top-4 left-4 flex items-center gap-2 flex-wrap">
                       <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-extrabold border border-white/20 flex items-center gap-1.5">
                         <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
-                        <span>{day.imageTag || '金秋北疆'}</span>
+                        <span>{day.imageTag || '金秋公路自驾'}</span>
                       </span>
-                      {day.isKeyHighlight && (
-                        <span className="px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-black shadow-md">
-                          ⭐ 核心高光
+                      {day.statusBadge && (
+                        <span className="px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-black shadow-md">
+                          {day.statusBadge}
                         </span>
                       )}
                     </div>
@@ -216,7 +218,7 @@ export const DailyRoadbook: React.FC = () => {
                 >
                   <div className="flex items-center gap-3">
                     {!day.imageUrl && (
-                      <div className="flex flex-col items-center justify-center w-12 h-12 rounded-xl bg-amber-500 text-white shadow-sm flex-shrink-0">
+                      <div className="flex flex-col items-center justify-center w-12 h-12 rounded-xl bg-emerald-600 text-white shadow-sm flex-shrink-0">
                         <span className="text-[10px] font-bold">D{day.dayNumber}</span>
                         <span className="text-sm font-black leading-none">{day.date}</span>
                       </div>
@@ -247,6 +249,115 @@ export const DailyRoadbook: React.FC = () => {
                 {/* Card Expanded Content */}
                 {isExpanded && (
                   <div className="p-4 sm:p-6 space-y-6">
+                    {/* DUKU HIGHWAY A/B INTERACTIVE SWITCHER (for Day 7 & Day 8) */}
+                    {hasDukuOption && (
+                      <div className="bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-sky-500/10 border-2 border-emerald-500/30 p-5 rounded-2xl space-y-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
+                          <div className="flex items-center gap-2">
+                            <span className="p-2 bg-emerald-600 text-white rounded-xl shadow-xs">
+                              <Compass className="w-4 h-4" />
+                            </span>
+                            <div>
+                              <h4 className="text-sm font-black text-slate-900">
+                                独库公路 A / B 方案实时切换看板
+                              </h4>
+                              <p className="text-xs text-slate-500">
+                                决策时间：<strong>10/2 晚 ~ 10/3 早晨</strong> 核验新疆交警最新路况通告
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-2 bg-white p-1 rounded-xl border border-slate-300 shadow-2xs">
+                            <button
+                              onClick={() => setDukuActivePlan('planA')}
+                              className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
+                                dukuActivePlan === 'planA'
+                                  ? 'bg-emerald-600 text-white shadow-xs'
+                                  : 'text-slate-600 hover:text-slate-900'
+                              }`}
+                            >
+                              🔥 Plan A: 独库开放 (首选)
+                            </button>
+                            <button
+                              onClick={() => setDukuActivePlan('planB')}
+                              className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
+                                dukuActivePlan === 'planB'
+                                  ? 'bg-sky-600 text-white shadow-xs'
+                                  : 'text-slate-600 hover:text-slate-900'
+                              }`}
+                            >
+                              🛡️ Plan B: 降雪封路 (G30美食保底)
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Active Plan Detail Box */}
+                        {dukuActivePlan === 'planA' && day.dukuPlanA && (
+                          <div className="bg-white p-4 rounded-xl border border-emerald-300 shadow-xs space-y-3">
+                            <div className="flex items-center justify-between flex-wrap gap-2">
+                              <div className="font-extrabold text-emerald-900 text-sm flex items-center gap-2">
+                                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <span>{day.dukuPlanA.title}</span>
+                              </div>
+                              <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200">
+                                {day.dukuPlanA.distanceKm} km ｜ {day.dukuPlanA.travelDuration}
+                              </span>
+                            </div>
+
+                            <div className="text-xs text-slate-700 leading-relaxed bg-emerald-50/50 p-2.5 rounded-lg border border-emerald-100">
+                              📍 <strong>行驶路线：</strong>{day.dukuPlanA.route}
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                              {day.dukuPlanA.highlights.map((hl, idx) => (
+                                <div key={idx} className="bg-slate-50 p-2 rounded-lg border border-slate-200 text-slate-700 flex items-start gap-1.5">
+                                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                                  <span>{hl}</span>
+                                </div>
+                              ))}
+                            </div>
+
+                            <div className="text-[11px] text-amber-900 bg-amber-50 p-2.5 rounded-lg border border-amber-200 flex items-start gap-2">
+                              <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                              <span><strong>执行指引：</strong>{day.dukuPlanA.tips} 住宿：<strong>{day.dukuPlanA.lodging}</strong></span>
+                            </div>
+                          </div>
+                        )}
+
+                        {dukuActivePlan === 'planB' && day.dukuPlanB && (
+                          <div className="bg-white p-4 rounded-xl border border-sky-300 shadow-xs space-y-3">
+                            <div className="flex items-center justify-between flex-wrap gap-2">
+                              <div className="font-extrabold text-sky-900 text-sm flex items-center gap-2">
+                                <span className="w-2.5 h-2.5 rounded-full bg-sky-500" />
+                                <span>{day.dukuPlanB.title}</span>
+                              </div>
+                              <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded-md border border-sky-200">
+                                {day.dukuPlanB.distanceKm} km ｜ {day.dukuPlanB.travelDuration}
+                              </span>
+                            </div>
+
+                            <div className="text-xs text-slate-700 leading-relaxed bg-sky-50/50 p-2.5 rounded-lg border border-sky-100">
+                              📍 <strong>行驶路线：</strong>{day.dukuPlanB.route}
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                              {day.dukuPlanB.highlights.map((hl, idx) => (
+                                <div key={idx} className="bg-slate-50 p-2 rounded-lg border border-slate-200 text-slate-700 flex items-start gap-1.5">
+                                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 flex-shrink-0 mt-0.5" />
+                                  <span>{hl}</span>
+                                </div>
+                              ))}
+                            </div>
+
+                            <div className="text-[11px] text-sky-900 bg-sky-50 p-2.5 rounded-lg border border-sky-200 flex items-start gap-2">
+                              <AlertCircle className="w-4 h-4 text-sky-600 flex-shrink-0 mt-0.5" />
+                              <span><strong>执行指引：</strong>{day.dukuPlanB.tips} 住宿：<strong>{day.dukuPlanB.lodging}</strong></span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
                     {/* Time & Duration Breakdown Box */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200/80 text-xs">
                       <div>
@@ -254,14 +365,14 @@ export const DailyRoadbook: React.FC = () => {
                         <p className="text-slate-800 font-bold text-sm">起床 {day.wakeTime} ｜ 出发 {day.departTime}</p>
                       </div>
                       <div>
-                        <span className="text-slate-400 font-semibold uppercase block mb-1">🚗 路上与换乘用时明细</span>
+                        <span className="text-slate-400 font-semibold uppercase block mb-1">🚗 路上用时明细</span>
                         <p className="text-slate-800 font-bold text-sm">{day.travelDuration}</p>
                         <p className="text-slate-500 text-[11px]">{day.travelDurationDetail}</p>
                       </div>
                       <div>
-                        <span className="text-slate-400 font-semibold uppercase block mb-1">🏨 当晚住宿安排</span>
+                        <span className="text-slate-400 font-semibold uppercase block mb-1">🏨 住宿与降本策略</span>
                         <p className="text-slate-800 font-bold text-sm">{day.lodging}</p>
-                        <p className="text-amber-700 text-[11px] font-medium">{day.lodgingStrategy}</p>
+                        <p className="text-emerald-700 text-[11px] font-medium">{day.lodgingStrategy}</p>
                       </div>
                     </div>
 
@@ -273,8 +384,8 @@ export const DailyRoadbook: React.FC = () => {
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                         {day.highlights.map((hl, i) => (
-                          <div key={i} className="flex items-start gap-2 bg-amber-50/40 p-3 rounded-xl border border-amber-200/60 text-xs text-slate-800">
-                            <CheckCircle2 className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                          <div key={i} className="flex items-start gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs text-slate-800">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                             <span className="leading-relaxed">{hl}</span>
                           </div>
                         ))}

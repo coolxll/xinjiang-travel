@@ -54,11 +54,11 @@ export const routePoints: ExtendedRoutePoint[] = [
     id: 4,
     name: '禾木风景区 (游客中心)',
     coords: [48.57, 87.43],
-    dayText: '9/28-30',
-    description: '神之自留地，图瓦原始木屋与金秋白桦林长廊',
+    dayText: '9/28',
+    description: '神之自留地，大行李留车内，轻装随缘打卡图瓦老桥与白桦林',
     category: 'scenic',
     elevation: '1,120m',
-    tips: '自驾车停禾木游客中心停车场换乘区间车进村；晨雾自愿早起',
+    tips: '不住村内天价小木屋，大行李留在后备箱，傍晚直接自驾开往贾登峪',
     navSearchQuery: '禾木景区门票站/游客中心',
     amapUrl: 'https://uri.amap.com/marker?position=87.43,48.57&name=%E7%A6%BE%E6%9C%A8%E9%A3%8E%E6%99%AF%E5%8C%BA%E6%B8%B8%E5%AE%A2%E4%B8%AD%E5%BF%83',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=48.57,87.43',
@@ -66,13 +66,13 @@ export const routePoints: ExtendedRoutePoint[] = [
   },
   {
     id: 5,
-    name: '贾登峪 / 喀纳斯门票站',
+    name: '贾登峪 / 喀纳斯大本营',
     coords: [48.70, 87.02],
-    dayText: '9/30-10/2',
-    description: '王者喀纳斯，神仙湾、月亮湾、卧龙湾与变色湖大拐弯',
+    dayText: '9/28-29',
+    description: '喀纳斯景区大门，神仙湾、月亮湾、卧龙湾与变色翡翠湖',
     category: 'scenic',
     elevation: '1,374m',
-    tips: '连住贾登峪性价比高；观鱼台视人流弹性取舍；10/2 从此直接南下奎屯',
+    tips: '住贾登峪 1 晚，一早第一批进三湾，下午 16:30 轻松出山下撤布尔津',
     navSearchQuery: '贾登峪门票换乘中心',
     amapUrl: 'https://uri.amap.com/marker?position=87.02,48.70&name=%E8%B4%BE%E7%99%BB%E5%B3%AA%E9%97%A8%E7%A5%A8%E7%AB%99',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=48.70,87.02',
@@ -80,41 +80,97 @@ export const routePoints: ExtendedRoutePoint[] = [
   },
   {
     id: 6,
+    name: '布尔津县城 (额尔齐斯河)',
+    coords: [47.7006, 86.8624],
+    dayText: '9/29-30',
+    description: '童话边城，河堤夜市烤狗鱼，高星级城市酒店性价比极高',
+    category: 'city',
+    elevation: '470m',
+    tips: '提前出山住布尔津，2间房仅需 ¥400~500，吃大餐洗大热水澡，顺路可赏五彩滩日落',
+    navSearchQuery: '布尔津县人民政府/河堤夜市',
+    amapUrl: 'https://uri.amap.com/marker?position=86.8624,47.7006&name=%E5%B8%83%E5%B0%94%E6%B4%A5%E5%8E%BF',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=47.7006,86.8624',
+    gpsCoordsString: '47.7006° N, 86.8624° E'
+  },
+  {
+    id: 7,
+    name: '乌尔禾世界魔鬼城 (随缘)',
+    coords: [45.69, 85.05],
+    dayText: '9/30',
+    description: '百万年风蚀雅丹地貌，恐龙谷与戈壁异星奇观',
+    category: 'scenic',
+    elevation: '350m',
+    tips: '沿奎阿高速一路向南顺路偶遇，随缘停靠探索，不设死板打卡任务',
+    navSearchQuery: '克拉玛依乌尔禾世界魔鬼城',
+    amapUrl: 'https://uri.amap.com/marker?position=85.05,45.69&name=%E4%B9%8C%E5%B0%94%E7%A6%BE%E4%B8%96%E7%95%8C%E9%AD%94%E9%AC%BC%E5%9F%8E',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=45.69,85.05',
+    gpsCoordsString: '45.6900° N, 85.0500° E'
+  },
+  {
+    id: 8,
     name: '奎屯市市区',
     coords: [44.4269, 84.9018],
-    dayText: '10/2-3',
-    description: '北疆金三角转场枢纽，舒适休整不过度疲惫',
+    dayText: '9/30-10/1, 10/4',
+    description: '北疆金三角转场枢纽，商圈繁华，现代城市高品质酒店',
     category: 'city',
     elevation: '450m',
-    tips: '长途转场中继站，不塞魔鬼城等疲劳景点，吃大餐洗热水澡养精蓄锐',
+    tips: '全线八车道平坦高速，吃大盘鸡、椒麻鸡，避开国庆景区天价',
     navSearchQuery: '奎屯市中心/迎宾大道',
     amapUrl: 'https://uri.amap.com/marker?position=84.9018,44.4269&name=%E5%A5%8E%E5%B8%82',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=44.4269,84.9018',
     gpsCoordsString: '44.4269° N, 84.9018° E'
   },
   {
-    id: 7,
+    id: 9,
     name: '赛里木湖 (东门游客中心)',
     coords: [44.60, 81.15],
-    dayText: '10/3-4',
-    description: '大西洋最后一滴眼泪，湛蓝圣湖与果子沟大桥前沿',
+    dayText: '10/2-3',
+    description: '大西洋最后一滴眼泪，90km 自驾进湖环湖，果子沟大桥',
     category: 'scenic',
     elevation: '2,071m',
-    tips: '次核心只住 1 晚，10/3 下午 + 10/4 上午拆开环湖，避免高价反客为主',
+    tips: '开自己的车进景区环湖，打卡果子沟大桥壮丽日落，10/2 晚核验独库路况',
     navSearchQuery: '赛里木湖东门游客中心',
     amapUrl: 'https://uri.amap.com/marker?position=81.15,44.60&name=%E8%B5%9B%E9%87%8C%E6%9C%A8%E6%B9%96%E4%B8%9C%E9%97%A8%E6%B8%B8%E5%AE%A2%E4%B8%AD%E5%BF%83',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=44.60,81.15',
     gpsCoordsString: '44.6000° N, 81.1500° E'
   },
   {
-    id: 8,
-    name: '精河县城中心',
+    id: 10,
+    name: '那拉提镇 / 独库前哨 (Plan A)',
+    coords: [43.52, 84.02],
+    dayText: '10/3-4 (Plan A)',
+    description: 'Plan A 独库北段南端入口，伊犁河谷景观大道终点',
+    category: 'transfer',
+    elevation: '1,400m',
+    tips: '独库公路通车时执行，入住那拉提镇吃哈萨克大餐，备战次日英雄天路',
+    navSearchQuery: '那拉提镇人民政府',
+    amapUrl: 'https://uri.amap.com/marker?position=84.02,43.52&name=%E9%82%A3%E6%8B%89%E6%8F%90%E9%95%87',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=43.52,84.02',
+    gpsCoordsString: '43.5200° N, 84.0200° E'
+  },
+  {
+    id: 11,
+    name: '乔尔玛烈士陵园 / 独库北段 (Plan A)',
+    coords: [43.70, 84.45],
+    dayText: '10/4 (Plan A)',
+    description: '🔥 独库公路英雄天路，哈希勒根达坂 3400m 防雪长廊',
+    category: 'scenic',
+    elevation: '3,400m',
+    tips: '自驾天花板！一日经四季，穿行雪山冰川与防雪长廊，安全慢行',
+    navSearchQuery: '乔尔玛革命烈士陵园',
+    amapUrl: 'https://uri.amap.com/marker?position=84.45,43.70&name=%E4%B9%94%E7%88%BE%E7%8E%9B',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=43.70,84.45',
+    gpsCoordsString: '43.7000° N, 84.4500° E'
+  },
+  {
+    id: 12,
+    name: '精河县城 / 博乐市 (Plan B)',
     coords: [44.60, 82.89],
-    dayText: '10/4-5',
-    description: '枸杞之乡，策略性降本中继，保障返乌从容还车',
+    dayText: '10/1, 10/3 (Plan B)',
+    description: '枸杞之乡与西陲重镇，物价亲民，G30 连霍高速平坦坦途',
     category: 'transfer',
     elevation: '320m',
-    tips: '房价比赛湖低 60%+，大幅缩减 10/5 车程，为 21:00 机场还车留足缓冲',
+    tips: '独库封路时作为从容保底，霍尔果斯国门与沙湾大盘鸡美食之旅',
     navSearchQuery: '精河县人民政府/中心广场',
     amapUrl: 'https://uri.amap.com/marker?position=82.89,44.60&name=%E7%B2%BE%E6%B2%B3%E5%8E%BF',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=44.60,82.89',
@@ -174,120 +230,120 @@ export const mapDaySchedules: MapDaySchedule[] = [
     dayNumber: 2,
     date: '9/28',
     shortLabel: 'D2 阿禾天路',
-    title: '阿勒泰市 → G681阿禾公路 → 禾木村',
-    routeLabel: 'G681阿禾天花板公路 ｜ 209.45km 高山天路',
-    roadName: 'G681 阿禾公路景观大道',
-    distanceKm: 209,
-    durationText: '约5–6h (景观游玩)',
-    activePointIds: [2, 3, 4],
+    title: '阿勒泰市 → G681阿禾公路 → 禾木随缘 → 贾登峪',
+    routeLabel: 'G681阿禾天花板公路 ｜ 209km 天路穿越 ｜ 宿贾登峪',
+    roadName: 'G681 阿禾公路 + 禾贾公路',
+    distanceKm: 275,
+    durationText: '约7–8h (边走边玩)',
+    activePointIds: [2, 3, 4, 5],
     isScenicStay: false,
-    bounds: [[47.75, 87.30], [48.65, 88.25]],
-    description: '08:45 出发，09:30 前驶入全新 G681 阿禾公路，穿行阿尔泰深山森林与高山草甸，下午抵禾木门票站换乘区间车进村。'
+    bounds: [[47.75, 86.95], [48.75, 88.25]],
+    description: '08:45 出发，穿越 209km 阿禾景观公路。大行李留在车内，禾木轻装随缘闲逛，傍晚自驾 64km 禾贾公路至贾登峪入住，拒绝村内天价！'
   },
   {
     key: 'day-3',
     dayNumber: 3,
     date: '9/29',
-    shortLabel: 'D3 禾木漫步',
-    title: '禾木村落深度慢游 · 哈登观景台 · 白桦林',
-    routeLabel: '神之自留地 ｜ 晨雾自愿早起 ｜ 白桦林徒步骑马',
-    roadName: '禾木景区内部木栈道与区间车',
-    distanceKm: 0,
-    durationText: '全天慢游',
-    activePointIds: [4],
-    isScenicStay: true,
-    bounds: [[48.52, 87.38], [48.62, 87.48]],
-    description: '禾木全天沉浸体验！清晨晨雾自愿早起（不强制），白天漫步白桦林或骑马至美丽峰。傍晚可弹性搬迁至入口服务区降本。'
+    shortLabel: 'D3 喀纳斯出山',
+    title: '贾登峪 → 喀纳斯三湾湖区 → 下午出山 → 布尔津',
+    routeLabel: '翡翠三湾 ｜ 下午从容出山 ｜ 宿布尔津城市酒店',
+    roadName: '喀纳斯景区区间车 + S232 盘山公路',
+    distanceKm: 140,
+    durationText: '游玩6h + 自驾2.5h',
+    activePointIds: [5, 6],
+    isScenicStay: false,
+    bounds: [[47.65, 86.80], [48.80, 87.15]],
+    description: '08:30 第一批进喀纳斯游神仙湾、月亮湾、卧龙湾与喀纳斯湖。下午 16:30 从容出山下撤至布尔津县城，高星级酒店舒适休整吃烤狗鱼。'
   },
   {
     key: 'day-4',
     dayNumber: 4,
     date: '9/30',
-    shortLabel: 'D4 翻山贾登峪',
-    title: '禾木 → 禾贾公路 → 贾登峪综合服务区',
-    routeLabel: '翻山转场 ｜ 进驻喀纳斯大本营',
-    roadName: '禾贾公路 (盘山路段需减速慢行)',
-    distanceKm: 65,
-    durationText: '约1.5–2h',
-    activePointIds: [4, 5],
+    shortLabel: 'D4 戈壁公路',
+    title: '布尔津 → 奎阿高速 → 乌尔禾魔鬼城 (随缘) → 奎屯市',
+    routeLabel: '奎阿高速一路向南 ｜ 雅丹魔鬼城偶遇 ｜ 宿奎屯商圈',
+    roadName: 'G3014 奎阿高速',
+    distanceKm: 450,
+    durationText: '约4.5–5h',
+    activePointIds: [6, 7, 8],
     isScenicStay: false,
-    bounds: [[48.50, 86.95], [48.75, 87.50]],
-    description: '上午自驾翻山前往贾登峪，入住酒店卸下重行李。下午可轻松初探喀纳斯景区大门与周边秋色，连住贾登峪两晚。'
+    bounds: [[44.35, 84.80], [47.75, 86.95]],
+    description: '沿平坦宽阔的奎阿高速向南自驾，途经克拉玛依乌尔禾魔鬼城随缘探秘。傍晚抵达北疆金三角奎屯市，享受成熟商圈大餐。'
   },
   {
     key: 'day-5',
     dayNumber: 5,
     date: '10/1',
-    shortLabel: 'D5 喀纳斯湖',
-    title: '喀纳斯三湾（神仙/月亮/卧龙）· 喀纳斯湖深处',
-    routeLabel: '国庆喀纳斯核心 ｜ 三湾漫步栈道 ｜ 观鱼台弹性取舍',
-    roadName: '喀纳斯景区区间车主干线',
-    distanceKm: 0,
-    durationText: '全天游玩',
-    activePointIds: [5],
-    isScenicStay: true,
-    bounds: [[48.65, 86.95], [48.80, 87.10]],
-    description: '全天沉浸喀纳斯！上午顺光慢走月亮湾-卧龙湾最美木栈道，下午探访喀纳斯湖；观鱼台若排队>45分钟果断放弃，享受慢节奏。'
+    shortLabel: 'D5 国庆错峰',
+    title: '奎屯 → 独山子大峡谷 (随缘) → 博乐市 / 精河县',
+    routeLabel: '国庆首日逆向错峰 ｜ 大地裂谷 ｜ G30连霍天山大道',
+    roadName: 'G30 连霍高速',
+    distanceKm: 290,
+    durationText: '约3–3.5h',
+    activePointIds: [8, 12],
+    isScenicStay: false,
+    bounds: [[44.35, 82.00], [44.70, 85.00]],
+    description: '睡到自然醒，顺路打卡独山子大峡谷百里丹霞奇观。沿连霍高速西行抵达博乐/精河，完全避开国庆景区天价与拥堵。'
   },
   {
     key: 'day-6',
     dayNumber: 6,
     date: '10/2',
-    shortLabel: 'D6 南下奎屯',
-    title: '贾登峪 → 奎阿高速 → 奎屯市',
-    routeLabel: '贾登峪直发 ｜ 减免旧版盘山路 ｜ 专心转场休整',
-    roadName: 'S232 / G217 / G3014 奎阿高速',
-    distanceKm: 580,
-    durationText: '约8–9h',
-    activePointIds: [5, 6],
-    isScenicStay: false,
-    bounds: [[44.35, 84.80], [48.75, 87.10]],
-    description: '长途转场日！从贾登峪直接出发，比旧版省1.5-2小时山路。当天坚决不加魔鬼城，直达奎屯吃大餐洗热水澡养精蓄锐。'
+    shortLabel: 'D6 赛湖自驾',
+    title: '精河/博乐 → 赛里木湖 90km 自驾环湖 · 果子沟大桥',
+    routeLabel: '开自己的车进景区 ｜ 90km自由环湖 ｜ 独库A/B决策',
+    roadName: '赛里木湖环湖公路 / G30 连霍高速',
+    distanceKm: 180,
+    durationText: '约4–5h',
+    activePointIds: [9, 12],
+    isScenicStay: true,
+    bounds: [[44.40, 81.00], [44.75, 83.00]],
+    description: '开自己的车进赛里木湖顺时针 90km 环湖自驾，打卡果子沟大桥壮丽日落。当晚核验新疆交警最新路况，决定次日启动独库 Plan A 或 Plan B！'
   },
   {
     key: 'day-7',
     dayNumber: 7,
     date: '10/3',
-    shortLabel: 'D7 赛里木湖',
-    title: '奎屯 → G30连霍高速 → 赛里木湖东门',
-    routeLabel: '大西洋最后一滴眼泪 ｜ 下午环湖南线光影',
-    roadName: 'G30 连霍高速',
-    distanceKm: 340,
-    durationText: '约4–4.5h',
-    activePointIds: [6, 7],
+    shortLabel: 'D7 独库分支',
+    title: '赛里木湖 → 那拉提 (Plan A) / 精河 (Plan B)',
+    routeLabel: '🔀 独库A/B双轨决策日 ｜ 进驻独库前哨 或 坦途休闲',
+    roadName: 'Plan A: G218 伊犁河谷大道 ｜ Plan B: G30 高速',
+    distanceKm: 360,
+    durationText: '约3–5h',
+    activePointIds: [9, 10, 12],
     isScenicStay: false,
-    bounds: [[44.35, 81.05], [44.70, 85.00]],
-    description: '中午前抵达赛里木湖东门入园，下午自驾环湖南段看天鹅与金秋落日。晚上入住东门周边营地或酒店，严格只住 1 晚。'
+    bounds: [[43.40, 81.00], [44.75, 84.20]],
+    description: 'Plan A (独库开放)：沿伊犁河谷挺进那拉提镇备战独库；Plan B (独库封路)：赛湖晨光 + 霍尔果斯国门，从容宿精河。'
   },
   {
     key: 'day-8',
     dayNumber: 8,
     date: '10/4',
-    shortLabel: 'D8 撤往精河',
-    title: '赛里木湖环湖北段 → 果子沟远眺 → 精河县',
-    routeLabel: '上午顺光环湖 ｜ 下午东撤精河降本减压',
-    roadName: '赛湖环湖路 / G30 连霍高速',
-    distanceKm: 150,
-    durationText: '约2–2.5h',
-    activePointIds: [7, 8],
+    shortLabel: 'D8 英雄天路',
+    title: '独库北段穿越 (Plan A) / 连霍美食线 (Plan B) → 奎屯/昌吉',
+    routeLabel: '🔥 独库北段英雄天路 230km ｜ 或 G30 沙湾大盘鸡',
+    roadName: 'Plan A: G217 独库公路 ｜ Plan B: G30 连霍高速',
+    distanceKm: 240,
+    durationText: 'Plan A: 约6–8h ｜ Plan B: 约4h',
+    activePointIds: [10, 11, 8],
     isScenicStay: false,
-    bounds: [[44.45, 81.05], [44.70, 83.00]],
-    description: '清晨看赛湖晨光与果子沟大桥，中午出景区东撤至精河县城入住。房价降低60%+，并将次日返乌车程缩短至420km。'
+    bounds: [[43.50, 84.00], [44.60, 87.30]],
+    description: 'Plan A 穿越 G217 独库北段（乔尔玛、哈希勒根达坂 3400m 防雪长廊）宿奎屯；Plan B 连霍高速品尝沙湾大盘鸡宿昌吉。'
   },
   {
     key: 'day-9',
     dayNumber: 9,
     date: '10/5',
-    shortLabel: 'D9 返乌还车',
-    title: '精河县 → G30连霍高速 → 乌市机场 21:00 还车',
-    routeLabel: '从容返程 ｜ 预留 3.5h+ 充裕缓冲 ｜ 机场酒店入住',
+    shortLabel: 'D9 从容还车',
+    title: '奎屯/昌吉 → 乌鲁木齐大巴扎/美食 → 21:00 机场还车',
+    routeLabel: '留足半天安全缓冲 ｜ 美食采买 ｜ 21:00 机场还车',
     roadName: 'G30 连霍高速 / 乌奎高速',
-    distanceKm: 420,
-    durationText: '约5–5.5h',
+    distanceKm: 120,
+    durationText: '约1.5–2.5h',
     activePointIds: [8, 1],
     isScenicStay: false,
-    bounds: [[43.80, 82.80], [44.70, 87.60]],
-    description: '10:00 出发，预计 16:30–17:30 抵达乌鲁木齐，留足 3.5 小时加油、洗车与 21:00 机场还车，入住机场酒店保障次日早班机。'
+    bounds: [[43.80, 84.80], [44.60, 87.60]],
+    description: '睡到自然醒从容进乌市，逛大巴扎、吃正宗抓饭烤肉，留足半天洗车加油，21:00 前完成机场验车交接，入住机场酒店。'
   },
   {
     key: 'day-10',
@@ -306,7 +362,7 @@ export const mapDaySchedules: MapDaySchedule[] = [
   }
 ];
 
-// Pre-defined road coordinate paths for instant, zero-lag map rendering
+// Complete high-resolution loop coordinates for smooth rendering
 export const loopRouteCoordinates: [number, number][] = [
   // 1. 乌鲁木齐 -> 阿勒泰 (S21)
   [43.9075, 87.4744],
@@ -316,33 +372,40 @@ export const loopRouteCoordinates: [number, number][] = [
   [46.80, 88.00],
   [47.8484, 88.1318],
 
-  // 2. 阿勒泰 -> 阿禾公路 -> 禾木 (G681)
+  // 2. 阿勒泰 -> 阿禾公路 -> 禾木 -> 贾登峪 (G681 + 禾贾公路)
   [48.08, 87.90],
   [48.35, 87.70],
   [48.57, 87.43],
-
-  // 3. 禾木 -> 贾登峪
   [48.65, 87.20],
   [48.70, 87.02],
 
-  // 4. 贾登峪 -> 奎屯 (S232 / G217 / G3014)
-  [48.10, 86.85],
-  [47.20, 86.00],
-  [46.10, 85.50],
+  // 3. 贾登峪 -> 布尔津 (S232)
+  [48.10, 86.95],
+  [47.7006, 86.8624],
+
+  // 4. 布尔津 -> 乌尔禾魔鬼城 -> 奎屯 (G3014)
+  [46.80, 86.00],
+  [45.69, 85.05],
   [45.00, 85.00],
   [44.4269, 84.9018],
 
-  // 5. 奎屯 -> 赛里木湖 (G30)
+  // 5. 奎屯 -> 精河/博乐 -> 赛里木湖 (G30)
   [44.50, 83.80],
   [44.60, 82.89],
   [44.60, 81.15],
 
-  // 6. 赛里木湖 -> 精河 (G30)
-  [44.60, 82.89],
+  // 6. 赛里木湖 -> 那拉提 (G218 Plan A)
+  [44.20, 81.30],
+  [43.90, 82.00],
+  [43.52, 84.02],
 
-  // 7. 精河 -> 乌鲁木齐 (G30)
-  [44.50, 83.80],
+  // 7. 那拉提 -> 乔尔玛 -> 独库北段 -> 独山子/奎屯 (G217 Plan A)
+  [43.70, 84.45],
+  [44.00, 84.70],
+  [44.30, 84.85],
   [44.4269, 84.9018],
+
+  // 8. 奎屯 -> 乌鲁木齐 (G30)
   [44.15, 86.20],
   [43.9075, 87.4744]
 ];
@@ -361,34 +424,45 @@ export const dayRoutePolylines: Record<string, [number, number][]> = {
     [47.8484, 88.1318],
     [48.08, 87.90],
     [48.35, 87.70],
-    [48.57, 87.43]
-  ],
-  'day-4': [
     [48.57, 87.43],
     [48.65, 87.20],
     [48.70, 87.02]
   ],
-  'day-6': [
+  'day-3': [
     [48.70, 87.02],
-    [48.10, 86.85],
-    [47.20, 86.00],
-    [46.10, 85.50],
+    [48.10, 86.95],
+    [47.7006, 86.8624]
+  ],
+  'day-4': [
+    [47.7006, 86.8624],
+    [46.80, 86.00],
+    [45.69, 85.05],
     [45.00, 85.00],
     [44.4269, 84.9018]
   ],
-  'day-7': [
+  'day-5': [
     [44.4269, 84.9018],
     [44.50, 83.80],
+    [44.60, 82.89]
+  ],
+  'day-6': [
     [44.60, 82.89],
     [44.60, 81.15]
   ],
-  'day-8': [
+  'day-7': [
     [44.60, 81.15],
-    [44.60, 82.89]
+    [44.20, 81.30],
+    [43.90, 82.00],
+    [43.52, 84.02]
+  ],
+  'day-8': [
+    [43.52, 84.02],
+    [43.70, 84.45],
+    [44.00, 84.70],
+    [44.30, 84.85],
+    [44.4269, 84.9018]
   ],
   'day-9': [
-    [44.60, 82.89],
-    [44.50, 83.80],
     [44.4269, 84.9018],
     [44.15, 86.20],
     [43.9075, 87.4744]

@@ -23,6 +23,24 @@ export interface ItineraryDay {
   imageUrl?: string;
   imageTag?: string;
   imageCaption?: string;
+  dukuPlanA?: {
+    title: string;
+    route: string;
+    distanceKm: number;
+    travelDuration: string;
+    lodging: string;
+    highlights: string[];
+    tips: string;
+  };
+  dukuPlanB?: {
+    title: string;
+    route: string;
+    distanceKm: number;
+    travelDuration: string;
+    lodging: string;
+    highlights: string[];
+    tips: string;
+  };
 }
 
 export interface RoutePoint {

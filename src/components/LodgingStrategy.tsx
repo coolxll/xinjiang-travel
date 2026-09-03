@@ -31,20 +31,20 @@ export const LodgingStrategy: React.FC = () => {
 
           {/* Quick Stats Pill */}
           <div className="flex flex-wrap items-center gap-3">
-            <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4 text-xs font-bold text-slate-700">
+            <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4 text-xs font-bold text-slate-700 flex-wrap sm:flex-nowrap">
               <div>
                 <div className="text-[10px] text-slate-400">已锁定间夜</div>
                 <div className="text-emerald-600 font-extrabold text-sm">{HOTEL_BOOKING_SUMMARY.confirmedNights} / {HOTEL_BOOKING_SUMMARY.totalNights} 晚 ({HOTEL_BOOKING_SUMMARY.confirmedRooms}间)</div>
               </div>
-              <div className="w-px h-8 bg-slate-100" />
+              <div className="w-px h-8 bg-slate-100 hidden sm:block" />
               <div>
-                <div className="text-[10px] text-slate-400">已锁定房费 (实付)</div>
+                <div className="text-[10px] text-slate-400">已锁定实付</div>
                 <div className="text-amber-600 font-extrabold text-sm">¥{HOTEL_BOOKING_SUMMARY.confirmedTotalCost.toFixed(2)}</div>
               </div>
-              <div className="w-px h-8 bg-slate-100" />
+              <div className="w-px h-8 bg-slate-100 hidden sm:block" />
               <div>
-                <div className="text-[10px] text-slate-400">最近取消截止</div>
-                <div className="text-sky-600 font-extrabold text-sm">9/25 23:00</div>
+                <div className="text-[10px] text-slate-400">新版 10 晚预估总额</div>
+                <div className="text-sky-600 font-extrabold text-sm">约 ¥{HOTEL_BOOKING_SUMMARY.estimatedTotalHotelBudget} (省 ¥10,000+)</div>
               </div>
             </div>
           </div>
