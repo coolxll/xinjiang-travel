@@ -100,8 +100,8 @@ export const ALTERNATIVE_PLANS_METADATA = {
       duration: '8 天 12 小时',
     },
     plan0PainPoint: {
-      title: '当前方案 0 核心痛点',
-      summary: '10/2 贾登峪到奎屯约 600 公里（8～9 小时）超长途转场拉练，且赛湖往返拉扯大、国庆阿勒泰住宿极贵、伴随山区降雪封路风险。',
+      title: '主线基准规划（公路自由版）',
+      summary: '已全面升级为阿禾公路+喀纳斯提前出山+赛湖自驾+独库A/B双轨方案：彻底消除长途拉练与高价挨宰，每天车程仅 2–4 小时，房费骤降上万元！',
     }
   },
   conclusions: [
