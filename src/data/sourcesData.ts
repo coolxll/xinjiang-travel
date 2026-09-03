@@ -37,9 +37,9 @@ export const officialSources: OfficialSource[] = [
     id: 's5',
     section: 'G681 阿禾公路 → X852 禾贾公路',
     publicRef: 'G681终点直接连通X852禾贾公路直通贾登峪',
-    itineraryStandard: '纯自驾穿越约 7h (阿禾 5.5h + 禾贾 1.5h)，彻底不换乘区间车',
+    itineraryStandard: '纯自驾穿越约 7h (阿禾 5.5h + 禾贾 1.5h)，全景平替禾木，彻底不进村换乘',
     url: 'https://jtyst.xinjiang.gov.cn/xjjtysj/mtkjt/202607/7181bcab6b6e4c1db4de25b423a5600a.shtml',
-    note: '开自己的车一路到底，无需进禾木门票站排队挤区间车'
+    note: '阿禾公路饱览 90% 以上阿尔泰秋色，开自己的车一路直通贾登峪，无需进禾木门票站排队挤区间车与买票'
   },
   {
     id: 's6',
@@ -59,33 +59,33 @@ export const officialSources: OfficialSource[] = [
   },
   {
     id: 's8',
-    section: '奎屯 → 赛里木湖',
-    publicRef: '约305–360km / 3.5–4h',
-    itineraryStandard: '预留 4–4.5h（含服务区短休）',
+    section: '奎屯 → 精河/博乐 (G30)',
+    publicRef: '约280–300km / 3–3.5h',
+    itineraryStandard: '10/1 国庆逆向错峰，预留 3–3.5h（顺路大峡谷）',
     url: 'https://wenku.baidu.com/view/e17a4e4510791711cc7931b765ce0508763275ed.html',
-    note: '包含连霍高速G30服务区短休与进湖手续'
+    note: '连霍高速G30平坦路况，完全避开国庆景区拥堵与天价'
   },
   {
     id: 's9',
     section: '赛里木湖环湖与游览',
-    publicRef: '环湖公路约90–92km / 常规4–6h',
-    itineraryStandard: '10/3下午 + 10/4上午拆开玩，只住1晚',
+    publicRef: '环湖公路约90–92km / 常规4–5h',
+    itineraryStandard: '10/2 全天 90km 自驾环湖，凭预约开自己的车进景区',
     url: 'https://www.benyuelx.com/news/562.html',
-    note: '拆开下午顺光南段与次日上午北段，只住1晚仍覆盖全精华'
+    note: '顺时针自驾环湖，打卡天鹅滩与果子沟大桥壮丽日落'
   },
   {
     id: 's10',
-    section: '赛里木湖 → 精河',
-    publicRef: '约150km / 约2–2.5h',
-    itineraryStandard: '10/4下午15:00启程，2–2.5h到达',
+    section: '独库公路 A/B 双轨决策',
+    publicRef: 'Plan A 那拉提/独库北段 ｜ Plan B 连霍坦途',
+    itineraryStandard: '10/2 晚核验路况通告一锤定音次日行程',
     url: 'https://m.tuniu.com/tour/320526075',
-    note: '10/4下午撤出湖区住精河县城，大幅削减住宿成本'
+    note: '通车走独库英雄天路，封路走 G30 大盘鸡美食坦途，留足还车缓冲'
   },
   {
     id: 's11',
-    section: '精河 → 乌鲁木齐（还车）',
-    publicRef: '约420km / 约4.5h纯驾驶',
-    itineraryStandard: '预留 5–5.5h；16:30–17:30抵乌市留3h+缓冲',
+    section: '精河/昌吉 → 乌鲁木齐（还车）',
+    publicRef: '约120–420km / 约1.5–4.5h纯驾驶',
+    itineraryStandard: '10/5 留足半天，16:30–17:30抵乌市，21:00还车',
     url: 'https://lxs.cncn.com/88804/n1009536',
     note: '给21:00还车预留3小时以上用于加油、洗车、拥堵及行李整理'
   },
@@ -93,7 +93,7 @@ export const officialSources: OfficialSource[] = [
     id: 's12',
     section: '赛里木湖自驾 8/20 官方新规',
     publicRef: '2026-08-20 起自驾按车收费 (5座120元/车)，提前 3 天自驾预约',
-    itineraryStandard: '10/1 开放抢约 10/4 自驾车辆配额，备好行驶证',
+    itineraryStandard: '9/29 开放抢约 10/2 自驾车辆配额，备好行驶证',
     url: 'https://www.xjboz.gov.cn/xjboz/c125795/202608/80097089e11f4d4db3e3fa1760c3e443.shtml',
     note: '博州人民政府网官方公告；名额每日设承载上限，需第一时间在“赛里木湖旅游”小程序办理'
   },

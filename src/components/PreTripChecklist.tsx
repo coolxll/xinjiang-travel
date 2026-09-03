@@ -115,7 +115,7 @@ export const PreTripChecklist: React.FC = () => {
   // Live Cost Estimation
   const kanasPricePerPerson = kanasEntryType === 'single' ? 230 : 270;
   const kanasTotal = kanasPricePerPerson * TRIP_BASE_PARAMS.travelerCount;
-  const hemuTotal = 75 * TRIP_BASE_PARAMS.travelerCount; // 300
+  const hemuTotal = 0; // 阿禾公路全景平替，彻底不进村，0元
   const aheTotal = 0;
   const sayramTicketTotal = 70 * TRIP_BASE_PARAMS.travelerCount; // 280
   const sayramVehicleTotal = 120; // 5座SUV自驾服务费
@@ -145,7 +145,7 @@ export const PreTripChecklist: React.FC = () => {
               行前准备与门票预约中枢
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl leading-relaxed">
-              测算基准：<strong>4人同行</strong> · <strong>1台5座SUV (途岳)</strong> · 覆盖喀纳斯/禾木提早锁票、G681阿禾公路 9:30–15:00 放行新规、赛里木湖 8/20 按车自驾预约及 9/20~10/3 倒计时行动节点。
+              测算基准：<strong>4人同行</strong> · <strong>1台5座SUV (途岳)</strong> · 覆盖喀纳斯提早锁票、G681阿禾公路全景平替禾木 (0元免票)、赛里木湖 8/20 按车自驾预约及 9/20~10/3 倒计时行动节点。
             </p>
           </div>
 
@@ -274,9 +274,9 @@ export const PreTripChecklist: React.FC = () => {
             </div>
 
             <div className="bg-white/5 p-3 rounded-xl border border-white/10">
-              <div className="text-slate-400 text-[11px] mb-1">禾木景区 (4人)</div>
-              <div className="font-extrabold text-white text-sm">¥{hemuTotal}</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">¥75/人 (门票+往返车)</div>
+              <div className="text-slate-400 text-[11px] mb-1">禾木段 (4人)</div>
+              <div className="font-extrabold text-emerald-400 text-sm">¥0 (阿禾平替)</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">不进村 · 省¥300门票</div>
             </div>
 
             <div className="bg-white/5 p-3 rounded-xl border border-white/10">

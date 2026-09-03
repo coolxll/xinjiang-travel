@@ -54,21 +54,21 @@ export const TRIP_BASE_PARAMS = {
   vehicleCount: 1,
   vehicleSeats: 5,
   verificationDate: '2026-09-02',
-  totalEstimatedCost: 1620, // 喀纳斯一进(920) + 禾木(300) + 赛湖(400) = 1620元
-  totalEstimatedCostTwoEntries: 1620 // 当天下午出山住布尔津，全员仅需一进！无需二进
+  totalEstimatedCost: 1320, // 喀纳斯一进(920) + 禾木平替不进村(0) + 赛湖(400) = 1320元
+  totalEstimatedCostTwoEntries: 1320 // 当天下午出山住布尔津，全员仅需一进！无需二进
 };
 
 // 三大关键结论
 export const KEY_RESERVATION_TAKEAWAYS = [
   {
-    id: 'takeaway-kanas-hemu',
-    tag: '喀纳斯 / 禾木',
-    title: '提早 8 天线上锁票，喀纳斯仅需一进门票',
+    id: 'takeaway-kanas',
+    tag: '喀纳斯景区',
+    title: '提早 8 天线上锁票 (一进 ¥230/人) · 禾木段阿禾公路平替',
     level: 'P0 级核心',
     levelColor: 'bg-emerald-50 text-emerald-900 border-emerald-300',
-    summary: '9/28 进禾木、9/29 进喀纳斯。因 9/29 下午玩完三湾后直接出山住布尔津，喀纳斯只需购买【一进门票（¥230/人）】，无需二进，直接再省 ¥160 元！',
-    action: '喀纳斯建议 9/20 锁票，禾木建议 9/21 锁票；严禁当天现场临场买票。',
-    tip: '禾木轻装进村打卡，大件行李全程妥善锁在车内后备箱，傍晚直接自驾前往贾登峪。'
+    summary: '9/28 穿越阿禾公路饱览 90% 以上秋色，彻底不进禾木村买票排队；9/29 进喀纳斯仅需购买【一进门票（¥230/人）】，玩完三湾傍晚直下布尔津！',
+    action: '喀纳斯建议 9/20 线上锁票；禾木无需购票，直接沿禾贾公路直通贾登峪。',
+    tip: '大件行李全程妥善锁在车内后备箱，全程纯自驾零排队零换乘。'
   },
   {
     id: 'takeaway-ahe-highway',
@@ -144,27 +144,24 @@ export const TICKET_RESERVATION_ITEMS: TicketReservationItem[] = [
   },
   {
     id: 'item-hemu',
-    priority: 'P0',
-    priorityBadge: 'P0 级锁票',
-    name: '禾木景区门票 + 往返区间车 (4人)',
-    targetDay: 'Day 2 (9/28 进入)',
+    priority: 'P1',
+    priorityBadge: '平替无需购票',
+    name: '禾木景区（阿禾公路全景平替 · 不进村）',
+    targetDay: 'Day 2 (9/28 通行)',
     targetDateText: '2026-09-28',
-    currentRule: '支持实名线上购票。9/28 阿禾公路出来后轻装随缘进村闲逛 2~3 小时，傍晚自驾直奔贾登峪。',
-    ticketType: '门票 + 禾木门票站至村内往返区间车（¥75/人 × 4 = ¥300）',
-    pricePerPerson: 75,
+    currentRule: '阿禾公路 209km 已饱览 90% 以上金秋风光，全员纯自驾直通贾登峪，彻底无需购买禾木门票与区间车。',
+    ticketType: '阿禾天路全景平替（无需购票，立省 ¥300）',
+    pricePerPerson: 0,
     vehicleFee: 0,
-    totalEstimatedPrice: 300,
-    advanceDays: 8,
-    suggestedActionDate: '2026-09-21 (周一)',
-    channel: '微信小程序“喀纳斯原行网” / “智游阿勒泰” / 携程 / 美团',
-    wechatMiniProgram: '喀纳斯原行网',
-    otaUrl: 'https://you.ctrip.com/sight/burqin178/141014.html',
-    otaName: '携程直达购票',
-    requiredInfo: '4 人二代身份证原件。',
-    keyActionNotes: '自驾车停在禾木门票站停车场（大件行李留车内），轻装乘车进村游览老桥与白桦林。',
-    preTripVerification: '9/21 左右下单锁票；提前确认禾木门票站区间车末班返回时间。',
-    status: '待办',
-    source: '喀纳斯景区官方票务平台'
+    totalEstimatedPrice: 0,
+    advanceDays: 0,
+    suggestedActionDate: '无需操作 (全景平替)',
+    channel: 'G681 阿禾公路 ➔ X852 禾贾公路自驾直通',
+    requiredInfo: '无需购票。自驾车沿禾贾公路直通贾登峪。',
+    keyActionNotes: '自驾车直接由阿禾公路顺接禾贾公路开往贾登峪，无需在禾木门票站停车与排队换乘。',
+    preTripVerification: '确认禾贾公路路况良好即可，无需任何票务操作。',
+    status: '已完成',
+    source: '自驾路线规划优化'
   },
   {
     id: 'item-sayram',
@@ -213,14 +210,12 @@ export const RESERVATION_TIMELINE: ActionTimelineStep[] = [
     id: 'step-2',
     date: '2026-09-21',
     weekday: '周一',
-    action: '复核并锁定禾木门票',
-    target: '禾木景区 (9/28 进入)',
-    priority: 'P0',
-    whyThisDay: '距 9/28 禾木行程提前 7 天，确保阿禾公路出来后顺利换乘进村。',
-    completionCriteria: '4人禾木门票+往返区间车（¥75/人）已下单成功。',
-    tips: '大件行李全部留在车内后备箱，随身只带相机外套轻装进村。',
-    actionUrl: 'https://you.ctrip.com/sight/burqin178/141014.html',
-    wechatMiniProgram: '喀纳斯原行网'
+    action: '确认阿禾-禾贾公路直通路线 (平替禾木无需买票)',
+    target: '阿禾公路 ➔ 贾登峪 (9/28 通行)',
+    priority: 'P1',
+    whyThisDay: '阿禾公路全景平替禾木 90%+ 秋色，无需购买禾木门票区间车，立省 ¥300。',
+    completionCriteria: '确认 9/28 由阿勒泰经阿禾公路直通禾贾公路抵贾登峪自驾路线。',
+    tips: '全程纯自驾，大行李放车内，不进禾木门票站排队挤区间车。'
   },
   {
     id: 'step-3',
@@ -274,9 +269,9 @@ export const RESERVATION_TIMELINE: ActionTimelineStep[] = [
 // 规则与来源核验说明
 export const RESERVATION_SOURCES: RuleSourceItem[] = [
   {
-    topic: '喀纳斯 / 禾木门票政策',
-    latestConclusion: '携程/原行网当前显示喀纳斯 230 元（一进）、禾木 75 元且可直接实名订票；已取消单独分时预约门槛。',
-    whyRecheck: '团队出行处于 9 月底秋色绝景 + 国庆超大客流，需提早 7–8 天锁定门票。',
+    topic: '喀纳斯门票政策与禾木平替',
+    latestConclusion: '携程/原行网当前显示喀纳斯 230 元（一进）实名订票；禾木段由阿禾公路全景平替，无需购票与预约。',
+    whyRecheck: '团队出行处于 9 月底秋色绝景 + 国庆超大客流，需提早 7–8 天锁定喀纳斯门票。',
     sourceUrl: 'https://you.ctrip.com/sight/burqin178/816.html'
   },
   {

@@ -27,8 +27,8 @@ export const travelPois: TravelPoi[] = [
     coords: [48.5750, 87.4380],
     altitude: '1,280m',
     bestTime: '07:00–08:30 (清晨逆光)',
-    tagline: '禾木村晨雾与金色白桦林全景第一机位',
-    tips: '需在村内步行上木栈道爬坡约25分钟，清晨气温接近0°C，需戴手套保暖',
+    tagline: '禾木村晨雾与金色白桦林全景第一机位（主线阿禾公路已全景平替，无需进村）',
+    tips: '阿禾公路 209km 已饱览 90% 以上高山雪山与泰加林全景，主线彻底不进村换乘，节省门票与排队时间',
     amapUrl: 'https://uri.amap.com/marker?position=87.4380,48.5750&name=%E7%A6%BE%E6%9C%A8%E5%93%88%E7%99%BB%E8%A7%82%E6%99%AF%E5%8F%B0',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=48.5750,87.4380',
     gpsCoordsString: '48.5750° N, 87.4380° E'
@@ -146,7 +146,7 @@ export const travelPois: TravelPoi[] = [
     icon: '⛽',
     coords: [48.6950, 87.0250],
     tagline: '喀纳斯景区外围唯一主力加油站',
-    tips: '10/2南下奎屯前建议在此补满油，避免盘山路低油量焦虑',
+    tips: '9/29 下午出山下撤布尔津前建议在此补满油，避免盘山路低油量焦虑',
     amapUrl: 'https://uri.amap.com/marker?position=87.0250,48.6950&name=%E8%B4%BE%E7%99%BB%E5%B3%AA%E5%8A%A0%E6%B2%B9%E7%AB%99',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=48.6950,87.0250',
     gpsCoordsString: '48.6950° N, 87.0250° E'
@@ -181,14 +181,14 @@ export const travelPois: TravelPoi[] = [
   // 🅿️ 景区换乘与门票中枢
   {
     id: 'poi-hub-hemu',
-    name: '禾木门票站游客中心停车场',
+    name: '禾木岔口 / 禾贾公路景观节点',
     category: 'hub',
-    categoryLabel: '换乘枢纽',
-    icon: '🅿️',
+    categoryLabel: '公路连通',
+    icon: '🚗',
     coords: [48.5680, 87.4200],
-    tagline: '私家车停放大本营 ｜ 换乘区间车进村入口',
-    tips: '自驾车不能开入村内，在此停好车后，带轻便随身行李转乘区间车（约40分钟入村）',
-    amapUrl: 'https://uri.amap.com/marker?position=87.4200,48.5680&name=%E7%A6%BE%E6%9C%A8%E9%97%A8%E7%A5%A8%E7%AB%99%E5%81%9C%E8%BD%A6%E5%9C%BA',
+    tagline: 'G681 阿禾公路与 X852 禾贾公路交汇处 ｜ 景观自驾直通',
+    tips: '阿禾公路全景平替禾木村内风光，在此顺接禾贾公路自驾直通贾登峪，彻底不进村换乘',
+    amapUrl: 'https://uri.amap.com/marker?position=87.4200,48.5680&name=%E7%A6%BE%E6%9C%A8%E5%B2%94%E5%8F%A3',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=48.5680,87.4200',
     gpsCoordsString: '48.5680° N, 87.4200° E'
   },

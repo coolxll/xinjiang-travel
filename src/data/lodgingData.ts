@@ -21,10 +21,10 @@ export const lodgingOptions: LodgingOption[] = [
     id: 'jiadengyu-entry',
     dateRange: '9/28 (1晚 · 待选定)',
     location: '贾登峪综合服务区 (喀纳斯大门)',
-    strategyName: '拒绝禾木村内天价，傍晚直奔贾登峪',
-    strategySummary: '大行李全程留在后备箱，禾木轻装随缘闲逛，傍晚自驾禾贾公路入住贾登峪。',
-    whyThisChoice: '禾木村内老木屋旺季每间动辄 ¥2,000~4,000 且严禁私家车驶入，拖大行李极其折腾。阿禾公路出来后把行李留车里轻装逛禾木，傍晚开 64km 禾贾公路住贾登峪度假酒店（2间仅需 ¥700~900），立省数千元！',
-    costSavingTips: '不住禾木村内破木屋，单晚直接为 4 人团队省下 ¥2,000~3,500 元暴利溢价。',
+    strategyName: '阿禾公路直通贾登峪，彻底告别禾木天价与折腾',
+    strategySummary: '阿禾公路全景平替禾木，大行李全程留车内，傍晚自驾禾贾公路直奔贾登峪。',
+    whyThisChoice: '阿禾公路 209km 已经看遍阿尔泰金秋精华，无需再进禾木挤区间车、受木屋暴利挨宰。自驾禾贾公路直达贾登峪（2间仅需 ¥700~900），省下门票与数千元木屋溢价，次日步行直达喀纳斯门票站！',
+    costSavingTips: '不买禾木门票区间车（省 ¥300），不住村内破木屋（省 ¥2,000~3,500），4 人团队单日直接净省数千元！',
     pros: [
       '彻底免除“拖着大箱子挤区间车进村”的泥泞折磨',
       '次日 08:30 第一批步行刷身份证进喀纳斯三湾',
@@ -46,7 +46,7 @@ export const lodgingOptions: LodgingOption[] = [
       '河堤夜市品尝正宗额尔齐斯河烤狗鱼与格瓦斯',
       '高星级现代化城市酒店，洗大热水澡彻底解乏'
     ],
-    imageUrl: scenicImages.lodgingHemu.url
+    imageUrl: scenicImages.lodgingAltay.url
   },
   {
     id: 'kuitun-and-jinghe',

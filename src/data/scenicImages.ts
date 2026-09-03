@@ -118,19 +118,19 @@ export const scenicImages: Record<string, ScenicImage> = {
   },
   lodgingHemu: {
     id: 'lodgingHemu',
-    title: '禾木原始图瓦木屋',
+    title: '禾木图瓦小木屋',
     location: '禾木村内',
     url: 'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=800&q=80',
-    tag: '特色体验',
-    description: '沉浸式图瓦木屋，第一缕炊烟与星空'
+    tag: '传统木屋',
+    description: '传统图瓦木屋（主线阿禾公路全景平替，不住村内）'
   },
   lodgingJiadengyu: {
     id: 'lodgingJiadengyu',
     title: '贾登峪高山度假酒店',
     location: '贾登峪综合服务区',
     url: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
-    tag: '连住中枢',
-    description: '进出喀纳斯换乘站，免去搬行李折腾'
+    tag: '喀纳斯大门',
+    description: '9/28 进驻喀纳斯大门，大行李留车内，次日 08:30 直进三湾'
   },
   lodgingSailimu: {
     id: 'lodgingSailimu',

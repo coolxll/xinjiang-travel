@@ -108,7 +108,7 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
               同行人 4 大核心原则速览 (公路自由版)
             </h2>
             <ul className="list-disc list-inside space-y-1 text-xs text-amber-950">
-              <li><strong>9/28 阿禾公路是一整天主角：</strong> 全长209.45km，按5-6小时边走边停游玩；进山前加满油，大行李放车内。</li>
+              <li><strong>9/28 阿禾公路全景平替禾木：</strong> 全长209.45km，饱览90%以上阿尔泰秋色，彻底不进村排队挤大巴，直通禾贾公路抵贾登峪。</li>
               <li><strong>提前出山，拒绝挨宰：</strong> 9/28 贾登峪住 1 晚，9/29 玩完三湾傍晚撤至布尔津，城市品质酒店舒适省大钱。</li>
               <li><strong>沿途景点随缘偶遇：</strong> 魔鬼城、五彩滩、大峡谷顺路随缘停靠，不设死板打卡，每天车程轻松。</li>
               <li><strong>独库公路 A/B 明确 + 21:00 还车：</strong> 10/2 晚核验路况决定独库北段 (Plan A) 或连霍美食 (Plan B)，10/5 留足半天还车缓冲。</li>

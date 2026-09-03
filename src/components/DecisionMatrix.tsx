@@ -13,16 +13,16 @@ export const DecisionMatrix: React.FC<DecisionMatrixProps> = ({ onExploreAlterna
     try {
       const saved = localStorage.getItem('xj_travel_votes');
       return saved ? JSON.parse(saved) : {
-        'decision-mist': 'B',
-        'decision-homestay': 'B',
-        'decision-guanyu': 'B',
+        'decision-hemu-lodging': 'A',
+        'decision-duku-ab': 'A',
+        'decision-guanyu': 'A',
         'decision-weather': 'A'
       };
     } catch {
       return {
-        'decision-mist': 'B',
-        'decision-homestay': 'B',
-        'decision-guanyu': 'B',
+        'decision-hemu-lodging': 'A',
+        'decision-duku-ab': 'A',
+        'decision-guanyu': 'A',
         'decision-weather': 'A'
       };
     }

@@ -21,7 +21,7 @@ export const checklistCategories: ChecklistCategory[] = [
       },
       {
         id: 'c3',
-        text: '10/2 贾登峪出发前、10/5 精河出发前均提早加满油箱并检查冷车胎压',
+        text: '9/29 贾登峪出山前、10/5 精河出发前均提早加满油箱并检查冷车胎压',
         critical: true,
         badge: '安全'
       },
@@ -58,7 +58,7 @@ export const checklistCategories: ChecklistCategory[] = [
       },
       {
         id: 'l2',
-        text: '每人携带一个可折叠双肩随身小包（进禾木/喀纳斯住木屋时只带随身包与洗漱包换乘，大箱留车内）',
+        text: '每人携带一个可折叠双肩随身小包（喀纳斯景区换乘只带随身相机包与防寒外套，大箱留车内）',
         critical: true,
         badge: '技巧'
       },
