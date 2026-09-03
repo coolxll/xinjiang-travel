@@ -186,14 +186,14 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               </div>
               <h3 className="font-bold text-slate-900 text-base mb-1.5 flex items-center gap-1.5">
                 <Clock className="w-4 h-4 text-sky-600" />
-                禾木晨雾仍然是自由投票项
+                提前出山，拒绝山里挨宰
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                愿意早起的人 <strong>06:30左右起</strong> 去哈登平台；不感兴趣的人继续睡到自然醒，<strong>绝不强制全员陪跑</strong>，白天共同游览。
+                9/28 贾登峪住 1 晚，9/29 玩完喀纳斯三湾后<strong>傍晚从容下撤布尔津县城</strong>，城市高品质酒店仅 ¥200~300/间，省出上万预算！
               </p>
               <div className="mt-3 pt-2.5 border-t border-sky-200/60 flex items-center justify-between text-[11px] font-semibold text-sky-800">
-                <span>互不道德绑架</span>
-                <span>第2晚可搬入口服务区</span>
+                <span>拒绝村内天价</span>
+                <span>城市酒店洗热水澡</span>
               </div>
             </div>
 
@@ -204,14 +204,14 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               </div>
               <h3 className="font-bold text-slate-900 text-base mb-1.5 flex items-center gap-1.5">
                 <Mountain className="w-4 h-4 text-emerald-600" />
-                10/2 仍是长途日，但比旧版轻
+                沿途景点随缘，畅快公路自驾
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                从 <strong>贾登峪直接出发去奎屯</strong>，不再从禾木起步，<strong>省掉约1.5–2小时盘山路</strong>。当天坚决不再加魔鬼城等疲惫打卡点。
+                五彩滩、乌尔禾魔鬼城、独山子大峡谷<strong>顺路自由偶遇</strong>，不设死板打卡任务，每天车程仅 2–4 小时，彻底告别赶路疲劳。
               </p>
               <div className="mt-3 pt-2.5 border-t border-emerald-200/60 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
-                <span>直达奎屯休整</span>
-                <span>约570–600km</span>
+                <span>公路自由旅行</span>
+                <span>每天车程轻松</span>
               </div>
             </div>
 
@@ -222,14 +222,14 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               </div>
               <h3 className="font-bold text-slate-900 text-base mb-1.5 flex items-center gap-1.5">
                 <ShieldAlert className="w-4 h-4 text-blue-600" />
-                赛里木湖严格只住 1 晚
+                独库公路 A/B 明确 + 21:00 还车
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                <strong>10/3下午 + 10/4上午</strong> 拆开环湖，10/4下午住 <strong>精河县城</strong> 降本，为 <strong>10/5从容回乌鲁木齐21:00还车留出3h+缓冲</strong>。
+                10/2 晚核验路况：<strong>通车走独库北段英雄天路 (Plan A)</strong>，<strong>封路走连霍高速美食坦途 (Plan B)</strong>，10/5 留足半天安全缓冲。
               </p>
               <div className="mt-3 pt-2.5 border-t border-blue-200/60 flex items-center justify-between text-[11px] font-semibold text-blue-800">
-                <span>次核心定位</span>
-                <span>给还车留足时间</span>
+                <span>双轨决策绝不冒险</span>
+                <span>100% 稳妥还车</span>
               </div>
             </div>
           </div>
