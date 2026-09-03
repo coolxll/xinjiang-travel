@@ -35,27 +35,27 @@ export const officialSources: OfficialSource[] = [
   },
   {
     id: 's5',
-    section: '阿禾公路 → 禾木村换乘',
-    publicRef: '私家车到禾木游客中心后需换乘区间车进村',
-    itineraryStandard: '预留 40–60min 换乘与行李搬运',
-    url: 'https://k.sina.cn/article_7857141524_1d452771401903e372.html?from=travel',
-    note: '阿禾公路通车不等于自驾私家车可直接开进禾木村'
+    section: 'G681 阿禾公路 → X852 禾贾公路',
+    publicRef: 'G681终点直接连通X852禾贾公路直通贾登峪',
+    itineraryStandard: '纯自驾穿越约 7h (阿禾 5.5h + 禾贾 1.5h)，彻底不换乘区间车',
+    url: 'https://jtyst.xinjiang.gov.cn/xjjtysj/mtkjt/202607/7181bcab6b6e4c1db4de25b423a5600a.shtml',
+    note: '开自己的车一路到底，无需进禾木门票站排队挤区间车'
   },
   {
     id: 's6',
-    section: '禾木游客中心 → 贾登峪',
-    publicRef: '约64km / 1.5–2h',
-    itineraryStandard: '按保守 1.5–2h 估算',
+    section: '喀纳斯出山 → 布尔津县城',
+    publicRef: '贾登峪至布尔津约 140km / 2.5h 铺装公路',
+    itineraryStandard: '9/29 下午 16:30 提前下撤出山',
     url: 'https://www.autohome.com.cn/ask/23634342.html',
-    note: '山区公路弯道多，按安全稳妥时间规划'
+    note: '住布尔津高星级酒店，享受额尔齐斯河烤狗鱼大餐，提前吃掉次日 140km 山路'
   },
   {
     id: 's7',
-    section: '贾登峪 → 奎屯（长途转场）',
-    publicRef: '约580km / 约7h纯驾驶',
-    itineraryStandard: '全天规划 8–9h（含休息与国庆车流弹性）',
-    url: 'https://lxs.cncn.com/88804/n1009536',
-    note: '新版直接从贾登峪出发，不再多开禾木至贾登峪山路，大幅减压'
+    section: '布尔津 → 奎阿高速 → 奎屯',
+    publicRef: '约450km / 4.5h 全线高速',
+    itineraryStandard: '畅快戈壁高速，顺路随缘偶遇乌尔禾魔鬼城',
+    url: 'https://jtyst.xinjiang.gov.cn',
+    note: '全线平坦高速，告别旧版一天开 600km 盘山路的疲劳拉练'
   },
   {
     id: 's8',

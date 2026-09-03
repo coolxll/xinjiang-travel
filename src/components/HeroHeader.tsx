@@ -114,7 +114,7 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                   <span className="text-[11px] font-semibold text-slate-500 uppercase">计划总里程</span>
                 </div>
                 <div className="text-2xl font-black text-slate-900">2,300<span className="text-xs font-medium text-slate-500"> km+</span></div>
-                <p className="text-[10px] text-slate-500 mt-0.5">主线实测口径（不含赛湖环湖）</p>
+                <p className="text-[10px] text-slate-500 mt-0.5">主线实测（Plan A 约2500km / Plan B 约2300km）</p>
               </div>
 
               <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
@@ -141,7 +141,7 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                   <span className="text-[11px] font-semibold text-slate-500 uppercase">核心高光</span>
                 </div>
                 <div className="text-2xl font-black text-slate-900">4<span className="text-xs font-medium text-slate-500"> 大胜地</span></div>
-                <p className="text-[10px] text-slate-500 mt-0.5">阿禾公路 · 禾木 · 喀纳斯 · 赛湖</p>
+                <p className="text-[10px] text-slate-500 mt-0.5">阿禾公路 · 喀纳斯 · 赛湖 · 独库北段</p>
               </div>
             </div>
           </div>
@@ -171,11 +171,11 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                 9/28 阿禾公路是一整天主角
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                全长约 <strong>209.45km</strong>，纯开约3小时，但当天按 <strong>5–6小时边走边停</strong> 游玩；至禾木游客中心后停车换乘区间车进村。
+                全长约 <strong>209.45km</strong>，按 <strong>5–6小时边走边停</strong> 景观自驾；穿出公路后直接沿 <strong>X852 禾贾公路直达贾登峪</strong>，<strong>彻底不换乘区间车、不进村排队</strong>。
               </p>
               <div className="mt-3 pt-2.5 border-t border-amber-200/60 flex items-center justify-between text-[11px] font-semibold text-amber-800">
                 <span>出阿勒泰前加满油</span>
-                <span>约09:30入公路</span>
+                <span>全程开自己的车</span>
               </div>
             </div>
 
