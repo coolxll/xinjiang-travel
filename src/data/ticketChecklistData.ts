@@ -58,8 +58,18 @@ export const TRIP_BASE_PARAMS = {
   totalEstimatedCostTwoEntries: 1320 // 当天下午出山住布尔津，全员仅需一进！无需二进
 };
 
-// 三大关键结论
+// 四大关键结论
 export const KEY_RESERVATION_TAKEAWAYS = [
+  {
+    id: 'takeaway-border-pass',
+    tag: '边防证新规 (2026.4.15 落地)',
+    title: '全国启用电子边防证：提前线上办 · 4人各自申请 · 目的地填哈巴河县',
+    level: 'P0 级行前必备',
+    levelColor: 'bg-indigo-50 text-indigo-900 border-indigo-300',
+    summary: '2026-04-15 起全国停发纸质证，全面启用【国家移民局 12367 电子边境通行证】。16周岁以上独立线上免费申请，审批最长3个工作日，有效期长达3个月。彻底无需在铁热克提或哈巴河现场排队！',
+    action: '9/18～9/22 4 位队员各自在“移民局12367”小程序提交申请；目的地务必选【新疆维吾尔自治区 / 阿勒泰地区 / 哈巴河县（白哈巴村）】；获批后截图离线保存。',
+    tip: '⚠️ 核心区分：电子边防证(人) ≠ 白哈巴自驾预约(车) ≠ 喀纳斯门票(票)。三套系统独立并行，现场出示电子证截图 + 身份证原件即可秒通关！'
+  },
   {
     id: 'takeaway-sayram-lake',
     tag: '赛里木湖 (9/28 入园)',
@@ -92,8 +102,32 @@ export const KEY_RESERVATION_TAKEAWAYS = [
   }
 ];
 
-// 4 项门票与自驾预约核验清单项
+// 5 项门票与自驾预约核验清单项
 export const TICKET_RESERVATION_ITEMS: TicketReservationItem[] = [
+  {
+    id: 'item-border-pass',
+    priority: 'P0',
+    priorityBadge: '2026.4.15 新规必备',
+    name: '国家移民管理局 12367 电子边境管理区通行证 (4人线上独立申办)',
+    targetDay: '出发前办理 ➔ 全程边境管控区有效',
+    targetDateText: '2026-09-18 ~ 2026-09-22 办理',
+    currentRule: '自 2026 年 4 月 15 日起全国停发纸质证，改发电子证。16周岁以上中国内地居民直接在“移民局12367”微信/支付宝小程序线上免费申请；最长3个月有效，法定3个工作日内签发。',
+    ticketType: '电子通行证（免费办理 ¥0）',
+    pricePerPerson: 0,
+    vehicleFee: 0,
+    totalEstimatedPrice: 0,
+    advanceDays: 7,
+    suggestedActionDate: '2026-09-18 ~ 2026-09-22 (出发前 5–9 天)',
+    channel: '微信小程序 / 支付宝小程序 / APP【移民局12367】',
+    wechatMiniProgram: '移民局12367',
+    officialNoticeUrl: 'https://www.nia.gov.cn/n741440/n741542/c1775717/content.html',
+    officialNoticeName: '国家移民管理局 2026-04-15 启用电子证公告',
+    requiredInfo: '4 位成年人各自本人二代身份证；前往事由：旅游；前往地区：新疆维吾尔自治区 / 阿勒泰地区 / 哈巴河县（具体地点备注：白哈巴村）。',
+    keyActionNotes: '① 目的地必须具体填至“哈巴河县”，不可只填“阿勒泰”；② 4位成年人各自独立在手机申请；③ 审批通过后务必截屏/下载 PDF 离线保存（防山区检查站无网络）；④ 查验时出示电子证截图 + 身份证原件。',
+    preTripVerification: '9/22 检查 4 人电子通行证均已签发并在有效期内，存入手机相册与微信群备查。',
+    status: '待办',
+    source: '国家移民管理局 2026-04-15 官方通告'
+  },
   {
     id: 'item-sayram',
     priority: 'P0+',
@@ -191,8 +225,21 @@ export const TICKET_RESERVATION_ITEMS: TicketReservationItem[] = [
   }
 ];
 
-// 6 步行动时间线 (9/20 ➔ 10/5)
+// 7 步行动时间线 (9/18 ➔ 10/5)
 export const RESERVATION_TIMELINE: ActionTimelineStep[] = [
+  {
+    id: 'step-0',
+    date: '2026-09-18 ~ 2026-09-22',
+    weekday: '周五-周二',
+    action: '4人统一申请国家移民局电子边防证',
+    target: '微信小程序“移民局12367” ➔ 电子边境管理区通行证',
+    priority: 'P0',
+    whyThisDay: '法定审批3个工作日内，有效期长达3个月，出发前1周办好最稳妥，彻底省去现场办证排队！',
+    completionCriteria: '4位队员各自在手机小程序完成申请，获批后截屏离线保存在手机相册中。',
+    tips: '⚠️ 前往地区务必填写【新疆维吾尔自治区 / 阿勒泰地区 / 哈巴河县（白哈巴村）】，不要只写阿勒泰或喀纳斯。',
+    wechatMiniProgram: '移民局12367',
+    actionUrl: 'https://s.nia.gov.cn/mps/bszy/dzbjtxz/blzy/202604/t20260414_1001.html'
+  },
   {
     id: 'step-1',
     date: '2026-09-24',
@@ -267,6 +314,12 @@ export const RESERVATION_TIMELINE: ActionTimelineStep[] = [
 
 // 规则与来源核验说明
 export const RESERVATION_SOURCES: RuleSourceItem[] = [
+  {
+    topic: '电子边境管理区通行证 2026.4.15 新规',
+    latestConclusion: '全国自 2026-04-15 起停发纸质证，全面启用“移民局12367”电子边防证。16周岁以上独立线上申请（免费、最长3个月有效、3工作日审批）。白哈巴需精准填报“哈巴河县”。',
+    whyRecheck: '纠正传统视频攻略中“到铁热克提现场办纸质证/多人一张”的过时做法；出发前统一线上办结并保存离线截图。',
+    sourceUrl: 'https://www.nia.gov.cn/n741440/n741542/c1775717/content.html'
+  },
   {
     topic: '喀纳斯门票政策与禾木平替',
     latestConclusion: '携程/原行网当前显示喀纳斯 230 元（一进）实名订票；禾木段由阿禾公路全景平替，无需购票与预约。',

@@ -133,6 +133,18 @@ export const checklistCategories: ChecklistCategory[] = [
         id: 't4',
         text: '高热量能量物资：士力架、电解质冲剂、牛肉干、便携葡萄糖粉',
         critical: false
+      },
+      {
+        id: 't5',
+        text: '2026.4.15 电子边防证新规：9/18~9/22 全员 4 人在“移民局12367”小程序线上申请，目的地填【新疆维吾尔自治区 / 阿勒泰地区 / 哈巴河县（白哈巴村）】，获批后截图离线保存',
+        critical: true,
+        badge: '电子边防证'
+      },
+      {
+        id: 't6',
+        text: '三大系统认知底线：电子边境通行证(人) ≠ 白哈巴自驾通行预约(车) ≠ 景区门票/区间车(票)，三者独立并行，切勿混淆',
+        critical: true,
+        badge: '底线'
       }
     ]
   }

@@ -104,5 +104,13 @@ export const officialSources: OfficialSource[] = [
     itineraryStandard: '7座及以下 9:30–15:00 放行，凭身份证通行',
     url: 'https://www.aksxw.com/sy/rdxw/xj/202605/t20260511_34373389.html',
     note: '纠正网络旧攻略中的边防证旧说法；临行前2天向交警复核山区路况与天气管制'
+  },
+  {
+    id: 's14',
+    section: '国家移民管理局 2026.4.15 电子边境通行证新规',
+    publicRef: '全国自 2026 年 4 月 15 日起停发纸质证，启用“移民局12367”电子证',
+    itineraryStandard: '9/18–9/22 4人线上独立申报，填哈巴河县白哈巴村，截图离线保存',
+    url: 'https://www.nia.gov.cn/n741440/n741542/c1775717/content.html',
+    note: '国家移民管理局官方公告；16周岁以上独立线上申请（免费、最长3个月有效、法定3工作日内审批），出示电子证+身份证原件'
   }
 ];
