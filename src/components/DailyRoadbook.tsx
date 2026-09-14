@@ -1,27 +1,39 @@
 import React, { useState } from 'react';
 import { itineraryDays } from '../data/itineraryData';
 import { routePoints } from '../data/mapData';
+import { dailyAmapSchedules } from '../data/dailyAmapData';
+import { RouteProgressTracker } from './RouteProgressTracker';
+import { DailyAmapMap } from './DailyAmapMap';
 import { 
   Clock, Navigation, Fuel, Utensils, 
   ShieldAlert, Sparkles, ChevronDown, ChevronUp, CheckCircle2, Image as ImageIcon,
-  Globe, Compass
+  Globe, Compass, ArrowRight, MapPin
 } from 'lucide-react';
 
-export const DailyRoadbook: React.FC = () => {
-  const [selectedDayId, setSelectedDayId] = useState<string>('day-1');
+interface DailyRoadbookProps {
+  onSwitchToRoadbookMode?: () => void;
+}
+
+export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({ onSwitchToRoadbookMode }) => {
+  const [selectedDayId, setSelectedDayId] = useState<string>('day-2');
   const [filterType, setFilterType] = useState<'all' | 'key' | 'driving'>('all');
+  const [savedProgressDayNumber, setSavedProgressDayNumber] = useState<number>(() => {
+    const saved = localStorage.getItem('xinjiang_current_travel_day');
+    return saved !== null ? parseInt(saved, 10) : 1;
+  });
+
   const [expandedDetails, setExpandedDetails] = useState<Record<string, boolean>>({
-    'day-0': true,
-    'day-1': true,
+    'day-0': false,
+    'day-1': false,
     'day-2': true,
-    'day-3': true,
-    'day-4': true,
-    'day-5': true,
-    'day-6': true,
-    'day-7': true,
-    'day-8': true,
-    'day-9': true,
-    'day-10': true,
+    'day-3': false,
+    'day-4': false,
+    'day-5': false,
+    'day-6': false,
+    'day-7': false,
+    'day-8': false,
+    'day-9': false,
+    'day-10': false,
   });
 
   const toggleExpand = (dayId: string) => {
@@ -29,6 +41,21 @@ export const DailyRoadbook: React.FC = () => {
       ...prev,
       [dayId]: !prev[dayId]
     }));
+  };
+
+  const handleUpdateSavedProgressDay = (dayNumber: number) => {
+    setSavedProgressDayNumber(dayNumber);
+    localStorage.setItem('xinjiang_current_travel_day', dayNumber.toString());
+  };
+
+  const handleSelectDay = (dayId: string) => {
+    setSelectedDayId(dayId);
+    setExpandedDetails(prev => ({
+      ...prev,
+      [dayId]: true
+    }));
+    const el = document.getElementById(dayId);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   const filteredDays = itineraryDays.filter(day => {
@@ -57,9 +84,9 @@ export const DailyRoadbook: React.FC = () => {
 
   return (
     <section id="roadbook" className="py-12 bg-slate-50 border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-bold mb-2 shadow-2xs">
               <Compass className="w-3.5 h-3.5 text-emerald-700" />
@@ -73,37 +100,57 @@ export const DailyRoadbook: React.FC = () => {
             </p>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="mt-4 md:mt-0 flex items-center gap-1.5 bg-slate-200/80 p-1 rounded-xl">
-            <button
-              onClick={() => setFilterType('all')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                filterType === 'all' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              全部 11 天
-            </button>
-            <button
-              onClick={() => setFilterType('key')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                filterType === 'key' ? 'bg-amber-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              🌟 核心高光日
-            </button>
-            <button
-              onClick={() => setFilterType('driving')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                filterType === 'driving' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              🚗 畅快公路日
-            </button>
+          {/* Filter Tabs & Switch Mode */}
+          <div className="flex flex-wrap items-center gap-2">
+            {onSwitchToRoadbookMode && (
+              <button
+                onClick={onSwitchToRoadbookMode}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white text-xs font-black shadow-md shadow-emerald-600/20 transition-all hover:scale-[1.02]"
+              >
+                <span>进入独立伴侣模式</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            )}
+
+            <div className="flex items-center gap-1 bg-slate-200/80 p-1 rounded-xl">
+              <button
+                onClick={() => setFilterType('all')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  filterType === 'all' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                全部 11 天
+              </button>
+              <button
+                onClick={() => setFilterType('key')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  filterType === 'key' ? 'bg-amber-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                🌟 核心高光
+              </button>
+              <button
+                onClick={() => setFilterType('driving')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  filterType === 'driving' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                🚗 畅快公路
+              </button>
+            </div>
           </div>
         </div>
 
+        {/* Feature 1: Route Progress Tracker embedded in section */}
+        <RouteProgressTracker
+          currentActiveDayId={selectedDayId}
+          onSelectDay={handleSelectDay}
+          savedProgressDayNumber={savedProgressDayNumber}
+          onUpdateSavedProgressDay={handleUpdateSavedProgressDay}
+        />
+
         {/* Horizontal Day Selector for Quick Jumping */}
-        <div className="flex gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar">
+        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
           {itineraryDays.map((day) => {
             const isSelected = selectedDayId === day.id;
             return (
@@ -111,6 +158,7 @@ export const DailyRoadbook: React.FC = () => {
                 key={day.id}
                 onClick={() => {
                   setSelectedDayId(day.id);
+                  setExpandedDetails(prev => ({ ...prev, [day.id]: true }));
                   const el = document.getElementById(day.id);
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }}
@@ -148,6 +196,7 @@ export const DailyRoadbook: React.FC = () => {
           {filteredDays.map((day) => {
             const isExpanded = expandedDetails[day.id] !== false;
             const targetPoint = getMatchingPoint(day.dayNumber);
+            const daySchedule = dailyAmapSchedules[day.id];
 
             return (
               <div
@@ -288,6 +337,23 @@ export const DailyRoadbook: React.FC = () => {
                 {/* Card Expanded Content */}
                 {isExpanded && (
                   <div className="p-4 sm:p-6 space-y-6">
+                    
+                    {/* Feature 2: Embedded AutoNavi Map for this Day */}
+                    {daySchedule && (
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
+                            <MapPin className="w-4 h-4 text-emerald-600" />
+                            <span>本日高德地图与点位交互视窗</span>
+                          </span>
+                          <span className="text-[11px] text-slate-400 hidden sm:inline">
+                            含当日行车路线、核心景点、机位与住宿
+                          </span>
+                        </div>
+                        <DailyAmapMap schedule={daySchedule} />
+                      </div>
+                    )}
+
                     {/* Time & Duration Breakdown Box */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200/80 text-xs">
                       <div>

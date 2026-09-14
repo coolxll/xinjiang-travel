@@ -125,20 +125,111 @@
   background: #94a3b8;
 }
 
-/* Print Styling */
+/* Print & PDF Export Styling */
 @media print {
-  .no-print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 12mm 12mm;
+  }
+
+  /* Hide screen-only elements */
+  .no-print,
+  header,
+  nav,
+  footer {
     display: none !important;
   }
-  .print-only {
+
+  /* Reset document and viewport scroll limits */
+  html, body, #root {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: auto !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 9.5pt !important;
+    line-height: 1.45 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Reset modal backdrop so it flows naturally onto paper without clipping */
+  .print-modal-backdrop {
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
     display: block !important;
+    box-shadow: none !important;
+    border: none !important;
   }
-  body {
-    background: white !important;
-    color: black !important;
-    font-size: 11pt;
+
+  /* Reset modal container */
+  .print-modal-container {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
-  .page-break {
-    page-break-before: always;
+
+  /* Reset inner paper scroll area */
+  .print-paper-content {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+  }
+
+  /* Page break helpers */
+  .print-page-break {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Table borders and header repetition */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  th, td {
+    border: 1px solid #cbd5e1 !important;
+    padding: 3.5pt 5pt !important;
+  }
+
+  /* Ensure background colors and borders print faithfully */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
+

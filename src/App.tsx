@@ -12,6 +12,12 @@ import { OfficialSources } from './components/OfficialSources';
 import { Footer } from './components/Footer';
 
 // Dynamic lazy imports for heavy standalone pages & modals to optimize bundle size
+const StandaloneRoadbookPage = lazy(() =>
+  import('./components/StandaloneRoadbookPage').then((m) => ({
+    default: m.StandaloneRoadbookPage,
+  }))
+);
+
 const AlternativePlansPage = lazy(() =>
   import('./components/AlternativePlansPage').then((m) => ({
     default: m.AlternativePlansPage,
@@ -25,16 +31,21 @@ const PrintRoadbookModal = lazy(() =>
 );
 
 export const App: React.FC = () => {
-  const [pageMode, setPageMode] = useState<'main' | 'alternatives'>(() => {
-    return window.location.hash === '#alternatives' ? 'alternatives' : 'main';
+  const [pageMode, setPageMode] = useState<'main' | 'roadbook' | 'alternatives'>(() => {
+    if (window.location.hash === '#roadbook') return 'roadbook';
+    if (window.location.hash === '#alternatives') return 'alternatives';
+    return 'main';
   });
   const [activeSection, setActiveSection] = useState<string>('overview');
   const [isPrintModalOpen, setIsPrintModalOpen] = useState<boolean>(false);
 
   // Switch Page Mode & URL Hash
-  const handleSwitchPageMode = (mode: 'main' | 'alternatives') => {
+  const handleSwitchPageMode = (mode: 'main' | 'roadbook' | 'alternatives') => {
     setPageMode(mode);
-    if (mode === 'alternatives') {
+    if (mode === 'roadbook') {
+      window.location.hash = 'roadbook';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (mode === 'alternatives') {
       window.location.hash = 'alternatives';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -46,7 +57,9 @@ export const App: React.FC = () => {
   // Listen to browser hash changes
   useEffect(() => {
     const handleHashChange = () => {
-      if (window.location.hash === '#alternatives') {
+      if (window.location.hash === '#roadbook') {
+        setPageMode('roadbook');
+      } else if (window.location.hash === '#alternatives') {
         setPageMode('alternatives');
       } else if (window.location.hash === '#main' || !window.location.hash) {
         setPageMode('main');
@@ -114,77 +127,100 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-900">
-      {/* Navigation */}
-      <Navbar
-        activeSection={activeSection}
-        onNavigate={handleNavigate}
-        onOpenPrint={() => setIsPrintModalOpen(true)}
-        pageMode={pageMode}
-        onSwitchPageMode={handleSwitchPageMode}
-      />
+      {/* Main Web Application Shell (Hidden when Print Modal is active) */}
+      <div className={isPrintModalOpen ? 'no-print' : ''}>
+        {/* Navigation */}
+        <Navbar
+          activeSection={activeSection}
+          onNavigate={handleNavigate}
+          onOpenPrint={() => setIsPrintModalOpen(true)}
+          pageMode={pageMode}
+          onSwitchPageMode={handleSwitchPageMode}
+        />
 
-      {/* Main Content Areas */}
-      <main>
-        {pageMode === 'alternatives' ? (
-          /* Dedicated Alternative Plans & Route Visualization Page (Lazy Loaded) */
-          <Suspense
-            fallback={
-              <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white p-8">
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin" />
-                  <span className="text-sm font-bold text-slate-300">正在加载 4 套备选方案高精度全景数据...</span>
+        {/* Main Content Areas */}
+        <main>
+          {pageMode === 'roadbook' ? (
+            /* Dedicated Standalone Daily Roadbook & Navigation Companion Page */
+            <Suspense
+              fallback={
+                <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white p-8">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-8 h-8 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+                    <span className="text-sm font-bold text-slate-300">正在进入每日路书 · 独立自驾伴侣中心...</span>
+                  </div>
                 </div>
-              </div>
-            }
-          >
-            <AlternativePlansPage
-              onBackToMain={() => handleSwitchPageMode('main')}
-            />
-          </Suspense>
-        ) : (
-          /* Standard Baseline Highway Freedom Sections */
-          <>
-            {/* 1. Hero Overview */}
-            <HeroHeader
-              onExploreMap={() => handleNavigate('map-section')}
-              onExploreModularArchitecture={() => handleNavigate('modular-architecture')}
-              onExploreRoadbook={() => handleNavigate('roadbook')}
-              onExploreDecisions={() => handleNavigate('decisions')}
-              onExploreBookings={() => handleNavigate('bookings')}
-              onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
-            />
+              }
+            >
+              <StandaloneRoadbookPage
+                onBackToMain={() => handleSwitchPageMode('main')}
+                onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
+                onOpenPrint={() => setIsPrintModalOpen(true)}
+              />
+            </Suspense>
+          ) : pageMode === 'alternatives' ? (
+            /* Dedicated Alternative Plans & Route Visualization Page */
+            <Suspense
+              fallback={
+                <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white p-8">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin" />
+                    <span className="text-sm font-bold text-slate-300">正在加载 4 套备选方案高精度全景数据...</span>
+                  </div>
+                </div>
+              }
+            >
+              <AlternativePlansPage
+                onBackToMain={() => handleSwitchPageMode('main')}
+              />
+            </Suspense>
+          ) : (
+            /* Standard Baseline Highway Freedom Sections */
+            <>
+              {/* 1. Hero Overview */}
+              <HeroHeader
+                onExploreMap={() => handleNavigate('map-section')}
+                onExploreModularArchitecture={() => handleNavigate('modular-architecture')}
+                onExploreRoadbook={() => handleSwitchPageMode('roadbook')}
+                onExploreDecisions={() => handleNavigate('decisions')}
+                onExploreBookings={() => handleNavigate('bookings')}
+                onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
+              />
 
-            {/* 2. Flight & Car Rental Time Constraint Hub */}
-            <BookingInfoCard />
+              {/* 2. Flight & Car Rental Time Constraint Hub */}
+              <BookingInfoCard />
 
-            {/* 3. Interactive Map */}
-            <InteractiveMap />
+              {/* 3. Interactive Map */}
+              <InteractiveMap />
 
-            {/* 4. 4-Module Architecture & 2N Elastic Pool Visualizer */}
-            <ModularArchitectureVisualizer />
+              {/* 4. 4-Module Architecture & 2N Elastic Pool Visualizer */}
+              <ModularArchitectureVisualizer />
 
-            {/* 5. Day-by-Day Roadbook with Rich Photos */}
-            <DailyRoadbook />
+              {/* 5. Day-by-Day Roadbook with Rich Photos & Embedded Amap */}
+              <DailyRoadbook
+                onSwitchToRoadbookMode={() => handleSwitchPageMode('roadbook')}
+              />
 
-            {/* 6. Team Consensus & Voting Matrix with Imagery */}
-            <DecisionMatrix
-              onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
-            />
+              {/* 6. Team Consensus & Voting Matrix with Imagery */}
+              <DecisionMatrix
+                onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
+              />
 
-            {/* 7. Lodging & Cost Optimization */}
-            <LodgingStrategy />
+              {/* 7. Lodging & Cost Optimization */}
+              <LodgingStrategy />
 
-            {/* 8. Pre-Trip Checklist & Packing */}
-            <PreTripChecklist />
+              {/* 8. Pre-Trip Checklist & Packing */}
+              <PreTripChecklist />
 
-            {/* 9. Official Sources & References */}
-            <OfficialSources />
-          </>
-        )}
-      </main>
+              {/* 9. Official Sources & References */}
+              <OfficialSources />
+            </>
+          )}
+        </main>
 
-      {/* Footer */}
-      <Footer />
+        {/* Footer */}
+        <Footer />
+      </div>
 
       {/* Offline / Print Modal (Lazy Loaded) */}
       {isPrintModalOpen && (
