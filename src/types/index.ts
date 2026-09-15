@@ -120,4 +120,8 @@ export interface OfficialSource {
   itineraryStandard: string;
   url: string;
   note: string;
+  verifiedDate?: string;
+  status?: 'confirmed' | 'recheck_before_departure';
+  statusText?: string;
+  isPolicy?: boolean;
 }

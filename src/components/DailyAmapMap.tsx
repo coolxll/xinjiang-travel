@@ -3,8 +3,9 @@ import L from 'leaflet';
 import { DayAmapSchedule, DailyDestination } from '../data/dailyAmapData';
 import { 
   Navigation, Copy, Check, Maximize2, Minimize2,
-  Layers, MapPin
+  Layers, MapPin, List, ExternalLink
 } from 'lucide-react';
+import { getAmapNavigationUrl, getAmapMarkerUrl } from '../utils/travelProgress';
 
 interface DailyAmapMapProps {
   schedule: DayAmapSchedule;
@@ -41,6 +42,7 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
   const [selectedDestId, setSelectedDestId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [showOfflineList, setShowOfflineList] = useState<boolean>(false);
 
   // Invalidate map size on fullscreen toggle
   useEffect(() => {
@@ -300,13 +302,26 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
         {/* Tile & View Switcher */}
         <div className="pointer-events-auto flex items-center gap-1 bg-slate-900/90 backdrop-blur-md p-1 rounded-xl sm:rounded-2xl border border-white/20 shadow-lg flex-shrink-0">
           <button
-            onClick={() => switchTileLayer(activeLayerType === 'vector' ? 'satellite' : 'vector')}
-            className="px-2 py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1"
-            title="切换高德路网与卫星图"
+            onClick={() => setShowOfflineList(!showOfflineList)}
+            className={`px-2 py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold transition-colors flex items-center gap-1 ${
+              showOfflineList ? 'bg-amber-500 text-slate-950 font-black' : 'text-slate-300 hover:text-white hover:bg-white/10'
+            }`}
+            title="地图在弱网或无法加载时，可切换为离线点位清单"
           >
-            <Layers className="w-3.5 h-3.5 text-sky-400" />
-            <span>{activeLayerType === 'vector' ? '卫星' : '路网'}</span>
+            <List className="w-3.5 h-3.5 text-amber-400" />
+            <span>{showOfflineList ? '返回地图' : '离线清单'}</span>
           </button>
+
+          {!showOfflineList && (
+            <button
+              onClick={() => switchTileLayer(activeLayerType === 'vector' ? 'satellite' : 'vector')}
+              className="px-2 py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1"
+              title="切换高德路网与卫星图"
+            >
+              <Layers className="w-3.5 h-3.5 text-sky-400" />
+              <span>{activeLayerType === 'vector' ? '卫星' : '路网'}</span>
+            </button>
+          )}
 
           <button
             onClick={() => setIsFullscreen(!isFullscreen)}
@@ -318,12 +333,78 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
         </div>
       </div>
 
-      {/* Map Body Canvas */}
-      <div 
-        ref={mapContainerRef} 
-        style={isFullscreen ? { height: 'calc(100vh - 130px)', minHeight: 'calc(100vh - 130px)' } : { height: '380px', minHeight: '380px' }}
-        className="w-full daily-amap-canvas bg-slate-950 transition-all"
-      />
+      {/* Map Body Canvas or Offline Fallback List */}
+      {showOfflineList ? (
+        <div className="w-full bg-slate-900 p-4 min-h-[380px] max-h-[520px] overflow-y-auto space-y-3">
+          <div className="flex items-center justify-between text-xs text-amber-400 font-bold border-b border-slate-800 pb-2">
+            <span className="flex items-center gap-1.5">
+              <List className="w-4 h-4" />
+              <span>当日全量点位离线清单（弱网 / 地图加载失败备用）</span>
+            </span>
+            <span className="text-[11px] text-slate-400 font-mono">共 {schedule.destinations.length} 个点位</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {schedule.destinations.map((dest) => (
+              <div key={dest.id} className="bg-slate-950/80 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">{dest.icon}</span>
+                    <div>
+                      <strong className="text-white text-sm block">{dest.name}</strong>
+                      <span className="text-[10px] text-slate-400 font-mono">
+                        {dest.categoryLabel} {dest.elevation ? `· 海拔 ${dest.elevation}` : ''}
+                      </span>
+                    </div>
+                  </div>
+                  {dest.isPrimary && (
+                    <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-500/30">
+                      核心
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed">{dest.tagline || dest.tips}</p>
+                <div className="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
+                  <button
+                    onClick={() => handleCopyGps(dest.coords, dest.id)}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-mono border border-slate-700"
+                  >
+                    {copiedId === dest.id ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                    <span>{copiedId === dest.id ? '已复制' : `${dest.coords[0].toFixed(3)}, ${dest.coords[1].toFixed(3)}`}</span>
+                  </button>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={getAmapMarkerUrl(dest.coords, dest.name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px]"
+                      title="查看高德地图标点"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      <span>标点</span>
+                    </a>
+                    <a
+                      href={getAmapNavigationUrl(dest.coords, dest.name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-[11px] shadow-xs"
+                      title="直接拉起高德路线导航"
+                    >
+                      <Navigation className="w-3 h-3" />
+                      <span>路线导航</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div 
+          ref={mapContainerRef} 
+          style={isFullscreen ? { height: 'calc(100vh - 130px)', minHeight: 'calc(100vh - 130px)' } : { height: '380px', minHeight: '380px' }}
+          className="w-full daily-amap-canvas bg-slate-950 transition-all"
+        />
+      )}
 
       {/* Bottom Destination Chips for Today */}
       <div className="bg-slate-950/95 border-t border-slate-800 p-3">
@@ -385,13 +466,14 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
                       <span>{copiedId === active.id ? '已复制经纬度' : `${active.coords[0].toFixed(3)}, ${active.coords[1].toFixed(3)}`}</span>
                     </button>
                     <a
-                      href={active.amapUrl}
+                      href={getAmapNavigationUrl(active.coords, active.name)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold transition-colors shadow-xs"
+                      title="直接拉起高德路线规划与自驾导航"
                     >
                       <Navigation className="w-3 h-3" />
-                      <span>高德导航到此</span>
+                      <span>高德路线导航</span>
                     </a>
                   </div>
                 </>

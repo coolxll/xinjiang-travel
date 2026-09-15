@@ -1,9 +1,15 @@
-import React from 'react';
 import { 
-  Compass, MapPin, Calendar, Vote, Hotel, CheckSquare, 
-  FileText, Printer, Plane, Shuffle, ArrowLeft, Layers, 
-  BookOpen
+  Compass, MapPin, Vote, Hotel, CheckSquare, 
+  FileText, Printer, Plane, ArrowLeft, Layers,
+  BookOpen, Shuffle
 } from 'lucide-react';
+
+interface NavItem {
+  id: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  isSpecial?: boolean;
+}
 
 interface NavbarProps {
   activeSection: string;
@@ -20,12 +26,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   pageMode,
   onSwitchPageMode
 }) => {
-  const mainNavItems = [
+  const mainNavItems: NavItem[] = [
     { id: 'overview', label: '行程概览', icon: Compass },
     { id: 'bookings', label: '航班租车', icon: Plane },
     { id: 'map-section', label: '交互地图', icon: MapPin },
     { id: 'modular-architecture', label: '4模块积木', icon: Layers },
-    { id: 'roadbook', label: '每日路书', icon: Calendar, isSpecial: true },
     { id: 'decisions', label: '同行共识', icon: Vote },
     { id: 'lodging', label: '住宿策略', icon: Hotel },
     { id: 'checklist', label: '行前准备', icon: CheckSquare },
@@ -33,11 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   const handleNavItemClick = (itemId: string) => {
-    if (itemId === 'roadbook') {
-      onSwitchPageMode('roadbook');
-    } else {
-      onNavigate(itemId);
-    }
+    onNavigate(itemId);
   };
 
   return (

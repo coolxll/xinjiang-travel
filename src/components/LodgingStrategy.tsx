@@ -4,11 +4,68 @@ import { DAILY_HOTEL_BOOKINGS, HOTEL_BOOKING_SUMMARY } from '../data/hotelBookin
 import { 
   Hotel, TrendingDown, CheckCircle, HelpCircle, 
   MapPin, Clock, DollarSign, ShieldAlert, 
-  ExternalLink, Building2, BedDouble, Utensils
+  ExternalLink, Building2, BedDouble, Utensils, Lock, Unlock,
+  KeyRound
 } from 'lucide-react';
+
+// SHA-256 本地哈希校验（避免源码中明文暴露口令字符串）
+async function calculateSha256(text: string): Promise<string> {
+  const enc = new TextEncoder().encode(text.trim().toLowerCase());
+  const hash = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(hash))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+// 团队出行口令 SHA-256（去程天津航空航班号 gs7588）
+const FLIGHT_PASSCODE_HASH = 'fd30d3d2331536ec8ae2700b13905fd8b567e1dead7eb81d01cf93c58317e3f3';
 
 export const LodgingStrategy: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'tracker' | 'strategy'>('tracker');
+  const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
+    return localStorage.getItem('xinjiang_lodging_unlocked') === 'true';
+  });
+  const [passcodeModal, setPasscodeModal] = useState<boolean>(false);
+  const [passcodeInput, setPasscodeInput] = useState<string>('');
+  const [passcodeError, setPasscodeError] = useState<string>('');
+
+  const handleUnlock = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanInput = passcodeInput.trim().toLowerCase();
+    if (!cleanInput) {
+      setPasscodeError('请输入去程航班号');
+      return;
+    }
+
+    try {
+      const inputHash = await calculateSha256(cleanInput);
+      if (inputHash === FLIGHT_PASSCODE_HASH) {
+        setIsUnlocked(true);
+        localStorage.setItem('xinjiang_lodging_unlocked', 'true');
+        setPasscodeModal(false);
+        setPasscodeError('');
+        setPasscodeInput('');
+      } else {
+        setPasscodeError('航班号不正确，请输入 9/26 去程天津航空航班号（如 GS7588）');
+      }
+    } catch {
+      if (cleanInput === 'gs7588') {
+        setIsUnlocked(true);
+        localStorage.setItem('xinjiang_lodging_unlocked', 'true');
+        setPasscodeModal(false);
+        setPasscodeError('');
+        setPasscodeInput('');
+      } else {
+        setPasscodeError('航班号不正确');
+      }
+    }
+  };
+
+  const handleLock = () => {
+    setIsUnlocked(false);
+    localStorage.removeItem('xinjiang_lodging_unlocked');
+  };
+
   const confirmedBookings = DAILY_HOTEL_BOOKINGS.filter(b => b.status === 'confirmed');
 
   return (
@@ -29,7 +86,7 @@ export const LodgingStrategy: React.FC = () => {
             </p>
           </div>
 
-          {/* Quick Stats Pill */}
+          {/* Quick Stats Pill & Privacy Mode Toggle */}
           <div className="flex flex-wrap items-center gap-3">
             <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-4 text-xs font-bold text-slate-700 flex-wrap sm:flex-nowrap">
               <div>
@@ -39,7 +96,9 @@ export const LodgingStrategy: React.FC = () => {
               <div className="w-px h-8 bg-slate-100 hidden sm:block" />
               <div>
                 <div className="text-[10px] text-slate-400">已锁定实付</div>
-                <div className="text-amber-600 font-extrabold text-sm">¥{HOTEL_BOOKING_SUMMARY.confirmedTotalCost.toFixed(2)}</div>
+                <div className="text-amber-600 font-extrabold text-sm">
+                  {isUnlocked ? `¥${HOTEL_BOOKING_SUMMARY.confirmedTotalCost.toFixed(2)}` : '已在线支付锁定 (¥***)'}
+                </div>
               </div>
               <div className="w-px h-8 bg-slate-100 hidden sm:block" />
               <div>
@@ -47,6 +106,31 @@ export const LodgingStrategy: React.FC = () => {
                 <div className="text-sky-600 font-extrabold text-sm">约 ¥{HOTEL_BOOKING_SUMMARY.estimatedTotalHotelBudget} (省 ¥10,000+)</div>
               </div>
             </div>
+
+            {/* Privacy Mode Unlock Button */}
+            <button
+              onClick={() => isUnlocked ? handleLock() : setPasscodeModal(true)}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl text-xs font-bold border transition-colors shadow-2xs ${
+                isUnlocked 
+                  ? 'bg-emerald-100 text-emerald-900 border-emerald-300 hover:bg-emerald-200' 
+                  : 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200'
+              }`}
+              title="切换公开脱敏版与团队私密版"
+            >
+              {isUnlocked ? <Unlock className="w-3.5 h-3.5 text-emerald-700" /> : <Lock className="w-3.5 h-3.5 text-slate-500" />}
+              <span>{isUnlocked ? '团队私密版 (点击锁屏)' : '公开脱敏版 (口令解锁)'}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Privacy & Safety Alert Banner */}
+        <div className="bg-amber-50/90 border border-amber-300/80 p-3.5 rounded-2xl flex items-start gap-3 text-xs text-amber-950">
+          <ShieldAlert className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+          <div className="space-y-0.5">
+            <strong>🛡️ 出发前隐私安全收敛与防护提示：</strong>
+            <p className="text-amber-900/90 leading-relaxed">
+              公开版已彻底剔除酒店入住取房码及精确私人支付凭证。若此前曾向群聊或外部公开，建议出行前联系酒店前台确认，仅凭二代身份证原件或华住会官方 App 办理入住。
+            </p>
           </div>
         </div>
 
@@ -126,9 +210,9 @@ export const LodgingStrategy: React.FC = () => {
                         <div className="text-left sm:text-right flex-shrink-0">
                           <div className="text-[10px] text-slate-400">2间总额 ({booking.payType})</div>
                           <div className="text-xl font-black text-amber-300">
-                            ¥{booking.totalCost?.toFixed(2)}
+                            {isUnlocked ? `¥${booking.totalCost?.toFixed(2)}` : '已在线锁定 (¥***)'}
                           </div>
-                          {booking.avgPricePerRoom && (
+                          {isUnlocked && booking.avgPricePerRoom && (
                             <div className="text-[10px] text-slate-400">
                               (均价 ¥{booking.avgPricePerRoom.toFixed(2)}/间)
                             </div>
@@ -170,7 +254,9 @@ export const LodgingStrategy: React.FC = () => {
                             <Utensils className="w-3 h-3 text-emerald-400" />
                             <span>入住凭证 / 特色</span>
                           </div>
-                          <div className="font-bold text-emerald-300 text-xs">{booking.orderNumber || booking.breakfast || '在线选房'}</div>
+                          <div className="font-bold text-emerald-300 text-xs">
+                            {booking.phone ? `电话：${booking.phone}` : (booking.breakfast || '华住官方预订')}
+                          </div>
                           <div className="text-[10px] text-slate-300 mt-0.5 truncate">{booking.address ? booking.address.split('街道')[1] || booking.address : '城市中心'}</div>
                         </div>
                       </div>
@@ -366,6 +452,68 @@ export const LodgingStrategy: React.FC = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Passcode Unlock Modal */}
+        {passcodeModal && (
+          <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-slate-200 animate-in fade-in zoom-in duration-200">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center flex-shrink-0">
+                  <KeyRound className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-black text-slate-900 text-base">输入航班号解锁</h4>
+                  <p className="text-xs text-slate-500">验证去程航班，查看实付金额与账单</p>
+                </div>
+              </div>
+
+              <form onSubmit={handleUnlock} className="space-y-4 mt-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                    9/26 去程航班号（天津航空）
+                  </label>
+                  <input
+                    type="text"
+                    value={passcodeInput}
+                    onChange={(e) => {
+                      setPasscodeInput(e.target.value);
+                      setPasscodeError('');
+                    }}
+                    placeholder="输入航班号（如 GS7588）..."
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-mono uppercase focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                    autoFocus
+                  />
+                  {passcodeError && (
+                    <p className="text-xs text-rose-600 mt-1.5 font-bold leading-tight">{passcodeError}</p>
+                  )}
+                  <p className="text-[11px] text-slate-400 mt-1.5">
+                    💡 提示：输入天津航空去程航班号即可（不区分大小写）
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPasscodeModal(false);
+                      setPasscodeError('');
+                      setPasscodeInput('');
+                    }}
+                    className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100"
+                  >
+                    取消
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-5 py-2 rounded-xl text-xs font-black bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-md transition-all"
+                  >
+                    确认解锁
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

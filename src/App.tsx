@@ -11,13 +11,9 @@ import { PreTripChecklist } from './components/PreTripChecklist';
 import { OfficialSources } from './components/OfficialSources';
 import { Footer } from './components/Footer';
 
-// Dynamic lazy imports for heavy standalone pages & modals to optimize bundle size
-const StandaloneRoadbookPage = lazy(() =>
-  import('./components/StandaloneRoadbookPage').then((m) => ({
-    default: m.StandaloneRoadbookPage,
-  }))
-);
+import { StandaloneRoadbookPage } from './components/StandaloneRoadbookPage';
 
+// Dynamic lazy imports for heavy standalone pages & modals to optimize bundle size
 const AlternativePlansPage = lazy(() =>
   import('./components/AlternativePlansPage').then((m) => ({
     default: m.AlternativePlansPage,
@@ -141,23 +137,12 @@ export const App: React.FC = () => {
         {/* Main Content Areas */}
         <main>
           {pageMode === 'roadbook' ? (
-            /* Dedicated Standalone Daily Roadbook & Navigation Companion Page */
-            <Suspense
-              fallback={
-                <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white p-8">
-                  <div className="flex flex-col items-center gap-3">
-                    <div className="w-8 h-8 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin" />
-                    <span className="text-sm font-bold text-slate-300">正在进入每日路书 · 独立自驾伴侣中心...</span>
-                  </div>
-                </div>
-              }
-            >
-              <StandaloneRoadbookPage
-                onBackToMain={() => handleSwitchPageMode('main')}
-                onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
-                onOpenPrint={() => setIsPrintModalOpen(true)}
-              />
-            </Suspense>
+            /* Dedicated Standalone Daily Roadbook & Navigation Companion Page (Direct首屏渲染) */
+            <StandaloneRoadbookPage
+              onBackToMain={() => handleSwitchPageMode('main')}
+              onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
+              onOpenPrint={() => setIsPrintModalOpen(true)}
+            />
           ) : pageMode === 'alternatives' ? (
             /* Dedicated Alternative Plans & Route Visualization Page */
             <Suspense

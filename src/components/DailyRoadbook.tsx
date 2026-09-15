@@ -10,17 +10,18 @@ import {
   Globe, Compass, ArrowRight, MapPin
 } from 'lucide-react';
 
+import { getInitialTravelProgress, saveTravelProgress, getAmapNavigationUrl } from '../utils/travelProgress';
+
 interface DailyRoadbookProps {
   onSwitchToRoadbookMode?: () => void;
 }
 
 export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({ onSwitchToRoadbookMode }) => {
-  const [selectedDayId, setSelectedDayId] = useState<string>('day-2');
+  const initial = getInitialTravelProgress();
+  const [todayDayNumber, setTodayDayNumber] = useState<number>(initial.todayDayNumber);
+  const [completedDayNumber, setCompletedDayNumber] = useState<number>(initial.completedDayNumber);
+  const [selectedDayId, setSelectedDayId] = useState<string>(initial.viewingDayId);
   const [filterType, setFilterType] = useState<'all' | 'key' | 'driving'>('all');
-  const [savedProgressDayNumber, setSavedProgressDayNumber] = useState<number>(() => {
-    const saved = localStorage.getItem('xinjiang_current_travel_day');
-    return saved !== null ? parseInt(saved, 10) : 1;
-  });
 
   const [expandedDetails, setExpandedDetails] = useState<Record<string, boolean>>({
     'day-0': false,
@@ -43,13 +44,30 @@ export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({ onSwitchToRoadbook
     }));
   };
 
-  const handleUpdateSavedProgressDay = (dayNumber: number) => {
-    setSavedProgressDayNumber(dayNumber);
-    localStorage.setItem('xinjiang_current_travel_day', dayNumber.toString());
+  const handleSetToday = (dayNumber: number) => {
+    setTodayDayNumber(dayNumber);
+    saveTravelProgress(dayNumber, completedDayNumber, selectedDayId);
+  };
+
+  const handleMarkDayFinished = (dayNumber: number) => {
+    const newDone = Math.max(completedDayNumber, dayNumber);
+    const newToday = Math.min(10, dayNumber + 1);
+    const newViewing = `day-${newToday}`;
+    setCompletedDayNumber(newDone);
+    setTodayDayNumber(newToday);
+    setSelectedDayId(newViewing);
+    saveTravelProgress(newToday, newDone, newViewing);
+  };
+
+  const handleUndoDayFinished = () => {
+    const newDone = Math.max(0, completedDayNumber - 1);
+    setCompletedDayNumber(newDone);
+    saveTravelProgress(todayDayNumber, newDone, selectedDayId);
   };
 
   const handleSelectDay = (dayId: string) => {
     setSelectedDayId(dayId);
+    saveTravelProgress(todayDayNumber, completedDayNumber, dayId);
     setExpandedDetails(prev => ({
       ...prev,
       [dayId]: true
@@ -143,16 +161,22 @@ export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({ onSwitchToRoadbook
 
         {/* Feature 1: Route Progress Tracker embedded in section */}
         <RouteProgressTracker
+          todayDayNumber={todayDayNumber}
+          completedDayNumber={completedDayNumber}
           currentActiveDayId={selectedDayId}
           onSelectDay={handleSelectDay}
-          savedProgressDayNumber={savedProgressDayNumber}
-          onUpdateSavedProgressDay={handleUpdateSavedProgressDay}
+          onSetToday={handleSetToday}
+          onMarkDayFinished={handleMarkDayFinished}
+          onUndoDayFinished={handleUndoDayFinished}
         />
 
         {/* Horizontal Day Selector for Quick Jumping */}
         <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
           {itineraryDays.map((day) => {
             const isSelected = selectedDayId === day.id;
+            const isToday = day.dayNumber === todayDayNumber;
+            const isCompleted = day.dayNumber <= completedDayNumber && day.dayNumber > 0;
+
             return (
               <button
                 key={day.id}
@@ -164,18 +188,34 @@ export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({ onSwitchToRoadbook
                 }}
                 className={`flex-shrink-0 px-3.5 py-2 rounded-xl text-left border transition-all ${
                   isSelected
-                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-md scale-[1.02]'
-                    : 'bg-white text-slate-700 border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/40'
+                    ? 'bg-sky-600 text-white border-sky-600 shadow-md scale-[1.02]'
+                    : isToday
+                    ? 'bg-amber-50 text-slate-900 border-amber-400 ring-2 ring-amber-300'
+                    : isCompleted
+                    ? 'bg-emerald-50/70 text-slate-800 border-emerald-300 hover:bg-emerald-100/60'
+                    : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
                 }`}
               >
                 <div className="flex items-center gap-1.5 mb-0.5">
                   <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded ${
-                    isSelected ? 'bg-emerald-700 text-white' : 'bg-slate-100 text-slate-600'
+                    isSelected ? 'bg-sky-700 text-white' : 'bg-slate-100 text-slate-600'
                   }`}>
                     {day.date}
                   </span>
                   <span className="text-[11px] font-bold">D{day.dayNumber}</span>
-                  {day.moduleTag && (
+                  {isCompleted && (
+                    <span className={`text-[9px] px-1 rounded font-bold ${
+                      isSelected ? 'bg-sky-700 text-white' : 'bg-emerald-100 text-emerald-800'
+                    }`}>
+                      已完成
+                    </span>
+                  )}
+                  {isToday && (
+                    <span className="text-[9px] px-1 rounded font-bold bg-amber-500 text-slate-950">
+                      今天
+                    </span>
+                  )}
+                  {day.moduleTag && !isCompleted && !isToday && (
                     <span className={`text-[9px] font-extrabold px-1 rounded ${
                       isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/80 text-slate-700'
                     }`}>
@@ -261,13 +301,14 @@ export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({ onSwitchToRoadbook
                       </div>
                       <div className="flex items-center gap-2">
                         <a
-                          href={targetPoint.amapUrl}
+                          href={getAmapNavigationUrl(targetPoint.coords, targetPoint.name)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 text-xs font-bold bg-sky-600 hover:bg-sky-500 text-white px-3 py-1.5 rounded-xl transition-colors shadow-md"
+                          title="直接拉起高德路线规划与自驾导航"
                         >
                           <Navigation className="w-3.5 h-3.5" />
-                          <span>导航直达</span>
+                          <span>路线导航</span>
                         </a>
                         <a
                           href={targetPoint.googleMapsUrl}

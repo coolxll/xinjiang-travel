@@ -53,7 +53,7 @@ export const itineraryDays: ItineraryDay[] = [
     distance: '约 410 km',
     distanceKm: 410,
     lodging: '星程精河连霍高速路口酒店 (已预订 ✅)',
-    lodgingStrategy: '已锁定舒压大床房 2 间 (实付 ¥389.30 · 09/27 20:00前可免取 · 入住码: D7J2YJ) · 华住高性价比舒适休整，次日 1.5h 直达赛里木湖',
+    lodgingStrategy: '已锁定舒适大床房 · 华住官方预订 (09/27 20:00前可免取) · 连霍高速路口休整，次日 1.5h 直达赛里木湖',
     moduleTag: {
       code: 'FIXED',
       name: '西进坦途 · 精河前哨',
@@ -91,7 +91,7 @@ export const itineraryDays: ItineraryDay[] = [
     distance: '约 180 km',
     distanceKm: 180,
     lodging: '赛里木湖城际酒店 (已预订 ✅)',
-    lodgingStrategy: '已锁定城际豪华大床房 2 间 (实付 ¥1,970.30 · 09/28 20:00前可免取 · 入住码: DBE2U8) · 位于新游客中心旁 500 米，德系高端湖畔度假体验',
+    lodgingStrategy: '已锁定城际豪华大床房 · 华住官方预订 (09/28 20:00前可免取) · 位于新游客中心旁 500 米，德系高端湖畔度假体验',
     moduleTag: {
       code: 'FIXED',
       name: '圣湖自驾 · 湖畔度假',
@@ -355,7 +355,7 @@ export const itineraryDays: ItineraryDay[] = [
     distance: '约 430 km',
     distanceKm: 430,
     lodging: '星程乌鲁木齐天山国际机场迎宾路酒店 (已预订 ✅)',
-    lodgingStrategy: '已锁定大床房 2 间 (实付 ¥491.30 · 10/05 20:00前可免取 · 入住码: DG223B) · 21:00 机场还车后无缝入住，次日清晨 05:00 快速抵达候机楼，100% 稳妥返程！',
+    lodgingStrategy: '已锁定机场迎宾路大床房 · 华住官方预订 (10/05 20:00前可免取) · 21:00 机场还车后无缝入住，次日清晨 05:00 快速抵达候机楼，100% 稳妥返程！',
     moduleTag: {
       code: 'FIXED',
       name: '终点锚定 · 21:00还车',

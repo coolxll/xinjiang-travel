@@ -1,21 +1,17 @@
-import React from 'react';
-import { Sparkles, Calendar, Users, Map, Gauge, ArrowRight, ShieldAlert, Mountain, Sun, Clock, Plane } from 'lucide-react';
+import { Sparkles, Calendar, Users, Gauge, ArrowRight, ShieldAlert, Mountain, Sun, Clock } from 'lucide-react';
 import { scenicImages } from '../data/scenicImages';
 
 interface HeroHeaderProps {
-  onExploreMap: () => void;
   onExploreRoadbook: () => void;
-  onExploreDecisions: () => void;
-  onExploreBookings: () => void;
   onExploreModularArchitecture?: () => void;
   onExploreAlternatives?: () => void;
+  onExploreMap?: () => void;
+  onExploreDecisions?: () => void;
+  onExploreBookings?: () => void;
 }
 
 export const HeroHeader: React.FC<HeroHeaderProps> = ({
-  onExploreMap,
   onExploreRoadbook,
-  onExploreDecisions,
-  onExploreBookings,
   onExploreModularArchitecture,
   onExploreAlternatives,
 }) => {
@@ -46,52 +42,34 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               4 大积木模块 + 2N 全局弹性池架构，深度整合实际换乘、山区弹性、住宿降本与舒适节奏，专为同行队友打造的清晰行动指南。
             </p>
 
-            {/* Quick Action Buttons */}
+            {/* Quick Action Buttons (Focused 3 core actions, cut redundant links) */}
             <div className="flex flex-wrap gap-3 mb-8">
+              <button
+                onClick={onExploreRoadbook}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-sm font-black shadow-lg shadow-emerald-600/25 hover:from-emerald-500 hover:to-teal-600 transition-all hover:scale-[1.02]"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>进入每日路书 (自驾伴侣)</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
               {onExploreModularArchitecture && (
                 <button
                   onClick={onExploreModularArchitecture}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-slate-900 to-indigo-950 text-white text-sm font-bold shadow-md shadow-slate-900/20 hover:bg-slate-800 transition-all hover:translate-y-[-1px] ring-1 ring-amber-400/30"
+                  className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-slate-900 text-white text-sm font-bold shadow-md hover:bg-slate-800 transition-all"
                 >
                   <span>🧩 4 模块积木图解</span>
-                  <ArrowRight className="w-4 h-4 text-amber-400" />
                 </button>
               )}
-              <button
-                onClick={onExploreRoadbook}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white text-sm font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-amber-800 transition-all hover:translate-y-[-1px]"
-              >
-                <Calendar className="w-4 h-4" />
-                查看每日路书时刻
-              </button>
+
               {onExploreAlternatives && (
                 <button
                   onClick={onExploreAlternatives}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-700 to-indigo-800 text-white text-sm font-bold shadow-md shadow-purple-900/20 hover:from-purple-800 hover:to-indigo-900 transition-all hover:translate-y-[-1px]"
+                  className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-purple-50 text-purple-900 border border-purple-200 text-sm font-bold shadow-xs hover:bg-purple-100 transition-all"
                 >
                   <span>🔀 4 套备用方案选线</span>
                 </button>
               )}
-              <button
-                onClick={onExploreBookings}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 text-slate-800 text-sm font-bold shadow-xs hover:bg-slate-200 border border-slate-300 transition-all"
-              >
-                <Plane className="w-4 h-4 text-sky-600" />
-                航班与租车
-              </button>
-              <button
-                onClick={onExploreMap}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 text-sm font-bold shadow-xs hover:bg-slate-50 transition-all"
-              >
-                <Map className="w-4 h-4 text-sky-600" />
-                交互地图
-              </button>
-              <button
-                onClick={onExploreDecisions}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-50 border border-sky-200 text-sky-800 text-sm font-bold shadow-xs hover:bg-sky-100 transition-all"
-              >
-                <span>🗳️ 同行共识投票</span>
-              </button>
             </div>
           </div>
 

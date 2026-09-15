@@ -3,7 +3,7 @@ import { itineraryDays } from '../data/itineraryData';
 import { flightBookings, carRentalBooking } from '../data/bookingData';
 import { DAILY_HOTEL_BOOKINGS } from '../data/hotelBookingData';
 import { checklistCategories } from '../data/checklistData';
-import { TOTAL_JOURNEY_KM } from '../data/dailyAmapData';
+import { TOTAL_JOURNEY_KM, dailyAmapSchedules, DailyDestination } from '../data/dailyAmapData';
 import { 
   X, Printer, Sparkles, Plane, Car, 
   CheckCircle2, Fuel, Utensils, 
@@ -37,16 +37,24 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
 
     md += `## 二、全程住宿清单\n`;
     DAILY_HOTEL_BOOKINGS.forEach(h => {
-      md += `- ${h.date} (D${h.nightIndex})：${h.hotelName} | ${h.roomType} | ${h.payType || '已预订'} (¥${h.totalCost || '待定'}) | 取消时限：${h.cancellationPolicy || '详见订单'}\n`;
+      md += `- ${h.date} (D${h.nightIndex})：${h.hotelName} | ${h.statusBadge} | 电话：${h.phone || '到店查询'} | 地址：${h.address || '详见地图'} | 取消时限：${h.cancellationPolicy || '详见订单'}\n`;
     });
-    md += `\n## 三、逐日行程详细时刻表\n`;
+    md += `\n## 三、逐日行程详细时刻与点位坐标表\n`;
     itineraryDays.forEach(d => {
       md += `### DAY ${d.dayNumber} · ${d.date} · ${d.title}\n`;
       md += `- 节奏：起床 ${d.wakeTime} ｜ 出发 ${d.departTime} ｜ 在途 ${d.travelDuration} (${d.distance})\n`;
       md += `- 住宿：${d.lodging}\n`;
       md += `- 要领：${d.keyNotes}\n`;
       if (d.driverBottomLine) md += `- 避坑：${d.driverBottomLine}\n`;
-      md += `- 亮点：${d.highlights.join('；')}\n\n`;
+      md += `- 亮点：${d.highlights.join('；')}\n`;
+      const sched = dailyAmapSchedules[d.id];
+      if (sched && sched.destinations.length > 0) {
+        md += `- 关键点位与GPS坐标：\n`;
+        sched.destinations.forEach((dest: DailyDestination) => {
+          md += `  * ${dest.name}：[${dest.coords[0].toFixed(4)}, ${dest.coords[1].toFixed(4)}] (${dest.categoryLabel})${dest.tips ? ` - ${dest.tips}` : ''}\n`;
+        });
+      }
+      md += `\n`;
     });
 
     navigator.clipboard.writeText(md);
@@ -259,6 +267,23 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
                   </div>
                 </div>
 
+                {/* GPS Coordinates and Key Waypoints */}
+                {dailyAmapSchedules[day.id] && (
+                  <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-xs">
+                    <strong className="text-slate-800 block mb-1">📍 当日关键点位与 GPS 导航坐标：</strong>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 font-mono text-[11px] text-slate-700">
+                      {dailyAmapSchedules[day.id].destinations.map((dest: DailyDestination) => (
+                        <div key={dest.id} className="flex items-start gap-1">
+                          <span>{dest.icon}</span>
+                          <span>
+                            <strong>{dest.name}</strong>：[{dest.coords[0].toFixed(4)}, {dest.coords[1].toFixed(4)}] ({dest.categoryLabel})
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Core Guidelines & Driver Bottom Line */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                   <div className="bg-sky-50/80 p-2.5 rounded-lg border border-sky-200 text-xs">
@@ -301,7 +326,7 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
           <div className="space-y-3 print-avoid-break">
             <h2 className="text-base font-black text-slate-900 tracking-tight border-b-2 border-slate-800 pb-1 flex items-center gap-2">
               <Hotel className="w-4 h-4 text-purple-600" />
-              <span>🏨 全程住宿酒店预订清单与核验凭据一览表</span>
+              <span>🏨 全程住宿酒店预订清单与联系方式一览表</span>
             </h2>
 
             <div className="overflow-x-auto">
@@ -310,11 +335,10 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
                   <tr>
                     <th className="p-2 border">日期</th>
                     <th className="p-2 border">城市/区域</th>
-                    <th className="p-2 border">预订酒店全称</th>
-                    <th className="p-2 border">房型/间数</th>
-                    <th className="p-2 border">总费用</th>
-                    <th className="p-2 border">免费取消截止</th>
-                    <th className="p-2 border">重要策略/入住码</th>
+                    <th className="p-2 border">酒店全称与联系电话</th>
+                    <th className="p-2 border">详细地址</th>
+                    <th className="p-2 border">状态/取消时限</th>
+                    <th className="p-2 border">入住与停车策略</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -322,13 +346,16 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
                     <tr key={h.nightIndex} className="hover:bg-slate-50">
                       <td className="p-2 border font-bold text-amber-900 whitespace-nowrap">{h.date} (D{h.nightIndex})</td>
                       <td className="p-2 border whitespace-nowrap">{h.cityRegion.split('(')[0]}</td>
-                      <td className="p-2 border font-bold text-slate-900">{h.hotelName}</td>
-                      <td className="p-2 border text-[11px]">{h.roomType.split('(')[0]} × {h.roomCount}</td>
-                      <td className="p-2 border font-mono font-bold whitespace-nowrap">
-                        {h.totalCost ? `¥${h.totalCost.toFixed(2)} (${h.payType})` : '待定'}
+                      <td className="p-2 border">
+                        <div className="font-bold text-slate-900">{h.hotelName}</div>
+                        {h.phone && <div className="text-[11px] text-sky-700 font-mono">📞 {h.phone}</div>}
                       </td>
-                      <td className="p-2 border text-[11px] text-slate-600">{h.cancellationPolicy || '详见订单'}</td>
-                      <td className="p-2 border text-[11px] text-emerald-800 font-medium max-w-xs">{h.notes.slice(0, 45)}…</td>
+                      <td className="p-2 border text-[11px] text-slate-700 max-w-xs">{h.address || '地级市商圈'}</td>
+                      <td className="p-2 border text-[11px] whitespace-nowrap">
+                        <div className="font-bold text-emerald-800">{h.statusBadge}</div>
+                        <div className="text-slate-500">{h.cancellationPolicy || '详见订单'}</div>
+                      </td>
+                      <td className="p-2 border text-[11px] text-slate-700 max-w-xs">{h.notes.slice(0, 48)}…</td>
                     </tr>
                   ))}
                 </tbody>
