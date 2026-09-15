@@ -639,7 +639,7 @@ export const InteractiveMap: React.FC = () => {
 
         {/* Map Container Box */}
         <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm h-[460px] sm:h-[600px]">
-          <div ref={mapContainerRef} className="w-full h-full" />
+          <div ref={mapContainerRef} className="w-full h-full" style={{ height: '100%', minHeight: '100%' }} />
 
           {/* Map Legend Overlay */}
           <div className="absolute bottom-4 left-4 z-20 bg-white/90 backdrop-blur-md p-3 rounded-2xl border border-slate-200/90 shadow-md text-xs text-slate-700 max-w-xs hidden sm:block">

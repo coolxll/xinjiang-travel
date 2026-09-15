@@ -12,10 +12,22 @@
 /* Custom Leaflet Map styling */
 .leaflet-container {
   width: 100%;
-  height: 100%;
   border-radius: inherit;
   font-family: inherit;
   z-index: 10;
+}
+
+.daily-amap-canvas {
+  width: 100%;
+  height: 380px !important;
+  min-height: 380px !important;
+}
+
+@media (min-width: 640px) {
+  .daily-amap-canvas {
+    height: 440px !important;
+    min-height: 440px !important;
+  }
 }
 
 .custom-marker-pin {

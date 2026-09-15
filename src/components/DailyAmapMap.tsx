@@ -321,7 +321,8 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
       {/* Map Body Canvas */}
       <div 
         ref={mapContainerRef} 
-        className={`w-full ${isFullscreen ? 'h-[calc(100vh-130px)]' : 'h-[380px] sm:h-[440px]'} bg-slate-950 transition-all`}
+        style={isFullscreen ? { height: 'calc(100vh - 130px)', minHeight: 'calc(100vh - 130px)' } : { height: '380px', minHeight: '380px' }}
+        className="w-full daily-amap-canvas bg-slate-950 transition-all"
       />
 
       {/* Bottom Destination Chips for Today */}
