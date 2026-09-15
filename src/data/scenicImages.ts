@@ -15,7 +15,7 @@ export const scenicImages: Record<string, ScenicImage> = {
     location: '乌鲁木齐天山国际机场',
     url: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1000&q=80',
     tag: '集结日',
-    description: '天津航空GS7588直飞乌鲁木齐，落地接驳休整'
+    description: '搭乘直飞航班抵达乌鲁木齐，落地接驳休整'
   },
   // Day 1: S21 Desert Expressway
   day1: {
@@ -105,7 +105,7 @@ export const scenicImages: Record<string, ScenicImage> = {
     location: '乌鲁木齐天山国际机场',
     url: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1000&q=80',
     tag: '平安归程',
-    description: '清晨07:00搭乘天津航空GS7587飞抵上海浦东T2'
+    description: '清晨搭乘直飞航班平安飞抵上海浦东T2'
   },
   // Lodging specific images
   lodgingAltay: {

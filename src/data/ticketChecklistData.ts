@@ -308,7 +308,7 @@ export const RESERVATION_TIMELINE: ActionTimelineStep[] = [
     priority: 'P0',
     whyThisDay: '留足半天洗车加油，21:00 前完成验车，入住机场迎宾路星程酒店锁定次日 07:00 早班机。',
     completionCriteria: '顺利完成验车交接，次日清晨 05:00 快速抵航站楼。',
-    tips: '10/6 清晨 07:00 乘 GS7587 航班破晓返沪。'
+    tips: '10/6 清晨 07:00 乘直飞早班机破晓返沪。'
   }
 ];
 

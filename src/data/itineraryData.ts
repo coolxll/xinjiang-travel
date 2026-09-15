@@ -7,16 +7,16 @@ export const itineraryDays: ItineraryDay[] = [
     dayNumber: 0,
     date: '9/26',
     fullDate: '2026年9月26日 (周六)',
-    title: '上海 → 乌鲁木齐（GS7588 航班抵乌集结）',
-    tagline: '搭乘天津航空直飞新疆，深夜落地入住机场周边，养精蓄锐',
+    title: '上海 → 乌鲁木齐（抵乌集结）',
+    tagline: '搭乘直飞航班抵达新疆，深夜落地入住机场周边，养精蓄锐',
     wakeTime: '根据出行安排',
     departTime: '14:55 上海浦东T2起飞',
     travelDuration: '飞行约 7 小时',
-    travelDurationDetail: '天津航空 GS7588 (浦东T2 14:55 → 天山国际 22:00)',
+    travelDurationDetail: '民航直飞航班 (浦东T2 14:55 → 天山国际 22:00)',
     distance: '空中航线',
     distanceKm: 0,
     lodging: '星程乌鲁木齐天山国际机场迎宾路酒店 (已预订 ✅)',
-    lodgingStrategy: '已锁定大床房 2 间 (到店付 ¥420.70 · 赠双早 · 9/25 23:00前可免费取消) · 22:00 落地后快速入住，次日 09:00 酒店门口无缝接收租车送达',
+    lodgingStrategy: '已锁定大床房 2 间 · 22:00 落地后快速入住，次日 09:00 酒店门口无缝接收租车送达',
     moduleTag: {
       code: 'FIXED',
       name: '起点锚定 · 航班集结',
@@ -25,7 +25,7 @@ export const itineraryDays: ItineraryDay[] = [
       description: '9/26 深夜抵乌，入住迎宾路星程酒店'
     },
     highlights: [
-      '✈️ 14:55 搭乘天津航空 GS7588 从上海浦东国际机场 T2 准时起飞',
+      '✈️ 14:55 搭乘直飞航班从上海浦东国际机场 T2 准时起飞',
       '22:00 降落乌鲁木齐天山国际机场（原地窝堡），感受天山脚下清爽夜风',
       '专车/接驳直达机场周边酒店办理入住，当天完全不安排任何夜间驾驶与景点',
       '提前与租车行送车人员微信/电话确认次日 09:00 酒店交接验车地点'
@@ -384,12 +384,12 @@ export const itineraryDays: ItineraryDay[] = [
     dayNumber: 10,
     date: '10/6',
     fullDate: '2026年10月6日 (周二)',
-    title: '乌鲁木齐 → 上海（GS7587 航班满载回忆返沪）',
-    tagline: '清晨 05:00 抵航站楼，07:00 飞跃天山，13:45 平安抵达上海浦东 T2',
+    title: '乌鲁木齐 → 上海（破晓返沪 · 圆满收官）',
+    tagline: '清晨 05:00 抵航站楼，搭乘早班机飞跃天山，13:45 平安抵达上海浦东 T2',
     wakeTime: '04:45',
     departTime: '05:00 抵达候机楼 ｜ 07:00 航班起飞',
     travelDuration: '飞行约 6 小时 45 分',
-    travelDurationDetail: '天津航空 GS7587 (天山国际 07:00 → 上海浦东T2 13:45)',
+    travelDurationDetail: '民航直飞航班 (天山国际 07:00 → 上海浦东T2 13:45)',
     distance: '空中航线',
     distanceKm: 0,
     lodging: '温馨的家',
@@ -399,12 +399,12 @@ export const itineraryDays: ItineraryDay[] = [
       name: '圆满收官 · 破晓返沪',
       shortCode: '固定航班',
       color: 'slate',
-      description: '07:00 GS7587 航班飞越天山，13:45 平安抵沪'
+      description: '早班机飞越天山，13:45 平安抵沪'
     },
     highlights: [
       '清晨从迎宾路星程酒店乘 5 分钟免费班车或步行抵达 T2 航站楼',
       '05:00-06:00 办理行李托运、安检与登机手续',
-      '07:00 乘坐天津航空 GS7587 航班破晓起飞，万米高空俯瞰金色天山雪峰',
+      '07:00 乘坐早班客机破晓起飞，万米高空俯瞰金色天山雪峰',
       '13:45 顺利平稳降落上海浦东国际机场 T2，北疆 9 天自驾圆满收官！'
     ],
     keyNotes: '由于是 07:00 清晨起飞，提前 2 小时（05:00）必须到达航站楼办理值机和行李托运。',

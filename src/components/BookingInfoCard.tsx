@@ -176,7 +176,7 @@ export const BookingInfoCard: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-700 text-xs">
               <div className="text-amber-400 font-bold mb-1">1. 9/26 22:00 落地集结</div>
-              <p className="text-[11px] text-slate-400 leading-relaxed">GS7588 深夜抵乌，入住星程乌鲁木齐天山机场迎宾路酒店（已锁定2间到店付¥420.70），当晚不开夜路，次日09:00酒店门口无缝接车。</p>
+              <p className="text-[11px] text-slate-400 leading-relaxed">直飞航班深夜抵乌，入住星程乌鲁木齐天山机场迎宾路酒店（已锁定2间），当晚不开夜路，次日09:00酒店门口无缝接车。</p>
             </div>
 
             <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-700 text-xs">
@@ -191,7 +191,7 @@ export const BookingInfoCard: React.FC = () => {
 
             <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-700 text-xs">
               <div className="text-indigo-400 font-bold mb-1">4. 10/6 07:00 破晓返沪</div>
-              <p className="text-[11px] text-slate-400 leading-relaxed">05:00 步行/班车至 T2 航站楼值机安检，GS7587 航班 13:45 顺利抵达上海浦东 T2。</p>
+              <p className="text-[11px] text-slate-400 leading-relaxed">05:00 步行/班车至 T2 航站楼值机安检，早班客机 13:45 顺利抵达上海浦东 T2。</p>
             </div>
           </div>
         </div>

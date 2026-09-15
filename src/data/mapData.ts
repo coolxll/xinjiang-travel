@@ -200,15 +200,15 @@ export const mapDaySchedules: MapDaySchedule[] = [
     dayNumber: 0,
     date: '9/26',
     shortLabel: 'D0 抵乌集结',
-    title: '上海浦东 T2 → 乌鲁木齐天山机场 (GS7588)',
-    routeLabel: '直飞进疆 ｜ 深夜落地 ｜ 宿迎宾路星程酒店',
-    roadName: '天津航空 GS7588 (14:55-22:00)',
+    title: '上海浦东 T2 → 乌鲁木齐天山机场 (直飞航班)',
+    routeLabel: '直飞进疆 ｜ 深夜落地 ｜ 宿迎宾路酒店',
+    roadName: '民航直飞客机 (14:55-22:00)',
     distanceKm: 0,
     durationText: '飞行7h',
     activePointIds: [1],
     isScenicStay: false,
     bounds: [[43.85, 87.40], [43.95, 87.55]],
-    description: 'GS7588 航班 22:00 抵达乌鲁木齐天山国际机场 T2 航站楼。当天入住迎宾路星程酒店，不开夜车，养精蓄锐。'
+    description: '直飞航班 22:00 抵达乌鲁木齐天山国际机场 T2 航站楼。当天入住迎宾路酒店，不开夜车，养精蓄锐。'
   },
   {
     key: 'day-1',
@@ -351,14 +351,14 @@ export const mapDaySchedules: MapDaySchedule[] = [
     date: '10/6',
     shortLabel: 'D10 破晓返沪',
     title: '乌鲁木齐天山机场 T2 → 上海浦东 T2 (圆满收官)',
-    routeLabel: 'GS7587 航班 07:00 起飞 ｜ 05:00 抵达航站楼',
-    roadName: '天津航空 GS7587 (07:00-13:45)',
+    routeLabel: '直飞返程 ｜ 07:00 起飞 ｜ 05:00 抵达航站楼',
+    roadName: '民航直飞客机 (07:00-13:45)',
     distanceKm: 0,
     durationText: '飞行6h45m',
     activePointIds: [1],
     isScenicStay: false,
     bounds: [[43.85, 87.40], [43.95, 87.55]],
-    description: '清晨 05:00 步行或乘 5 分钟班车直达 T2 航站楼值机安检，07:00 乘 GS7587 航班破晓返沪，13:45 顺利抵达上海浦东 T2。'
+    description: '清晨 05:00 步行或乘 5 分钟班车直达 T2 航站楼值机安检，搭乘早班机破晓返沪，13:45 顺利抵达上海浦东 T2。'
   }
 ];
 

@@ -17,7 +17,7 @@ async function calculateSha256(text: string): Promise<string> {
     .join('');
 }
 
-// 团队出行口令 SHA-256（去程天津航空航班号 gs7588）
+// 团队出行口令 SHA-256 哈希值
 const FLIGHT_PASSCODE_HASH = 'fd30d3d2331536ec8ae2700b13905fd8b567e1dead7eb81d01cf93c58317e3f3';
 
 export const LodgingStrategy: React.FC = () => {
@@ -46,18 +46,10 @@ export const LodgingStrategy: React.FC = () => {
         setPasscodeError('');
         setPasscodeInput('');
       } else {
-        setPasscodeError('航班号不正确，请输入 9/26 去程天津航空航班号（如 GS7588）');
+        setPasscodeError('暗号不正确，请重新输入');
       }
     } catch {
-      if (cleanInput === 'gs7588') {
-        setIsUnlocked(true);
-        localStorage.setItem('xinjiang_lodging_unlocked', 'true');
-        setPasscodeModal(false);
-        setPasscodeError('');
-        setPasscodeInput('');
-      } else {
-        setPasscodeError('航班号不正确');
-      }
+      setPasscodeError('校验异常，请稍后重试');
     }
   };
 
@@ -465,32 +457,32 @@ export const LodgingStrategy: React.FC = () => {
                   <KeyRound className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-black text-slate-900 text-base">输入航班号解锁</h4>
-                  <p className="text-xs text-slate-500">验证去程航班，查看实付金额与账单</p>
+                  <h4 className="font-black text-slate-900 text-base">团队出行凭证验证</h4>
+                  <p className="text-xs text-slate-500">请输入去程航班号解锁团队实付与账单</p>
                 </div>
               </div>
 
               <form onSubmit={handleUnlock} className="space-y-4 mt-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                    9/26 去程航班号（天津航空）
+                    去程航班号 (Flight No.)
                   </label>
                   <input
-                    type="text"
+                    type="password"
                     value={passcodeInput}
                     onChange={(e) => {
                       setPasscodeInput(e.target.value);
                       setPasscodeError('');
                     }}
-                    placeholder="输入航班号（如 GS7588）..."
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-mono uppercase focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                    placeholder="输入去程航班号..."
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-mono focus:ring-2 focus:ring-amber-500 focus:outline-none"
                     autoFocus
                   />
                   {passcodeError && (
                     <p className="text-xs text-rose-600 mt-1.5 font-bold leading-tight">{passcodeError}</p>
                   )}
                   <p className="text-[11px] text-slate-400 mt-1.5">
-                    💡 提示：输入天津航空去程航班号即可（不区分大小写）
+                    同行团队私密看板 · 仅持票同行人员可解锁
                   </p>
                 </div>
 
