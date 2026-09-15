@@ -94,8 +94,10 @@ export const LodgingStrategy: React.FC = () => {
               </div>
               <div className="w-px h-8 bg-slate-100 hidden sm:block" />
               <div>
-                <div className="text-[10px] text-slate-400">新版 10 晚预估总额</div>
-                <div className="text-sky-600 font-extrabold text-sm">约 ¥{HOTEL_BOOKING_SUMMARY.estimatedTotalHotelBudget} (省 ¥10,000+)</div>
+                <div className="text-[10px] text-slate-400">10 晚住宿总额</div>
+                <div className="text-sky-600 font-extrabold text-sm">
+                  {isUnlocked ? `约 ¥${HOTEL_BOOKING_SUMMARY.estimatedTotalHotelBudget} (省 ¥10,000+)` : '团队私密预估 (¥****)'}
+                </div>
               </div>
             </div>
 
@@ -166,7 +168,7 @@ export const LodgingStrategy: React.FC = () => {
                   <span>✅ 已锁定订单明细 ({confirmedBookings.length} 晚 · 共 {HOTEL_BOOKING_SUMMARY.confirmedRooms} 间房)</span>
                 </h3>
                 <span className="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-xl">
-                  已锁定总金额：¥{HOTEL_BOOKING_SUMMARY.confirmedTotalCost.toFixed(2)}
+                  已锁定总金额：{isUnlocked ? `¥${HOTEL_BOOKING_SUMMARY.confirmedTotalCost.toFixed(2)}` : '已在线支付锁定 (¥***)'}
                 </span>
               </div>
 
@@ -325,7 +327,7 @@ export const LodgingStrategy: React.FC = () => {
                         </h4>
                         {night.totalCost && (
                           <span className="font-black text-amber-600 text-sm flex-shrink-0">
-                            ¥{night.totalCost.toFixed(2)}
+                            {isUnlocked ? `¥${night.totalCost.toFixed(2)}` : '已订 (¥***)'}
                           </span>
                         )}
                       </div>
@@ -342,7 +344,7 @@ export const LodgingStrategy: React.FC = () => {
                       {night.targetBudget && (
                         <div className="text-[11px] text-amber-800 font-semibold flex items-center gap-1">
                           <DollarSign className="w-3 h-3 text-amber-600" />
-                          <span>预算指引：{night.targetBudget}</span>
+                          <span>预算指引：{isUnlocked ? night.targetBudget : '约 ¥*** / 间'}</span>
                         </div>
                       )}
 
