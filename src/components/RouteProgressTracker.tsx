@@ -270,7 +270,7 @@ export const RouteProgressTracker: React.FC<RouteProgressTrackerProps> = ({
                   </span>
 
                   <span className="font-mono text-[10px] text-slate-400 mt-0.5">
-                    {schedule.distanceKm > 0 ? `${schedule.distanceKm}k` : '飞机'}
+                    {schedule.distanceKm > 0 ? `${schedule.distanceKm} KM` : '飞机'}
                   </span>
                 </button>
               );
