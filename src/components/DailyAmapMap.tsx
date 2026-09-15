@@ -101,6 +101,8 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
       zoomControl: false,
       attributionControl: true,
       scrollWheelZoom: false,
+      zoomSnap: 0.2,
+      zoomDelta: 0.5,
     });
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
@@ -319,7 +321,7 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
       {/* Map Body Canvas */}
       <div 
         ref={mapContainerRef} 
-        className={`w-full ${isFullscreen ? 'h-[calc(100vh-130px)]' : 'h-[360px] sm:h-[420px]'} bg-slate-950 transition-all`}
+        className={`w-full ${isFullscreen ? 'h-[calc(100vh-130px)]' : 'h-[380px] sm:h-[440px]'} bg-slate-950 transition-all`}
       />
 
       {/* Bottom Destination Chips for Today */}

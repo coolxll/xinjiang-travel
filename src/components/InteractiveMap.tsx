@@ -365,13 +365,26 @@ export const InteractiveMap: React.FC = () => {
 
     // 3. Smooth Camera Zoom
     if (activeKey === 'all') {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+      // Precise bounding box around the actual northern ring route:
+      // South: Urumqi (43.80), North: Kanas (48.85)
+      // West: Sayram Lake (81.00), East: Fuyun (89.90)
       const fullBounds: L.LatLngBoundsExpression = [
-        [43.5, 80.5],
-        [49.0, 88.5]
+        [43.80, 81.00],
+        [48.85, 89.90]
       ];
-      map.flyToBounds(fullBounds, { padding: [20, 20], duration: 0.6 });
+      map.fitBounds(fullBounds, { 
+        padding: isMobile ? [12, 12] : [32, 32], 
+        maxZoom: isMobile ? 6.8 : 7.5,
+        animate: false 
+      });
     } else if (currentSchedule) {
-      map.flyToBounds(currentSchedule.bounds, { padding: [30, 30], duration: 0.6, maxZoom: currentSchedule.isScenicStay ? 12 : 9 });
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+      map.fitBounds(currentSchedule.bounds, { 
+        padding: isMobile ? [16, 16] : [40, 40], 
+        maxZoom: currentSchedule.isScenicStay ? (isMobile ? 11 : 12) : (isMobile ? 9 : 9.5),
+        animate: true 
+      });
     }
   }, []);
 
@@ -390,7 +403,9 @@ export const InteractiveMap: React.FC = () => {
     const map = L.map(mapContainerRef.current, {
       zoomControl: true,
       scrollWheelZoom: false,
-    }).setView([46.2, 85.5], 6);
+      zoomSnap: 0.2,
+      zoomDelta: 0.5,
+    }).setView([46.3, 85.5], 6.2);
 
     const initialProvider = TILE_PROVIDERS.streets;
     const initialTile = L.tileLayer(initialProvider.url, {
@@ -406,9 +421,12 @@ export const InteractiveMap: React.FC = () => {
     renderMapLayersRef.current('all');
     renderPoiLayerRef.current();
 
-    const t1 = setTimeout(() => map.invalidateSize(), 100);
-    const t2 = setTimeout(() => map.invalidateSize(), 350);
-    const t3 = setTimeout(() => map.invalidateSize(), 700);
+    const t1 = setTimeout(() => {
+      map.invalidateSize();
+      renderMapLayersRef.current('all');
+    }, 150);
+    const t2 = setTimeout(() => map.invalidateSize(), 400);
+    const t3 = setTimeout(() => map.invalidateSize(), 800);
 
     let resizeObserver: ResizeObserver | null = null;
     if (window.ResizeObserver && mapContainerRef.current) {
@@ -620,7 +638,7 @@ export const InteractiveMap: React.FC = () => {
         </div>
 
         {/* Map Container Box */}
-        <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm h-[380px] sm:h-[600px]">
+        <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm h-[460px] sm:h-[600px]">
           <div ref={mapContainerRef} className="w-full h-full" />
 
           {/* Map Legend Overlay */}
