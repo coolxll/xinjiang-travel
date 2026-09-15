@@ -669,12 +669,12 @@ export const AlternativeMap: React.FC<AlternativeMapProps> = ({
         </div>
 
         {/* Map Body Canvas */}
-        <div className="relative h-[480px] sm:h-[560px]">
+        <div className="relative h-[380px] sm:h-[560px]">
           <div ref={mapContainerRef} className="w-full h-full" />
 
           {/* Floating Card: All-Routes Comparison Legend OR Single Plan Stats */}
           {showAllRoutesOverlay ? (
-            <div className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200/90 shadow-xl max-w-xs sm:max-w-sm">
+            <div className="absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md p-3 rounded-2xl border border-slate-200/90 shadow-xl max-w-[88%] sm:max-w-sm max-h-[85%] overflow-y-auto">
               <div className="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-slate-100">
                 <div className="flex items-center gap-1.5 text-slate-900 font-extrabold text-xs">
                   <Layers className="w-4 h-4 text-amber-600" />

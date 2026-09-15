@@ -369,9 +369,9 @@ export const InteractiveMap: React.FC = () => {
         [43.5, 80.5],
         [49.0, 88.5]
       ];
-      map.flyToBounds(fullBounds, { padding: [30, 30], duration: 0.6 });
+      map.flyToBounds(fullBounds, { padding: [20, 20], duration: 0.6 });
     } else if (currentSchedule) {
-      map.flyToBounds(currentSchedule.bounds, { padding: [60, 60], duration: 0.6, maxZoom: currentSchedule.isScenicStay ? 12 : 9 });
+      map.flyToBounds(currentSchedule.bounds, { padding: [30, 30], duration: 0.6, maxZoom: currentSchedule.isScenicStay ? 12 : 9 });
     }
   }, []);
 
@@ -620,7 +620,7 @@ export const InteractiveMap: React.FC = () => {
         </div>
 
         {/* Map Container Box */}
-        <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm h-[480px] sm:h-[600px]">
+        <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-sm h-[380px] sm:h-[600px]">
           <div ref={mapContainerRef} className="w-full h-full" />
 
           {/* Map Legend Overlay */}
@@ -645,9 +645,9 @@ export const InteractiveMap: React.FC = () => {
             </div>
           </div>
 
-          {/* Active Schedule Floating Info Card */}
+          {/* Active Schedule Floating Info Card on Desktop */}
           {activeSchedule && selectedScheduleKey !== 'all' && (
-            <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-200/90 shadow-lg max-w-sm">
+            <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-200/90 shadow-lg max-w-sm hidden sm:block">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 flex items-center gap-1">
                   <Calendar className="w-3 h-3 text-amber-600" />
@@ -689,6 +689,31 @@ export const InteractiveMap: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* Active Schedule Detail Card for Mobile (placed below the map to never block touch or view) */}
+        {activeSchedule && selectedScheduleKey !== 'all' && (
+          <div className="mt-3 sm:hidden bg-slate-50 p-3.5 rounded-2xl border border-slate-200 shadow-xs">
+            <div className="flex items-center justify-between gap-2 mb-1.5">
+              <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 flex items-center gap-1">
+                <Calendar className="w-3 h-3 text-amber-600" />
+                <span>{activeSchedule.date} (D{activeSchedule.dayNumber})</span>
+              </span>
+              <span className="text-xs font-extrabold text-slate-900">
+                {activeSchedule.distanceKm > 0 ? `${activeSchedule.distanceKm} km · ` : ''}{activeSchedule.durationText}
+              </span>
+            </div>
+            <h4 className="font-extrabold text-slate-900 text-sm mb-1 leading-snug">
+              {activeSchedule.title}
+            </h4>
+            <p className="text-xs text-sky-700 font-semibold mb-1 flex items-center gap-1">
+              <Navigation className="w-3 h-3" />
+              <span>{activeSchedule.roadName}</span>
+            </p>
+            <p className="text-xs text-slate-600 leading-relaxed bg-white p-2.5 rounded-xl border border-slate-200/80">
+              {activeSchedule.description}
+            </p>
+          </div>
+        )}
 
         {/* Waypoint Quick Navigation Action Cards Grid */}
         <div className="mt-6">

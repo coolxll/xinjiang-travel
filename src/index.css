@@ -45,11 +45,13 @@
   transform: scale(1.22);
 }
 
-/* Numbered Node Pin & Badges for Alternative Routes */
+/* Numbered Node Pin & Badges for Alternative Routes & Map Markers */
 .alt-numbered-marker,
 .alt-landmark-badge,
 .alt-neighbor-badge,
-.alt-port-badge {
+.alt-port-badge,
+.custom-amap-marker,
+.custom-poi-marker {
   background: transparent !important;
   border: none !important;
   pointer-events: auto;

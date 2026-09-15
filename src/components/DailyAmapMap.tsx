@@ -3,7 +3,7 @@ import L from 'leaflet';
 import { DayAmapSchedule, DailyDestination } from '../data/dailyAmapData';
 import { 
   Navigation, Copy, Check, Maximize2, Minimize2,
-  ExternalLink, Layers, MapPin
+  Layers, MapPin
 } from 'lucide-react';
 
 interface DailyAmapMapProps {
@@ -41,7 +41,14 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
   const [selectedDestId, setSelectedDestId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<'map' | 'iframe'>('map');
+
+  // Invalidate map size on fullscreen toggle
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      mapInstanceRef.current?.invalidateSize();
+    }, 120);
+    return () => clearTimeout(timer);
+  }, [isFullscreen]);
 
   // Helper to copy GPS coordinates
   const handleCopyGps = (coords: [number, number], id: string) => {
@@ -86,32 +93,44 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
 
   // Initialize Map
   useEffect(() => {
-    if (!mapContainerRef.current) return;
+    if (!mapContainerRef.current || mapInstanceRef.current) return;
 
-    if (!mapInstanceRef.current) {
-      const map = L.map(mapContainerRef.current, {
-        center: schedule.center,
-        zoom: schedule.zoom,
-        zoomControl: false,
-        attributionControl: true,
+    const map = L.map(mapContainerRef.current, {
+      center: schedule.center,
+      zoom: schedule.zoom,
+      zoomControl: false,
+      attributionControl: true,
+      scrollWheelZoom: false,
+    });
+
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+    // Default vector layer
+    L.tileLayer(AMAP_TILES.vector.url, {
+      subdomains: AMAP_TILES.vector.subdomains,
+      attribution: AMAP_TILES.vector.attribution,
+      maxZoom: 18,
+    }).addTo(map);
+
+    const layerGroup = L.layerGroup().addTo(map);
+    layerGroupRef.current = layerGroup;
+    mapInstanceRef.current = map;
+
+    const t1 = setTimeout(() => map.invalidateSize(), 150);
+    const t2 = setTimeout(() => map.invalidateSize(), 500);
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (window.ResizeObserver && mapContainerRef.current) {
+      resizeObserver = new ResizeObserver(() => {
+        map.invalidateSize();
       });
-
-      L.control.zoom({ position: 'topright' }).addTo(map);
-
-      // Default vector layer
-      L.tileLayer(AMAP_TILES.vector.url, {
-        subdomains: AMAP_TILES.vector.subdomains,
-        attribution: AMAP_TILES.vector.attribution,
-        maxZoom: 18,
-      }).addTo(map);
-
-      const layerGroup = L.layerGroup().addTo(map);
-      layerGroupRef.current = layerGroup;
-      mapInstanceRef.current = map;
+      resizeObserver.observe(mapContainerRef.current);
     }
 
     return () => {
-      // Keep map instance alive across day changes or cleanup on unmount
+      clearTimeout(t1);
+      clearTimeout(t2);
+      if (resizeObserver) resizeObserver.disconnect();
     };
   }, []);
 
@@ -221,7 +240,7 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
         </div>
       `;
 
-      marker.bindPopup(popupContent, { maxWidth: 300 });
+      marker.bindPopup(popupContent, { maxWidth: 280, autoPanPadding: [12, 60] });
       marker.on('click', () => {
         setSelectedDestId(dest.id);
       });
@@ -230,10 +249,19 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
       markersRef.current[dest.id] = marker;
     });
 
-    // Fit bounds smoothly
+    // Fit bounds smoothly with mobile safe padding
     if (schedule.destinations.length > 0) {
-      map.fitBounds(schedule.bounds, { padding: [40, 40], maxZoom: 14 });
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+      map.fitBounds(schedule.bounds, { 
+        paddingTopLeft: isMobile ? [16, 56] : [36, 44],
+        paddingBottomRight: isMobile ? [16, 28] : [36, 32],
+        maxZoom: 14 
+      });
     }
+
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 100);
 
   }, [schedule]);
 
@@ -251,94 +279,48 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
   const primaryDest = schedule.destinations.find(d => d.isPrimary) || schedule.destinations[0];
 
   return (
-    <div className={`relative bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 shadow-md ${className} ${isFullscreen ? 'fixed inset-4 z-50 rounded-2xl shadow-2xl' : ''}`}>
+    <div className={`relative bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 shadow-md ${className} ${isFullscreen ? 'fixed inset-0 sm:inset-4 z-50 rounded-none sm:rounded-2xl shadow-2xl' : ''}`}>
       
       {/* Map Header Overlay Bar */}
-      <div className="absolute top-3 left-3 right-3 z-400 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
-        <div className="pointer-events-auto bg-slate-900/90 backdrop-blur-md text-white px-3 py-1.5 rounded-2xl border border-white/20 shadow-lg flex items-center gap-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-          <div className="flex items-center gap-1.5 text-xs font-black">
-            <span className="text-amber-400">高德地图</span>
-            <span className="text-slate-400">｜</span>
-            <span>Day {schedule.dayNumber} · {schedule.title.split('→')[1] || schedule.title}</span>
+      <div className="absolute top-2.5 left-2.5 right-2.5 z-30 flex items-center justify-between gap-1.5 sm:gap-2 pointer-events-none">
+        <div className="pointer-events-auto bg-slate-900/90 backdrop-blur-md text-white px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl sm:rounded-2xl border border-white/20 shadow-lg flex items-center gap-1.5 sm:gap-2 min-w-0 max-w-[68%] sm:max-w-none">
+          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+          <div className="flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs font-black min-w-0 truncate">
+            <span className="text-amber-400 flex-shrink-0 hidden xs:inline">高德</span>
+            <span className="text-slate-400 flex-shrink-0 hidden xs:inline">｜</span>
+            <span className="truncate">Day {schedule.dayNumber} · {schedule.title.split('→')[1] || schedule.title}</span>
           </div>
-          <span className="text-[10px] font-mono font-bold bg-sky-500/30 text-sky-300 border border-sky-400/30 px-1.5 py-0.2 rounded">
+          <span className="text-[9px] sm:text-[10px] font-mono font-bold bg-sky-500/30 text-sky-300 border border-sky-400/30 px-1.5 py-0.2 rounded flex-shrink-0">
             {schedule.distanceKm > 0 ? `${schedule.distanceKm} km` : '民航'}
           </span>
         </div>
 
-        {/* View mode & Tile Switcher */}
-        <div className="pointer-events-auto flex items-center gap-1 bg-slate-900/90 backdrop-blur-md p-1 rounded-2xl border border-white/20 shadow-lg">
+        {/* Tile & View Switcher */}
+        <div className="pointer-events-auto flex items-center gap-1 bg-slate-900/90 backdrop-blur-md p-1 rounded-xl sm:rounded-2xl border border-white/20 shadow-lg flex-shrink-0">
           <button
-            onClick={() => setViewMode('map')}
-            className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all ${
-              viewMode === 'map' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-300 hover:text-white'
-            }`}
+            onClick={() => switchTileLayer(activeLayerType === 'vector' ? 'satellite' : 'vector')}
+            className="px-2 py-1 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1"
+            title="切换高德路网与卫星图"
           >
-            🗺️ 嵌入高德
+            <Layers className="w-3.5 h-3.5 text-sky-400" />
+            <span>{activeLayerType === 'vector' ? '卫星' : '路网'}</span>
           </button>
-          <button
-            onClick={() => setViewMode('iframe')}
-            className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all ${
-              viewMode === 'iframe' ? 'bg-amber-600 text-white shadow-xs' : 'text-slate-300 hover:text-white'
-            }`}
-          >
-            🌐 原生微窗
-          </button>
-
-          {viewMode === 'map' && (
-            <div className="h-4 w-px bg-white/20 mx-1" />
-          )}
-
-          {viewMode === 'map' && (
-            <button
-              onClick={() => switchTileLayer(activeLayerType === 'vector' ? 'satellite' : 'vector')}
-              className="px-2 py-1 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1"
-              title="切换高德路网与卫星图"
-            >
-              <Layers className="w-3.5 h-3.5 text-sky-400" />
-              <span className="hidden sm:inline">{activeLayerType === 'vector' ? '卫星图' : '路网'}</span>
-            </button>
-          )}
 
           <button
             onClick={() => setIsFullscreen(!isFullscreen)}
-            className="p-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
-            title={isFullscreen ? '退出全屏' : '车载全屏模式'}
+            className="p-1 sm:p-1.5 rounded-lg sm:rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+            title={isFullscreen ? '退出全屏' : '全屏模式'}
           >
             {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
           </button>
         </div>
       </div>
 
-      {/* Map Body Canvas or Iframe View */}
-      {viewMode === 'map' ? (
-        <div 
-          ref={mapContainerRef} 
-          className={`w-full ${isFullscreen ? 'h-[calc(100vh-130px)]' : 'h-[320px] sm:h-[400px]'} bg-slate-950 transition-all`}
-        />
-      ) : (
-        <div className={`w-full ${isFullscreen ? 'h-[calc(100vh-130px)]' : 'h-[320px] sm:h-[400px]'} bg-slate-900 flex flex-col relative`}>
-          <iframe
-            src={`https://ditu.amap.com/regeo?lng=${primaryDest.coords[1]}&lat=${primaryDest.coords[0]}&name=${encodeURIComponent(primaryDest.name)}`}
-            title={`高德原生微窗 - ${primaryDest.name}`}
-            className="w-full h-full border-0"
-            loading="lazy"
-          />
-          <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between p-2.5 rounded-xl bg-slate-950/90 backdrop-blur-md text-white text-xs border border-white/20">
-            <span className="truncate">当前显示高德官方直达：<strong>{primaryDest.name}</strong></span>
-            <a
-              href={primaryDest.amapUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold transition-colors flex-shrink-0"
-            >
-              <span>在App中打开</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
-        </div>
-      )}
+      {/* Map Body Canvas */}
+      <div 
+        ref={mapContainerRef} 
+        className={`w-full ${isFullscreen ? 'h-[calc(100vh-130px)]' : 'h-[360px] sm:h-[420px]'} bg-slate-950 transition-all`}
+      />
 
       {/* Bottom Destination Chips for Today */}
       <div className="bg-slate-950/95 border-t border-slate-800 p-3">
@@ -382,16 +364,16 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
 
         {/* Action bar for the active destination */}
         {selectedDestId && (
-          <div className="mt-2 pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300">
+          <div className="mt-2 pt-2 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-300">
             {(() => {
               const active = schedule.destinations.find(d => d.id === selectedDestId) || primaryDest;
               return (
                 <>
-                  <div className="flex items-center gap-2 truncate max-w-md">
-                    <span className="text-amber-400 font-bold">{active.name}:</span>
+                  <div className="flex items-center gap-2 truncate max-w-full sm:max-w-md">
+                    <span className="text-amber-400 font-bold flex-shrink-0">{active.name}:</span>
                     <span className="text-slate-400 truncate">{active.tagline}</span>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="flex items-center gap-2 flex-shrink-0 w-full sm:w-auto justify-between sm:justify-end">
                     <button
                       onClick={() => handleCopyGps(active.coords, active.id)}
                       className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-mono border border-slate-700 transition-colors"
