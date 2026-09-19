@@ -129,8 +129,8 @@ export const itineraryDays: ItineraryDay[] = [
     travelDurationDetail: '连霍高速 G30 平坦路况',
     distance: '约 300 km',
     distanceKm: 300,
-    lodging: '奎屯市区高品质商务酒店 (待选定)',
-    lodgingStrategy: '【模块 A 北上中继 1N】：视离开赛湖时间落脚奎屯，2间房约 ¥300~450，享受繁华商圈美食，为后续北上喀纳斯蓄力',
+    lodging: '星程奎屯体育中心西公园酒店 (已预订 ✅)',
+    lodgingStrategy: '【模块 A 北上中继 1N · 已锁定 ✅】：已锁定星程奎屯体育中心西公园酒店高级双床房 2 间（实付 ¥498.90，9/28 23:00 前免费取消）。享受繁华商圈美食，为后续北上喀纳斯蓄力',
     moduleTag: {
       code: 'A',
       name: '模块 A · 北上中继 (1N)',

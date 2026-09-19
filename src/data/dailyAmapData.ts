@@ -364,16 +364,16 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
       },
       {
         id: 'd3-hotel',
-        name: '奎屯市区商圈高品质商务酒店',
+        name: '星程奎屯体育中心西公园酒店 (已预订 ✅)',
         category: 'hotel',
-        categoryLabel: '现代休整',
+        categoryLabel: '官方已锁定',
         icon: '🏨',
-        coords: [44.4269, 84.9018],
+        coords: [44.4360, 84.8850],
         elevation: '450m',
-        tagline: '北疆商圈金三角，洗车、洗衣、补给生活物资一应俱全',
-        tips: '下午抵达后可前往洗车店清洗连霍高速灰尘，检查全车胎压',
-        amapUrl: 'https://uri.amap.com/marker?position=84.9018,44.4269&name=%E5%A5%8E%E5%B1%AF%E5%B8%82%E4%B8%AD%E5%BF%83%E5%95%86%E5%9C%88',
-        navSearchQuery: '奎屯友好购物中心',
+        tagline: '天北新区乌鲁木齐西路，已锁定高级双床房2间，享受洗车休整与大盘鸡美食',
+        tips: '华住商旅已预订，9/28 23:00前可免费取消。周边洗车加油便利',
+        amapUrl: 'https://uri.amap.com/search?keyword=%E6%98%9F%E7%A8%8B%E5%A5%8E%E5%B1%AF%E4%BD%93%E8%82%B2%E4%B8%AD%E5%BF%83%E8%A5%BF%E5%85%AC%E5%9B%AD%E9%85%92%E5%BA%97',
+        navSearchQuery: '星程奎屯体育中心西公园酒店',
         isPrimary: true
       },
       {

@@ -106,20 +106,24 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     nightIndex: 3,
     date: '9/29',
     fullDate: '2026年9月29日 (周二)',
-    stayText: '9/29 入住 ➔ 9/30 离店 (1晚)',
-    cityRegion: '奎屯市区 (友好商圈 / 连霍高速路口)',
-    status: 'pending',
-    statusBadge: '⏳ 待预订 · 步骤1',
-    hotelName: '全季酒店 (奎屯友好购物中心店) / 奎屯美豪丽致酒店 (备选待订)',
-    brand: '华住会 / 全季 或 美豪丽致',
-    roomType: '大床房 / 舒适双床房 2间 (4人入住)',
+    stayText: '9/29 14:00后入住 ➔ 9/30 16:00前退房 (1晚)',
+    cityRegion: '奎屯市区 (天北新区 / 体育中心西公园)',
+    status: 'confirmed',
+    statusBadge: '✅ 预订成功 (待入住)',
+    hotelName: '星程奎屯体育中心西公园酒店',
+    brand: '华住会 / 星程酒店',
+    roomType: '高级双床房 2间 (4人入住)',
     roomCount: 2,
-    targetBudget: '约 ¥280–380/间 (2间总约 ¥560~760)',
-    payType: '待预订',
-    notes: '【步骤 1: 奎屯住一晚】：赛里木湖出来后沿 G30 连霍高速中继 300km，下榻北疆金三角商圈，享受地道沙湾大盘鸡与丰富补给，车辆清洗外观，为次日独山子大峡谷与乌尔禾蓄力。',
-    features: ['北疆交通枢纽金三角', '近友好商圈美食街', '带专属停车场与自驾洗车配套', '次日 30 分钟直抵独山子大峡谷'],
-    bookingChannel: '华住会 / 携程 / 美团',
-    amapSearchUrl: 'https://uri.amap.com/search?keyword=奎屯友好商圈高品质酒店'
+    totalCost: 498.90,
+    payType: '已在线支付',
+    avgPricePerRoom: 249.45,
+    cancellationPolicy: '09月28日 23:00 前可免费取消 (23:00后不可取消)',
+    freeCancelDeadline: '2026-09-28 23:00',
+    address: '新疆伊犁哈萨克自治州奎屯市天北新区乌鲁木齐西路附77号',
+    features: ['华住会商旅高品质连锁', '高级双床房2间', '近体育中心西公园与友好商圈', '次日30分钟直抵独山子大峡谷'],
+    notes: '【步骤 1: 奎屯住一晚 · 官方已锁定】：已预订星程奎屯体育中心西公园酒店高级双床房 2 间（4人入住，实付 ¥498.90）。赛里木湖出来后沿 G30 连霍高速中继 300km，下榻奎屯休整，为次日独山子大峡谷与乌尔禾蓄力！',
+    bookingChannel: '华住商旅 / 华住会官方预订',
+    amapSearchUrl: 'https://uri.amap.com/search?keyword=星程奎屯体育中心西公园酒店'
   },
   {
     nightIndex: 4,
@@ -244,15 +248,16 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
 
 export const HOTEL_BOOKING_SUMMARY = {
   totalNights: 10,
-  confirmedNights: 4,
-  confirmedTotalCost: 3271.60, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 491.30 (10/5)
-  confirmedRooms: 8,
+  confirmedNights: 5,
+  confirmedTotalCost: 3770.50, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 491.30 (10/5)
+  confirmedRooms: 10,
   estimatedTotalHotelBudget: 5500,
   estimatedSavings: 9500,
   freeCancellationDeadlines: [
     { hotel: '星程乌鲁木齐机场迎宾路店 (9/26)', deadline: '2026-09-25 23:00', cost: 420.70 },
     { hotel: '星程精河连霍高速路口酒店 (9/27)', deadline: '2026-09-27 20:00', cost: 389.30 },
     { hotel: '赛里木湖城际酒店 (9/28)', deadline: '2026-09-28 20:00', cost: 1970.30 },
+    { hotel: '星程奎屯体育中心西公园酒店 (9/29)', deadline: '2026-09-28 23:00', cost: 498.90 },
     { hotel: '星程乌鲁木齐机场迎宾路店 (10/5)', deadline: '2026-10-05 20:00', cost: 491.30 }
   ]
 };

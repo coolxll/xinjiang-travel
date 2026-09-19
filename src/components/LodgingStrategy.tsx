@@ -154,7 +154,7 @@ export const LodgingStrategy: React.FC = () => {
             }`}
           >
             <TrendingDown className="w-4 h-4" />
-            <span>💡 为什么这样住？5 大选址降本拆解</span>
+            <span>💡 为什么这样住？核心选址降本拆解</span>
           </button>
         </div>
 
