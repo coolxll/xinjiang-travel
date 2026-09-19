@@ -77,17 +77,17 @@ const COLOR_MAP = {
 export const MODULAR_PRESETS: ModularPreset[] = [
   {
     id: 'preset-1',
-    title: '当前敲定主线：黄金 6 步顺行流',
-    badge: '🌟 当前主线敲定 · 全员执行',
-    badgeColor: 'bg-amber-500 text-white',
-    tagline: '奎屯 ➔ 乌尔禾 ➔ 冲乎尔 (避峰) ➔ 贾登峪 ➔ 阿勒泰 ➔ 昌吉/乌市 (慢游)',
+    title: '当前敲定主线：黄金 6 步顺行流 (已全部锁定 100%)',
+    badge: '🏆 终稿主线 · 100% 预订完毕',
+    badgeColor: 'bg-emerald-600 text-white',
+    tagline: '奎屯星程 ➔ 乌尔禾龙谷 ➔ 冲乎尔怡然居 (避峰) ➔ 贾登峪生态度假 ➔ 阿勒泰丽呈 ➔ 昌吉全季 (美食慢游)',
     isCurrentMaster: true,
-    formula: '奎屯 (9/29) ➔ 乌尔禾 (9/30) ➔ 冲乎尔 (10/1) ➔ 贾登峪 (10/2) ➔ 阿勒泰 (10/3) ➔ 昌吉/乌市 (10/4)',
-    strategySummary: '全员敲定此 6 晚落地路径：连霍高速奎屯中继，独山子大峡谷与乌尔禾雅丹，国庆首日逆向避峰冲乎尔（次日 1h 直达门票站），喀纳斯三湾湖区宿贾登峪仅 1 晚，G681 阿禾天路平替禾木抵阿勒泰，S21 沙漠公路南下昌吉品尝九碗三行子与乌市采买还车！',
+    formula: '奎屯星程 (9/29) ➔ 乌尔禾龙谷 (9/30) ➔ 冲乎尔怡然居 (10/1) ➔ 贾登峪生态度假 (10/2) ➔ 阿勒泰丽呈别院 (10/3) ➔ 昌吉全季 (10/4)',
+    strategySummary: '全员敲定并全额锁定此 6 晚落地路径：连霍高速星程奎屯中继，独山子大峡谷与乌尔禾龙谷精品酒店，国庆首日逆向避峰入驻冲乎尔怡然居民宿（次日 1h 直达门票站），喀纳斯三湾湖区入住贾登峪喀纳斯生态度假酒店仅 1 晚，G681 阿禾天路平替禾木下榻雪都阿勒泰丽呈别院，S21 沙漠公路南下昌吉全季品尝九碗三行子与洗烘休整，次日乌市大巴扎采买与 21:00 还车！',
     pros: [
-      '10/1 国庆进驻冲乎尔慢生活小镇，避开布尔津天价房，次日进山时间缩短一半 (仅70km/1h)',
-      '贾登峪仅住 1 晚不住村内天价破木屋，大行李留在车内，单日立省数千元',
-      'S21 沙漠公路直达昌吉美食小吃街，为 10/5 乌鲁木齐大巴扎采买与 21:00 还车预留充裕全天'
+      '10/1 国庆进驻冲乎尔怡然居（2间仅¥395），避开布尔津天价房，次日进山时间缩短一半 (仅70km/1h)',
+      '贾登峪入住喀纳斯生态度假酒店仅 1 晚，不住村内天价破木屋，大行李留车内，独立卫浴暖气充足',
+      'S21 沙漠公路直达昌吉全季东方广场店，免费洗烘与品尝小吃街，为 10/5 乌鲁木齐还车预留充裕全天'
     ],
     slots: [
       {
@@ -97,11 +97,11 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         moduleCode: 'A',
         moduleCategory: 'A',
         moduleName: '步骤 1 · 奎屯中继',
-        location: '奎屯市区 / 独山子',
+        location: '奎屯市区 (天北新区)',
         drivingKm: 300,
         drivingTime: '约 3–3.5h',
-        activityHighlight: '赛湖晨曦天鹅 ➔ G30 高速中继 ➔ 奎屯商圈沙湾大盘鸡',
-        lodgingType: '全季/美豪丽致酒店 (¥280~380)',
+        activityHighlight: '赛湖晨曦天鹅 ➔ G30 连霍高速中继 ➔ 奎屯商圈沙湾大盘鸡',
+        lodgingType: '星程奎屯体育中心西公园酒店 ✅ (实付¥498.90)',
         colorClass: COLOR_MAP.A
       },
       {
@@ -111,11 +111,11 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         moduleCode: 'D1',
         moduleCategory: 'D',
         moduleName: '步骤 2 · 乌尔禾雅丹',
-        location: '乌尔禾魔鬼城 / 西部乌镇',
+        location: '乌尔禾区 (龙脊路鹏程物流园)',
         drivingKm: 240,
         drivingTime: '约 3.5h',
         activityHighlight: '独山子大峡谷大地裂缝 ➔ 百里油田 ➔ 乌尔禾雅丹落日',
-        lodgingType: '西部乌镇/和颐至尚酒店 (¥300~450)',
+        lodgingType: '克拉玛依龙谷精品酒店 ✅ (住完再付¥312.00)',
         colorClass: COLOR_MAP.D
       },
       {
@@ -125,11 +125,11 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         moduleCode: 'B1',
         moduleCategory: 'B',
         moduleName: '步骤 3 · 冲乎尔避峰',
-        location: '布尔津县冲乎尔镇 (山脚慢生活小镇)',
+        location: '布尔津冲乎尔镇 (山脚慢生活小镇)',
         drivingKm: 290,
         drivingTime: '约 3.5h',
-        activityHighlight: '🇨🇳 国庆逆向错峰 ➔ 额河烤冷水鱼 ➔ 冲乎尔慢生活小镇避峰',
-        lodgingType: '冲乎尔合瓦客栈/红石小镇民宿 (¥300~500)',
+        activityHighlight: '🇨🇳 国庆逆向错峰 ➔ 额河冷水鱼 ➔ 冲乎尔慢生活小镇避峰',
+        lodgingType: '布尔津冲乎尔怡然居民宿 ✅ (离店后付¥395.00)',
         colorClass: COLOR_MAP.B
       },
       {
@@ -143,7 +143,7 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         drivingKm: 70,
         drivingTime: '自驾山路1h + 游玩6h',
         activityHighlight: '08:00 从冲乎尔仅 1h 抵贾登峪抢头香 ➔ 畅游三湾与翡翠湖',
-        lodgingType: '贾登峪鸿福生态/城堡度假区 仅住1晚 (¥650~950)',
+        lodgingType: '喀纳斯生态度假酒店 ✅ 仅住1晚 (离店后付¥2,778.00)',
         colorClass: COLOR_MAP.B
       },
       {
@@ -153,11 +153,11 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         moduleCode: 'C',
         moduleCategory: 'C',
         moduleName: '步骤 5 · 阿勒泰大休整',
-        location: '阿勒泰市区 (克兰河畔)',
+        location: '阿勒泰市区 (天鹅湖公园/克兰河畔)',
         drivingKm: 275,
         drivingTime: '景观自驾约 7h',
         activityHighlight: '🔥 G681 阿禾天路 209km 平替禾木 ➔ 直达雪都阿勒泰大休整',
-        lodgingType: '全季/阿勒泰雪都大酒店 (¥350~500)',
+        lodgingType: '丽呈别院酒店(阿勒泰天鹅湖店) ✅ (实付¥1,269.92)',
         colorClass: COLOR_MAP.C
       },
       {
@@ -166,12 +166,12 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         dayNumber: 8,
         moduleCode: 'D2',
         moduleCategory: 'D',
-        moduleName: '步骤 6 · 昌吉/乌市慢游',
-        location: '昌吉市区 (推荐 · 美食之都) / 乌鲁木齐商圈',
+        moduleName: '步骤 6 · 昌吉美食慢游',
+        location: '昌吉市区 (东方广场商圈)',
         drivingKm: 400,
         drivingTime: 'S21沙漠高速约 4.5h',
-        activityHighlight: 'S21 穿越准噶尔沙漠 ➔ 抵昌吉小吃街品尝九碗三行子 ➔ 庭州生态绿谷',
-        lodgingType: '昌吉华东容锦/全季昌吉亚欧国际 (¥240~360)',
+        activityHighlight: 'S21 穿越准噶尔沙漠 ➔ 抵昌吉小吃街品尝九碗三行子 ➔ 自助洗衣烘干',
+        lodgingType: '全季昌吉东方广场酒店 ✅ (实付¥498.90)',
         colorClass: COLOR_MAP.D
       }
     ]
@@ -500,21 +500,21 @@ export const ModularArchitectureVisualizer: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold mb-3 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
-              <span>9/28 赛湖后 6 晚 · 核心算法可视化看板</span>
+              <span>9/28 赛湖后 6 晚 · 终稿落地 100% 预订完成看板</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white flex items-center gap-3">
               <span>🧩 4 模块积木化架构与 2N 全局弹性池</span>
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
-              将 9/28 赛湖自驾之后的 6 晚行程（9/29～10/4）抽象为 <strong className="text-amber-300">A（北上中继）、B（喀纳斯组合）、C（阿勒泰休整）与 D（自由余量 2N 弹性池）</strong>。无论天气如何变化，随心插板即可从容应对！
+              将 9/28 赛湖自驾之后的 6 晚行程（9/29～10/4）抽象为 <strong className="text-amber-300">A（北上中继）、B（喀纳斯组合）、C（阿勒泰休整）与 D（自由余量 2N 弹性池）</strong>。当前全员已完成终稿主线 100% 全额锁定（6 晚 12 间夜），兼备备用插板方案从容托底！
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-slate-800/80 p-1 rounded-2xl border border-slate-700/60 text-xs">
+          <div className="flex items-center gap-2 bg-slate-800/80 p-1.5 rounded-2xl border border-slate-700/60 text-xs">
             <span className="text-slate-400 px-2 font-bold">固定锚点：</span>
-            <span className="bg-slate-700/80 px-2.5 py-1 rounded-xl text-slate-200 font-semibold">9/26-28 赛湖段</span>
+            <span className="bg-slate-700/80 px-2.5 py-1 rounded-xl text-slate-200 font-semibold">9/26-28 赛湖段 (已锁定)</span>
             <span className="text-slate-500">➔</span>
-            <span className="bg-slate-700/80 px-2.5 py-1 rounded-xl text-slate-200 font-semibold">10/5 21:00 还车</span>
+            <span className="bg-slate-700/80 px-2.5 py-1 rounded-xl text-slate-200 font-semibold">10/5 21:00 乌市还车 (已锁定)</span>
           </div>
         </div>
 
@@ -522,7 +522,7 @@ export const ModularArchitectureVisualizer: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 text-xs font-black uppercase text-slate-400 tracking-wider mb-3">
             <Layers className="w-4 h-4 text-amber-400" />
-            <span>4 大积木核心模块定义与属性说明</span>
+            <span>4 大积木核心模块定义与属性说明 (终稿落地版)</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -533,17 +533,17 @@ export const ModularArchitectureVisualizer: React.FC = () => {
                   模块 A
                 </span>
                 <span className="text-[11px] font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-400/20">
-                  固定 1 晚 (1N)
+                  固定 1 晚 (1N) · 已锁定
                 </span>
               </div>
               <h3 className="text-base font-extrabold text-white group-hover:text-amber-300 transition-colors">
                 北上中继枢纽
               </h3>
               <p className="text-[11px] text-amber-200/90 font-mono mb-2">
-                📍 奎屯 / 独山子 / 克拉玛依 / 乌尔禾
+                📍 星程奎屯体育中心西公园店 (9/29)
               </p>
               <p className="text-xs text-slate-300 leading-relaxed">
-                9/28 离开赛湖后的第 1 晚中转。沿平坦 G30 高速进驻北疆金三角商圈，享受美食大餐、洗车与热水澡，为后续进山蓄满充沛精力。
+                9/28 离开赛湖后的第 1 晚中转。沿平坦 G30 连霍高速进驻奎屯天北商圈，品尝地道沙湾大盘鸡，彻底洗车与洗烘休整，为后续进山蓄满充沛精力。
               </p>
             </div>
 
@@ -554,17 +554,17 @@ export const ModularArchitectureVisualizer: React.FC = () => {
                   模块 B
                 </span>
                 <span className="text-[11px] font-bold text-sky-300 bg-sky-500/10 px-2 py-0.5 rounded border border-sky-400/20">
-                  黄金绑定 (2N)
+                  黄金绑定 (2N) · 已锁定
                 </span>
               </div>
               <h3 className="text-base font-extrabold text-white group-hover:text-sky-300 transition-colors">
                 喀纳斯核心组合
               </h3>
               <p className="text-[11px] text-sky-200/90 font-mono mb-2">
-                📍 布尔津 1N ➔ 贾登峪 1N
+                📍 冲乎尔怡然居 1N ➔ 贾登峪生态度假 1N
               </p>
               <p className="text-xs text-slate-300 leading-relaxed">
-                <strong>顺序基本不变，日期整体平移</strong>。国庆错峰住布尔津城市酒店吃烤狗鱼，次日一早仅 2h 进景区三湾；大行李锁车内，仅住贾登峪 1 晚，彻底不住村内破木屋。
+                <strong>国庆避峰神站组合</strong>：10/1 避开布尔津天价房入驻冲乎尔怡然居民宿（2间仅¥395），次日仅 1h 抵贾登峪抢头香；入住喀纳斯生态度假酒店仅 1 晚，大行李留车内，彻底不住村内破木屋。
               </p>
             </div>
 
@@ -575,17 +575,17 @@ export const ModularArchitectureVisualizer: React.FC = () => {
                   模块 C
                 </span>
                 <span className="text-[11px] font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-400/20">
-                  出山必备 (1N)
+                  出山必备 (1N) · 已锁定
                 </span>
               </div>
               <h3 className="text-base font-extrabold text-white group-hover:text-purple-300 transition-colors">
                 阿勒泰市大休整
               </h3>
               <p className="text-[11px] text-purple-200/90 font-mono mb-2">
-                📍 雪都阿勒泰市区 (至少住1晚)
+                📍 丽呈别院(阿勒泰天鹅湖店) (10/3)
               </p>
               <p className="text-xs text-slate-300 leading-relaxed">
-                开完 209km G681 阿禾景观天路（全景平替禾木）出山后，<strong>必须在阿勒泰市住至少 1 晚</strong>。克兰河畔漫步，洗去风尘品尝地道哈萨克风味。
+                自驾 209km G681 阿禾天路（全景平替禾木村）出山，直达雪都阿勒泰。入住天鹅湖畔丽呈别院，漫步克兰河，洗去风尘品尝地道哈萨克风味，享舒适暖气大床。
               </p>
             </div>
 
@@ -596,17 +596,17 @@ export const ModularArchitectureVisualizer: React.FC = () => {
                   模块 D
                 </span>
                 <span className="text-[11px] font-bold text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-400/20">
-                  自由余量池 (2N 弹性)
+                  自由余量池 (2N) · 终稿落地
                 </span>
               </div>
               <h3 className="text-base font-extrabold text-white group-hover:text-emerald-300 transition-colors">
-                全局自由弹性插板
+                前置+后置 2N 完美落地
               </h3>
               <p className="text-[11px] text-emerald-200/90 font-mono mb-2">
-                📍 独山子 / 乌尔禾 / 富蕴 / 可可托海
+                📍 D1 乌尔禾龙谷(9/30) + D2 昌吉全季(10/4)
               </p>
               <p className="text-xs text-slate-300 leading-relaxed">
-                <strong>全行程最关键的弹性调节阀！</strong> 这 2 晚可以插在 B 前（前置）、B 后（后置）、一前一后（均衡），或合并为喀纳斯/阿勒泰连住，吸收一切天气突发。
+                <strong>终稿主线采用「一前一后」黄金配置：</strong>D1 前置插板乌尔禾魔鬼城落日（住龙谷精品），化解进山长途；D2 后置插板昌吉（住东方广场全季），穿越 S21 后吃小吃街洗烘，完美承接 10/5 乌市大巴扎还车！
               </p>
             </div>
           </div>
