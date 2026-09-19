@@ -221,20 +221,24 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     nightIndex: 8,
     date: '10/4',
     fullDate: '2026年10月4日 (周日)',
-    stayText: '10/4 入住 ➔ 10/5 离店 (1晚)',
-    cityRegion: '昌吉市区 (推荐 · 美食之都) 或 乌鲁木齐天山商圈',
-    status: 'pending',
-    statusBadge: '⏳ 待预订 · 步骤6 (推荐昌吉 · 最后一晚！)',
-    hotelName: '昌吉华东容锦酒店 / 全季昌吉亚欧国际酒店 / 乌鲁木齐天山商圈全季 (备选待订)',
-    brand: '华住会 / 全季 或 高星级商务连锁',
-    roomType: '高品质大床房 / 双床房 2间 (4人入住)',
+    stayText: '10/4 14:00后入住 ➔ 10/5 16:00前退房 (1晚)',
+    cityRegion: '昌吉市区 (延安北路 / 东方广场商圈)',
+    status: 'confirmed',
+    statusBadge: '✅ 预订成功 (待入住 · 步骤6 · 全满贯达成！)',
+    hotelName: '全季昌吉东方广场酒店',
+    brand: '华住会 / 全季酒店',
+    roomType: '大床房 2间 (4人入住)',
     roomCount: 2,
-    targetBudget: '约 ¥240–360/间 (2间总约 ¥480~720)',
-    payType: '待预订',
-    notes: '【步骤 6: 往乌市方向，在昌吉或者乌市玩一天】：阿勒泰南下经 S21 沙漠公路 4.5h 抵昌吉/乌市。强烈推荐住昌吉：离乌市仅 35km（车程 35 分钟），房价便宜 30%~50%，停车极宽敞，晚上畅享新疆第一名吃街【昌吉小吃街】九碗三行子与丸子汤！',
-    features: ['首推昌吉美食之都', '比乌鲁木齐市区酒店性价比高30%+', '晚上打卡昌吉名小吃街', '次日从容前往乌市大巴扎与天山机场还车'],
-    bookingChannel: '华住会 / 携程 / 美团',
-    amapSearchUrl: 'https://uri.amap.com/search?keyword=昌吉小吃街高品质酒店'
+    totalCost: 498.90,
+    payType: '已在线支付',
+    avgPricePerRoom: 249.45,
+    cancellationPolicy: '10月03日 23:00 前可免费取消',
+    freeCancelDeadline: '2026-10-03 23:00',
+    address: '新疆维吾尔自治区昌吉回族自治州昌吉市延安北路198号东方广场(5区3丘3栋)',
+    notes: '【步骤 6: 昌吉住一晚 · 官方已锁定 · 10晚全满贯达成！】：已预订全季昌吉东方广场酒店大床房 2 间（实付仅 ¥498.90，单间仅 ¥249.45，10/3 23:00前可免费取消）。南下经 S21 沙漠公路 4.5h 进驻昌吉，停车宽敞，晚上打卡【昌吉小吃街】九碗三行子与丸子汤，免费洗衣烘干为返程做好充分准备！',
+    features: ['华住会高品质全季最新标准', '大床房2间 (实付¥498.90)', '离昌吉回民小吃街仅2-3km', '免费专属停车场与自助洗衣烘干'],
+    bookingChannel: '华住商旅 / 华住会官方预订',
+    amapSearchUrl: 'https://uri.amap.com/search?keyword=全季昌吉东方广场酒店'
   },
   {
     nightIndex: 9,
@@ -264,11 +268,11 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
 
 export const HOTEL_BOOKING_SUMMARY = {
   totalNights: 10,
-  confirmedNights: 9,
-  confirmedTotalCost: 8525.42, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 2778.00 (10/2) + 1269.92 (10/3) + 491.30 (10/5)
-  confirmedRooms: 18,
-  estimatedTotalHotelBudget: 8850,
-  estimatedSavings: 11000,
+  confirmedNights: 10,
+  confirmedTotalCost: 9024.32, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 2778.00 (10/2) + 1269.92 (10/3) + 498.90 (10/4) + 491.30 (10/5)
+  confirmedRooms: 20,
+  estimatedTotalHotelBudget: 9024.32,
+  estimatedSavings: 11500,
   freeCancellationDeadlines: [
     { hotel: '星程乌鲁木齐机场迎宾路店 (9/26)', deadline: '2026-09-25 23:00', cost: 420.70 },
     { hotel: '星程精河连霍高速路口酒店 (9/27)', deadline: '2026-09-27 20:00', cost: 389.30 },
@@ -278,6 +282,7 @@ export const HOTEL_BOOKING_SUMMARY = {
     { hotel: '克拉玛依龙谷精品酒店 (9/30)', deadline: '2026-09-30 20:00', cost: 312.00 },
     { hotel: '布尔津冲乎尔怡然居民宿 (10/1)', deadline: '2026-10-01 14:00', cost: 395.00 },
     { hotel: '丽呈别院酒店阿勒泰天鹅湖店 (10/3)', deadline: '2026-10-03 18:00', cost: 1269.92 },
+    { hotel: '全季昌吉东方广场酒店 (10/4)', deadline: '2026-10-03 23:00', cost: 498.90 },
     { hotel: '星程乌鲁木齐机场迎宾路店 (10/5)', deadline: '2026-10-05 20:00', cost: 491.30 }
   ]
 };

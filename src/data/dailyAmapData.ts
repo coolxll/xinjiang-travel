@@ -887,16 +887,16 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
       },
       {
         id: 'd8-hotel',
-        name: '昌吉华东容锦酒店 / 全季酒店 (推荐首选)',
+        name: '全季昌吉东方广场酒店 (已预订 ✅ · 全满贯！)',
         category: 'hotel',
-        categoryLabel: '高性价比',
+        categoryLabel: '官方已锁定',
         icon: '🏨',
-        coords: [44.0200, 87.3100],
+        coords: [44.0220, 87.3120],
         elevation: '600m',
-        tagline: '离乌市仅35km，房价便宜30%+，停车宽敞，近小吃街',
-        tips: '若选择住乌鲁木齐亦可直接沿高速驶入天山/沙依巴克商圈酒店',
-        amapUrl: 'https://uri.amap.com/marker?position=87.3100,44.0200&name=%E6%98%8C%E5%90%89%E5%8D%8E%E4%B8%9C%E5%AE%B9%E9%94%A6%E9%85%92%E5%BA%97',
-        navSearchQuery: '昌吉华东容锦酒店',
+        tagline: '延安北路东方广场，已锁定大床房2间 (实付¥498.90)，免费停车与自助洗衣',
+        tips: '华住商旅已支付，10/3 23:00前可免费取消。距昌吉回民小吃街仅2km',
+        amapUrl: 'https://uri.amap.com/search?keyword=%E5%85%A8%E5%AD%A3%E6%98%8C%E5%90%89%E4%B8%9C%E6%96%B9%E5%B9%BF%E5%9C%BA%E9%85%92%E5%BA%97',
+        navSearchQuery: '全季昌吉东方广场酒店',
         isPrimary: true
       }
     ],
