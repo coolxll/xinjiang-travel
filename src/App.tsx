@@ -140,17 +140,16 @@ export const App: React.FC = () => {
             /* Dedicated Standalone Daily Roadbook & Navigation Companion Page (Direct首屏渲染) */
             <StandaloneRoadbookPage
               onBackToMain={() => handleSwitchPageMode('main')}
-              onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
               onOpenPrint={() => setIsPrintModalOpen(true)}
             />
           ) : pageMode === 'alternatives' ? (
-            /* Dedicated Alternative Plans & Route Visualization Page */
+            /* Dedicated Alternative Plans & Route Visualization Page (Archived) */
             <Suspense
               fallback={
                 <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white p-8">
                   <div className="flex flex-col items-center gap-3">
                     <div className="w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin" />
-                    <span className="text-sm font-bold text-slate-300">正在加载 4 套备选方案高精度全景数据...</span>
+                    <span className="text-sm font-bold text-slate-300">正在加载历史备选方案归档数据...</span>
                   </div>
                 </div>
               }
@@ -169,7 +168,6 @@ export const App: React.FC = () => {
                 onExploreRoadbook={() => handleSwitchPageMode('roadbook')}
                 onExploreDecisions={() => handleNavigate('decisions')}
                 onExploreBookings={() => handleNavigate('bookings')}
-                onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
               />
 
               {/* 2. Flight & Car Rental Time Constraint Hub */}
@@ -187,9 +185,7 @@ export const App: React.FC = () => {
               />
 
               {/* 6. Team Consensus & Voting Matrix with Imagery */}
-              <DecisionMatrix
-                onExploreAlternatives={() => handleSwitchPageMode('alternatives')}
-              />
+              <DecisionMatrix />
 
               {/* 7. Lodging & Cost Optimization */}
               <LodgingStrategy />
@@ -204,7 +200,9 @@ export const App: React.FC = () => {
         </main>
 
         {/* Footer */}
-        <Footer />
+        <Footer
+          onOpenAlternatives={() => handleSwitchPageMode('alternatives')}
+        />
       </div>
 
       {/* Offline / Print Modal (Lazy Loaded) */}

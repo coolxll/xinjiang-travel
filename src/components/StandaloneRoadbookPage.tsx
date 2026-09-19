@@ -16,13 +16,11 @@ import {
 
 interface StandaloneRoadbookPageProps {
   onBackToMain: () => void;
-  onExploreAlternatives: () => void;
   onOpenPrint: () => void;
 }
 
 export const StandaloneRoadbookPage: React.FC<StandaloneRoadbookPageProps> = ({
   onBackToMain,
-  onExploreAlternatives,
   onOpenPrint
 }) => {
   const initial = getInitialTravelProgress();
@@ -117,13 +115,6 @@ export const StandaloneRoadbookPage: React.FC<StandaloneRoadbookPageProps> = ({
               >
                 <span>方案大纲</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={onExploreAlternatives}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-200 text-xs font-bold border border-purple-400/30 transition-colors"
-                title="查看4套备选方案"
-              >
-                <span>4套备用方案</span>
               </button>
               <button
                 onClick={onOpenPrint}

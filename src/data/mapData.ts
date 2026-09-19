@@ -94,27 +94,27 @@ export const routePoints: ExtendedRoutePoint[] = [
   },
   {
     id: 7,
-    name: '布尔津县城 (额尔齐斯河)',
-    coords: [47.7006, 86.8624],
+    name: '布尔津 / 冲乎尔慢生活小镇',
+    coords: [48.1500, 86.9200],
     dayText: '10/1-2',
-    description: '【模块 B1 喀纳斯组合】：童话边城，高星级酒店与河堤夜市烤狗鱼',
+    description: '【步骤 3 冲乎尔避峰】：布尔津五彩滩 + 宿冲乎尔特色小镇，次日 1h 直达贾登峪',
     category: 'city',
-    elevation: '470m',
-    tips: '国庆当天住布尔津物美价廉，次日一早仅需 2h 直达喀纳斯门票站',
-    navSearchQuery: '布尔津县人民政府/河堤夜市',
-    amapUrl: 'https://uri.amap.com/marker?position=86.8624,47.7006&name=%E5%B8%83%E5%B0%94%E6%B4%A5%E5%8E%BF',
-    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=47.7006,86.8624',
-    gpsCoordsString: '47.7006° N, 86.8624° E'
+    elevation: '650m',
+    tips: '国庆住冲乎尔避开布尔津天价房，距离贾登峪仅 70km，次日 1h 直达景区门票站',
+    navSearchQuery: '布尔津县冲乎尔镇',
+    amapUrl: 'https://uri.amap.com/marker?position=86.9200,48.1500&name=%E5%86%B2%E4%B9%8E%E5%B0%94%E9%95%87',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=48.1500,86.9200',
+    gpsCoordsString: '48.1500° N, 86.9200° E'
   },
   {
     id: 8,
     name: '贾登峪 / 喀纳斯大本营',
     coords: [48.70, 87.02],
     dayText: '10/2-3',
-    description: '【模块 B2 喀纳斯组合】：神仙湾、月亮湾、卧龙湾与翡翠变色湖',
+    description: '【步骤 4 贾登峪大本营】：神仙湾、月亮湾、卧龙湾与翡翠变色湖，仅住 1 晚',
     category: 'scenic',
     elevation: '1,374m',
-    tips: '住贾登峪度假酒店仅 1 晚，大行李放后备箱，不住村内高价破木屋',
+    tips: '住贾登峪度假酒店仅 1 晚，大行李放后备箱，不住村内高价破木屋，次日直上阿禾天路',
     navSearchQuery: '贾登峪门票换乘中心',
     amapUrl: 'https://uri.amap.com/marker?position=87.02,48.70&name=%E8%B4%BE%E7%99%BB%E5%B3%AA%E9%97%A8%E7%A5%A8%E7%AB%99',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=48.70,87.02',
@@ -153,10 +153,10 @@ export const routePoints: ExtendedRoutePoint[] = [
     name: '阿勒泰市 (克兰河畔)',
     coords: [47.8484, 88.1318],
     dayText: '10/3-4',
-    description: '【模块 C 阿勒泰】：阿禾天路终点，雪都阿勒泰，高品质舒适休整',
+    description: '【步骤 5 阿勒泰大休整】：阿禾天路终点，雪都阿勒泰，高品质舒适休整',
     category: 'city',
     elevation: '887m',
-    tips: '阿禾公路出来后至少住 1 晚，克兰河畔漫步，洗去风尘品尝地道美食',
+    tips: '阿禾公路出来后住 1 晚，克兰河畔漫步，洗去风尘品尝地道美食',
     navSearchQuery: '阿勒泰市政府/克兰河滨河景区',
     amapUrl: 'https://uri.amap.com/marker?position=88.1318,47.8484&name=%E9%98%BF%E5%8B%92%E6%B3%B0%E5%B8%82',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=47.8484,88.1318',
@@ -164,17 +164,17 @@ export const routePoints: ExtendedRoutePoint[] = [
   },
   {
     id: 12,
-    name: '富蕴 / 可可托海大峡谷',
-    coords: [47.20, 89.80],
+    name: '昌吉市区 / 乌鲁木齐 (小吃街/大巴扎)',
+    coords: [44.0200, 87.3100],
     dayText: '10/4-5',
-    description: '【模块 D2 自由余量】：额尔齐斯大峡谷、神钟山与三号矿坑',
-    category: 'scenic',
-    elevation: '1,200m',
-    tips: '探秘阿尔泰东脉花岗岩地貌与金色峡谷，次日沿 S21/G216 从容返乌',
-    navSearchQuery: '可可托海风景区/富蕴县',
-    amapUrl: 'https://uri.amap.com/marker?position=89.80,47.20&name=%E5%8F%AF%E5%8F%AF%E6%89%98%E6%B5%B7',
-    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=47.20,89.80',
-    gpsCoordsString: '47.2000° N, 89.8000° E'
+    description: '【步骤 6 昌吉/乌市慢游】：S21沙漠高速直达，打卡昌吉小吃街与大巴扎采买',
+    category: 'city',
+    elevation: '600m',
+    tips: '首推昌吉美食之都，酒店高质平价，离乌市仅35km，晚上品尝九碗三行子',
+    navSearchQuery: '昌吉回民小吃街/昌吉华东容锦酒店',
+    amapUrl: 'https://uri.amap.com/marker?position=87.3100,44.0200&name=%E6%98%8C%E5%90%89%E5%9B%9E%E6%B0%91%E5%B0%8F%E5%90%83%E8%A1%97',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=44.0200,87.3100',
+    gpsCoordsString: '44.0200° N, 87.3100° E'
   }
 ];
 
@@ -274,39 +274,39 @@ export const mapDaySchedules: MapDaySchedule[] = [
     key: 'day-5',
     dayNumber: 5,
     date: '10/1',
-    shortLabel: 'D5 模块B1组合',
-    title: '乌尔禾 → 奎阿高速 → 布尔津县城 (额尔齐斯河)',
-    routeLabel: '🇨🇳 模块B1国庆错峰 ｜ 童话边城 ｜ 宿布尔津城市酒店',
-    roadName: 'G3014 奎阿高速',
-    distanceKm: 220,
-    durationText: '约2.5–3h',
+    shortLabel: 'D5 步骤3避峰',
+    title: '乌尔禾 → 奎阿高速 → 途经布尔津 → 冲乎尔镇',
+    routeLabel: '🇨🇳 步骤3冲乎尔避峰 ｜ 额河美食 ｜ 宿冲乎尔特色小镇',
+    roadName: 'G3014 奎阿高速 + S232 景观公路',
+    distanceKm: 290,
+    durationText: '约3.5h',
     activePointIds: [6, 7],
     isScenicStay: false,
-    bounds: [[45.60, 85.00], [47.80, 87.00]],
-    description: '国庆当天逆向错峰自驾 220km 抵达童话小城布尔津，入住高星级舒适酒店，河堤夜市品尝正宗烤狗鱼与格瓦斯。'
+    bounds: [[45.60, 85.00], [48.20, 87.05]],
+    description: '国庆当天逆向错峰自驾抵布尔津品尝烤狗鱼，傍晚下榻阿尔泰山脚冲乎尔慢生活小镇，次日 1h 直达贾登峪。'
   },
   {
     key: 'day-6',
     dayNumber: 6,
     date: '10/2',
-    shortLabel: 'D6 模块B2组合',
-    title: '布尔津 → 喀纳斯核心三湾与湖区 → 贾登峪',
-    routeLabel: '🔥 模块B2喀纳斯三湾 ｜ 翡翠变色湖 ｜ 宿贾登峪',
+    shortLabel: 'D6 步骤4三湾',
+    title: '冲乎尔镇 → 贾登峪 (仅70km) → 喀纳斯核心三湾与湖区 → 宿贾登峪',
+    routeLabel: '🔥 步骤4贾登峪大本营 ｜ 翡翠变色湖 ｜ 宿贾登峪仅1晚',
     roadName: 'S232 铺装山路 + 景区区间车',
-    distanceKm: 140,
-    durationText: '自驾2h + 游玩6h',
+    distanceKm: 70,
+    durationText: '自驾山路1h + 游玩6h',
     activePointIds: [7, 8],
     isScenicStay: false,
-    bounds: [[47.65, 86.80], [48.80, 87.15]],
-    description: '08:30 第一批刷身份证进喀纳斯畅游神仙湾、月亮湾、卧龙湾与喀纳斯湖，傍晚回贾登峪入住度假酒店吃羊肉火锅。'
+    bounds: [[48.10, 86.85], [48.80, 87.15]],
+    description: '从冲乎尔出发仅 1h 抵达贾登峪刷身份证首批入园，畅游神仙湾、月亮湾、卧龙湾与喀纳斯湖，傍晚回贾登峪入住吃羊肉火锅。'
   },
   {
     key: 'day-7',
     dayNumber: 7,
     date: '10/3',
-    shortLabel: 'D7 模块C阿禾',
+    shortLabel: 'D7 步骤5阿禾天路',
     title: '贾登峪 → 禾贾公路 → G681阿禾天路 → 阿勒泰市',
-    routeLabel: '🔥 模块C阿禾天路 209km ｜ 全景平替禾木 ｜ 宿阿勒泰',
+    routeLabel: '🔥 步骤5阿禾天路 209km ｜ 全景平替禾木 ｜ 宿阿勒泰',
     roadName: 'X852 禾贾公路 + G681 阿禾公路',
     distanceKm: 275,
     durationText: '约6.5–7.5h (景观自驾)',
@@ -319,31 +319,31 @@ export const mapDaySchedules: MapDaySchedule[] = [
     key: 'day-8',
     dayNumber: 8,
     date: '10/4',
-    shortLabel: 'D8 模块D2余量',
-    title: '阿勒泰市 → 模块D2自由余量 → 富蕴 / 可可托海',
-    routeLabel: '⛰️ 模块D2自由余量 ｜ 神钟山峡谷 ｜ 宿富蕴/可可托海',
-    roadName: 'G216 国道',
-    distanceKm: 260,
-    durationText: '约3.5–4h',
+    shortLabel: 'D8 步骤6都会慢游',
+    title: '阿勒泰市 → S21沙漠高速 / G3014 → 昌吉市 / 乌鲁木齐',
+    routeLabel: '🍲 步骤6昌吉乌市慢游 ｜ 美食之都小吃街 ｜ 宿昌吉/乌市',
+    roadName: 'S21 沙漠高速 / G3014',
+    distanceKm: 400,
+    durationText: '约4.5h',
     activePointIds: [11, 12],
     isScenicStay: false,
-    bounds: [[47.10, 88.00], [48.00, 90.00]],
-    description: '沿 G216 国道探秘可可托海神钟山、额尔齐斯大峡谷与三号矿坑，或在阿勒泰深度休闲，当晚宿富蕴县城。'
+    bounds: [[43.80, 87.10], [47.90, 88.30]],
+    description: '沿 S21 沙漠高速从容南下，下午抵达昌吉市或乌鲁木齐入住，晚上打卡名扬全疆的昌吉回民小吃街，品尝九碗三行子与地道美食。'
   },
   {
     key: 'day-9',
     dayNumber: 9,
     date: '10/5',
-    shortLabel: 'D9 从容还车',
-    title: '富蕴/阿勒泰 → S21/G216 → 乌鲁木齐大巴扎 → 21:00 机场还车',
-    routeLabel: '🏁 留足半天安全缓冲 ｜ 美食采买 ｜ 21:00 机场还车',
-    roadName: 'S21 沙漠高速 / G216 国道',
-    distanceKm: 430,
-    durationText: '约4.5h + 市区活动',
+    shortLabel: 'D9 步骤7机场还车',
+    title: '昌吉/乌市全天慢游与特产采买 → 外观清洗加油 → 21:00 机场还车',
+    routeLabel: '🏁 步骤7全天从容慢游 ｜ 大巴扎采买 ｜ 21:00 机场还车',
+    roadName: '乌昌快速路 / 迎宾路',
+    distanceKm: 60,
+    durationText: '市区游览与采买 + 傍晚验车还车',
     activePointIds: [12, 1],
     isScenicStay: false,
-    bounds: [[43.80, 87.30], [47.30, 89.90]],
-    description: '从容南下返回乌鲁木齐，逛大巴扎、吃正宗抓饭，留足半天洗车加油，21:00 前完成机场验车交接，入住迎宾路星程。'
+    bounds: [[43.75, 87.30], [44.10, 87.65]],
+    description: '全天在乌鲁木齐慢游，逛大巴扎采买干果特产、吃和田烤包子，傍晚洗车加油，21:00 前完成机场验车交接，入住迎宾路星程。'
   },
   {
     key: 'day-10',
@@ -386,14 +386,15 @@ export const loopRouteCoordinates: [number, number][] = [
   [45.00, 85.00],
   [45.69, 85.05],
 
-  // 5. 乌尔禾 -> 布尔津 (G3014)
+  // 5. 乌尔禾 -> 布尔津 -> 冲乎尔 (G3014 + S232)
   [45.69, 85.05],
   [46.80, 86.00],
   [47.7006, 86.8624],
+  [48.1500, 86.9200],
 
-  // 6. 布尔津 -> 贾登峪 (S232)
-  [47.7006, 86.8624],
-  [48.10, 86.95],
+  // 6. 冲乎尔 -> 贾登峪 (S232)
+  [48.1500, 86.9200],
+  [48.40, 86.98],
   [48.70, 87.02],
 
   // 7. 贾登峪 -> 禾贾公路 -> 阿禾公路 -> 阿勒泰 (G681)
@@ -404,16 +405,17 @@ export const loopRouteCoordinates: [number, number][] = [
   [48.08, 87.90],
   [47.8484, 88.1318],
 
-  // 8. 阿勒泰 -> 富蕴/可可托海 (G216)
+  // 8. 阿勒泰 -> S21沙漠高速 -> 昌吉/乌鲁木齐
   [47.8484, 88.1318],
-  [47.50, 89.00],
-  [47.20, 89.80],
-
-  // 9. 富蕴/阿勒泰 -> 乌鲁木齐 (S21/G216)
-  [47.20, 89.80],
-  [46.00, 88.50],
-  [45.00, 88.00],
+  [46.80, 88.00],
+  [45.5000, 88.5000],
   [44.30, 87.55],
+  [44.0200, 87.3100],
+
+  // 9. 昌吉/乌市 -> 天山国际机场
+  [44.0200, 87.3100],
+  [43.7850, 87.6180],
+  [43.8820, 87.5210],
   [43.9075, 87.4744]
 ];
 
@@ -444,11 +446,12 @@ export const dayRoutePolylines: Record<string, [number, number][]> = {
   'day-5': [
     [45.69, 85.05],
     [46.80, 86.00],
-    [47.7006, 86.8624]
+    [47.7006, 86.8624],
+    [48.1500, 86.9200]
   ],
   'day-6': [
-    [47.7006, 86.8624],
-    [48.10, 86.95],
+    [48.1500, 86.9200],
+    [48.40, 86.98],
     [48.70, 87.02]
   ],
   'day-7': [
@@ -461,14 +464,15 @@ export const dayRoutePolylines: Record<string, [number, number][]> = {
   ],
   'day-8': [
     [47.8484, 88.1318],
-    [47.50, 89.00],
-    [47.20, 89.80]
+    [46.80, 88.00],
+    [45.5000, 88.5000],
+    [44.30, 87.55],
+    [44.0200, 87.3100]
   ],
   'day-9': [
-    [47.20, 89.80],
-    [46.00, 88.50],
-    [45.00, 88.00],
-    [44.30, 87.55],
+    [44.0200, 87.3100],
+    [43.7850, 87.6180],
+    [43.8820, 87.5210],
     [43.9075, 87.4744]
   ]
 };

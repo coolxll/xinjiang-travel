@@ -4,7 +4,6 @@ import { scenicImages } from '../data/scenicImages';
 interface HeroHeaderProps {
   onExploreRoadbook: () => void;
   onExploreModularArchitecture?: () => void;
-  onExploreAlternatives?: () => void;
   onExploreMap?: () => void;
   onExploreDecisions?: () => void;
   onExploreBookings?: () => void;
@@ -13,7 +12,6 @@ interface HeroHeaderProps {
 export const HeroHeader: React.FC<HeroHeaderProps> = ({
   onExploreRoadbook,
   onExploreModularArchitecture,
-  onExploreAlternatives,
 }) => {
   return (
     <section id="overview" className="relative overflow-hidden bg-gradient-to-b from-amber-500/10 via-sky-500/5 to-transparent pt-8 pb-12">
@@ -38,11 +36,11 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               </span>
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
-              主线：<strong>乌鲁木齐 → 精河 → 赛里木湖自驾 → 奎屯 (中继) → 乌尔禾 (余量) → 布尔津 → 喀纳斯核心 → G681阿禾天路 (平替禾木) → 阿勒泰市 → 富蕴/可可托海 → 乌鲁木齐</strong>。
-              4 大积木模块 + 2N 全局弹性池架构，深度整合实际换乘、山区弹性、住宿降本与舒适节奏，专为同行队友打造的清晰行动指南。
+              主线：<strong>乌鲁木齐 → 精河 → 赛里木湖自驾 → 奎屯 → 乌尔禾 → 冲乎尔 (避峰) → 贾登峪 (三湾湖区) → G681阿禾天路 (平替禾木) → 阿勒泰市 → 昌吉/乌市 (美食慢游) → 乌市机场还车</strong>。
+              全程 2,225km，国庆当天逆向避峰冲乎尔，贾登峪仅住 1 晚不住天价破木屋，阿禾天路纯自驾平替禾木，深度整合自驾自由、错峰住宿与舒适节奏。
             </p>
 
-            {/* Quick Action Buttons (Focused 3 core actions, cut redundant links) */}
+            {/* Quick Action Buttons (Focused core actions) */}
             <div className="flex flex-wrap gap-3 mb-8">
               <button
                 onClick={onExploreRoadbook}
@@ -58,16 +56,7 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                   onClick={onExploreModularArchitecture}
                   className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-slate-900 text-white text-sm font-bold shadow-md hover:bg-slate-800 transition-all"
                 >
-                  <span>🧩 4 模块积木图解</span>
-                </button>
-              )}
-
-              {onExploreAlternatives && (
-                <button
-                  onClick={onExploreAlternatives}
-                  className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-purple-50 text-purple-900 border border-purple-200 text-sm font-bold shadow-xs hover:bg-purple-100 transition-all"
-                >
-                  <span>🔀 4 套备用方案选线</span>
+                  <span>🧩 行程架构与积木图解</span>
                 </button>
               )}
             </div>

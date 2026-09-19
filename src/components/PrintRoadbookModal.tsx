@@ -205,9 +205,9 @@ export const PrintRoadbookModal: React.FC<PrintRoadbookModalProps> = ({ isOpen, 
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-amber-950 leading-relaxed">
               <div><strong>1. 西进赛湖，90km 自驾环湖：</strong>9/27 连霍高速平原坦途直抵精河，9/28 开自己的车进赛湖顺时针环湖赏落日，宿湖畔城际。</div>
-              <div><strong>2. 奎屯北上中继与国庆错峰：</strong>9/29 奎屯商业休整，9/30 乌尔禾魔鬼城，10/1 错峰入驻布尔津吃额河烤狗鱼。</div>
-              <div><strong>3. 喀纳斯核心 + 阿禾天路平替禾木：</strong>10/2 第一批刷身份证进喀纳斯三湾；10/3 开自己的车穿越 209km 阿禾天路全景平替禾木，直通阿勒泰！</div>
-              <div><strong>4. 全局 2N 自由余量 + 从容还车：</strong>10/4 富蕴/可可托海深度游，10/5 南下返乌留足半天，21:00 还车锁定次日早班机。</div>
+              <div><strong>2. 奎屯北上中继与国庆避峰：</strong>9/29 奎屯商业休整，9/30 乌尔禾魔鬼城，10/1 逆向避峰入驻山脚冲乎尔小镇（次日 1h 直达贾登峪）。</div>
+              <div><strong>3. 喀纳斯核心 + 阿禾天路平替禾木：</strong>10/2 第一批进喀纳斯宿贾登峪仅 1 晚；10/3 开自己的车穿越 209km 阿禾天路全景平替禾木，直通阿勒泰！</div>
+              <div><strong>4. 南下昌吉美食慢游 + 乌市从容还车：</strong>10/4 S21 沙漠公路南下昌吉小吃街品尝九碗三行子，10/5 乌市大巴扎采买，21:00 还车锁定次日早班机。</div>
             </div>
           </div>
 

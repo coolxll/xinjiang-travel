@@ -115,14 +115,14 @@ export const officialSources: OfficialSource[] = [
   },
   {
     id: 's11',
-    section: '富蕴/阿勒泰 → 乌鲁木齐（还车）',
-    publicRef: '约430km / 约4.5h纯驾驶',
-    itineraryStandard: '10/5 留足半天，15:30抵乌市，21:00还车',
+    section: '阿勒泰 → S21沙漠高速/昌吉 → 乌鲁木齐（还车）',
+    publicRef: '约400km / 约4.5h沙漠高速平坦自驾',
+    itineraryStandard: '10/4南下昌吉慢游，10/5全天乌市大巴扎采买，21:00还车',
     url: 'https://lxs.cncn.com/88804/n1009536',
-    note: '给21:00还车预留3小时以上用于加油、洗车、拥堵及行李整理',
+    note: '给21:00还车预留整整大半天用于加油、洗车、行李封箱及从容验车',
     verifiedDate: '2026-09-10',
     status: 'confirmed',
-    statusText: 'S21/G216路网已核验'
+    statusText: 'S21阿乌高速路网已核验'
   },
   {
     id: 's12',

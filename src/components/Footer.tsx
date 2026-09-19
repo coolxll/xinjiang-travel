@@ -1,7 +1,11 @@
 import React from 'react';
 import { Heart, ShieldAlert } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenAlternatives?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenAlternatives }) => {
   return (
     <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -9,14 +13,24 @@ export const Footer: React.FC = () => {
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-white font-extrabold text-base">
               <span className="text-xl">🏔️</span>
-              <span>北疆 9 天自驾同行路书 · 阿禾公路版</span>
+              <span>北疆 9 天自驾同行路书 · 2026 金秋落地版</span>
             </div>
             <p className="text-slate-400 max-w-md">
               专为 2026 金秋北疆自驾团队定制的交互式路线规划、行前共识看板与出行指南。
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-slate-300">
+          <div className="flex flex-wrap items-center gap-3 text-slate-300">
+            {onOpenAlternatives && (
+              <button
+                onClick={onOpenAlternatives}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition-colors border border-slate-700/80 font-medium"
+                title="查看已归档的 4 套备选路线（纯阿勒泰慢环线 / 伊犁河谷 / 东疆大海道 / 南疆帕米尔）"
+              >
+                <span>📁 历史备选方案库 (已归档)</span>
+              </button>
+            )}
+
             <a
               href="https://github.com/coolxll/xinjiang-travel"
               target="_blank"

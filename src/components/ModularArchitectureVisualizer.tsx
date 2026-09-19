@@ -77,17 +77,17 @@ const COLOR_MAP = {
 export const MODULAR_PRESETS: ModularPreset[] = [
   {
     id: 'preset-1',
-    title: '方案一：一前一后 · 黄金均衡流',
-    badge: '🌟 当前主线落地 · 全员最推荐',
+    title: '当前敲定主线：黄金 6 步顺行流',
+    badge: '🌟 当前主线敲定 · 全员执行',
     badgeColor: 'bg-amber-500 text-white',
-    tagline: 'D1 乌尔禾雅丹 + D2 富蕴可可托海 ｜ 每日车程仅 200–300km ｜ 节奏最舒适',
+    tagline: '奎屯 ➔ 乌尔禾 ➔ 冲乎尔 (避峰) ➔ 贾登峪 ➔ 阿勒泰 ➔ 昌吉/乌市 (慢游)',
     isCurrentMaster: true,
-    formula: 'A (奎屯) ➔ D1 (乌尔禾) ➔ B1 (布尔津) ➔ B2 (贾登峪) ➔ C (阿勒泰) ➔ D2 (富蕴)',
-    strategySummary: '将 2N 弹性池分别插在 B 前（D1 乌尔禾）与 C 后（D2 富蕴）。国庆当天逆向错峰住布尔津吃烤狗鱼，次日轻松入喀纳斯，出山阿禾天路直达阿勒泰，兼顾独山子裂缝与可可托海神钟山。',
+    formula: '奎屯 (9/29) ➔ 乌尔禾 (9/30) ➔ 冲乎尔 (10/1) ➔ 贾登峪 (10/2) ➔ 阿勒泰 (10/3) ➔ 昌吉/乌市 (10/4)',
+    strategySummary: '全员敲定此 6 晚落地路径：连霍高速奎屯中继，独山子大峡谷与乌尔禾雅丹，国庆首日逆向避峰冲乎尔（次日 1h 直达门票站），喀纳斯三湾湖区宿贾登峪仅 1 晚，G681 阿禾天路平替禾木抵阿勒泰，S21 沙漠公路南下昌吉品尝九碗三行子与乌市采买还车！',
     pros: [
-      '单日驾驶时间严格控制在 2.5–4 小时，彻底杜绝疲劳驾驶',
-      '10/1 国庆当天入住童话边城布尔津高星级酒店，避开景区拥挤与天价',
-      '兼顾天山大地裂缝（独山子）、百万年雅丹（魔鬼城）与阿尔泰东脉（可可托海）'
+      '10/1 国庆进驻冲乎尔慢生活小镇，避开布尔津天价房，次日进山时间缩短一半 (仅70km/1h)',
+      '贾登峪仅住 1 晚不住村内天价破木屋，大行李留在车内，单日立省数千元',
+      'S21 沙漠公路直达昌吉美食小吃街，为 10/5 乌鲁木齐大巴扎采买与 21:00 还车预留充裕全天'
     ],
     slots: [
       {
@@ -96,12 +96,12 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         dayNumber: 3,
         moduleCode: 'A',
         moduleCategory: 'A',
-        moduleName: '模块 A · 北上中继',
+        moduleName: '步骤 1 · 奎屯中继',
         location: '奎屯市区 / 独山子',
         drivingKm: 300,
         drivingTime: '约 3–3.5h',
-        activityHighlight: '赛湖晨曦天鹅 ➔ G30 高速中继 ➔ 奎屯商圈大盘鸡',
-        lodgingType: '奎屯高品质商务酒店 (¥300~450)',
+        activityHighlight: '赛湖晨曦天鹅 ➔ G30 高速中继 ➔ 奎屯商圈沙湾大盘鸡',
+        lodgingType: '全季/美豪丽致酒店 (¥280~380)',
         colorClass: COLOR_MAP.A
       },
       {
@@ -110,12 +110,12 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         dayNumber: 4,
         moduleCode: 'D1',
         moduleCategory: 'D',
-        moduleName: '模块 D1 · 自由余量',
-        location: '乌尔禾魔鬼城 / 克拉玛依',
+        moduleName: '步骤 2 · 乌尔禾雅丹',
+        location: '乌尔禾魔鬼城 / 西部乌镇',
         drivingKm: 240,
         drivingTime: '约 3.5h',
         activityHighlight: '独山子大峡谷大地裂缝 ➔ 百里油田 ➔ 乌尔禾雅丹落日',
-        lodgingType: '乌尔禾品质度假酒店 (¥300~450)',
+        lodgingType: '西部乌镇/和颐至尚酒店 (¥300~450)',
         colorClass: COLOR_MAP.D
       },
       {
@@ -124,12 +124,12 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         dayNumber: 5,
         moduleCode: 'B1',
         moduleCategory: 'B',
-        moduleName: '模块 B1 · 喀纳斯组合',
-        location: '布尔津县城 (额尔齐斯河)',
-        drivingKm: 220,
-        drivingTime: '约 2.5h',
-        activityHighlight: '🇨🇳 国庆逆向错峰畅行 ➔ 抵童话边城 ➔ 河堤夜市烤狗鱼',
-        lodgingType: '布尔津高星级酒店 (¥400~500)',
+        moduleName: '步骤 3 · 冲乎尔避峰',
+        location: '布尔津县冲乎尔镇 (山脚慢生活小镇)',
+        drivingKm: 290,
+        drivingTime: '约 3.5h',
+        activityHighlight: '🇨🇳 国庆逆向错峰 ➔ 额河烤冷水鱼 ➔ 冲乎尔慢生活小镇避峰',
+        lodgingType: '冲乎尔合瓦客栈/红石小镇民宿 (¥300~500)',
         colorClass: COLOR_MAP.B
       },
       {
@@ -138,12 +138,12 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         dayNumber: 6,
         moduleCode: 'B2',
         moduleCategory: 'B',
-        moduleName: '模块 B2 · 喀纳斯核心',
-        location: '贾登峪综合服务区',
-        drivingKm: 140,
-        drivingTime: '自驾2h + 游玩6h',
-        activityHighlight: '08:30 第一批刷身份证进三湾 ➔ 翡翠湖徒步 ➔ 宿贾登峪',
-        lodgingType: '贾登峪度假酒店 仅住1晚 (¥600~800)',
+        moduleName: '步骤 4 · 贾登峪大本营',
+        location: '贾登峪综合服务区 (喀纳斯大门)',
+        drivingKm: 70,
+        drivingTime: '自驾山路1h + 游玩6h',
+        activityHighlight: '08:00 从冲乎尔仅 1h 抵贾登峪抢头香 ➔ 畅游三湾与翡翠湖',
+        lodgingType: '贾登峪鸿福生态/城堡度假区 仅住1晚 (¥650~950)',
         colorClass: COLOR_MAP.B
       },
       {
@@ -152,12 +152,12 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         dayNumber: 7,
         moduleCode: 'C',
         moduleCategory: 'C',
-        moduleName: '模块 C · 阿勒泰休整',
+        moduleName: '步骤 5 · 阿勒泰大休整',
         location: '阿勒泰市区 (克兰河畔)',
         drivingKm: 275,
         drivingTime: '景观自驾约 7h',
         activityHighlight: '🔥 G681 阿禾天路 209km 平替禾木 ➔ 直达雪都阿勒泰大休整',
-        lodgingType: '阿勒泰城市高品质酒店 (¥400~500)',
+        lodgingType: '全季/阿勒泰雪都大酒店 (¥350~500)',
         colorClass: COLOR_MAP.C
       },
       {
@@ -166,12 +166,12 @@ export const MODULAR_PRESETS: ModularPreset[] = [
         dayNumber: 8,
         moduleCode: 'D2',
         moduleCategory: 'D',
-        moduleName: '模块 D2 · 自由余量',
-        location: '富蕴县城 / 可可托海',
-        drivingKm: 260,
-        drivingTime: '约 3.5h',
-        activityHighlight: '可可托海额尔齐斯大峡谷 ➔ 神钟山 ➔ 三号矿坑奇迹',
-        lodgingType: '富蕴县城品质酒店 (¥300~400)',
+        moduleName: '步骤 6 · 昌吉/乌市慢游',
+        location: '昌吉市区 (推荐 · 美食之都) / 乌鲁木齐商圈',
+        drivingKm: 400,
+        drivingTime: 'S21沙漠高速约 4.5h',
+        activityHighlight: 'S21 穿越准噶尔沙漠 ➔ 抵昌吉小吃街品尝九碗三行子 ➔ 庭州生态绿谷',
+        lodgingType: '昌吉华东容锦/全季昌吉亚欧国际 (¥240~360)',
         colorClass: COLOR_MAP.D
       }
     ]

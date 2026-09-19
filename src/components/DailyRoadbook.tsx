@@ -90,12 +90,12 @@ export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({ onSwitchToRoadbook
       case 2: return routePoints[2] || routePoints[0]; // 赛里木湖
       case 3: return routePoints[4] || routePoints[0]; // 奎屯市
       case 4: return routePoints[5] || routePoints[0]; // 乌尔禾
-      case 5: return routePoints[6] || routePoints[0]; // 布尔津县城
+      case 5: return routePoints[6] || routePoints[0]; // 冲乎尔 / 布尔津
       case 6: return routePoints[7] || routePoints[0]; // 贾登峪
       case 7: return routePoints[10] || routePoints[0]; // 阿勒泰市
-      case 8: return routePoints[11] || routePoints[0]; // 富蕴/可可托海
-      case 9: return routePoints[0] || routePoints[0]; // 乌鲁木齐
-      case 10: return routePoints[0] || routePoints[0]; // 乌鲁木齐
+      case 8: return routePoints[11] || routePoints[0]; // 昌吉 / 乌鲁木齐
+      case 9: return routePoints[0] || routePoints[0]; // 乌鲁木齐天山机场
+      case 10: return routePoints[0] || routePoints[0]; // 乌鲁木齐天山机场
       default: return routePoints[0];
     }
   };
