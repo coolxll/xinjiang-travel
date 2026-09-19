@@ -198,20 +198,24 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     nightIndex: 7,
     date: '10/3',
     fullDate: '2026年10月3日 (周六)',
-    stayText: '10/3 入住 ➔ 10/4 离店 (1晚)',
-    cityRegion: '阿勒泰市市区 (克兰河畔 / 金桥商圈)',
-    status: 'pending',
-    statusBadge: '⏳ 待预订 · 步骤5',
-    hotelName: '全季酒店 (阿勒泰解放路店) / 阿勒泰雪都大酒店 / 金桥假日酒店 (备选待订)',
-    brand: '华住会 / 全季 或 雪都高星级酒店',
-    roomType: '高品质大床房 / 双床房 2间 (4人入住)',
+    stayText: '10/3 14:00后入住 ➔ 10/4 12:00前退房 (1晚)',
+    cityRegion: '阿勒泰市市区 (天鹅湖公园 / 克兰河畔)',
+    status: 'confirmed',
+    statusBadge: '✅ 预订成功 (待入住 · 步骤5)',
+    hotelName: '丽呈别院酒店 (阿勒泰天鹅湖公园店)',
+    brand: '丽呈集团 / 丽呈别院 (阿勒泰地区高档酒店榜 No.18)',
+    roomType: '品质客房 2间 (1间¥605.57 + 1间¥664.35 · 4人入住)',
     roomCount: 2,
-    targetBudget: '约 ¥350–500/间 (2间总约 ¥700~1000)',
-    payType: '待预订',
-    notes: '【步骤 5: 阿勒泰住一晚】：自驾穿越 209km G681 阿禾公路全景平替禾木，出山后直达雪都阿勒泰市。享受现代城市高品质地暖洗浴、克兰河漫步、品尝正宗哈萨克羊肉盛宴大休整！',
-    features: ['雪都阿勒泰现代城市商圈', '高标准集中供暖与舒适卫浴', '漫步克兰河滨河公园', '次日沿 S21 沙漠高速直达乌市圈'],
-    bookingChannel: '华住会 / 携程 / 美团',
-    amapSearchUrl: 'https://uri.amap.com/search?keyword=阿勒泰雪都大酒店'
+    totalCost: 1269.92,
+    payType: '已在线支付',
+    avgPricePerRoom: 634.96,
+    cancellationPolicy: '10月03日 18:00 前可免费取消 (其中1间可至23:59)',
+    freeCancelDeadline: '2026-10-03 18:00',
+    address: '新疆维吾尔自治区阿勒泰地区阿勒泰市天鹅湖公园旁',
+    notes: '【步骤 5: 阿勒泰住一晚 · 官方已锁定】：已预订丽呈别院酒店(阿勒泰天鹅湖公园店)客房 2 间（实付 ¥1,269.92，单间分别 ¥605.57 与 ¥664.35，10/3 18:00前可免费取消）。自驾穿越 209km 阿禾公路绝美天路后出山直达雪都阿勒泰，入住高端别院彻底洗去山区奔波，漫步天鹅湖公园、享用正宗哈萨克羊肉盛宴！',
+    features: ['阿勒泰地区高档酒店榜 No.18', '近天鹅湖公园与克兰河畔', '高品质地暖与舒适卫浴大休整', '次日沿 S21 沙漠高速直达乌市圈'],
+    bookingChannel: '飞猪官方预订 (已在线付)',
+    amapSearchUrl: 'https://uri.amap.com/search?keyword=丽呈别院酒店阿勒泰天鹅湖公园店'
   },
   {
     nightIndex: 8,
@@ -220,7 +224,7 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     stayText: '10/4 入住 ➔ 10/5 离店 (1晚)',
     cityRegion: '昌吉市区 (推荐 · 美食之都) 或 乌鲁木齐天山商圈',
     status: 'pending',
-    statusBadge: '⏳ 待预订 · 步骤6 (推荐昌吉)',
+    statusBadge: '⏳ 待预订 · 步骤6 (推荐昌吉 · 最后一晚！)',
     hotelName: '昌吉华东容锦酒店 / 全季昌吉亚欧国际酒店 / 乌鲁木齐天山商圈全季 (备选待订)',
     brand: '华住会 / 全季 或 高星级商务连锁',
     roomType: '高品质大床房 / 双床房 2间 (4人入住)',
@@ -260,11 +264,11 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
 
 export const HOTEL_BOOKING_SUMMARY = {
   totalNights: 10,
-  confirmedNights: 8,
-  confirmedTotalCost: 7255.50, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 2778.00 (10/2) + 491.30 (10/5)
-  confirmedRooms: 16,
-  estimatedTotalHotelBudget: 8000,
-  estimatedSavings: 10500,
+  confirmedNights: 9,
+  confirmedTotalCost: 8525.42, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 2778.00 (10/2) + 1269.92 (10/3) + 491.30 (10/5)
+  confirmedRooms: 18,
+  estimatedTotalHotelBudget: 8850,
+  estimatedSavings: 11000,
   freeCancellationDeadlines: [
     { hotel: '星程乌鲁木齐机场迎宾路店 (9/26)', deadline: '2026-09-25 23:00', cost: 420.70 },
     { hotel: '星程精河连霍高速路口酒店 (9/27)', deadline: '2026-09-27 20:00', cost: 389.30 },
@@ -273,6 +277,7 @@ export const HOTEL_BOOKING_SUMMARY = {
     { hotel: '喀纳斯生态度假酒店 (10/2)', deadline: '2026-09-29 23:59', cost: 2778.00 },
     { hotel: '克拉玛依龙谷精品酒店 (9/30)', deadline: '2026-09-30 20:00', cost: 312.00 },
     { hotel: '布尔津冲乎尔怡然居民宿 (10/1)', deadline: '2026-10-01 14:00', cost: 395.00 },
+    { hotel: '丽呈别院酒店阿勒泰天鹅湖店 (10/3)', deadline: '2026-10-03 18:00', cost: 1269.92 },
     { hotel: '星程乌鲁木齐机场迎宾路店 (10/5)', deadline: '2026-10-05 20:00', cost: 491.30 }
   ]
 };
