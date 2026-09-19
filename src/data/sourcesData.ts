@@ -150,14 +150,14 @@ export const officialSources: OfficialSource[] = [
   },
   {
     id: 's14',
-    section: '国家移民管理局 2026.4.15 电子边境通行证新规',
-    publicRef: '全国自 2026 年 4 月 15 日起停发纸质证，启用“移民局12367”电子证',
-    itineraryStandard: '9/18–9/22 4人线上独立申报，填哈巴河县白哈巴村，截图离线保存',
+    section: '主线免办边防证（电子边防证新规备查）',
+    publicRef: '当前落地主线不涉白哈巴，喀纳斯湖区与阿禾天路官方通报明确无需办理边防证',
+    itineraryStandard: '全员无需申办边防证，随身带齐二代实体身份证原件即可畅行',
     url: 'https://www.nia.gov.cn/n741440/n741542/c1775717/content.html',
-    note: '国家移民管理局官方公告；16周岁以上独立线上申请（免费、最长3个月有效、法定3工作日内审批），出示电子证+身份证原件',
-    verifiedDate: '2026-09-10',
+    note: '权威政策核验：主线不进入边境限制区，全员零证件负担；仅若切换白哈巴备选方案时备查。',
+    verifiedDate: '2026-09-19',
     status: 'confirmed',
-    statusText: '国家移民管理局官网已核验',
+    statusText: '官方免办政策已核验',
     isPolicy: true
   }
 ];

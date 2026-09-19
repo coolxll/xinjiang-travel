@@ -90,8 +90,8 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                   <Gauge className="w-4 h-4" />
                   <span className="text-[11px] font-semibold text-slate-500 uppercase">计划总里程</span>
                 </div>
-                <div className="text-2xl font-black text-slate-900">2,300<span className="text-xs font-medium text-slate-500"> km+</span></div>
-                <p className="text-[10px] text-slate-500 mt-0.5">主线实测（Plan A 约2500km / Plan B 约2300km）</p>
+                <div className="text-2xl font-black text-slate-900">2,225<span className="text-xs font-medium text-slate-500"> km</span></div>
+                <p className="text-[10px] text-slate-500 mt-0.5">主线全程实测（高速+景观大道）</p>
               </div>
 
               <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
@@ -118,13 +118,13 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                   <span className="text-[11px] font-semibold text-slate-500 uppercase">核心高光</span>
                 </div>
                 <div className="text-2xl font-black text-slate-900">4<span className="text-xs font-medium text-slate-500"> 大胜地</span></div>
-                <p className="text-[10px] text-slate-500 mt-0.5">阿禾公路 · 喀纳斯 · 赛湖 · 独库北段</p>
+                <p className="text-[10px] text-slate-500 mt-0.5">赛里木湖 · 喀纳斯 · 阿禾天路 · 乌尔禾魔鬼城</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Four Core Takeaways Section ("大家先记住的 4 个重点") */}
+        {/* Four Core Takeaways Section ("同行人先记住的 4 个核心重点") */}
         <div className="mt-12">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 flex items-center gap-2">
@@ -132,9 +132,9 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
               </span>
-              同行人先记住的 4 个核心重点
+              同行人先记住的 4 个核心重点 (终稿落地版)
             </h2>
-            <span className="text-xs text-slate-500 hidden sm:inline">提纲挈领 · 统一预期</span>
+            <span className="text-xs text-slate-500 hidden sm:inline">提纲挈领 · 统一预期 · 真实落地</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -145,14 +145,14 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               </div>
               <h3 className="font-bold text-slate-900 text-base mb-1.5 flex items-center gap-1.5">
                 <Sun className="w-4 h-4 text-amber-600" />
-                9/28 阿禾公路是一整天主角
+                9/28 赛湖 90km 自驾环湖
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                全长约 <strong>209.45km</strong>，按 <strong>5–6小时边走边停</strong> 景观自驾；穿出公路后直接沿 <strong>X852 禾贾公路直达贾登峪</strong>，<strong>彻底不换乘区间车、不进村排队</strong>。
+                9/27 连霍高速平原坦途直抵精河，9/28 趁顺光<strong>开自己的车沿赛里木湖自驾环湖</strong>赏果子沟与绝美落日；夜宿湖畔高品质城际酒店，清晨漫步看白天鹅。
               </p>
               <div className="mt-3 pt-2.5 border-t border-amber-200/60 flex items-center justify-between text-[11px] font-semibold text-amber-800">
-                <span>出阿勒泰前加满油</span>
-                <span>全程开自己的车</span>
+                <span>顺光自驾环湖</span>
+                <span>湖畔高品质城际</span>
               </div>
             </div>
 
@@ -163,14 +163,14 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               </div>
               <h3 className="font-bold text-slate-900 text-base mb-1.5 flex items-center gap-1.5">
                 <Clock className="w-4 h-4 text-sky-600" />
-                提前出山，拒绝山里挨宰
+                国庆冲乎尔避峰 + 贾登峪仅住1晚
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                9/28 贾登峪住 1 晚，9/29 玩完喀纳斯三湾后<strong>傍晚从容下撤布尔津县城</strong>，城市高品质酒店仅 ¥200~300/间，省出上万预算！
+                10/1 避开布尔津天价房，入住山脚<strong>冲乎尔小镇（距贾登峪仅 70km/1h）</strong>；次晨仅 1h 直达门票站抢首批入园游三湾，大行李留车内，贾登峪仅住 1 晚，彻底不住村内破木屋。
               </p>
               <div className="mt-3 pt-2.5 border-t border-sky-200/60 flex items-center justify-between text-[11px] font-semibold text-sky-800">
-                <span>拒绝村内天价</span>
-                <span>城市酒店洗热水澡</span>
+                <span>避峰立省千元</span>
+                <span>次晨1h直达门票站</span>
               </div>
             </div>
 
@@ -181,14 +181,14 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               </div>
               <h3 className="font-bold text-slate-900 text-base mb-1.5 flex items-center gap-1.5">
                 <Mountain className="w-4 h-4 text-emerald-600" />
-                沿途景点随缘，畅快公路自驾
+                10/3 阿禾天路 209km 平替禾木
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                五彩滩、乌尔禾魔鬼城、独山子大峡谷<strong>顺路自由偶遇</strong>，不设死板打卡任务，每天车程仅 2–4 小时，彻底告别赶路疲劳。
+                全程 209km 景观天路<strong>开自己的车穿越阿尔泰深山</strong>，高山草甸与金色白桦林全景饱览，彻底不进禾木村排长队挤大巴，出山直达雪都阿勒泰大休整！
               </p>
               <div className="mt-3 pt-2.5 border-t border-emerald-200/60 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
-                <span>公路自由旅行</span>
-                <span>每天车程轻松</span>
+                <span>开自己的车看90%秋色</span>
+                <span>直达雪都高品质休整</span>
               </div>
             </div>
 
@@ -199,14 +199,14 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
               </div>
               <h3 className="font-bold text-slate-900 text-base mb-1.5 flex items-center gap-1.5">
                 <ShieldAlert className="w-4 h-4 text-blue-600" />
-                独库公路 A/B 明确 + 21:00 还车
+                全程免办边防证 + 昌吉稳妥还车
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                10/2 晚核验路况：<strong>通车走独库北段英雄天路 (Plan A)</strong>，<strong>封路走连霍高速美食坦途 (Plan B)</strong>，10/5 留足半天安全缓冲。
+                本落地路线不进白哈巴或边防管制区，<strong>全程无需办理边防证</strong>（带二代身份证即可）；10/4 S21高速南下昌吉全季吃小吃街洗烘，10/5 留足全天大巴扎采买与 21:00 还车。
               </p>
               <div className="mt-3 pt-2.5 border-t border-blue-200/60 flex items-center justify-between text-[11px] font-semibold text-blue-800">
-                <span>双轨决策绝不冒险</span>
-                <span>100% 稳妥还车</span>
+                <span>零证件包袱 (免边防证)</span>
+                <span>昌吉美食+从容还车</span>
               </div>
             </div>
           </div>
