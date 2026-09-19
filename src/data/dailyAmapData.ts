@@ -678,16 +678,16 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
       },
       {
         id: 'd6-hotel',
-        name: '贾登峪鸿福生态度假酒店 / 城堡度假区',
+        name: '喀纳斯生态度假酒店 (已预订 ✅)',
         category: 'hotel',
-        categoryLabel: '大本营住宿',
+        categoryLabel: '官方已锁定',
         icon: '🏨',
         coords: [48.7010, 87.0220],
         elevation: '1,380m',
-        tagline: '出景区即回酒店，不住村内千元破木屋，享独立卫浴暖气大床',
-        tips: '酒店内设有地暖，晚餐推荐暖身羊肉土火锅与清炖羊排',
-        amapUrl: 'https://uri.amap.com/marker?position=87.0220,48.7010&name=%E8%B4%BE%E7%99%BB%E5%B3%AA%E9%B8%BF%E7%A6%8F%E7%94%9F%E6%80%81%E5%BA%A6%E5%81%87%E9%85%92%E5%BA%97',
-        navSearchQuery: '贾登峪鸿福生态度假酒店',
+        tagline: '新疆美景酒店榜 No.17！贾登峪核心区，出景区即达，暖气充足大床',
+        tips: '飞猪信用住离店后付实付 ¥2,778 (2间)，注意免费取消截止为 9/29 23:59 前！',
+        amapUrl: 'https://uri.amap.com/search?keyword=%E5%96%80%E7%BA%B3%E6%96%AF%E7%94%9F%E6%80%81%E5%BA%A6%E5%81%87%E9%85%92%E5%BA%97',
+        navSearchQuery: '喀纳斯生态度假酒店',
         isPrimary: true
       }
     ],
