@@ -203,8 +203,8 @@ export const itineraryDays: ItineraryDay[] = [
     travelDurationDetail: '奎阿高速 220km 直达布尔津 + S232 景观大道 70km 抵冲乎尔镇',
     distance: '约 290 km',
     distanceKm: 290,
-    lodging: '冲乎尔镇特色度假客栈 / 精品民宿 (待选定)',
-    lodgingStrategy: '【步骤 3 冲乎尔避峰神站 1N】：国庆当天避开布尔津县城拥堵翻倍天价房，进驻阿尔泰山门户冲乎尔慢生活小镇（2间约 ¥300~500），距离贾登峪仅 70km（车程 1h），次日晨抢占景区头香！',
+    lodging: '布尔津冲乎尔怡然居民宿 (已预订 ✅)',
+    lodgingStrategy: '【步骤 3 冲乎尔避峰神站 1N · 已锁定 ✅】：已锁定怡然居民宿 2 间（离店后付实付仅 ¥395，10/1 14:00 前免费取消）。国庆当晚立省千元天价房，且距贾登峪仅 70km（车程 1h），次日晨抢占景区头香！',
     moduleTag: {
       code: 'B1',
       name: '模块 B1 · 冲乎尔避峰前哨 (2N之1)',

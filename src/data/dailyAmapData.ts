@@ -554,16 +554,16 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
       },
       {
         id: 'd5-hotel',
-        name: '冲乎尔合瓦客栈 / 红石小镇度假酒店',
+        name: '布尔津冲乎尔怡然居民宿 (已预订 ✅)',
         category: 'hotel',
-        categoryLabel: '避峰住宿',
+        categoryLabel: '官方已锁定',
         icon: '🏨',
         coords: [48.1520, 86.9180],
         elevation: '650m',
-        tagline: '距离贾登峪仅 70km！物美价廉避开天价房，次日 1h 直达景区门票站',
-        tips: '早点休息，次日 07:30 出发即可轻松抢占喀纳斯首批入园名额',
-        amapUrl: 'https://uri.amap.com/marker?position=86.9180,48.1520&name=%E5%86%B2%E4%B9%8E%E5%B0%94%E7%B2%BE%E5%93%81%E5%AE%A2%E6%A0%88',
-        navSearchQuery: '布尔津县冲乎尔镇住宿',
+        tagline: '距离贾登峪仅 70km！已锁定舒适客房2间 (实付¥395)，避开国庆天价房',
+        tips: '飞猪信用住离店后付，10/1 14:00前可免费取消。次日 08:00 出发 1h 直达贾登峪门票站',
+        amapUrl: 'https://uri.amap.com/search?keyword=%E5%B8%83%E5%B0%94%E6%B4%A5%E5%86%B2%E4%B9%8E%E5%B0%94%E6%80%A1%E7%84%B6%E5%B1%85%E6%B0%91%E5%AE%BF',
+        navSearchQuery: '布尔津冲乎尔怡然居民宿',
         isPrimary: true
       }
     ],

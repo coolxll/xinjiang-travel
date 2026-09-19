@@ -13,7 +13,7 @@ export interface DailyHotelBooking {
   roomType: string;
   roomCount: number;
   totalCost?: number;
-  payType?: '到店付' | '已在线支付' | '住完再付' | '待预订';
+  payType?: '到店付' | '已在线支付' | '住完再付' | '离店后付' | '待预订';
   avgPricePerRoom?: number;
   cancellationPolicy?: string;
   freeCancelDeadline?: string;
@@ -152,20 +152,24 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     nightIndex: 5,
     date: '10/1',
     fullDate: '2026年10月1日 (周四 · 国庆节)',
-    stayText: '10/1 入住 ➔ 10/2 离店 (1晚)',
+    stayText: '10/1 14:00后入住 ➔ 10/2 12:00前退房 (1晚)',
     cityRegion: '阿勒泰地区布尔津县冲乎尔镇 (阿尔泰山脚门户)',
-    status: 'pending',
-    statusBadge: '⏳ 待预订 · 步骤3 (避峰神站)',
-    hotelName: '冲乎尔合瓦客栈 / 红石小镇度假酒店 / 慢时光精品客栈 (备选待订)',
-    brand: '特色精品民宿 / 乡村度假客栈',
-    roomType: '暖气大床房 / 标间 2间 (4人入住)',
+    status: 'confirmed',
+    statusBadge: '✅ 预订成功 (待入住 · 避峰神站)',
+    hotelName: '布尔津冲乎尔怡然居民宿',
+    brand: '乡村特色精品民宿',
+    roomType: '舒适客房 2间 (1间¥175 + 1间¥220 · 4人入住)',
     roomCount: 2,
-    targetBudget: '约 ¥320–480/间 (2间总约 ¥640~960)',
-    payType: '待预订',
-    notes: '【步骤 3: 冲乎尔镇住一晚 · 绝妙避峰】：国庆当晚布尔津县城爆满翻倍涨价，而冲乎尔镇慢生活民俗性价比极高；且冲乎尔距贾登峪仅 70km（车程 1h），次日晨仅需 1 小时直达喀纳斯门票站，彻底避开从布尔津出发的大巴早高峰车流！',
-    features: ['国家级慢生活特色小镇', '距离贾登峪仅 70km (车程1h)', '避开国庆布尔津天价房', '清晨 1h 直上喀纳斯抢首批入园'],
-    bookingChannel: '携程 / 美团',
-    amapSearchUrl: 'https://uri.amap.com/search?keyword=布尔津冲乎尔镇精品民宿'
+    totalCost: 395.00,
+    payType: '离店后付',
+    avgPricePerRoom: 197.50,
+    cancellationPolicy: '10月01日 14:00 前可免费取消 (14:00后不可取消或修改)',
+    freeCancelDeadline: '2026-10-01 14:00',
+    address: '新疆维吾尔自治区阿勒泰地区布尔津县冲乎尔镇',
+    notes: '【步骤 3: 冲乎尔镇住一晚 · 绝妙避峰神操作】：已通过飞猪信用住预订怡然居民宿 2 间（实付仅 ¥395，单间分别 ¥175 与 ¥220，10/1 14:00前可免费取消）。国庆当晚布尔津县城酒店全线翻倍天价爆满，在此避峰立省超千元！且冲乎尔距贾登峪仅 70km（车程 1h），次日晨仅需 1 小时直达喀纳斯门票站，彻底避开大巴早高峰车流！',
+    features: ['国庆当晚避峰神站 (2间仅¥395)', '距离贾登峪仅 70km (车程1h)', '避开国庆布尔津天价房', '清晨 1h 直上喀纳斯抢首批入园', '飞猪信用住 · 离店后付'],
+    bookingChannel: '飞猪官方预订 (信用住 · 离店后付)',
+    amapSearchUrl: 'https://uri.amap.com/search?keyword=布尔津冲乎尔怡然居民宿'
   },
   {
     nightIndex: 6,
@@ -252,17 +256,18 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
 
 export const HOTEL_BOOKING_SUMMARY = {
   totalNights: 10,
-  confirmedNights: 6,
-  confirmedTotalCost: 4082.50, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 491.30 (10/5)
-  confirmedRooms: 12,
+  confirmedNights: 7,
+  confirmedTotalCost: 4477.50, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 491.30 (10/5)
+  confirmedRooms: 14,
   estimatedTotalHotelBudget: 5900,
-  estimatedSavings: 9600,
+  estimatedSavings: 9800,
   freeCancellationDeadlines: [
     { hotel: '星程乌鲁木齐机场迎宾路店 (9/26)', deadline: '2026-09-25 23:00', cost: 420.70 },
     { hotel: '星程精河连霍高速路口酒店 (9/27)', deadline: '2026-09-27 20:00', cost: 389.30 },
     { hotel: '赛里木湖城际酒店 (9/28)', deadline: '2026-09-28 20:00', cost: 1970.30 },
     { hotel: '星程奎屯体育中心西公园酒店 (9/29)', deadline: '2026-09-28 23:00', cost: 498.90 },
     { hotel: '克拉玛依龙谷精品酒店 (9/30)', deadline: '2026-09-30 20:00', cost: 312.00 },
+    { hotel: '布尔津冲乎尔怡然居民宿 (10/1)', deadline: '2026-10-01 14:00', cost: 395.00 },
     { hotel: '星程乌鲁木齐机场迎宾路店 (10/5)', deadline: '2026-10-05 20:00', cost: 491.30 }
   ]
 };
