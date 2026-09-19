@@ -458,16 +458,16 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
       },
       {
         id: 'd4-hotel',
-        name: '乌尔禾特色精品民宿 / 酒店',
+        name: '克拉玛依龙谷精品酒店(魔鬼城景区店) (已预订 ✅)',
         category: 'hotel',
-        categoryLabel: '错峰住宿',
+        categoryLabel: '官方已锁定',
         icon: '🏨',
-        coords: [45.6700, 85.0600],
+        coords: [45.6720, 85.0650],
         elevation: '335m',
-        tagline: '国庆前夜住乌尔禾小镇，物美价廉，完全避开景区人潮',
-        tips: '镇上有众多特色庭院民宿与特色羊肉抓饭店，停车极为宽敞',
-        amapUrl: 'https://uri.amap.com/marker?position=85.0600,45.6700&name=%E4%B9%8C%E5%B0%94%E7%A6%BE%E9%95%87%E4%BD%8F%E5%AE%BF',
-        navSearchQuery: '乌尔禾区海棠别院',
+        tagline: '乌尔禾区龙脊路36号鹏程物流园B座，已锁定双人间2间，避开国庆大涨价',
+        tips: '住完再付实付仅 ¥312 (2间)，9/30 20:00前可免费取消。周边停车极为宽敞便利',
+        amapUrl: 'https://uri.amap.com/search?keyword=%E5%85%8B%E6%8B%89%E7%8E%9B%E4%BE%9D%E9%BE%99%E8%B0%B7%E7%B2%BE%E5%93%81%E9%85%92%E5%BA%97%E9%AD%94%E9%AC%BC%E5%9F%8E%E6%99%AF%E5%8C%BA%E5%BA%97',
+        navSearchQuery: '克拉玛依龙谷精品酒店魔鬼城景区店',
         isPrimary: true
       }
     ],

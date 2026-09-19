@@ -13,7 +13,7 @@ export interface DailyHotelBooking {
   roomType: string;
   roomCount: number;
   totalCost?: number;
-  payType?: '到店付' | '已在线支付' | '待预订';
+  payType?: '到店付' | '已在线支付' | '住完再付' | '待预订';
   avgPricePerRoom?: number;
   cancellationPolicy?: string;
   freeCancelDeadline?: string;
@@ -129,20 +129,24 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     nightIndex: 4,
     date: '9/30',
     fullDate: '2026年9月30日 (周三)',
-    stayText: '9/30 入住 ➔ 10/1 离店 (1晚)',
-    cityRegion: '克拉玛依市乌尔禾区 (西部乌镇 / 魔鬼城周边)',
-    status: 'pending',
-    statusBadge: '⏳ 待预订 · 步骤2',
-    hotelName: '乌尔禾西部乌镇精品度假酒店 / 和颐至尚酒店 (备选待订)',
-    brand: '西部乌镇度假区 / 首旅如家和颐',
-    roomType: '舒适大床房 / 标间 2间 (4人入住)',
+    stayText: '9/30 08:00可入 ➔ 10/1 离店 (1晚)',
+    cityRegion: '克拉玛依市乌尔禾区 (魔鬼城周边 / 鹏程物流园)',
+    status: 'confirmed',
+    statusBadge: '✅ 预订成功 (待入住)',
+    hotelName: '克拉玛依龙谷精品酒店(魔鬼城景区店)',
+    brand: '精品商务度假酒店',
+    roomType: '双人间 2间 (双床 · 4人入住)',
     roomCount: 2,
-    targetBudget: '约 ¥300–450/间 (2间总约 ¥600~900)',
-    payType: '待预订',
-    notes: '【步骤 2: 乌尔禾住一晚】：独山子大峡谷 + 穿越克拉玛依百里油田 + 傍晚魔鬼城日落雅丹。9/30 晚是国庆前夜，避开 10/1 景区人潮与天价，小镇安静惬意。',
-    features: ['紧邻乌尔禾世界魔鬼城', '国庆前夕避开大涨价', '宽敞停车位与特色戈壁庭院', '次日轻松北上布尔津'],
-    bookingChannel: '携程 / 美团 / 官方小程序',
-    amapSearchUrl: 'https://uri.amap.com/search?keyword=乌尔禾西部乌镇度假酒店'
+    totalCost: 312.00,
+    payType: '住完再付',
+    avgPricePerRoom: 156.00,
+    cancellationPolicy: '09月30日 20:00 前可免费取消 (20:00后不可取消)',
+    freeCancelDeadline: '2026-09-30 20:00',
+    address: '新疆克拉玛依市乌尔禾区龙脊路36号鹏程物流园B座1层',
+    notes: '【步骤 2: 乌尔禾住一晚 · 官方已锁定】：已通过美团锁定双人间 2 间（实付仅 ¥312，单间仅 ¥156！9/30 20:00前可免费取消）。9/30 国庆前夜进驻乌尔禾，彻底避开 10/1 景区人潮与天价，单日仅 240km 车程，下午从容游览魔鬼城雅丹落日！',
+    features: ['紧邻乌尔禾世界魔鬼城', '双人间2间 (实付仅¥312)', '享提前入住权益(08:00后可入)', '住完再付 · 9/30 20:00前免费取消'],
+    bookingChannel: '美团官方预订 (住完再付)',
+    amapSearchUrl: 'https://uri.amap.com/search?keyword=克拉玛依龙谷精品酒店魔鬼城景区店'
   },
   {
     nightIndex: 5,
@@ -248,16 +252,17 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
 
 export const HOTEL_BOOKING_SUMMARY = {
   totalNights: 10,
-  confirmedNights: 5,
-  confirmedTotalCost: 3770.50, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 491.30 (10/5)
-  confirmedRooms: 10,
-  estimatedTotalHotelBudget: 5500,
-  estimatedSavings: 9500,
+  confirmedNights: 6,
+  confirmedTotalCost: 4082.50, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 491.30 (10/5)
+  confirmedRooms: 12,
+  estimatedTotalHotelBudget: 5900,
+  estimatedSavings: 9600,
   freeCancellationDeadlines: [
     { hotel: '星程乌鲁木齐机场迎宾路店 (9/26)', deadline: '2026-09-25 23:00', cost: 420.70 },
     { hotel: '星程精河连霍高速路口酒店 (9/27)', deadline: '2026-09-27 20:00', cost: 389.30 },
     { hotel: '赛里木湖城际酒店 (9/28)', deadline: '2026-09-28 20:00', cost: 1970.30 },
     { hotel: '星程奎屯体育中心西公园酒店 (9/29)', deadline: '2026-09-28 23:00', cost: 498.90 },
+    { hotel: '克拉玛依龙谷精品酒店 (9/30)', deadline: '2026-09-30 20:00', cost: 312.00 },
     { hotel: '星程乌鲁木齐机场迎宾路店 (10/5)', deadline: '2026-10-05 20:00', cost: 491.30 }
   ]
 };

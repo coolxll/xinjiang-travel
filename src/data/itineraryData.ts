@@ -166,8 +166,8 @@ export const itineraryDays: ItineraryDay[] = [
     travelDurationDetail: '独山子至乌尔禾约 240km 奎阿高速 G3014',
     distance: '约 240 km',
     distanceKm: 240,
-    lodging: '乌尔禾品质度假酒店 / 克拉玛依酒店 (待选定)',
-    lodgingStrategy: '【模块 D1 自由余量 1N】：国庆前夕提前进驻乌尔禾（2间约 ¥300~450），避开国庆大潮，次日直达布尔津',
+    lodging: '克拉玛依龙谷精品酒店(魔鬼城景区店) (已预订 ✅)',
+    lodgingStrategy: '【模块 D1 自由余量 1N · 已锁定 ✅】：已锁定龙谷精品酒店双人间 2 间（住完再付实付 ¥312，单间仅 ¥156，9/30 20:00 前免费取消）。国庆前夕提前进驻避开大涨价，傍晚畅游魔鬼城雅丹落日！',
     moduleTag: {
       code: 'D1',
       name: '模块 D1 · 自由余量 (1N)',
