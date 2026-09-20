@@ -177,7 +177,9 @@ export const App: React.FC = () => {
               <InteractiveMap />
 
               {/* 4. 4-Module Architecture & 2N Elastic Pool Visualizer */}
-              <ModularArchitectureVisualizer />
+              <ModularArchitectureVisualizer
+                onOpenAlternatives={() => handleSwitchPageMode('alternatives')}
+              />
 
               {/* 5. Day-by-Day Roadbook with Rich Photos & Embedded Amap */}
               <DailyRoadbook

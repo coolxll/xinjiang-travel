@@ -25,7 +25,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAlternatives }) => {
               <button
                 onClick={onOpenAlternatives}
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition-colors border border-slate-700/80 font-medium"
-                title="查看已归档的 4 套备选路线（纯阿勒泰慢环线 / 伊犁河谷 / 东疆大海道 / 南疆帕米尔）"
+                title="查看已归档的历史方案库（4 套宏观大方向备选 + 3 套积木化备用插板方案）"
               >
                 <span>📁 历史备选方案库 (已归档)</span>
               </button>

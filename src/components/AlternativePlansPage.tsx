@@ -4,12 +4,13 @@ import {
   comparisonDimensions, 
   PlanDailyItem
 } from '../data/alternativePlansData';
+import { MODULAR_PRESETS } from './ModularArchitectureVisualizer';
 import { AlternativeMap } from './AlternativeMap';
 import { RouteFlowVisualizer } from './RouteFlowVisualizer';
 import { 
   Compass, Calendar, Car, Plane,
   Sparkles, CheckCircle2, XCircle, AlertTriangle, ArrowRight,
-  Layers, Heart, Share2, Check
+  Layers, Heart, Share2, Check, Archive, Bed
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -24,6 +25,10 @@ export const AlternativePlansPage: React.FC<AlternativePlansPageProps> = ({ onBa
     return localStorage.getItem('xinjiang_preferred_plan') || 'option-1';
   });
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
+  const [selectedArchivedPresetId, setSelectedArchivedPresetId] = useState<string>('preset-2');
+
+  const archivedModularPresets = MODULAR_PRESETS.filter(p => !p.isCurrentMaster);
+  const activeArchivedPreset = archivedModularPresets.find(p => p.id === selectedArchivedPresetId) || archivedModularPresets[0];
 
   const selectedPlan = alternativePlans.find(p => p.id === selectedPlanId) || alternativePlans[0];
 
@@ -521,7 +526,139 @@ export const AlternativePlansPage: React.FC<AlternativePlansPageProps> = ({ onBa
           </div>
         </section>
 
-        {/* 6. Strategic Conclusions & Action Guidance (建议结论) */}
+        {/* 6. Archived Modular Presets Hub (4 模块积木化备用插板方案归档) */}
+        <section className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600 flex-shrink-0">
+                <Archive className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                    4 模块积木化备用插板方案归档
+                  </h2>
+                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                    3 套微调插板 · 已归档
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-3xl leading-relaxed">
+                  除上述 4 套宏观大方向备选路线外，在敲定阿禾大环线内部 6 晚（9/29～10/4）节奏时，团队亦推演了 3 套不同的 2N 弹性插板方案。当前已 100% 锁定「黄金 6 步顺行流」，以下 3 套未走方案归档备查：
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Archived Presets Tab Switcher */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {archivedModularPresets.map((preset) => {
+              const isSelected = selectedArchivedPresetId === preset.id;
+              return (
+                <button
+                  key={preset.id}
+                  onClick={() => setSelectedArchivedPresetId(preset.id)}
+                  className={`p-4 rounded-2xl border text-left transition-all relative ${
+                    isSelected
+                      ? 'bg-amber-50/60 border-amber-400 ring-2 ring-amber-400/20 shadow-sm'
+                      : 'bg-slate-50/70 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-1 mb-1.5">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200/80 text-slate-700">
+                      {preset.badge}
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-400 font-semibold">
+                      未采用
+                    </span>
+                  </div>
+                  <div className="font-extrabold text-sm text-slate-900 mb-1">
+                    {preset.title.replace(' (未走 · 已归档)', '')}
+                  </div>
+                  <div className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                    {preset.tagline}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Archived Preset Details Card */}
+          {activeArchivedPreset && (
+            <div className="bg-slate-900 text-white p-5 sm:p-6 rounded-2xl border border-slate-800 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div>
+                  <div className="text-xs font-bold text-amber-400 font-mono mb-1">
+                    积木排列公式：{activeArchivedPreset.formula}
+                  </div>
+                  <h3 className="text-base sm:text-lg font-black text-white">
+                    {activeArchivedPreset.title}
+                  </h3>
+                </div>
+                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700 self-start sm:self-auto">
+                  📁 归档方案 · 备用参考
+                </span>
+              </div>
+
+              {activeArchivedPreset.archivedReason && (
+                <div className="bg-amber-500/10 border border-amber-500/30 p-3 rounded-xl text-xs text-amber-200 flex items-start gap-2">
+                  <span className="text-amber-400 font-bold flex-shrink-0">📌 归档未采用原因：</span>
+                  <span className="leading-relaxed">{activeArchivedPreset.archivedReason}</span>
+                </div>
+              )}
+
+              {/* 6-Night Slot Strip */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-2.5">
+                {activeArchivedPreset.slots.map((slot, sIdx) => (
+                  <div
+                    key={sIdx}
+                    className={`rounded-xl p-3 border ${slot.colorClass.bg} ${slot.colorClass.border} flex flex-col justify-between`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-1 mb-1">
+                        <span className="text-[10px] font-mono font-bold text-slate-900 bg-white/90 px-1 py-0.2 rounded">
+                          N{slot.nightIndex} · {slot.date.split(' ')[0]}
+                        </span>
+                        <span className="text-[9px] font-bold text-slate-500 bg-slate-200/90 px-1 py-0.2 rounded">
+                          已归档
+                        </span>
+                      </div>
+                      <div className="font-bold text-xs text-slate-900 mb-1 truncate">
+                        {slot.location}
+                      </div>
+                      <div className="text-[10px] text-slate-700 line-clamp-2 leading-tight">
+                        {slot.activityHighlight}
+                      </div>
+                    </div>
+                    <div className="pt-2 mt-2 border-t border-slate-900/10 text-[10px] text-slate-600 truncate flex items-center gap-1">
+                      <Bed className="w-3 h-3 text-slate-500 flex-shrink-0" />
+                      <span className="truncate">{slot.lodgingType}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Strategy & Pros */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-slate-800 text-xs">
+                <div className="space-y-1">
+                  <span className="font-bold text-amber-400">选线策略推演：</span>
+                  <p className="text-slate-300 leading-relaxed text-[11px]">
+                    {activeArchivedPreset.strategySummary}
+                  </p>
+                </div>
+                <div className="space-y-1">
+                  <span className="font-bold text-slate-300">原设计优势考量：</span>
+                  <div className="space-y-0.5 text-slate-400 text-[11px]">
+                    {activeArchivedPreset.pros.map((p, pIdx) => (
+                      <div key={pIdx}>• {p}</div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* 7. Strategic Conclusions & Action Guidance (建议结论) */}
         <section className="bg-gradient-to-br from-amber-500/10 via-sky-500/5 to-white rounded-3xl border border-amber-200/90 shadow-sm p-6 sm:p-8 space-y-6">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-black">

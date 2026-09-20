@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { 
-  Sparkles, Layers, CheckCircle2, 
-  Zap, Bed, Navigation, Info, RefreshCw
+  Layers, CheckCircle2, 
+  Zap, Bed, Navigation, Info, 
+  Archive, ChevronDown, ChevronUp, ArrowUpRight, Check
 } from 'lucide-react';
 
 export interface ModularSlot {
@@ -37,6 +38,11 @@ export interface ModularPreset {
   formula: string;
   pros: string[];
   slots: ModularSlot[];
+  archivedReason?: string;
+}
+
+export interface ModularArchitectureVisualizerProps {
+  onOpenAlternatives?: () => void;
 }
 
 const COLOR_MAP = {
@@ -178,11 +184,12 @@ export const MODULAR_PRESETS: ModularPreset[] = [
   },
   {
     id: 'preset-2',
-    title: '方案二：前置双余量 · 雅丹戈壁流',
-    badge: '🏜️ 摄影大片 · 慢游裂缝雅丹',
-    badgeColor: 'bg-emerald-600 text-white',
+    title: '方案二：前置双余量 · 雅丹戈壁流 (未走 · 已归档)',
+    badge: '📁 已归档 · 备用参考',
+    badgeColor: 'bg-slate-700 text-slate-200 border border-slate-600',
     tagline: '独山子 1N + 乌尔禾 1N ｜ 深度拍摄日落异星雅丹 ｜ 喀纳斯顺延至 10/2-10/3',
     isCurrentMaster: false,
+    archivedReason: '进喀纳斯时间顺延至 10/2-10/3，可能面临国庆假期后段冷空气降温与落叶风险；独山子与乌尔禾连住导致后期阿勒泰出山后需单日开 S21 狂奔 550km 直插乌市还车，行程前松后紧。全员敲定「一前一后」更均衡的黄金落地主线，本方案归档转备用。',
     formula: 'A (奎屯) ➔ D1 (独山子) ➔ D2 (乌尔禾) ➔ B1 (布尔津) ➔ B2 (贾登峪) ➔ C (阿勒泰)',
     strategySummary: '把 2N 弹性全部前置给独山子和大魔鬼城，前期极度松弛，每天仅开 100 多公里。10/2 进布尔津、10/3 游喀纳斯、10/4 穿越阿禾公路住阿勒泰，10/5 直接沿 S21 沙漠高速直奔乌市还车。',
     pros: [
@@ -279,11 +286,12 @@ export const MODULAR_PRESETS: ModularPreset[] = [
   },
   {
     id: 'preset-3',
-    title: '方案三：后置双余量 · 准噶尔东线流',
-    badge: '⛰️ 峡谷矿坑 · 准噶尔东环线',
-    badgeColor: 'bg-purple-600 text-white',
+    title: '方案三：后置双余量 · 准噶尔东线流 (未走 · 已归档)',
+    badge: '📁 已归档 · 备用参考',
+    badgeColor: 'bg-slate-700 text-slate-200 border border-slate-600',
     tagline: '赛湖后直奔喀纳斯 ｜ 可可托海 2N / 五彩湾温泉 ｜ 探秘阿尔泰东脉',
     isCurrentMaster: false,
+    archivedReason: '阿禾天路出山后转向富蕴与可可托海，阿勒泰至可可托海再沿 G216 南下乌市车程偏长（部分路段施工与限速较多），且 10 月初可可托海夜间已跌破冰点、秋色已过峰值。舍弃了乌尔禾魔鬼城落日与昌吉美食。归档保存。',
     formula: 'A (奎屯) ➔ B1 (布尔津) ➔ B2 (贾登峪) ➔ C (阿勒泰) ➔ D1 (富蕴) ➔ D2 (可可托海/五彩湾)',
     strategySummary: '赛湖后不做过多戈壁停留，第 2 天直接挺进布尔津。把 2N 弹性全部放在阿禾公路出山之后，深度畅游可可托海额尔齐斯大峡谷、三号矿坑，甚至泡准噶尔古海温泉。',
     pros: [
@@ -380,11 +388,12 @@ export const MODULAR_PRESETS: ModularPreset[] = [
   },
   {
     id: 'preset-4',
-    title: '方案四：慢游双连住 · 度假减负流',
-    badge: '🏡 极致休闲 · 免频繁收拾行李',
-    badgeColor: 'bg-indigo-600 text-white',
+    title: '方案四：慢游双连住 · 度假减负流 (未走 · 已归档)',
+    badge: '📁 已归档 · 备用参考',
+    badgeColor: 'bg-slate-700 text-slate-200 border border-slate-600',
     tagline: '贾登峪连住 2N + 阿勒泰连住 2N ｜ 深度放空 ｜ 适合长辈与度假',
     isCurrentMaster: false,
+    archivedReason: '国庆期间贾登峪高品质酒店连住 2 晚成本过高（单晚¥2,700+），且喀纳斯景区内第 2 天体验边际效益递减；连住还完全牺牲了独山子/乌尔禾雅丹落日与昌吉回族小吃街。全员一致裁定采取「一前一后」更均衡的黄金顺行流，本方案予以归档。',
     formula: 'A (奎屯) ➔ B1 (布尔津) ➔ B2 (贾登峪连住 2N) ➔ C (阿勒泰连住 2N)',
     strategySummary: '放弃每天更换酒店的紧凑打法，把 2N 弹性分别合并至贾登峪（喀纳斯核心连住 2 晚）与雪都阿勒泰（连住 2 晚）。大行李彻底固定，真正实现“像当地人一样慢生活”。',
     pros: [
@@ -481,11 +490,16 @@ export const MODULAR_PRESETS: ModularPreset[] = [
   }
 ];
 
-export const ModularArchitectureVisualizer: React.FC = () => {
-  const [selectedPresetId, setSelectedPresetId] = useState<string>('preset-1');
-  const [activeSlotIndex, setActiveSlotIndex] = useState<number | null>(null);
+export const ModularArchitectureVisualizer: React.FC<ModularArchitectureVisualizerProps> = ({ onOpenAlternatives }) => {
+  const masterPreset = MODULAR_PRESETS[0];
+  const archivedPresets = MODULAR_PRESETS.slice(1);
 
-  const currentPreset = MODULAR_PRESETS.find(p => p.id === selectedPresetId) || MODULAR_PRESETS[0];
+  const [activeMasterSlotIndex, setActiveMasterSlotIndex] = useState<number | null>(null);
+  const [showArchived, setShowArchived] = useState<boolean>(false);
+  const [selectedArchivedId, setSelectedArchivedId] = useState<string>('preset-2');
+  const [activeArchivedSlotIndex, setActiveArchivedSlotIndex] = useState<number | null>(null);
+
+  const currentArchivedPreset = archivedPresets.find(p => p.id === selectedArchivedId) || archivedPresets[0];
 
   return (
     <section id="modular-architecture" className="py-10 sm:py-14 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white relative overflow-hidden border-b border-slate-800">
@@ -498,15 +512,15 @@ export const ModularArchitectureVisualizer: React.FC = () => {
         {/* 1. Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800/80 pb-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold mb-3 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
-              <span>9/28 赛湖后 6 晚 · 终稿落地 100% 预订完成看板</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold mb-3 shadow-xs">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+              <span>9/28 赛湖后 6 晚 · 终稿主线 100% 锁定落地</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white flex items-center gap-3">
               <span>🧩 4 模块积木化架构与 2N 全局弹性池</span>
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-3xl leading-relaxed">
-              将 9/28 赛湖自驾之后的 6 晚行程（9/29～10/4）抽象为 <strong className="text-amber-300">A（北上中继）、B（喀纳斯组合）、C（阿勒泰休整）与 D（自由余量 2N 弹性池）</strong>。当前全员已完成终稿主线 100% 全额锁定（6 晚 12 间夜），兼备备用插板方案从容托底！
+              将 9/28 赛湖自驾之后的 6 晚行程（9/29～10/4）抽象为 <strong className="text-amber-300">A（北上中继）、B（喀纳斯组合）、C（阿勒泰休整）与 D（自由余量 2N 弹性池）</strong>。当前全员已完成终稿主线 100% 全额锁定（6 晚 12 间夜），未采用的备用插板方案已统一归档！
             </p>
           </div>
 
@@ -612,83 +626,67 @@ export const ModularArchitectureVisualizer: React.FC = () => {
           </div>
         </div>
 
-        {/* 3. Interactive Slot Switcher Tabs */}
-        <div className="bg-slate-800/50 p-6 rounded-3xl border border-slate-700/60 space-y-6">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        {/* 3. Master Route 6-Night Visual Block Strip (终稿敲定落地路线) */}
+        <div className="bg-slate-800/50 p-6 rounded-3xl border border-emerald-500/30 space-y-6 shadow-xl">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-700/60 pb-5">
             <div>
-              <div className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                <RefreshCw className="w-3.5 h-3.5" />
-                <span>交互插板预览器 (点击切换 4 种不同插板方案)</span>
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="text-xs font-black text-emerald-400 uppercase tracking-wider flex items-center gap-1.5 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/30">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>终稿定案主线 · 100% 锁定执行</span>
+                </span>
+                <span className="text-xs text-slate-400 font-mono">
+                  [全员 6 晚 12 间夜全额锁定]
+                </span>
               </div>
-              <h3 className="text-lg sm:text-xl font-black text-white">
-                {currentPreset.title}
+              <h3 className="text-xl sm:text-2xl font-black text-white">
+                {masterPreset.title}
               </h3>
-              <p className="text-xs text-slate-300 mt-0.5">
-                {currentPreset.tagline}
+              <p className="text-xs sm:text-sm text-slate-300 mt-1">
+                {masterPreset.tagline}
               </p>
             </div>
 
-            {/* Preset Selector Buttons */}
-            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
-              {MODULAR_PRESETS.map((preset) => {
-                const isSelected = selectedPresetId === preset.id;
-                return (
-                  <button
-                    key={preset.id}
-                    onClick={() => {
-                      setSelectedPresetId(preset.id);
-                      setActiveSlotIndex(null);
-                    }}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all border text-left sm:text-center ${
-                      isSelected
-                        ? `${preset.badgeColor} shadow-md scale-[1.02] ring-2 ring-white/20`
-                        : 'bg-slate-700/60 text-slate-300 border-slate-600/80 hover:bg-slate-700 hover:text-white'
-                    }`}
-                  >
-                    <div>{preset.title.split('：')[1] || preset.title}</div>
-                    {preset.isCurrentMaster && (
-                      <span className="text-[10px] font-mono text-amber-200 block sm:inline sm:ml-1">
-                        [主线落地]
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
+            <div className="flex items-center gap-2 self-start lg:self-auto">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600/20 text-emerald-300 text-xs font-bold border border-emerald-500/40">
+                <Check className="w-3.5 h-3.5" />
+                <span>实付与到店付已全部锁定</span>
+              </span>
             </div>
           </div>
 
           {/* Formula Bar */}
-          <div className="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div className="bg-slate-900/90 p-4 rounded-2xl border border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-bold text-amber-400 font-mono">积木排列公式：</span>
-              <code className="bg-black/50 px-2.5 py-1 rounded-lg text-emerald-300 font-mono text-xs border border-emerald-500/20">
-                {currentPreset.formula}
+              <span className="font-bold text-amber-400 font-mono">落地排列公式：</span>
+              <code className="bg-black/60 px-3 py-1.5 rounded-xl text-emerald-300 font-mono text-xs border border-emerald-500/30 shadow-inner">
+                {masterPreset.formula}
               </code>
             </div>
-            <div className="text-[11px] text-slate-400">
-              💡 6 晚时间段：9/29 晚 ~ 10/4 晚（10/5 抵乌市还车）
+            <div className="text-[11px] text-slate-400 flex items-center gap-1">
+              <span>💡 6 晚时间段：9/29 晚 ~ 10/4 晚（10/5 21:00 乌市还车）</span>
             </div>
           </div>
 
-          {/* 4. 6-Night Visual Interactive Block Strip */}
+          {/* Master 6-Night Strip */}
           <div>
-            <div className="text-xs font-extrabold text-slate-400 mb-3 flex items-center justify-between">
-              <span>🗓️ 6 晚积木槽位可视化时序 (点击卡片查看当日详细规划)</span>
-              <span className="text-[11px] text-amber-300/80 font-mono">共 6 晚 · 闭环还车</span>
+            <div className="text-xs font-extrabold text-slate-300 mb-3 flex items-center justify-between">
+              <span>🗓️ 6 晚终稿时序时点速览 (点击卡片查看高亮焦点)</span>
+              <span className="text-[11px] text-emerald-300 font-mono">全额确认 · 闭环还车</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
-              {currentPreset.slots.map((slot, idx) => {
-                const isFocused = activeSlotIndex === idx;
+              {masterPreset.slots.map((slot, idx) => {
+                const isFocused = activeMasterSlotIndex === idx;
                 return (
                   <div
                     key={idx}
-                    onClick={() => setActiveSlotIndex(isFocused ? null : idx)}
+                    onClick={() => setActiveMasterSlotIndex(isFocused ? null : idx)}
                     className={`rounded-2xl p-3.5 border transition-all cursor-pointer flex flex-col justify-between ${
                       slot.colorClass.bg
                     } ${
                       isFocused 
-                        ? 'ring-2 ring-white scale-[1.03] shadow-lg border-white' 
+                        ? 'ring-2 ring-emerald-400 scale-[1.03] shadow-lg border-emerald-300' 
                         : `${slot.colorClass.border} hover:scale-[1.01] shadow-xs`
                     }`}
                   >
@@ -741,20 +739,20 @@ export const ModularArchitectureVisualizer: React.FC = () => {
             <div className="lg:col-span-6 space-y-1.5">
               <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
                 <Info className="w-4 h-4" />
-                <span>本插板方案选线逻辑与考量：</span>
+                <span>终稿顺行流选线设计逻辑：</span>
               </div>
               <p className="text-xs text-slate-300 leading-relaxed">
-                {currentPreset.strategySummary}
+                {masterPreset.strategySummary}
               </p>
             </div>
 
             <div className="lg:col-span-6 space-y-1.5">
               <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-400">
                 <CheckCircle2 className="w-4 h-4" />
-                <span>核心优势速览：</span>
+                <span>核心优势全员落地：</span>
               </div>
               <div className="space-y-1 text-xs text-slate-300">
-                {currentPreset.pros.map((pro, pIdx) => (
+                {masterPreset.pros.map((pro, pIdx) => (
                   <div key={pIdx} className="flex items-start gap-1.5">
                     <span className="text-emerald-400 mt-0.5">✓</span>
                     <span>{pro}</span>
@@ -763,6 +761,192 @@ export const ModularArchitectureVisualizer: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* 4. Archived Backup Presets Section (未走备用路线归档) */}
+        <div className="bg-slate-900/60 rounded-3xl border border-slate-800 p-5 sm:p-6 space-y-5 transition-all">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 flex-shrink-0 mt-0.5">
+                <Archive className="w-5 h-5 text-amber-400" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="text-base font-extrabold text-white">
+                    历史备选插板方案库 (已归档 · 3 套未走路线)
+                  </h3>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+                    仅供备用参考 · 未采用
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
+                  方案二（前置雅丹戈壁）、方案三（后置准噶尔东线）、方案四（慢游双连住）在筹备期完成弹性推演使命。现随主线 100% 锁定全员定案，这 3 套方案已统一归档封存，不作为主线执行。
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <button
+                onClick={() => setShowArchived(!showArchived)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-colors shadow-xs"
+              >
+                <span>{showArchived ? '收起已归档方案' : '查看 3 套归档方案'}</span>
+                {showArchived ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+
+              {onOpenAlternatives && (
+                <button
+                  onClick={onOpenAlternatives}
+                  className="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-slate-200 text-xs border border-slate-700/80 transition-colors font-medium"
+                  title="跳转查看包括 4 套宏观大方向路线在内的完整历史方案库"
+                >
+                  <span>完整备选库</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {showArchived && (
+            <div className="space-y-5 pt-4 border-t border-slate-800/80 animate-fadeIn">
+              {/* Archive Notice Callout */}
+              <div className="bg-amber-500/10 border border-amber-500/20 p-3.5 rounded-2xl flex items-start gap-2.5 text-xs text-amber-200/90 leading-relaxed">
+                <Info className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-amber-300 font-bold">归档机制说明：</strong>
+                  当前团队已 100% 全款锁定「黄金 6 步顺行流」的全部 6 晚 12 间夜酒店，实际出行将严格按主线执行。以下 3 套方案保留在历史归档库中，仅供特殊极端天气（如山区持续暴雪封路）或行程复盘时应急参考。
+                </div>
+              </div>
+
+              {/* Preset Selector for Archived Plans */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="text-xs font-bold text-slate-400">选择要查阅的归档方案：</div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  {archivedPresets.map((preset) => {
+                    const isSelected = selectedArchivedId === preset.id;
+                    return (
+                      <button
+                        key={preset.id}
+                        onClick={() => {
+                          setSelectedArchivedId(preset.id);
+                          setActiveArchivedSlotIndex(null);
+                        }}
+                        className={`px-3 py-2 rounded-xl text-xs font-bold transition-all border text-left flex items-center justify-between gap-1.5 ${
+                          isSelected
+                            ? 'bg-slate-700 text-white border-amber-400/50 shadow-md ring-1 ring-amber-400/30'
+                            : 'bg-slate-800/80 text-slate-400 border-slate-700 hover:bg-slate-800 hover:text-slate-200'
+                        }`}
+                      >
+                        <span className="truncate">{preset.title.split('：')[1]?.replace(' (未走 · 已归档)', '') || preset.title}</span>
+                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-900/80 text-slate-400 border border-slate-700/60 flex-shrink-0">
+                          已归档
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Archived Preset Card Details */}
+              <div className="bg-slate-900/90 p-5 rounded-2xl border border-slate-700/80 space-y-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-700 text-slate-300 border border-slate-600">
+                      {currentArchivedPreset.badge}
+                    </span>
+                    <span className="text-xs text-slate-400 font-mono">
+                      [未采用路线]
+                    </span>
+                  </div>
+                  <h4 className="text-base font-extrabold text-white">
+                    {currentArchivedPreset.title}
+                  </h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    {currentArchivedPreset.tagline}
+                  </p>
+                </div>
+
+                {/* Why archived reason */}
+                {currentArchivedPreset.archivedReason && (
+                  <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 text-xs text-slate-300 flex items-start gap-2">
+                    <span className="text-amber-400 font-bold flex-shrink-0">📌 归档未采用原因：</span>
+                    <span className="leading-relaxed">{currentArchivedPreset.archivedReason}</span>
+                  </div>
+                )}
+
+                {/* Archived Formula */}
+                <div className="bg-black/40 p-3 rounded-xl border border-slate-800 flex items-center gap-2 text-xs">
+                  <span className="text-slate-400 font-mono">归档积木公式：</span>
+                  <code className="text-slate-300 font-mono text-[11px] truncate">
+                    {currentArchivedPreset.formula}
+                  </code>
+                </div>
+
+                {/* Archived 6-Night Slot Strip */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-2.5 opacity-90">
+                  {currentArchivedPreset.slots.map((slot, idx) => {
+                    const isFocused = activeArchivedSlotIndex === idx;
+                    return (
+                      <div
+                        key={idx}
+                        onClick={() => setActiveArchivedSlotIndex(isFocused ? null : idx)}
+                        className={`rounded-xl p-3 border transition-all cursor-pointer flex flex-col justify-between ${
+                          slot.colorClass.bg
+                        } ${
+                          isFocused 
+                            ? 'ring-2 ring-amber-400 scale-[1.02] shadow-md' 
+                            : `${slot.colorClass.border} hover:scale-[1.01]`
+                        }`}
+                      >
+                        <div>
+                          <div className="flex items-center justify-between gap-1 mb-1.5">
+                            <span className="text-[10px] font-mono font-bold text-slate-900 bg-white/90 px-1 py-0.2 rounded">
+                              N{slot.nightIndex} · {slot.date.split(' ')[0]}
+                            </span>
+                            <span className="text-[9px] font-bold text-slate-500 bg-slate-200/90 px-1 py-0.2 rounded">
+                              已归档
+                            </span>
+                          </div>
+                          <div className="font-bold text-xs text-slate-900 mb-1 line-clamp-1">
+                            {slot.location}
+                          </div>
+                          <div className="text-[10px] text-slate-700 line-clamp-2 leading-tight">
+                            {slot.activityHighlight}
+                          </div>
+                        </div>
+
+                        <div className="pt-2 mt-2 border-t border-slate-900/10 text-[10px] text-slate-600">
+                          <div className="truncate flex items-center gap-1">
+                            <Bed className="w-3 h-3 text-slate-500 flex-shrink-0" />
+                            <span className="truncate">{slot.lodgingType}</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Archived Summary & Pros */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 pt-3 border-t border-slate-800 text-xs text-slate-300">
+                  <div className="lg:col-span-6 space-y-1">
+                    <span className="font-bold text-amber-400">方案原选线逻辑：</span>
+                    <p className="text-slate-400 leading-relaxed text-[11px]">
+                      {currentArchivedPreset.strategySummary}
+                    </p>
+                  </div>
+                  <div className="lg:col-span-6 space-y-1">
+                    <span className="font-bold text-slate-300">原设计优势参考：</span>
+                    <div className="space-y-0.5 text-slate-400 text-[11px]">
+                      {currentArchivedPreset.pros.map((p, pIdx) => (
+                        <div key={pIdx}>• {p}</div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          )}
         </div>
 
         {/* 5. Why This Architecture? 3 Major Pain Points Solved */}
