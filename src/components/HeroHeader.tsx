@@ -4,6 +4,7 @@ import { scenicImages } from '../data/scenicImages';
 interface HeroHeaderProps {
   onExploreRoadbook: () => void;
   onExploreModularArchitecture?: () => void;
+  onExploreExpenses?: () => void;
   onExploreMap?: () => void;
   onExploreDecisions?: () => void;
   onExploreBookings?: () => void;
@@ -12,6 +13,7 @@ interface HeroHeaderProps {
 export const HeroHeader: React.FC<HeroHeaderProps> = ({
   onExploreRoadbook,
   onExploreModularArchitecture,
+  onExploreExpenses,
 }) => {
   return (
     <section id="overview" className="relative overflow-hidden bg-gradient-to-b from-amber-500/10 via-sky-500/5 to-transparent pt-8 pb-12">
@@ -50,6 +52,16 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                 <span>进入每日路书 (自驾伴侣)</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
+
+              {onExploreExpenses && (
+                <button
+                  onClick={onExploreExpenses}
+                  className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold shadow-md transition-all"
+                  title="查看 Day 1 实时出账与 4 人 AA 明细"
+                >
+                  <span>💰 今日账单 (Day 1 ¥505)</span>
+                </button>
+              )}
 
               {onExploreModularArchitecture && (
                 <button

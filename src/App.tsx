@@ -20,6 +20,12 @@ const AlternativePlansPage = lazy(() =>
   }))
 );
 
+const TripExpensesPage = lazy(() =>
+  import('./components/TripExpensesPage').then((m) => ({
+    default: m.TripExpensesPage,
+  }))
+);
+
 const PrintRoadbookModal = lazy(() =>
   import('./components/PrintRoadbookModal').then((m) => ({
     default: m.PrintRoadbookModal,
@@ -27,22 +33,26 @@ const PrintRoadbookModal = lazy(() =>
 );
 
 export const App: React.FC = () => {
-  const [pageMode, setPageMode] = useState<'main' | 'roadbook' | 'alternatives'>(() => {
+  const [pageMode, setPageMode] = useState<'main' | 'roadbook' | 'alternatives' | 'expenses'>(() => {
     if (window.location.hash === '#roadbook') return 'roadbook';
     if (window.location.hash === '#alternatives') return 'alternatives';
+    if (window.location.hash === '#expenses' || window.location.hash === '#billing' || window.location.hash === '#ledger') return 'expenses';
     return 'main';
   });
   const [activeSection, setActiveSection] = useState<string>('overview');
   const [isPrintModalOpen, setIsPrintModalOpen] = useState<boolean>(false);
 
   // Switch Page Mode & URL Hash
-  const handleSwitchPageMode = (mode: 'main' | 'roadbook' | 'alternatives') => {
+  const handleSwitchPageMode = (mode: 'main' | 'roadbook' | 'alternatives' | 'expenses') => {
     setPageMode(mode);
     if (mode === 'roadbook') {
       window.location.hash = 'roadbook';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (mode === 'alternatives') {
       window.location.hash = 'alternatives';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (mode === 'expenses') {
+      window.location.hash = 'expenses';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       window.location.hash = 'main';
@@ -57,6 +67,8 @@ export const App: React.FC = () => {
         setPageMode('roadbook');
       } else if (window.location.hash === '#alternatives') {
         setPageMode('alternatives');
+      } else if (window.location.hash === '#expenses' || window.location.hash === '#billing' || window.location.hash === '#ledger') {
+        setPageMode('expenses');
       } else if (window.location.hash === '#main' || !window.location.hash) {
         setPageMode('main');
       }
@@ -141,6 +153,7 @@ export const App: React.FC = () => {
             <StandaloneRoadbookPage
               onBackToMain={() => handleSwitchPageMode('main')}
               onOpenPrint={() => setIsPrintModalOpen(true)}
+              onOpenExpenses={() => handleSwitchPageMode('expenses')}
             />
           ) : pageMode === 'alternatives' ? (
             /* Dedicated Alternative Plans & Route Visualization Page (Archived) */
@@ -158,6 +171,24 @@ export const App: React.FC = () => {
                 onBackToMain={() => handleSwitchPageMode('main')}
               />
             </Suspense>
+          ) : pageMode === 'expenses' ? (
+            /* Dedicated Trip Expenses & Ledger Page */
+            <Suspense
+              fallback={
+                <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white p-8">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin" />
+                    <span className="text-sm font-bold text-slate-300">正在加载行程开销与账单明细...</span>
+                  </div>
+                </div>
+              }
+            >
+              <TripExpensesPage
+                onBackToMain={() => handleSwitchPageMode('main')}
+                onSwitchToRoadbook={() => handleSwitchPageMode('roadbook')}
+                onOpenPrint={() => setIsPrintModalOpen(true)}
+              />
+            </Suspense>
           ) : (
             /* Standard Baseline Highway Freedom Sections */
             <>
@@ -166,6 +197,7 @@ export const App: React.FC = () => {
                 onExploreMap={() => handleNavigate('map-section')}
                 onExploreModularArchitecture={() => handleNavigate('modular-architecture')}
                 onExploreRoadbook={() => handleSwitchPageMode('roadbook')}
+                onExploreExpenses={() => handleSwitchPageMode('expenses')}
                 onExploreDecisions={() => handleNavigate('decisions')}
                 onExploreBookings={() => handleNavigate('bookings')}
               />
@@ -184,6 +216,7 @@ export const App: React.FC = () => {
               {/* 5. Day-by-Day Roadbook with Rich Photos & Embedded Amap */}
               <DailyRoadbook
                 onSwitchToRoadbookMode={() => handleSwitchPageMode('roadbook')}
+                onOpenExpenses={() => handleSwitchPageMode('expenses')}
               />
 
               {/* 6. Team Consensus & Voting Matrix with Imagery */}
@@ -204,6 +237,7 @@ export const App: React.FC = () => {
         {/* Footer */}
         <Footer
           onOpenAlternatives={() => handleSwitchPageMode('alternatives')}
+          onOpenExpenses={() => handleSwitchPageMode('expenses')}
         />
       </div>
 

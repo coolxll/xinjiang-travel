@@ -3,9 +3,10 @@ import { Heart, ShieldAlert } from 'lucide-react';
 
 interface FooterProps {
   onOpenAlternatives?: () => void;
+  onOpenExpenses?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenAlternatives }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenAlternatives, onOpenExpenses }) => {
   return (
     <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -21,6 +22,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAlternatives }) => {
           </div>
 
           <div className="flex flex-wrap items-center gap-3 text-slate-300">
+            {onOpenExpenses && (
+              <button
+                onClick={onOpenExpenses}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-950/60 hover:bg-amber-900/80 text-amber-300 transition-colors border border-amber-700/60 font-bold"
+                title="查看与记录行程每日实付账单"
+              >
+                <span>💰 行程账单 (Day 1 ¥505)</span>
+              </button>
+            )}
+
             {onOpenAlternatives && (
               <button
                 onClick={onOpenAlternatives}

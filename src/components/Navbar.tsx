@@ -15,8 +15,8 @@ interface NavbarProps {
   activeSection: string;
   onNavigate: (sectionId: string) => void;
   onOpenPrint: () => void;
-  pageMode: 'main' | 'roadbook' | 'alternatives';
-  onSwitchPageMode: (mode: 'main' | 'roadbook' | 'alternatives') => void;
+  pageMode: 'main' | 'roadbook' | 'alternatives' | 'expenses';
+  onSwitchPageMode: (mode: 'main' | 'roadbook' | 'alternatives' | 'expenses') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ 
@@ -67,11 +67,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className={`hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold whitespace-nowrap flex-shrink-0 ${
                   pageMode === 'roadbook'
                     ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                    : pageMode === 'expenses'
+                    ? 'bg-amber-100 text-amber-800 border border-amber-300'
                     : pageMode === 'alternatives'
                     ? 'bg-purple-100 text-purple-800 border border-purple-200'
                     : 'bg-amber-100 text-amber-800 border border-amber-200'
                 }`}>
-                  {pageMode === 'roadbook' ? '每日路书 · 独立伴侣' : pageMode === 'alternatives' ? '备选方案选线库' : '阿禾公路主线'}
+                  {pageMode === 'roadbook'
+                    ? '每日路书 · 独立伴侣'
+                    : pageMode === 'expenses'
+                    ? '行程账单 · 实时记账'
+                    : pageMode === 'alternatives'
+                    ? '备选方案选线库'
+                    : '阿禾公路主线'}
                 </span>
               </div>
               <p className="text-[11px] sm:text-xs text-slate-500 hidden sm:block whitespace-nowrap leading-tight mt-0.5">
@@ -80,7 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Center: Primary Switcher Pill (Main & Roadbook) */}
+          {/* Center: Primary Switcher Pill (Main, Roadbook & Expenses) */}
           <div className="bg-slate-100 p-0.5 sm:p-1 rounded-2xl border border-slate-200/80 flex items-center gap-0.5 sm:gap-1 shadow-2xs flex-shrink-0">
             {/* 1. Main Mode */}
             <button
@@ -109,7 +117,26 @@ export const Navbar: React.FC<NavbarProps> = ({
               <BookOpen className="w-3.5 h-3.5" />
               <span>每日路书</span>
               <span className="hidden sm:inline-flex text-[9px] px-1 py-0.2 rounded font-extrabold bg-emerald-500/20 text-emerald-800">
-                行程伴侣
+                伴侣
+              </span>
+            </button>
+
+            {/* 3. Trip Expenses / Ledger Mode (New Feature) */}
+            <button
+              onClick={() => onSwitchPageMode('expenses')}
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-xs font-black transition-all ${
+                pageMode === 'expenses'
+                  ? 'bg-amber-600 text-white shadow-xs'
+                  : 'text-amber-800 hover:bg-amber-50'
+              }`}
+              title="查看与记录行程每日实付账单（Day 1 已记账）"
+            >
+              <span>💰</span>
+              <span>行程账单</span>
+              <span className={`hidden sm:inline-flex text-[9px] px-1 py-0.2 rounded font-black ${
+                pageMode === 'expenses' ? 'bg-white/20 text-white' : 'bg-amber-500 text-white'
+              }`}>
+                D1已出
               </span>
             </button>
           </div>
@@ -141,6 +168,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           ) : pageMode === 'roadbook' ? (
             <div className="hidden lg:flex items-center gap-2">
               <span className="text-xs text-slate-500">已开启行程伴侣模式：实时里程进度跟踪与高德地图嵌入</span>
+            </div>
+          ) : pageMode === 'expenses' ? (
+            <div className="hidden lg:flex items-center gap-2">
+              <span className="text-xs text-slate-500">Day 1 (9/27) 首日账单已入账 · 4人团队实付 ¥505.00 (人均 ¥126.25)</span>
             </div>
           ) : (
             <div className="hidden lg:flex items-center gap-2">
@@ -196,6 +227,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             );
           })}
+          <button
+            onClick={() => onSwitchPageMode('expenses')}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition-all flex-shrink-0 bg-amber-50 text-amber-900 border border-amber-300 shadow-2xs hover:bg-amber-100"
+          >
+            <span>💰</span>
+            <span>行程账单</span>
+            <span className="text-[10px] bg-amber-500 text-white px-1.5 py-0.2 rounded-full font-black">
+              D1 ¥505
+            </span>
+          </button>
         </div>
       )}
     </header>
