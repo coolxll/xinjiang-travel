@@ -548,6 +548,58 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
           </div>
         </div>
 
+        {/* Day 1 Actual Route Track Banner (Context for Ledger) */}
+        {selectedDayNumber === 1 && (
+          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 border border-slate-700 shadow-sm space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
+              <div className="flex items-center gap-2">
+                <span className="text-base">📍</span>
+                <span className="text-xs sm:text-sm font-black text-white">
+                  D1 实际行程纪实 · 账单对应自驾足迹
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                  已跑完全程
+                </span>
+              </div>
+              <span className="text-[11px] text-slate-300">
+                乌市 ➔ 华润万家 ➔ 石河子 ➔ 沙湾 ➔ 沙漠 ➔ 精河
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2 text-xs">
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">① 乌市出发采购</div>
+                <div className="text-white font-semibold">华润万家超市</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">采购矿泉水、水果零食等长途随车基础物资</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">② 军垦博览与早市</div>
+                <div className="text-white font-semibold">军垦馆 + 对面农贸早市</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">通行费 ¥51 · 展馆转一圈 + 漫步市井农贸早市</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 国道慢摇沙湾</div>
+                <div className="text-white font-semibold">沙湾鼎吉香大盘鸡</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">沿展馆下国道慢开 · 午餐 ¥187（美团套餐+酸梅汤）</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">④ 连霍直奔沙漠</div>
+                <div className="text-white font-semibold">沙漠服务区出口</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">重回连霍高速（路费 ¥66），开到沙漠出口驶出</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">⑤ 沙漠畅玩与精河</div>
+                <div className="text-white font-semibold">木特塔尔 2h+ ➔ 精河</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">门票景交 ¥180 · 畅玩2h出头 · 精河路费 ¥21 & 晚餐 ¥191</div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* 5. Expense Items Detail List */}
         <div className="space-y-3">
           <div className="flex items-center justify-between px-1">

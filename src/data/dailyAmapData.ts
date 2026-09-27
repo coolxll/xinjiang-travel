@@ -1,4 +1,4 @@
-export type DestinationCategory = 'start' | 'scenic' | 'viewpoint' | 'food' | 'gas' | 'hotel' | 'end';
+export type DestinationCategory = 'start' | 'scenic' | 'viewpoint' | 'food' | 'gas' | 'hotel' | 'end' | 'transfer';
 
 export interface DailyDestination {
   id: string;
@@ -109,12 +109,12 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
     dayNumber: 1,
     date: '9/27',
     fullDate: '2026年9月27日 (周日)',
-    title: '乌鲁木齐 → G30连霍高速 → 精河县',
-    tagline: '09:00 酒店门口无缝接车，全线八车道连霍高速，一路平坦直抵精河',
+    title: '乌市 → 华润万家采购 → 军垦博物馆/农贸市场 → 沙湾大盘鸡 → 木特塔尔沙漠 (畅玩2h+) → 精河',
+    tagline: '实际自驾实录：华润万家采买物资、军垦博览与对门农贸早市、国道慢摇至沙湾鼎吉香大盘鸡、连霍沙漠服务区出口、木特塔尔瀚海畅玩2小时出头、宿精河',
     startPoint: '乌鲁木齐迎宾路',
     endPoint: '精河县城',
     distanceKm: 410,
-    durationText: '约4.5–5小时 (含验车与服务区)',
+    durationText: '约4.5–5小时 (含验车、采买与沙漠畅玩2h+)',
     cumulativeKmStart: 0,
     cumulativeKmEnd: 410,
     bounds: [[43.80, 82.70], [44.75, 87.60]],
@@ -136,10 +136,24 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
         isPrimary: true
       },
       {
+        id: 'd1-supply',
+        name: '华润万家超市 (乌市基础采购)',
+        category: 'scenic',
+        categoryLabel: '基础采购',
+        icon: '🛒',
+        coords: [43.8860, 87.5350],
+        elevation: '655m',
+        tagline: '自驾启程第一站：采购矿泉水、水果零食、纸巾及长途随车基础补给',
+        tips: '乌市出发先前往超市做基础采购，为后续戈壁与沙漠长途自驾备足物资',
+        amapUrl: 'https://uri.amap.com/marker?position=87.5350,43.8860&name=%E5%8D%8E%E6%B6%A6%E4%B8%87%E5%AE%B6',
+        navSearchQuery: '华润万家超市乌鲁木齐',
+        isPrimary: false
+      },
+      {
         id: 'd1-museum',
         name: '新疆兵团军垦博物馆 (石河子市)',
         category: 'scenic',
-        categoryLabel: '军垦丰碑',
+        categoryLabel: '军垦博览',
         icon: '🏛️',
         coords: [44.3060, 86.0450],
         elevation: '450m',
@@ -150,29 +164,57 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
         isPrimary: false
       },
       {
+        id: 'd1-market',
+        name: '石河子农贸市场/早餐早市 (军垦博物馆正对面)',
+        category: 'food',
+        categoryLabel: '市井烟火',
+        icon: '🥬',
+        coords: [44.3075, 86.0465],
+        elevation: '450m',
+        tagline: '博物馆正对面的石河子农贸早市，漫步体验生动浓郁的市井生活气息与特色风貌',
+        tips: '军垦博物馆转完后步行至正对面农贸早市逛逛，感受本地生活气息',
+        amapUrl: 'https://uri.amap.com/marker?position=86.0465,44.3075&name=%E7%9F%B3%E6%B2%B3%E5%AD%90%E5%86%9C%E8%B4%B8%E5%B8%82%E5%9C%BA',
+        navSearchQuery: '石河子市农贸市场',
+        isPrimary: false
+      },
+      {
         id: 'd1-food',
-        name: '沙湾市鼎吉香大盘鸡 (午餐)',
+        name: '沙湾市鼎吉香大盘鸡 (午餐 · 大盘鸡美食城)',
         category: 'food',
         categoryLabel: '沙湾美食',
         icon: '🍗',
         coords: [44.3310, 85.6210],
         elevation: '410m',
-        tagline: '大盘鸡发源地正宗午餐！肉质紧实，皮带面筋道，搭配特色解腻酸梅汤',
-        tips: '美团线上购买套餐 ¥137.00 + 现场加点酸梅汤饮料 ¥50.00，实付共 ¥187.00',
+        tagline: '沿军垦博物馆下方国道开往沙湾！正宗大盘鸡发源地午餐，手工皮带面配特色酸梅汤',
+        tips: '沿国道自驾抵达沙湾大盘鸡美食城；美团套餐 ¥137.00 + 现场加酸梅汤 ¥50.00，实付共 ¥187.00',
         amapUrl: 'https://uri.amap.com/marker?position=85.6210,44.3310&name=%E6%B2%99%E6%B9%BE%E5%B8%82%E9%BC%8E%E5%90%89%E9%A6%99%E5%A4%A7%E7%9B%98%E9%B8%A1',
         navSearchQuery: '沙湾市鼎吉香大盘鸡',
         isPrimary: true
       },
       {
+        id: 'd1-toll-service',
+        name: 'G30连霍高速 · 沙漠服务区出口',
+        category: 'transfer',
+        categoryLabel: '高速出口',
+        icon: '🛣️',
+        coords: [44.4600, 83.5600],
+        elevation: '360m',
+        tagline: '沙湾午餐后重回连霍高速，一路平坦西进直达沙漠服务区出口驶出',
+        tips: '沙湾往木特塔尔沙漠高速通行费 ¥66.00，在此出口下连霍高速转入沙漠景区公路',
+        amapUrl: 'https://uri.amap.com/marker?position=83.5600,44.4600&name=%E6%B2%99%E6%BC%A0%E6%9C%8D%E5%8A%A1%E5%8C%BA',
+        navSearchQuery: '连霍高速沙漠服务区',
+        isPrimary: false
+      },
+      {
         id: 'd1-desert',
-        name: '木特塔尔国家沙漠公园 (精河县托托镇)',
+        name: '木特塔尔国家沙漠公园 (精河县托托镇 · 畅玩2h+)',
         category: 'scenic',
-        categoryLabel: '绿洲沙漠',
+        categoryLabel: '沙漠畅玩2h+',
         icon: '🏜️',
         coords: [44.4750, 83.5200],
         elevation: '350m',
-        tagline: '全国最大的绿洲中沙漠，沙丘起伏壮阔，体验西北瀚海苍茫',
-        tips: '沙湾往沙漠连霍通行费 ¥66.00；景区 4 人门票 ¥120.00，摆渡区间车 ¥60.00',
+        tagline: '全国最大绿洲中沙漠！4人门票+区间车摆渡，瀚海金沙间尽兴深度畅玩 2 小时出头',
+        tips: '在沙漠转了约两个多小时出头；景区 4 人门票 ¥120.00 + 摆渡区间车 ¥60.00 共 ¥180.00',
         amapUrl: 'https://uri.amap.com/marker?position=83.5200,44.4750&name=%E6%9C%A8%E7%89%B9%E5%A1%94%E5%B0%94%E5%9B%BD%E5%AE%B6%E6%B2%99%E6%BC%A0%E5%85%AC%E5%9B%AD',
         navSearchQuery: '木特塔尔国家沙漠公园',
         isPrimary: true
@@ -185,8 +227,8 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
         icon: '🏨',
         coords: [44.6000, 82.8900],
         elevation: '320m',
-        tagline: '舒压大床房2间 · 沙漠往酒店通行费 ¥21.00，华住官方预付 ¥389.30',
-        tips: '酒店院内停车便利，连霍高速路口出口即达，次日清晨 1.5h 直上赛里木湖',
+        tagline: '傍晚出沙漠驱车直达酒店顺利入住，并在精河县城享用丰盛晚餐（姐姐妹妹买单 ¥191 免分摊）',
+        tips: '沙漠往酒店公路通行费 ¥21.00，酒店院内停车便利，连霍高速路口出口即达',
         amapUrl: 'https://uri.amap.com/marker?position=82.8900,44.6000&name=%E6%98%9F%E7%A8%8B%E7%B2%BE%E6%B2%B3%E8%BF%9E%E9%9C%87%E9%AB%98%E9%80%9F%E8%B7%AF%E5%8F%A3%E9%85%92%E5%BA%97',
         navSearchQuery: '星程精河连霍高速路口酒店',
         isPrimary: true
@@ -200,7 +242,7 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
         coords: [44.6050, 82.9000],
         elevation: '318m',
         tagline: '进赛里木湖前最后一站加满油箱',
-        tips: '赛里木湖景区内油价略贵且加油点少，今晚进酒店前必须加满',
+        tips: '赛里木湖景区内油价略贵且加油点少，今晚进酒店前加满',
         amapUrl: 'https://uri.amap.com/marker?position=82.9000,44.6050&name=%E7%B2%BE%E6%B2%B3%E4%B8%AD%E7%9F%B3%E5%8C%96%E5%8A%A0%E6%B2%B9%E7%AB%99',
         navSearchQuery: '中国石化精河加油站',
         isPrimary: false
@@ -208,11 +250,13 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
     ],
     routePolyline: [
       [43.8820, 87.5210],
+      [43.8860, 87.5350],
       [44.05, 86.80],
-      [44.3050, 85.9820],
+      [44.3060, 86.0450],
       [44.3310, 85.6210],
       [44.4269, 84.9018],
-      [44.50, 83.80],
+      [44.4600, 83.5600],
+      [44.4750, 83.5200],
       [44.6000, 82.8900]
     ]
   },

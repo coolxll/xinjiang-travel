@@ -443,6 +443,60 @@ export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({
                       </div>
                     )}
 
+                    {/* Feature: Day Actual Travel Track Timeline (if present) */}
+                    {day.actualDayLog && (
+                      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 border border-slate-700/80 shadow-md space-y-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+                          <div className="flex items-center gap-2.5">
+                            <span className="flex h-2.5 w-2.5 relative">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                            </span>
+                            <h4 className="text-xs sm:text-sm font-black tracking-wide text-white flex items-center gap-2">
+                              <span>📍 Day {day.dayNumber} 实际行程实录 · 真实游历足迹</span>
+                            </h4>
+                            <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                              已实跑完成
+                            </span>
+                          </div>
+                          <span className="text-[11px] text-slate-400 font-mono">
+                            实录日期：{day.actualDayLog.recordedDate}
+                          </span>
+                        </div>
+
+                        <p className="text-xs text-slate-300 leading-relaxed bg-white/5 p-3 rounded-xl border border-white/10">
+                          {day.actualDayLog.summary}
+                        </p>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-1">
+                          {day.actualDayLog.steps.map((step) => (
+                            <div
+                              key={step.order}
+                              className="bg-white/10 hover:bg-white/15 transition-all p-3 rounded-xl border border-white/10 flex flex-col justify-between space-y-2"
+                            >
+                              <div>
+                                <div className="flex items-center justify-between mb-1.5">
+                                  <span className="text-base">{step.icon || '📌'}</span>
+                                  <span className="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                                    Step 0{step.order}
+                                  </span>
+                                </div>
+                                <div className="text-[10px] font-bold text-amber-300 mb-0.5">{step.time}</div>
+                                <h5 className="text-xs font-black text-white leading-snug mb-1">{step.title}</h5>
+                                <p className="text-[11px] text-slate-300 leading-relaxed">{step.description}</p>
+                              </div>
+                              {step.location && (
+                                <div className="pt-2 border-t border-white/10 text-[10px] text-slate-400 flex items-center gap-1 truncate">
+                                  <span>📍</span>
+                                  <span className="truncate">{step.location}</span>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     {/* Time & Duration Breakdown Box */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200/80 text-xs">
                       <div>

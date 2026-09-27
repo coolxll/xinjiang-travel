@@ -50,6 +50,24 @@ export interface ItineraryDay {
     highlights: string[];
     tips: string;
   };
+  actualDayLog?: ActualDayLog;
+}
+
+export interface ActualDayLogStep {
+  order: number;
+  time?: string;
+  title: string;
+  description: string;
+  location?: string;
+  tag?: string;
+  icon?: string;
+}
+
+export interface ActualDayLog {
+  status: 'completed' | 'in_progress';
+  recordedDate: string;
+  summary: string;
+  steps: ActualDayLogStep[];
 }
 
 export interface RoutePoint {

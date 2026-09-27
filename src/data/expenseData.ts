@@ -75,8 +75,8 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-1',
     date: '9/27',
     fullDate: '2026年9月27日 (周日)',
-    title: '乌市 → 军垦博物馆 → 沙湾大盘鸡 → 木特塔尔沙漠 → 精河',
-    routeSummary: '连霍高速G30 · 途径军垦博物馆、沙湾鼎吉香大盘鸡、木特塔尔国家沙漠公园',
+    title: '乌市 → 华润万家采购 → 军垦博物馆/农贸市场 → 沙湾大盘鸡 → 木特塔尔沙漠 (畅玩2h+) → 精河',
+    routeSummary: '华润万家采购 · 军垦博物馆与对门农贸早市 · 沿国道至沙湾鼎吉香大盘鸡 · 连霍沙漠服务区出口 · 木特塔尔沙漠畅玩2h+ · 宿精河',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '星程精河连霍高速路口酒店',
@@ -227,7 +227,7 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     amount: 51,
     paymentMethod: 'ETC/高速缴费',
     location: '乌鲁木齐 → 石河子市 (G30连霍高速)',
-    note: '早间取车后由乌鲁木齐出发，沿G30连霍高速开往石河子新疆兵团军垦博物馆高速通行费',
+    note: '早间在乌鲁木齐华润万家采购基础生活物资后启程，沿G30连霍高速开往石河子兵团军垦博物馆高速通行费',
     splitCount: 4,
     perPerson: 12.75,
     time: '11:15',
@@ -243,7 +243,7 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     amount: 187,
     paymentMethod: '美团购买套餐 + 现场加单',
     location: '沙湾市鼎吉香大盘鸡 (美食街核心店)',
-    note: '大盘鸡发源地沙湾正宗午餐：美团线上购买经典大盘鸡套餐 ¥137，现场额外加点解腻酸梅汤冷饮 ¥50',
+    note: '军垦博物馆与对门农贸早市逛完后，沿下方国道开往沙湾大盘鸡美食城：美团团购套餐 ¥137 + 现场加酸梅汤冰饮 ¥50',
     splitCount: 4,
     perPerson: 46.75,
     time: '13:40',
@@ -273,7 +273,7 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     amount: 66,
     paymentMethod: 'ETC/高速缴费',
     location: '沙湾市 → 精河县托托镇 (G30连霍高速西进)',
-    note: '沙湾午餐后继续沿连霍高速向西，前往木特塔尔国家沙漠公园高速路段通行费',
+    note: '沙湾午餐后重回连霍高速一路向西，开至沙漠服务区出口下高速前往木特塔尔国家沙漠公园高速通行费',
     splitCount: 4,
     perPerson: 16.5,
     time: '15:20',
@@ -289,7 +289,7 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     amount: 120,
     paymentMethod: '景区售票处/微信扫码',
     location: '精河县木特塔尔国家沙漠公园',
-    note: '木特塔尔国家沙漠公园门票 4 张（单人票价 ¥30 / 人）',
+    note: '木特塔尔国家沙漠公园门票 4 张（单人票价 ¥30 / 人），在沙漠尽情畅玩了 2 个多小时出头',
     splitCount: 4,
     perPerson: 30,
     time: '16:10',
@@ -305,7 +305,7 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     amount: 60,
     paymentMethod: '景区售票处/微信扫码',
     location: '精河县木特塔尔国家沙漠公园',
-    note: '沙漠公园景区往返摆渡区间车 4 人（单人票价 ¥15 / 人）',
+    note: '沙漠公园景区往返摆渡区间车 4 人（单人票价 ¥15 / 人），直达沙漠核心沙丘腹地',
     splitCount: 4,
     perPerson: 15,
     time: '16:15',
@@ -321,7 +321,7 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     amount: 21,
     paymentMethod: 'ETC/公路收费',
     location: '木特塔尔沙漠 → 精河县城星程酒店',
-    note: '傍晚离开沙漠，驱车前往精河县文化南路星程连霍高速路口酒店公路交通通行费',
+    note: '沙漠畅玩2小时出头后傍晚启程，驱车前往精河县星程连霍高速路口酒店公路交通通行费',
     splitCount: 4,
     perPerson: 5.25,
     time: '18:50',
@@ -337,7 +337,7 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     amount: 191,
     paymentMethod: '同行人支付 (微信/支付宝)',
     location: '精河县城美食街',
-    note: '抵达精河县城后晚餐：由同行人（姐姐妹妹）付款，已完整记录入账，但明确不计入团队AA分摊',
+    note: '抵达精河县城入住后晚餐：由同行人（姐姐妹妹）付款，已完整记录入账，但明确不计入团队AA分摊',
     splitCount: 4,
     perPerson: 0,
     time: '20:30',
@@ -347,7 +347,7 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v3';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v4';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;

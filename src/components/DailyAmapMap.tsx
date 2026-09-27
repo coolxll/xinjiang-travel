@@ -192,6 +192,9 @@ export const DailyAmapMap: React.FC<DailyAmapMapProps> = ({ schedule, className 
       } else if (dest.category === 'end') {
         pinBg = 'bg-slate-900';
         pinBorder = 'border-slate-400';
+      } else if (dest.category === 'transfer') {
+        pinBg = 'bg-indigo-600';
+        pinBorder = 'border-indigo-300';
       }
 
       const customIcon = L.divIcon({
