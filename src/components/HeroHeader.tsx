@@ -1,5 +1,6 @@
 import { Sparkles, Calendar, Users, Gauge, ArrowRight, ShieldAlert, Mountain, Sun, Clock } from 'lucide-react';
 import { scenicImages } from '../data/scenicImages';
+import { TOTAL_JOURNEY_KM } from '../data/dailyAmapData';
 
 interface HeroHeaderProps {
   onExploreRoadbook: () => void;
@@ -39,7 +40,7 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
               主线：<strong>乌鲁木齐 → 精河 → 赛里木湖自驾 → 奎屯 → 乌尔禾 → 冲乎尔 (避峰) → 贾登峪 (三湾湖区) → G681阿禾天路 (平替禾木) → 阿勒泰市 → 昌吉/乌市 (美食慢游) → 乌市机场还车</strong>。
-              全程 2,225km，国庆当天逆向避峰冲乎尔，贾登峪仅住 1 晚不住天价破木屋，阿禾天路纯自驾平替禾木，深度整合自驾自由、错峰住宿与舒适节奏。
+              全程 {TOTAL_JOURNEY_KM.toLocaleString()}km，国庆当天逆向避峰冲乎尔，贾登峪仅住 1 晚不住天价破木屋，阿禾天路纯自驾平替禾木，深度整合自驾自由、错峰住宿与舒适节奏。
             </p>
 
             {/* Quick Action Buttons (Focused core actions) */}
@@ -102,7 +103,7 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                   <Gauge className="w-4 h-4" />
                   <span className="text-[11px] font-semibold text-slate-500 uppercase">计划总里程</span>
                 </div>
-                <div className="text-2xl font-black text-slate-900">2,225<span className="text-xs font-medium text-slate-500"> km</span></div>
+                <div className="text-2xl font-black text-slate-900">{TOTAL_JOURNEY_KM.toLocaleString()}<span className="text-xs font-medium text-slate-500"> km</span></div>
                 <p className="text-[10px] text-slate-500 mt-0.5">主线全程实测（高速+景观大道）</p>
               </div>
 

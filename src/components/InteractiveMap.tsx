@@ -12,6 +12,7 @@ import {
   BORDER_PORT_LANDMARKS 
 } from '../data/xinjiangBorderData';
 import { travelPois, TravelPoi, PoiCategory } from '../data/poiData';
+import { TOTAL_JOURNEY_KM } from '../data/dailyAmapData';
 import { 
   Navigation, Compass, Layers, RotateCcw, Copy, Check, 
   Map as MapIcon, Globe, Mountain, Gauge, Calendar, Sparkles,
@@ -488,7 +489,7 @@ export const InteractiveMap: React.FC = () => {
             {/* Mileage Tag */}
             <div className="bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 flex items-center gap-1.5">
               <Gauge className="w-3.5 h-3.5 text-amber-600" />
-              <span>全程实测：<strong className="text-amber-600">2,300+ km</strong></span>
+              <span>全程自驾实测：<strong className="text-amber-600">{TOTAL_JOURNEY_KM.toLocaleString()} km</strong></span>
             </div>
 
             {/* Map Tile Layer Switcher */}

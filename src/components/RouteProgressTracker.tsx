@@ -164,7 +164,7 @@ export const RouteProgressTracker: React.FC<RouteProgressTrackerProps> = ({
         {/* Card 2: Remaining Distance */}
         <div className="bg-amber-50/60 rounded-2xl p-3 sm:p-4 border border-amber-200/80">
           <div className="flex items-center justify-between text-xs text-amber-800 font-bold mb-1">
-            <span>🏁 剩余待行驶</span>
+            <span>🏁 剩余待驾驶</span>
             <span className="text-[10px] bg-amber-100 px-2 py-0.5 rounded-full font-mono">
               剩 {Math.max(0, 9 - completedDayNumber)} 天
             </span>
@@ -205,9 +205,9 @@ export const RouteProgressTracker: React.FC<RouteProgressTrackerProps> = ({
         <div className="flex justify-between items-center text-xs text-slate-600">
           <span className="font-bold text-slate-700">乌鲁木齐 (起点 0km)</span>
           <span className="font-mono font-bold text-emerald-800">
-            已完成 {completedKm} km / 2,455 km ({completedPercentage}%)
+            已完成 {completedKm.toLocaleString()} km / {TOTAL_JOURNEY_KM.toLocaleString()} km ({completedPercentage}%)
           </span>
-          <span className="font-bold text-slate-700">乌市还车 (终点)</span>
+          <span className="font-bold text-slate-700">乌市还车 (终点 {TOTAL_JOURNEY_KM.toLocaleString()}km)</span>
         </div>
 
         <div className="relative w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200 p-0.5">
