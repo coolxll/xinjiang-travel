@@ -377,6 +377,121 @@ export const StandaloneRoadbookPage: React.FC<StandaloneRoadbookPageProps> = ({
                 </div>
               )}
 
+              {/* Day 3 Itinerary Optimization & Flexible Gears Banner */}
+              {activeDay.dayNumber === 3 && (
+                <div className="bg-gradient-to-br from-indigo-900 via-slate-900 to-sky-950 text-white rounded-3xl p-5 sm:p-6 border border-indigo-500/40 shadow-xl space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-indigo-500 text-white flex items-center justify-center font-black text-xl flex-shrink-0 shadow-md">
+                        🎯
+                      </div>
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-sm sm:text-base font-black text-amber-300">
+                            Day 3 (9/29) 行程重要调优 · 睡够不设闹钟 ➔ 下午独山子大峡谷
+                          </span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">
+                            已锁定最优方案
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-300 mt-1">
+                          核心原则：<strong>赛湖已完整玩透，告别晨曦闹钟与二次环湖</strong> · <strong>独山子大峡谷提前至 D3 下午</strong> · <strong>彻底解放 D4</strong>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2 text-xs">
+                      <span className="px-2.5 py-1 rounded-xl bg-white/10 border border-white/15 text-slate-200">
+                        🌤️ 独山子多云 7~20℃ 凉爽不晒
+                      </span>
+                      <span className="px-2.5 py-1 rounded-xl bg-amber-400/20 border border-amber-400/30 text-amber-200 font-bold">
+                        🎫 门票 ¥30 (开放至21:00)
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Timetable Flow */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                    <div className="bg-white/5 rounded-2xl p-3.5 border border-white/10 space-y-1">
+                      <div className="text-amber-400 font-bold flex items-center gap-1.5">
+                        <span>⏰ 09:30 - 10:30</span>
+                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300">自然醒</span>
+                      </div>
+                      <div className="font-bold text-slate-100">睡够起床 · 随缘观景</div>
+                      <div className="text-[11px] text-slate-400 leading-relaxed">
+                        不设日出闹钟。早餐退房，推窗若天气炸裂在酒店附近看一眼，不开车二次环湖。
+                      </div>
+                    </div>
+
+                    <div className="bg-white/5 rounded-2xl p-3.5 border border-white/10 space-y-1">
+                      <div className="text-sky-400 font-bold flex items-center gap-1.5">
+                        <span>🚗 10:30 - 14:30</span>
+                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-sky-400/20 text-sky-300">连霍 G30</span>
+                      </div>
+                      <div className="font-bold text-slate-100">避峰东进 · 抵独山子午餐</div>
+                      <div className="text-[11px] text-slate-400 leading-relaxed">
+                        全程 315km / 3.5h 高速坦途。14:30–15:15 在独山子城区吃地道拌面抓饭，避开景区。
+                      </div>
+                    </div>
+
+                    <div className="bg-white/5 rounded-2xl p-3.5 border border-white/10 space-y-1">
+                      <div className="text-emerald-400 font-bold flex items-center gap-1.5">
+                        <span>⛰️ 15:30 - 17:30</span>
+                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-400/20 text-emerald-300">核心景观</span>
+                      </div>
+                      <div className="font-bold text-slate-100">独山子大峡谷 1.5–2h</div>
+                      <div className="text-[11px] text-slate-400 leading-relaxed">
+                        门票 30 元。只看亿年雪水刀刻裂缝本体，多云天气极度舒适，不必玩玻璃桥高价娱乐。
+                      </div>
+                    </div>
+
+                    <div className="bg-white/5 rounded-2xl p-3.5 border border-white/10 space-y-1">
+                      <div className="text-purple-400 font-bold flex items-center gap-1.5">
+                        <span>🏨 17:30 - 晚上</span>
+                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-400/20 text-purple-300">宿奎屯</span>
+                      </div>
+                      <div className="font-bold text-slate-100">轻量备选 ➔ 星程酒店</div>
+                      <div className="text-[11px] text-slate-400 leading-relaxed">
+                        可选独库零公里/泥火山；19:00 前往星程奎屯体育中心西公园酒店入住，商圈吃烤肉。
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 3 Strategy Gears */}
+                  <div className="bg-white/[0.04] rounded-2xl p-4 border border-white/10 space-y-2.5">
+                    <div className="text-xs font-bold text-slate-300 flex items-center gap-2">
+                      <span>⚙️ 到了独山子现场的三档弹性选择：</span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                      <div className="bg-white/5 p-3 rounded-xl border border-white/10">
+                        <span className="font-black text-amber-300">① 默认版（最推荐）</span>
+                        <p className="text-[11px] text-slate-300 mt-1">
+                          赛湖 ➔ 独山子午饭 ➔ <strong>独山子大峡谷 (1.5-2h)</strong> ➔ 奎屯星程入住与商圈晚餐。
+                        </p>
+                      </div>
+                      <div className="bg-white/5 p-3 rounded-xl border border-white/10">
+                        <span className="font-black text-emerald-300">② 精力充沛版</span>
+                        <p className="text-[11px] text-slate-300 mt-1">
+                          赛湖 ➔ 大峡谷 ➔ <strong>独库零公里 / 泥火山二选一</strong>（独库博物馆开放至19:30，周二开馆） ➔ 奎屯。
+                        </p>
+                      </div>
+                      <div className="bg-white/5 p-3 rounded-xl border border-white/10">
+                        <span className="font-black text-sky-300">③ 厌烦景区化版</span>
+                        <p className="text-[11px] text-slate-300 mt-1">
+                          若到现场反感商业化：直接放弃大峡谷 ➔ <strong>独库零公里 + 泥火山</strong> ➔ 奎屯，自由更纯粹。
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Next Day Dividend Note */}
+                  <div className="flex items-center gap-2 text-xs text-slate-300 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-3.5 py-2">
+                    <span className="text-emerald-400 font-bold">✨ D4 连锁降负红利：</span>
+                    <span>大峡谷提前搞定后，D4（9/30）彻底变为<strong>“睡到自然醒 ➔ 奎屯 ➔ 戈壁百里油田公路 ➔ 乌尔禾魔鬼城日落”</strong>，单日仅 220km，极度均衡！</span>
+                  </div>
+                </div>
+              )}
+
               {/* Embedded AutoNavi Map */}
               <section className="space-y-2">
                 <div className="flex items-center justify-between px-1">

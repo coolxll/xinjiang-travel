@@ -105,14 +105,14 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-3',
     date: '9/29',
     fullDate: '2026年9月29日 (周二)',
-    title: '赛里木湖晨曦 → 独山子大峡谷 → 奎屯市',
-    routeSummary: 'G30连霍返程 · 独山子百里丹霞与大峡谷，奎屯美食汇聚',
+    title: '赛里木湖 (睡够出发) → 独山子午餐 → 独山子大峡谷 → 奎屯市',
+    routeSummary: '睡够不设闹钟 · 10:30连霍G30 · 独山子城区午餐 · 独山子大峡谷(门票30/人) · 可选独库零公里 · 宿奎屯星程',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '星程奎屯体育中心西公园酒店',
       roomType: '高级双床房 2间',
       cost: 498.90,
-      payType: '到店付'
+      payType: '已在线支付'
     }
   },
   {
@@ -120,8 +120,8 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-4',
     date: '9/30',
     fullDate: '2026年9月30日 (周三)',
-    title: '奎屯 → 克拉玛依百里油田 → 乌尔禾魔鬼城',
-    routeSummary: '奎阿高速 G3014 · 磕头机油田、魔鬼城雅丹日落',
+    title: '奎屯 (睡到自然醒) → 百里油田公路 → 乌尔禾魔鬼城 (落日金光)',
+    routeSummary: '睡到自然醒从容北上 · 穿越百里磕头机油田 · 傍晚乌尔禾魔鬼城雅丹落日 · 宿龙谷精品酒店',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '克拉玛依龙谷精品酒店 (乌尔禾)',
