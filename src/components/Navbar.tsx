@@ -129,14 +129,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                   ? 'bg-amber-600 text-white shadow-xs'
                   : 'text-amber-800 hover:bg-amber-50'
               }`}
-              title="查看与记录行程每日实付账单（Day 1 已记账）"
+              title="查看与记录行程每日实付账单（Day 1~Day 2 已出账）"
             >
               <span>💰</span>
               <span>行程账单</span>
               <span className={`hidden sm:inline-flex text-[9px] px-1 py-0.2 rounded font-black ${
                 pageMode === 'expenses' ? 'bg-white/20 text-white' : 'bg-amber-500 text-white'
               }`}>
-                D1已出
+                D1-D2已出
               </span>
             </button>
           </div>
@@ -234,7 +234,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>💰</span>
             <span>行程账单</span>
             <span className="text-[10px] bg-amber-500 text-white px-1.5 py-0.2 rounded-full font-black">
-              D1 ¥505
+              D1-D2已出
             </span>
           </button>
         </div>

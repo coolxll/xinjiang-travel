@@ -39,7 +39,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
   onOpenPrint
 }) => {
   const [expenses, setExpenses] = useState<ExpenseItem[]>(() => getStoredExpenses());
-  const [selectedDayNumber, setSelectedDayNumber] = useState<number>(1); // 默认选中 Day 1 (9/27)
+  const [selectedDayNumber, setSelectedDayNumber] = useState<number>(2); // 默认选中 Day 2 (9/28 今日账单)
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [includeHotelInTotal, setIncludeHotelInTotal] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
@@ -316,7 +316,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                   <span>行程实时账单 · 每日在途开销看板</span>
                 </span>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-[11px] font-bold">
-                  Day 1 (9/27) 首日账单已锁定录入
+                  Day 1 & Day 2 (9/27-9/28) 账单已录入入账
                 </span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
@@ -595,6 +595,46 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <div className="font-bold text-amber-300 text-[11px] mb-0.5">⑤ 沙漠畅玩与精河</div>
                 <div className="text-white font-semibold">木特塔尔 2h+ ➔ 精河</div>
                 <div className="text-[11px] text-slate-300 mt-0.5">门票景交 ¥180 · 畅玩2h出头 · 精河路费 ¥21 & 晚餐 ¥191</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Day 2 Actual Route Track Banner (Context for Ledger) */}
+        {selectedDayNumber === 2 && (
+          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 border border-slate-700 shadow-sm space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
+              <div className="flex items-center gap-2">
+                <span className="text-base">📍</span>
+                <span className="text-xs sm:text-sm font-black text-white">
+                  D2 实际行程纪实 · 账单对应自驾足迹
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                  已跑完全程
+                </span>
+              </div>
+              <span className="text-[11px] text-slate-300">
+                精河 ➔ 中石油托里加满 ➔ G30连霍 ➔ 赛里木湖环湖 ➔ 大河宴椒麻鱼火锅 ➔ 宿赛湖城际
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">① 沿途补能加满</div>
+                <div className="text-white font-semibold">中国石油托里加油站</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">加油费 ¥360 · 启程加满燃油，保障全天自驾与赛湖环湖动力充沛</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">② 连霍高速通行</div>
+                <div className="text-white font-semibold">精河站 ➔ 最后一个收费站</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">通行费 ¥36 · 从精河进站一直到最后一个收费站，后续路段不收费</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 特色火锅晚餐</div>
+                <div className="text-white font-semibold">大河宴椒麻鱼火锅</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">实付 ¥232 · 团购券 ¥181 + 现场加项 ¥51（鸳鸯锅底/飞饼/米饭）</div>
               </div>
             </div>
           </div>

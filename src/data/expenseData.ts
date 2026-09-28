@@ -90,8 +90,8 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-2',
     date: '9/28',
     fullDate: '2026年9月28日 (周一)',
-    title: '精河 → 赛里木湖 90km 自驾环湖 · 果子沟大桥',
-    routeSummary: '连霍高速 · 顺时针自驾环湖，入住湖畔高端城际酒店',
+    title: '精河 → 连霍高速 (精河进至末站通行费¥36) → 赛里木湖环湖 · 宿赛湖城际',
+    routeSummary: '中石油托里加满¥360 · G30连霍精河进至末站¥36(后续免费) · 赛湖自驾 · 晚饭大河宴椒麻鱼火锅¥232 · 宿赛湖城际',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '赛里木湖城际酒店',
@@ -344,10 +344,84 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     payer: '同行人（姐姐妹妹）',
     excludeFromSplit: true,
     treatBy: '同行人（姐姐妹妹）'
+  },
+  {
+    id: 'exp-d2-gas',
+    dayNumber: 2,
+    dayId: 'day-2',
+    date: '9/28',
+    title: '加油费（中国石油托里加油站）',
+    category: 'supplies',
+    amount: 360,
+    paymentMethod: '中石油加油/微信扫码',
+    location: '中国石油托里加油站',
+    note: '自驾启程补能加满油箱，保障全天自驾与赛里木湖环湖动力充沛',
+    splitCount: 4,
+    perPerson: 90,
+    time: '12:30',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d2-toll',
+    dayNumber: 2,
+    dayId: 'day-2',
+    date: '9/28',
+    title: '车辆通行费（G30 连霍高速）',
+    category: 'transport',
+    amount: 36,
+    paymentMethod: 'ETC/高速缴费',
+    location: 'G30 连霍高速（精河站 ➔ 最后一个收费站）',
+    note: '从精河进站一直到最后一个收费站，通行费 ¥36.00，后续路段不收费',
+    splitCount: 4,
+    perPerson: 9,
+    time: '14:20',
+    payer: '团队公费/ETC'
+  },
+  {
+    id: 'exp-d2-dinner',
+    dayNumber: 2,
+    dayId: 'day-2',
+    date: '9/28',
+    title: '晚饭（大河宴椒麻鱼火锅）',
+    category: 'dining',
+    amount: 232,
+    paymentMethod: '团购券 + 现场加单',
+    location: '大河宴椒麻鱼火锅',
+    note: '晚饭品尝大河宴椒麻鱼火锅：团购券 ¥181 + 现场额外加项 ¥51（鸳鸯锅底 ¥20 + 飞饼 ¥28 + 米饭 ¥3），实付共 ¥232',
+    splitCount: 4,
+    perPerson: 58,
+    time: '19:40',
+    payer: '团队公费',
+    subItems: [
+      {
+        id: 'sub-d2-1',
+        name: '大河宴椒麻鱼火锅团购券',
+        amount: 181,
+        note: '椒麻鱼火锅特色特惠团购套餐'
+      },
+      {
+        id: 'sub-d2-2',
+        name: '现场加项：鸳鸯火锅锅底',
+        amount: 20,
+        note: '鸳鸯双味锅底'
+      },
+      {
+        id: 'sub-d2-3',
+        name: '现场加项：飞饼',
+        amount: 28,
+        note: '现做香酥特色飞饼'
+      },
+      {
+        id: 'sub-d2-4',
+        name: '现场加项：米饭',
+        amount: 3,
+        note: '米饭 3 元'
+      }
+    ]
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v4';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v5';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;

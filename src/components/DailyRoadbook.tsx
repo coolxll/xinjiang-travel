@@ -443,6 +443,50 @@ export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({
                       </div>
                     )}
 
+                    {/* Day 2 Expense Notice Banner */}
+                    {day.dayNumber === 2 && (
+                      <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+                        <div className="flex items-start gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-black text-lg flex-shrink-0 shadow-xs">
+                            💰
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-black text-amber-900">
+                                今日实付账单已录入入账 (Day 2 · 9/28)
+                              </span>
+                              <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 font-extrabold">
+                                团队分摊 ¥628.00 ｜ 4人AA ¥157.00/人
+                              </span>
+                            </div>
+                            <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+                              中石油托里加油站加满 ¥360 · G30连霍精河进至末站通行费 ¥36（后续不收费） · 晚饭大河宴椒麻鱼火锅 ¥232（团购券 ¥181 + 鸳鸯锅底/飞饼/米饭 ¥51）
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 self-end sm:self-auto flex-shrink-0">
+                          <div className="text-right">
+                            <div className="text-base font-black text-amber-900">¥628.00</div>
+                            <div className="text-[11px] font-bold text-amber-700">4人AA: ¥157.00/人</div>
+                          </div>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (onOpenExpenses) {
+                                onOpenExpenses();
+                              } else {
+                                window.location.hash = 'expenses';
+                              }
+                            }}
+                            className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs whitespace-nowrap transition-colors"
+                          >
+                            查看完整账单 ➔
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Feature: Day Actual Travel Track Timeline (if present) */}
                     {day.actualDayLog && (
                       <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 border border-slate-700/80 shadow-md space-y-4">
