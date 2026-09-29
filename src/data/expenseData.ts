@@ -556,3 +556,61 @@ export function resetToDefaultExpenses(): ExpenseItem[] {
   }
   return INITIAL_EXPENSE_ITEMS;
 }
+
+export interface ExpenseSummaryMeta {
+  billedDayNumbers: number[];
+  minDay: number;
+  maxDay: number;
+  badgeText: string;
+  shortRange: string;
+  dayRangeText: string;
+  titleDesc: string;
+  summaryBannerText: string;
+  totalAmount: number;
+  perPerson: number;
+}
+
+export function getExpenseSummaryMeta(items: ExpenseItem[] = INITIAL_EXPENSE_ITEMS): ExpenseSummaryMeta {
+  const billedDayNumbers = Array.from(new Set(items.map((i) => i.dayNumber)))
+    .filter((d) => d > 0)
+    .sort((a, b) => a - b);
+
+  const totalAmount = items.reduce((sum, item) => sum + (item.amount || 0), 0);
+  const perPerson = totalAmount / 4;
+
+  if (billedDayNumbers.length === 0) {
+    return {
+      billedDayNumbers: [],
+      minDay: 0,
+      maxDay: 0,
+      badgeText: '暂无账单',
+      shortRange: '',
+      dayRangeText: '',
+      titleDesc: '查看行程实付账单',
+      summaryBannerText: '暂无出账记录',
+      totalAmount: 0,
+      perPerson: 0,
+    };
+  }
+
+  const minDay = billedDayNumbers[0];
+  const maxDay = billedDayNumbers[billedDayNumbers.length - 1];
+  const shortRange = minDay === maxDay ? `D${minDay}` : `D${minDay}-D${maxDay}`;
+  const dayRangeText = minDay === maxDay ? `Day ${minDay}` : `Day ${minDay}~Day ${maxDay}`;
+  const badgeText = `${shortRange}已出`;
+
+  return {
+    billedDayNumbers,
+    minDay,
+    maxDay,
+    badgeText,
+    shortRange,
+    dayRangeText,
+    titleDesc: `查看与记录行程每日实付账单（${dayRangeText} 已出账）`,
+    summaryBannerText: `${dayRangeText} 账单已入账 · 4人团队实付 ¥${totalAmount.toFixed(2)} (人均 ¥${perPerson.toFixed(2)})`,
+    totalAmount,
+    perPerson,
+  };
+}
+
+export const CURRENT_EXPENSE_META = getExpenseSummaryMeta();

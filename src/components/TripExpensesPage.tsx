@@ -8,7 +8,8 @@ import {
   EXPENSE_CATEGORIES_CONFIG, 
   getStoredExpenses, 
   saveStoredExpenses, 
-  resetToDefaultExpenses 
+  resetToDefaultExpenses,
+  CURRENT_EXPENSE_META
 } from '../data/expenseData';
 import { 
   ArrowLeft, 
@@ -39,7 +40,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
   onOpenPrint
 }) => {
   const [expenses, setExpenses] = useState<ExpenseItem[]>(() => getStoredExpenses());
-  const [selectedDayNumber, setSelectedDayNumber] = useState<number>(3); // 默认选中 Day 3 (9/29 今日账单)
+  const [selectedDayNumber, setSelectedDayNumber] = useState<number>(() => CURRENT_EXPENSE_META.maxDay || 1);
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [includeHotelInTotal, setIncludeHotelInTotal] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
