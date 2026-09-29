@@ -105,8 +105,8 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-3',
     date: '9/29',
     fullDate: '2026年9月29日 (周二)',
-    title: '赛里木湖 (睡够出发) → 独山子午餐 → 独山子大峡谷 → 奎屯市',
-    routeSummary: '睡够不设闹钟 · 10:30连霍G30 · 独山子城区午餐 · 独山子大峡谷(门票30/人) · 可选独库零公里 · 宿奎屯星程',
+    title: '赛里木湖 → 托托服务区加油 → 独山子(独库博物馆+手抓饭) → 泥火山 → 奎屯市',
+    routeSummary: '11点赛湖出发 · 托托服务区兵团石油加¥200 · 奎屯通行费¥105 · 独库公路博物馆 · 市区手抓饭加肉¥140 · 泥火山全员满意 · 晚间滴滴¥7.7+小吃¥20',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '星程奎屯体育中心西公园酒店',
@@ -418,10 +418,106 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
         note: '米饭 3 元'
       }
     ]
+  },
+  {
+    id: 'exp-d3-toll',
+    dayNumber: 3,
+    dayId: 'day-3',
+    date: '9/29',
+    title: '车辆通行费（赛里木湖至奎屯出口）',
+    category: 'transport',
+    amount: 105,
+    paymentMethod: 'ETC/高速缴费',
+    location: 'G30 连霍高速（赛里木湖站 ➔ 奎屯出口）',
+    note: '早 11:00 离开赛湖城际酒店后沿 G30 连霍高速一路向东至奎屯出口高速路通行费 ¥105.00',
+    splitCount: 4,
+    perPerson: 26.25,
+    time: '14:10',
+    payer: '团队公费/ETC'
+  },
+  {
+    id: 'exp-d3-gas',
+    dayNumber: 3,
+    dayId: 'day-3',
+    date: '9/29',
+    title: '加油费（托托服务区 · 兵团石油）',
+    category: 'supplies',
+    amount: 200,
+    paymentMethod: '兵团石油/微信扫码',
+    location: 'G30 连霍高速托托服务区（兵团石油）',
+    note: '途中停靠连霍高速托托服务区休整，兵团石油加油 ¥200.00，保障全车后续动力充沛',
+    splitCount: 4,
+    perPerson: 50,
+    time: '12:45',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d3-lunch',
+    dayNumber: 3,
+    dayId: 'day-3',
+    date: '9/29',
+    title: '下午饭（独山子市区羊肉手抓饭 4 碗配烤串）',
+    category: 'dining',
+    amount: 120,
+    paymentMethod: '微信/支付宝扫码',
+    location: '独山子市区特色餐厅',
+    note: '在独山子市区享用下午饭：4 碗热气腾腾的羊肉手抓饭（¥30/碗，共 ¥120.00），搭配烤羊肉串',
+    splitCount: 4,
+    perPerson: 30,
+    time: '15:10',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d3-extra-mutton',
+    dayNumber: 3,
+    dayId: 'day-3',
+    date: '9/29',
+    title: '加羊肉（手抓饭加肉）',
+    category: 'dining',
+    amount: 20,
+    paymentMethod: '现场扫码加单',
+    location: '独山子市区特色餐厅',
+    note: '下午吃手抓饭现场额外加单优质羊肉一份 ¥20.00，肉香浓郁分量足',
+    splitCount: 4,
+    perPerson: 5,
+    time: '15:20',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d3-didi',
+    dayNumber: 3,
+    dayId: 'day-3',
+    date: '9/29',
+    title: '晚间交通（滴滴快车）',
+    category: 'transport',
+    amount: 7.7,
+    paymentMethod: '滴滴出行/线上支付',
+    location: '奎屯市区 (星程酒店 ➔ 商业街)',
+    note: '晚间在奎屯市区出行前往商圈夜市打滴滴快车费用 ¥7.70',
+    splitCount: 4,
+    perPerson: 1.925,
+    time: '20:15',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d3-snack',
+    dayNumber: 3,
+    dayId: 'day-3',
+    date: '9/29',
+    title: '特色小吃（奎屯商圈）',
+    category: 'dining',
+    amount: 20,
+    paymentMethod: '现场扫码支付',
+    location: '奎屯商业街夜市',
+    note: '晚间在奎屯商圈品尝当地特色风味小吃 ¥20.00',
+    splitCount: 4,
+    perPerson: 5,
+    time: '20:45',
+    payer: '团队公费'
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v5';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v6';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;

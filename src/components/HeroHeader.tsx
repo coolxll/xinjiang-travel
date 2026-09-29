@@ -58,9 +58,9 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({
                 <button
                   onClick={onExploreExpenses}
                   className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold shadow-md transition-all"
-                  title="查看 Day 1~Day 2 实时出账与 4 人 AA 明细"
+                  title="查看 Day 1~Day 3 实时出账与 4 人 AA 明细"
                 >
-                  <span>💰 今日账单 (D1-D2已出)</span>
+                  <span>💰 今日账单 (D1-D3已出)</span>
                 </button>
               )}
 

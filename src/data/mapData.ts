@@ -244,16 +244,16 @@ export const mapDaySchedules: MapDaySchedule[] = [
     key: 'day-3',
     dayNumber: 3,
     date: '9/29',
-    shortLabel: 'D3 独山子峡谷',
-    title: '赛里木湖 → 独山子午餐/大峡谷 → 宿奎屯星程',
-    routeLabel: '模块A北上中继 ｜ 连霍G30 ｜ 独山子大峡谷 ｜ 宿奎屯商圈',
+    shortLabel: 'D3 独库&泥火山',
+    title: '赛里木湖 → 托托服务区加油 → 独山子(独库博物馆+抓饭) → 泥火山 → 奎屯',
+    routeLabel: '模块A北上中继 ｜ 连霍G30 ｜ 独库博物馆 ｜ 泥火山 ｜ 宿奎屯星程',
     roadName: 'G30 连霍高速',
-    distanceKm: 350,
-    durationText: '高速约3.5h + 峡谷2h',
+    distanceKm: 340,
+    durationText: '高速约3.5h + 游览3.5h',
     activePointIds: [3, 5],
     isScenicStay: false,
-    bounds: [[44.30, 81.10], [44.70, 85.00]],
-    description: '睡够不设闹钟，10:30连霍向东，独山子地道午餐，下午专攻独山子大峡谷亿年裂缝，傍晚入住奎屯星程。'
+    bounds: [[44.20, 81.10], [44.75, 85.00]],
+    description: '11点赛湖睡饱出发，托托服务区加油，独山子参观独库公路博物馆，品尝地道羊肉抓饭加肉，泥火山喷涌奇观全员满意，宿奎屯。'
   },
   {
     key: 'day-4',

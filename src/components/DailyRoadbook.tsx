@@ -487,6 +487,50 @@ export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({
                       </div>
                     )}
 
+                    {/* Day 3 Expense Notice Banner */}
+                    {day.dayNumber === 3 && (
+                      <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+                        <div className="flex items-start gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-black text-lg flex-shrink-0 shadow-xs">
+                            💰
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-black text-amber-900">
+                                今日实付账单已录入入账 (Day 3 · 9/29)
+                              </span>
+                              <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 font-extrabold">
+                                团队分摊 ¥472.70 ｜ 4人AA ¥118.18/人
+                              </span>
+                            </div>
+                            <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+                              赛湖至奎屯高速路费 ¥105 · 托托服务区兵团石油加油 ¥200 · 独山子下午羊肉抓饭 ¥120 + 加羊肉 ¥20 · 晚间滴滴快车 ¥7.7 · 奎屯特色小吃 ¥20
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 self-end sm:self-auto flex-shrink-0">
+                          <div className="text-right">
+                            <div className="text-base font-black text-amber-900">¥472.70</div>
+                            <div className="text-[11px] font-bold text-amber-700">4人AA: ¥118.18/人</div>
+                          </div>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (onOpenExpenses) {
+                                onOpenExpenses();
+                              } else {
+                                window.location.hash = 'expenses';
+                              }
+                            }}
+                            className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs whitespace-nowrap transition-colors"
+                          >
+                            查看完整账单 ➔
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Day 3 Itinerary Optimization & Flexible Gears Banner */}
                     {day.dayNumber === 3 && (
                       <div className="bg-gradient-to-br from-indigo-900 via-slate-900 to-sky-950 text-white rounded-3xl p-5 sm:p-6 border border-indigo-500/40 shadow-xl space-y-5">

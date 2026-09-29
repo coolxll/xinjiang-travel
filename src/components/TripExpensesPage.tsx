@@ -39,7 +39,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
   onOpenPrint
 }) => {
   const [expenses, setExpenses] = useState<ExpenseItem[]>(() => getStoredExpenses());
-  const [selectedDayNumber, setSelectedDayNumber] = useState<number>(2); // 默认选中 Day 2 (9/28 今日账单)
+  const [selectedDayNumber, setSelectedDayNumber] = useState<number>(3); // 默认选中 Day 3 (9/29 今日账单)
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [includeHotelInTotal, setIncludeHotelInTotal] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
@@ -316,14 +316,14 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                   <span>行程实时账单 · 每日在途开销看板</span>
                 </span>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-[11px] font-bold">
-                  Day 1 & Day 2 (9/27-9/28) 账单已录入入账
+                  Day 1 - Day 3 (9/27-9/29) 账单已录入入账
                 </span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                 北疆自驾实时记账本
               </h1>
               <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                记录乌鲁木齐启程、连霍高速过路费、沙湾大盘鸡、木特塔尔沙漠门票及景交实付支出。实时核算 4 人 AA 人均分摊，支持一键复制微信对账。
+                记录乌鲁木齐启程、连霍高速过路费、沙湾大盘鸡、赛湖加满、大河宴火锅、奎屯手抓饭、泥火山及小吃实付支出。实时核算 4 人 AA 人均分摊，支持一键复制微信对账。
               </p>
             </div>
 
@@ -380,7 +380,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                     </span>
                   </div>
                   <div className="text-[11px] font-medium truncate max-w-[130px] mt-0.5">
-                    {day.dayNumber === 1 ? '精河·沙漠 (今天)' : day.dayNumber === 2 ? '赛里木湖' : day.routeSummary.slice(0, 8)}
+                    {day.dayNumber === 1 ? '精河·沙漠' : day.dayNumber === 2 ? '赛里木湖' : day.dayNumber === 3 ? '独山子·奎屯' : day.routeSummary.slice(0, 8)}
                   </div>
                   <div className="mt-1 flex items-center gap-1">
                     {dayExpCount > 0 ? (
@@ -635,6 +635,52 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 特色火锅晚餐</div>
                 <div className="text-white font-semibold">大河宴椒麻鱼火锅</div>
                 <div className="text-[11px] text-slate-300 mt-0.5">实付 ¥232 · 团购券 ¥181 + 现场加项 ¥51（鸳鸯锅底/飞饼/米饭）</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Day 3 Actual Route Track Banner (Context for Ledger) */}
+        {selectedDayNumber === 3 && (
+          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 border border-slate-700 shadow-sm space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
+              <div className="flex items-center gap-2">
+                <span className="text-base">📍</span>
+                <span className="text-xs sm:text-sm font-black text-white">
+                  D3 实际行程纪实 · 账单对应自驾足迹
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                  已跑完全程
+                </span>
+              </div>
+              <span className="text-[11px] text-slate-300">
+                赛里木湖 ➔ 托托服务区加油 ➔ G30连霍 ➔ 独山子独库公路博物馆 ➔ 市区手抓饭 ➔ 泥火山 ➔ 宿奎屯星程
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">① 连霍通行与补能</div>
+                <div className="text-white font-semibold">通行费 ¥105 · 加油 ¥200</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">11点赛湖出发，托托服务区兵团石油加油¥200；赛湖至奎屯出口通行费¥105</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">② 独库博物馆寻味</div>
+                <div className="text-white font-semibold">独山子市区羊肉抓饭</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">先到独库博物馆周边未果，进市区享用4碗羊肉抓饭¥120+加肉¥20配烤串</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 独库史诗与泥火山</div>
+                <div className="text-white font-semibold">英雄史诗 + 泥浆喷涌</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">饭后回馆继续参观感悟筑路精神；随后畅游泥火山地质奇观，全员非常满意！</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">④ 宿奎屯商圈夜游</div>
+                <div className="text-white font-semibold">星程入住 · 滴滴快车</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">入住奎屯星程酒店，晚间打滴滴快车¥7.7前往商圈夜市品尝特色小吃¥20</div>
               </div>
             </div>
           </div>
