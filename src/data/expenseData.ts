@@ -120,8 +120,8 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-4',
     date: '9/30',
     fullDate: '2026年9月30日 (周三)',
-    title: '奎屯 (睡到自然醒) → 百里油田公路 → 乌尔禾魔鬼城 (落日金光)',
-    routeSummary: '睡到自然醒从容北上 · 穿越百里磕头机油田 · 傍晚乌尔禾魔鬼城雅丹落日 · 宿龙谷精品酒店',
+    title: '奎屯 → 克拉玛依(大油泡/克一号井) → 百里油区 → 纪氏影视城野生魔鬼城 → 玛纳斯湖捡玉 → 宿乌尔禾龙谷',
+    routeSummary: '克一号井大油泡 · 广场午餐¥175 · 百里油区远眺 · 探秘野生魔鬼城 · 玛纳斯湖戈壁捡金丝玉 · 车辆加油¥336 · 晚饭羊肉羊杂汤¥179 · 宿乌尔禾龙谷',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '克拉玛依龙谷精品酒店 (乌尔禾)',
@@ -514,10 +514,58 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     perPerson: 5,
     time: '20:45',
     payer: '团队公费'
+  },
+  {
+    id: 'exp-d4-lunch',
+    dayNumber: 4,
+    dayId: 'day-4',
+    date: '9/30',
+    title: '午餐（克拉玛依老城区清真餐厅）',
+    category: 'dining',
+    amount: 175,
+    paymentMethod: '微信/支付宝扫码',
+    location: '克拉玛依市 · 克一号井周边清真餐厅',
+    note: '参观克一号井与大油泡后在周边特色餐厅享用午餐：手抓羊排、羊肉串与酸梅汤，实付 ¥175.00',
+    splitCount: 4,
+    perPerson: 43.75,
+    time: '13:00',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d4-gas',
+    dayNumber: 4,
+    dayId: 'day-4',
+    date: '9/30',
+    title: '车辆加油（备战北上阿勒泰）',
+    category: 'supplies',
+    amount: 336,
+    paymentMethod: '微信/加油卡扫码',
+    location: '克拉玛依/乌尔禾加油站',
+    note: '全天自驾百里油区与外围雅丹后加满油箱，备战次日北上布尔津与阿尔泰山区，实付 ¥336.00',
+    splitCount: 4,
+    perPerson: 84,
+    time: '17:15',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d4-dinner',
+    dayNumber: 4,
+    dayId: 'day-4',
+    date: '9/30',
+    title: '晚餐（乌尔禾羊杂汤+羊肉汤配馕）',
+    category: 'dining',
+    amount: 179,
+    paymentMethod: '微信/支付宝扫码',
+    location: '乌尔禾区 · 龙谷精品酒店周边风味餐厅',
+    note: '野生魔鬼城捡玉与拍日落后返回乌尔禾入住，在酒店周边品尝热气腾腾羊杂汤、羊肉汤配现烤香馕，实付 ¥179.00',
+    splitCount: 4,
+    perPerson: 44.75,
+    time: '20:30',
+    payer: '团队公费'
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v6';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v7';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;

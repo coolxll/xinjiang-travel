@@ -420,6 +420,49 @@ export const StandaloneRoadbookPage: React.FC<StandaloneRoadbookPageProps> = ({
                 </div>
               )}
 
+              {/* Day 4 Real Expense Notice Banner */}
+              {activeDay.dayNumber === 4 && (
+                <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-black text-xl flex-shrink-0 shadow-xs">
+                      💰
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-black text-amber-900">
+                          Day 4 今日行程实付账单已录入入账
+                        </span>
+                        <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-200 text-amber-900 font-extrabold">
+                          团队分摊 ¥690.00 ｜ 4人AA ¥172.50/人
+                        </span>
+                      </div>
+                      <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+                        包含克一号井周边清真午餐 ¥175、车辆加油加满 ¥336（备战北上阿勒泰）、乌尔禾晚饭羊杂汤/羊肉汤配现烤香馕 ¥179。
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 self-end sm:self-auto flex-shrink-0">
+                    <div className="text-right">
+                      <div className="text-lg font-black text-amber-900">¥690.00</div>
+                      <div className="text-xs font-bold text-amber-700">4人AA: ¥172.50/人</div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        if (onOpenExpenses) {
+                          onOpenExpenses();
+                        } else {
+                          window.location.hash = 'expenses';
+                        }
+                      }}
+                      className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold shadow-xs whitespace-nowrap transition-colors"
+                    >
+                      查看完整对账单 ➔
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {/* Day 3 Itinerary Optimization & Flexible Gears Banner */}
               {activeDay.dayNumber === 3 && (
                 <div className="bg-gradient-to-br from-indigo-900 via-slate-900 to-sky-950 text-white rounded-3xl p-5 sm:p-6 border border-indigo-500/40 shadow-xl space-y-5">
