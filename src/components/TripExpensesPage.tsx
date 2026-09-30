@@ -687,6 +687,58 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
           </div>
         )}
 
+        {/* Day 4 Actual Route Track Banner (Context for Ledger) */}
+        {selectedDayNumber === 4 && (
+          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 border border-slate-700 shadow-sm space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
+              <div className="flex items-center gap-2">
+                <span className="text-base">📍</span>
+                <span className="text-xs sm:text-sm font-black text-white">
+                  D4 实际行程纪实 · 账单对应自驾足迹
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                  已跑完全程
+                </span>
+              </div>
+              <span className="text-[11px] text-slate-300">
+                奎屯 ➔ 克一号井/大油泡 ➔ 午餐羊排烤串 ➔ 百里油区远眺 ➔ 野生魔鬼城 ➔ 玛纳斯湖捡玉 ➔ 荒野胡杨 ➔ 宿乌尔禾
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 text-xs">
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">① 克一号井与大油泡</div>
+                <div className="text-white font-semibold">石油建城历史原点</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">打卡大油泡雕塑与荒原第一井，深度感受石油工业建城史诗</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">② 广场午餐与慢节奏</div>
+                <div className="text-white font-semibold">手抓羊排 · 烤串酸梅汤</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">广场周边清真餐厅慢品地道风味，等待上菜间印证点评参考逻辑</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 油田远眺与魔鬼城</div>
+                <div className="text-white font-semibold">拒绝硬爬坡 · 正门合影</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">百里油田台下拍照；世界魔鬼城正门眼睛合影后不进景区化流程</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">④ 野性寻石金丝玉</div>
+                <div className="text-white font-semibold">玛纳斯湖方向 · 迅速撤离</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">玛131井坑洼果断调头，玛纳斯湖方向成功捡金丝玉后幽默撤离</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">⑤ 孤勇胡杨与羊杂汤</div>
+                <div className="text-white font-semibold">荒野单株胡杨 · 龙谷入住</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">日落邂逅孤独胡杨大片，晚间乌尔禾入住享用羊杂汤/羊肉汤配馕</div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* 5. Expense Items Detail List */}
         <div className="space-y-3">
           <div className="flex items-center justify-between px-1">
