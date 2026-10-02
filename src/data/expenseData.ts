@@ -135,12 +135,12 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-5',
     date: '10/1',
     fullDate: '2026年10月1日 (周四 · 国庆首日)',
-    title: '乌尔禾 → 逆向避峰布尔津/冲乎尔小镇',
-    routeSummary: '国庆首日逆向错峰，入住冲乎尔特色木屋民宿，为喀纳斯蓄力',
+    title: '乌尔禾(野生胡杨/野生魔鬼城) → 奎阿高速直达 → 布尔津美食街(冷水鱼) → 五彩滩雅丹落日 → 宿冲乎尔怡然居',
+    routeSummary: '四十九丸子汤早餐¥96 · 加油¥200 · 美食街冷水鱼¥159 · 美团五彩滩门票¥172 · 毕马宴快餐晚饭¥248 · 超市便利¥82 · 宿冲乎尔怡然居',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '布尔津冲乎尔怡然居民宿',
-      roomType: '品质标间 2间',
+      roomType: '舒适客房 2间',
       cost: 395.00,
       payType: '已在线支付'
     }
@@ -562,10 +562,106 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     perPerson: 44.75,
     time: '20:30',
     payer: '团队公费'
+  },
+  {
+    id: 'exp-d5-breakfast',
+    dayNumber: 5,
+    dayId: 'day-5',
+    date: '10/1',
+    title: '早饭（四十九丸子汤）',
+    category: 'dining',
+    amount: 96,
+    paymentMethod: '微信/支付宝扫码',
+    location: '乌尔禾区 · 四十九丸子汤',
+    note: '出发前享用新疆著名特色早餐四十九丸子汤，热汤暖胃能量充沛，4人早餐实付 ¥96.00',
+    splitCount: 4,
+    perPerson: 24,
+    time: '09:15',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d5-gas',
+    dayNumber: 5,
+    dayId: 'day-5',
+    date: '10/1',
+    title: '途中加油补能',
+    category: 'supplies',
+    amount: 200,
+    paymentMethod: '微信/加油卡扫码',
+    location: 'G3014 奎阿高速沿途加油站',
+    note: '北上布尔津途中加油站补充燃油 ¥200.00，保障后续山区与盘山公路动力充足',
+    splitCount: 4,
+    perPerson: 50,
+    time: '13:45',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d5-fish',
+    dayNumber: 5,
+    dayId: 'day-5',
+    date: '10/1',
+    title: '布尔津特色冷水鱼（烤狗头鱼）',
+    category: 'dining',
+    amount: 159,
+    paymentMethod: '微信/支付宝扫码',
+    location: '布尔津县城 · 额河烤鱼美食街',
+    note: '抵布尔津美食街品尝著名额尔齐斯河冷水鱼、烤狗头鱼（狗鱼），外焦里嫩肉质鲜美，实付 ¥159.00',
+    splitCount: 4,
+    perPerson: 39.75,
+    time: '16:40',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d5-wucaitan-tickets',
+    dayNumber: 5,
+    dayId: 'day-5',
+    date: '10/1',
+    title: '五彩滩景区门票（4人美团购票）',
+    category: 'tickets',
+    amount: 172,
+    paymentMethod: '美团线上支付',
+    location: '布尔津五彩滩风景区',
+    note: '通过美团线上购买五彩滩景区门票 4 张（单人特惠价 ¥43.00/人），免去现场排队畅玩至晚 20:00 落日，实付 ¥172.00',
+    splitCount: 4,
+    perPerson: 43,
+    time: '17:35',
+    payer: '美团线上/公费'
+  },
+  {
+    id: 'exp-d5-dinner',
+    dayNumber: 5,
+    dayId: 'day-5',
+    date: '10/1',
+    title: '晚饭（毕马宴快餐厅）',
+    category: 'dining',
+    amount: 248,
+    paymentMethod: '微信/支付宝扫码',
+    location: '布尔津/冲乎尔镇毕马宴快餐厅',
+    note: '游览五彩滩后在毕马宴快餐厅享用丰盛晚饭，地道快餐热炒，补充全天体能，实付 ¥248.00',
+    splitCount: 4,
+    perPerson: 62,
+    time: '20:30',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d5-supplies',
+    dayNumber: 5,
+    dayId: 'day-5',
+    date: '10/1',
+    title: '超市便利与随车用品采购',
+    category: 'supplies',
+    amount: 82,
+    paymentMethod: '微信/支付宝扫码',
+    location: '布尔津/冲乎尔镇便利超市',
+    note: '进山前在超市采购矿泉水、零食、纸巾及随车便利用品，备战次日喀纳斯徒步，实付 ¥82.00',
+    splitCount: 4,
+    perPerson: 20.5,
+    time: '21:15',
+    payer: '团队公费'
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v7';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v8';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;
