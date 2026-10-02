@@ -155,7 +155,7 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     stayText: '10/1 14:00后入住 ➔ 10/2 12:00前退房 (1晚)',
     cityRegion: '阿勒泰地区布尔津县冲乎尔镇 (阿尔泰山脚门户)',
     status: 'confirmed',
-    statusBadge: '✅ 预订成功 (待入住 · 避峰神站)',
+    statusBadge: '✅ 已入住 (避峰神站 · 冲乎尔)',
     hotelName: '布尔津冲乎尔怡然居民宿',
     brand: '乡村特色精品民宿',
     roomType: '舒适客房 2间 (1间¥175 + 1间¥220 · 4人入住)',

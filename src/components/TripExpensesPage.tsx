@@ -739,6 +739,52 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
           </div>
         )}
 
+        {/* Day 5 Actual Route Track Banner (Context for Ledger) */}
+        {selectedDayNumber === 5 && (
+          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 border border-slate-700 shadow-sm space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
+              <div className="flex items-center gap-2">
+                <span className="text-base">📍</span>
+                <span className="text-xs sm:text-sm font-black text-white">
+                  D5 实际行程纪实 · 账单对应自驾足迹
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                  已跑完全程
+                </span>
+              </div>
+              <span className="text-[11px] text-slate-300">
+                乌尔禾野生胡杨/魔鬼城 ➔ 13点奎阿北上 ➔ 布尔津冷水鱼 ➔ 美团五彩滩至20点 ➔ 宿冲乎尔怡然居
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">① 乌尔禾野性驰骋</div>
+                <div className="text-white font-semibold">野生胡杨林 · 野生魔鬼城</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">上午探秘原始胡杨林，开着捷途在野生雅丹戈壁滩上跑圈驰骋</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">② 13点北上布尔津</div>
+                <div className="text-white font-semibold">奎阿直达 · 放弃福海</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">下午1点出发，时间不宽裕果断放弃乌伦古湖，主线直达布尔津</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 美食街冷水鱼狗头鱼</div>
+                <div className="text-white font-semibold">美食街逛吃 · 边城烟火</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">抵布尔津美食街品尝额河冷水鱼与烤狗头鱼，街巷悠闲散步</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">④ 美团五彩滩至20点</div>
+                <div className="text-white font-semibold">一河隔两岸 ➔ 宿怡然居</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">美团购票畅玩至20点夕阳，随后夜开S232进驻冲乎尔怡然居民宿</div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* 5. Expense Items Detail List */}
         <div className="space-y-3">
           <div className="flex items-center justify-between px-1">
