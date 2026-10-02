@@ -317,14 +317,14 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                   <span>行程实时账单 · 每日在途开销看板</span>
                 </span>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-[11px] font-bold">
-                  Day 1 - Day 3 (9/27-9/29) 账单已录入入账
+                  {CURRENT_EXPENSE_META.dayRangeText} 账单已录入入账
                 </span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                 北疆自驾实时记账本
               </h1>
               <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                记录乌鲁木齐启程、连霍高速过路费、沙湾大盘鸡、赛湖加满、大河宴火锅、奎屯手抓饭、泥火山及小吃实付支出。实时核算 4 人 AA 人均分摊，支持一键复制微信对账。
+                记录乌市启程、连霍高速过路费、沙湾大盘鸡、赛湖加油、大河宴火锅、奎屯手抓饭、泥火山、克一号井、五彩滩冷水鱼及喀纳斯停车餐饮实付支出。实时核算 4 人 AA 人均分摊，支持一键复制微信对账。
               </p>
             </div>
 
@@ -381,7 +381,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                     </span>
                   </div>
                   <div className="text-[11px] font-medium truncate max-w-[130px] mt-0.5">
-                    {day.dayNumber === 1 ? '精河·沙漠' : day.dayNumber === 2 ? '赛里木湖' : day.dayNumber === 3 ? '独山子·奎屯' : day.routeSummary.slice(0, 8)}
+                    {day.dayNumber === 1 ? '精河·沙漠' : day.dayNumber === 2 ? '赛里木湖' : day.dayNumber === 3 ? '独山子·奎屯' : day.dayNumber === 4 ? '油田·魔鬼城' : day.dayNumber === 5 ? '五彩滩·冲乎尔' : day.dayNumber === 6 ? '喀纳斯·冲乎尔' : day.routeSummary.slice(0, 8)}
                   </div>
                   <div className="mt-1 flex items-center gap-1">
                     {dayExpCount > 0 ? (
@@ -780,6 +780,52 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <div className="font-bold text-amber-300 text-[11px] mb-0.5">④ 美团五彩滩至20点</div>
                 <div className="text-white font-semibold">一河隔两岸 ➔ 宿怡然居</div>
                 <div className="text-[11px] text-slate-300 mt-0.5">美团购票畅玩至20点夕阳，随后夜开S232进驻冲乎尔怡然居民宿</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Day 6 Actual Route Track Banner (Context for Ledger) */}
+        {selectedDayNumber === 6 && (
+          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 border border-slate-700 shadow-sm space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
+              <div className="flex items-center gap-2">
+                <span className="text-base">📍</span>
+                <span className="text-xs sm:text-sm font-black text-white">
+                  D6 实际行程纪实 · 账单对应自驾足迹
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                  已跑完全程 · 怒省¥2289
+                </span>
+              </div>
+              <span className="text-[11px] text-slate-300">
+                冲乎尔早饭 ➔ 贾登峪停车 ➔ 喀纳斯核心三湾与湖区 ➔ 退贾登峪换冲乎尔 ➔ 宿望山/奇在独一
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">① 冲乎尔晨光补给</div>
+                <div className="text-white font-semibold">早饭 ¥61 · 1h进山</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">清晨在冲乎尔享用热腾腾早餐¥61，沿S232平稳开往贾登峪，路程仅70km</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">② 贾登峪换乘中心</div>
+                <div className="text-white font-semibold">停车费 ¥20 · 无痛进园</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">捷途停放换乘中心停车场（全天¥20），大行李留车内，换乘区间车刷证入园</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 喀纳斯核心三湾湖区</div>
+                <div className="text-white font-semibold">神仙湾 · 月亮湾 · 卧龙湾</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">深度游览三湾翡翠变色水波与金秋彩林，漫步湖边木栈道，大饱眼福</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">④ 退贾登峪住冲乎尔</div>
+                <div className="text-white font-semibold">怒省¥2289 · 晚饭¥231</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">退订原贾登峪天价房(原¥2778)，下山住望山(¥270)+奇在独一(¥219)，实付¥489省¥2289！晚餐¥231</div>
               </div>
             </div>
           </div>

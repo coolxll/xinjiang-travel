@@ -13,7 +13,7 @@ export interface DailyHotelBooking {
   roomType: string;
   roomCount: number;
   totalCost?: number;
-  payType?: '到店付' | '已在线支付' | '住完再付' | '离店后付' | '待预订';
+  payType?: '到店付' | '已在线支付' | '住完再付' | '离店后付' | '待预订' | '已现场结清';
   avgPricePerRoom?: number;
   cancellationPolicy?: string;
   freeCancelDeadline?: string;
@@ -175,24 +175,24 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     nightIndex: 6,
     date: '10/2',
     fullDate: '2026年10月2日 (周五)',
-    stayText: '10/2 14:00后入住 ➔ 10/3 12:00前退房 (1晚)',
-    cityRegion: '喀纳斯景区大门 · 贾登峪综合服务区',
+    stayText: '10/2 18:00后入住 ➔ 10/3 12:00前退房 (1晚)',
+    cityRegion: '阿勒泰地区布尔津县冲乎尔镇 (山脚连住 · 绝妙避坑)',
     status: 'confirmed',
-    statusBadge: '✅ 预订成功 (待入住 · 仅住1晚)',
-    hotelName: '喀纳斯生态度假酒店',
-    brand: '喀纳斯高品质生态度假区 (新疆美景酒店榜 No.17)',
-    roomType: '舒适度假客房 2间 (4人入住)',
+    statusBadge: '✅ 已入住 (退贾登峪换冲乎尔 · 怒省¥2289)',
+    hotelName: '布尔津县望山民宿(¥270) + 布尔津奇在独一民宿(¥219)',
+    brand: '冲乎尔小镇特色精品民宿',
+    roomType: '特色客房 2间 (望山民宿¥270 + 奇在独一民宿¥219 · 4人入住)',
     roomCount: 2,
-    totalCost: 2778.00,
-    payType: '离店后付',
-    avgPricePerRoom: 1389.00,
-    cancellationPolicy: '09月29日 23:59 前可免费取消 (23:59后不可取消或修改)',
-    freeCancelDeadline: '2026-09-29 23:59',
-    address: '新疆维吾尔自治区阿勒泰地区布尔津县喀纳斯贾登峪综合服务区',
-    notes: '【步骤 4: 贾登峪住一晚 · 仅住1晚 · 官方已锁定】：已通过飞猪信用住锁定喀纳斯生态度假酒店 2 间（实付 ¥2,778，单间 ¥1,389，离店后付）。【注意免取节点】：09/29 23:59 前可免费取消。全天深度畅游喀纳斯三湾与湖区，傍晚出景区直接入住贾登峪。坚决不住村内动辄 2500+/间且漏风的老木屋，大行李留车内，次日一早直接开车上禾贾公路顺接阿禾天路！',
-    features: ['新疆美景酒店榜 No.17', '出景区大门直达酒店', '暖气充足+24h热水独立卫浴', '大行李留在自驾车后备箱极轻松', '次日无缝驶上禾贾与阿禾天路'],
-    bookingChannel: '飞猪官方预订 (信用住 · 离店后付)',
-    amapSearchUrl: 'https://uri.amap.com/search?keyword=喀纳斯生态度假酒店'
+    totalCost: 489.00,
+    payType: '已现场结清',
+    avgPricePerRoom: 244.50,
+    cancellationPolicy: '已到店结清入住 (原贾登峪生态度假酒店已全额退订)',
+    freeCancelDeadline: '已入住',
+    address: '新疆维吾尔自治区阿勒泰地区布尔津县冲乎尔镇',
+    notes: '【退订贾登峪天价房 · 换冲乎尔连住 · 怒省¥2289神决策】：原定贾登峪喀纳斯生态度假酒店（2间共 ¥2,778）已顺利退订！傍晚结束喀纳斯游览后驱车仅 70km（1小时）下山返回冲乎尔镇，入住布尔津县望山民宿（1间 ¥270）与布尔津奇在独一民宿（1间 ¥219），2间实付仅 ¥489.00！直接比原计划狂省 ¥2,289.00！不仅节约巨额开销，而且山脚海拔低气候更暖和、镇上特色餐饮丰富便宜，堪称全程最具性价比的英明神操作！',
+    features: ['退贾登峪换冲乎尔 · 怒省¥2289', '望山民宿¥270 + 奇在独一民宿¥219', '2间实付仅¥489 (原¥2778)', '傍晚下山仅70km舒适入住', '避开高价景区，餐饮便宜暖和'],
+    bookingChannel: '现场/平台预订已结清',
+    amapSearchUrl: 'https://uri.amap.com/search?keyword=布尔津县望山民宿'
   },
   {
     nightIndex: 7,
@@ -269,18 +269,18 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
 export const HOTEL_BOOKING_SUMMARY = {
   totalNights: 10,
   confirmedNights: 10,
-  confirmedTotalCost: 9024.32, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 2778.00 (10/2) + 1269.92 (10/3) + 498.90 (10/4) + 491.30 (10/5)
+  confirmedTotalCost: 6735.32, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 489.00 (10/2) + 1269.92 (10/3) + 498.90 (10/4) + 491.30 (10/5)
   confirmedRooms: 20,
-  estimatedTotalHotelBudget: 9024.32,
-  estimatedSavings: 11500,
+  estimatedTotalHotelBudget: 6735.32,
+  estimatedSavings: 13789,
   freeCancellationDeadlines: [
     { hotel: '星程乌鲁木齐机场迎宾路店 (9/26)', deadline: '2026-09-25 23:00', cost: 420.70 },
     { hotel: '星程精河连霍高速路口酒店 (9/27)', deadline: '2026-09-27 20:00', cost: 389.30 },
     { hotel: '赛里木湖城际酒店 (9/28)', deadline: '2026-09-28 20:00', cost: 1970.30 },
     { hotel: '星程奎屯体育中心西公园酒店 (9/29)', deadline: '2026-09-28 23:00', cost: 498.90 },
-    { hotel: '喀纳斯生态度假酒店 (10/2)', deadline: '2026-09-29 23:59', cost: 2778.00 },
     { hotel: '克拉玛依龙谷精品酒店 (9/30)', deadline: '2026-09-30 20:00', cost: 312.00 },
     { hotel: '布尔津冲乎尔怡然居民宿 (10/1)', deadline: '2026-10-01 14:00', cost: 395.00 },
+    { hotel: '冲乎尔望山民宿+奇在独一民宿 (10/2)', deadline: '已入住结清 (原贾登峪退订省¥2289)', cost: 489.00 },
     { hotel: '丽呈别院酒店阿勒泰天鹅湖店 (10/3)', deadline: '2026-10-03 18:00', cost: 1269.92 },
     { hotel: '全季昌吉东方广场酒店 (10/4)', deadline: '2026-10-03 23:00', cost: 498.90 },
     { hotel: '星程乌鲁木齐机场迎宾路店 (10/5)', deadline: '2026-10-05 20:00', cost: 491.30 }

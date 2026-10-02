@@ -150,14 +150,14 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-6',
     date: '10/2',
     fullDate: '2026年10月2日 (周五)',
-    title: '冲乎尔 → 喀纳斯核心景区 (三湾湖区晨雾) → 贾登峪',
-    routeSummary: '清晨早进景区避开排队，深度游神仙湾、月亮湾、卧龙湾',
+    title: '冲乎尔 → 喀纳斯核心三湾与湖区 → 退订贾登峪宿冲乎尔(望山/奇在独一民宿)',
+    routeSummary: '冲乎尔早餐¥61 · 贾登峪停车场停车¥20 · 畅游三湾湖区 · 退订贾登峪下山住望山+奇在独一民宿¥489(省¥2289) · 晚餐¥231',
     defaultSplitCount: 4,
     plannedHotel: {
-      name: '喀纳斯生态度假酒店 (贾登峪)',
-      roomType: '度假标准间 2间',
-      cost: 2778.00,
-      payType: '已在线支付'
+      name: '布尔津县望山民宿(¥270) + 布尔津奇在独一民宿(¥219)',
+      roomType: '特色客房 2间 (退贾登峪换冲乎尔 · 怒省¥2289)',
+      cost: 489.00,
+      payType: '已现场结清'
     }
   },
   {
@@ -658,10 +658,58 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     perPerson: 20.5,
     time: '21:15',
     payer: '团队公费'
+  },
+  {
+    id: 'exp-d6-breakfast',
+    dayNumber: 6,
+    dayId: 'day-6',
+    date: '10/2',
+    title: '冲乎尔清晨早餐 (进山前补给)',
+    category: 'dining',
+    amount: 61,
+    paymentMethod: '微信/支付宝扫码',
+    location: '布尔津县冲乎尔镇',
+    note: '清晨自驾上山前往喀纳斯前在冲乎尔镇享用热腾腾早餐，实付 ¥61.00 (4人AA ¥15.25/人)',
+    splitCount: 4,
+    perPerson: 15.25,
+    time: '08:15',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d6-parking',
+    dayNumber: 6,
+    dayId: 'day-6',
+    date: '10/2',
+    title: '贾登峪景区换乘中心停车场停车费',
+    category: 'transport',
+    amount: 20,
+    paymentMethod: '微信/扫码支付',
+    location: '喀纳斯景区贾登峪换乘中心停车场',
+    note: '捷途旅行者停放于贾登峪综合换乘中心全天停车费，实付 ¥20.00 (4人AA ¥5.00/人)',
+    splitCount: 4,
+    perPerson: 5,
+    time: '18:15',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d6-dinner',
+    dayNumber: 6,
+    dayId: 'day-6',
+    date: '10/2',
+    title: '特色晚餐 (下山暖心大餐)',
+    category: 'dining',
+    amount: 231,
+    paymentMethod: '微信/支付宝支付',
+    location: '冲乎尔镇 / 布尔津特色餐厅',
+    note: '全天游览喀纳斯核心三湾与湖区下山后，在山脚享用丰盛热腾的晚餐，实付 ¥231.00 (4人AA ¥57.75/人)',
+    splitCount: 4,
+    perPerson: 57.75,
+    time: '20:10',
+    payer: '团队公费'
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v8';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v9';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;
