@@ -165,8 +165,8 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-7',
     date: '10/3',
     fullDate: '2026年10月3日 (周六)',
-    title: '冲乎尔/贾登峪 → G681 阿禾公路 (高山天路纯自驾) → 阿勒泰市漫心酒店',
-    routeSummary: '209km 金秋景观天路直插雪都阿勒泰，美团直播特价入住漫心酒店（阿勒泰博物馆雪都汇店）',
+    title: '冲乎尔 → S232一路下坡(70km) → 布尔津特色早午餐 → G331开阔平原大道(105km) → 阿勒泰市漫心酒店',
+    routeSummary: '冲乎尔自然醒 · S232顺滑下山70km至布尔津午餐 · G331一马平川平原大道105km至阿勒泰 · 14:30入驻漫心酒店(美团直播特价)大休整',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '漫心酒店 (阿勒泰博物馆雪都汇店)',

@@ -381,7 +381,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                     </span>
                   </div>
                   <div className="text-[11px] font-medium truncate max-w-[130px] mt-0.5">
-                    {day.dayNumber === 1 ? '精河·沙漠' : day.dayNumber === 2 ? '赛里木湖' : day.dayNumber === 3 ? '独山子·奎屯' : day.dayNumber === 4 ? '油田·魔鬼城' : day.dayNumber === 5 ? '五彩滩·冲乎尔' : day.dayNumber === 6 ? '喀纳斯·冲乎尔' : day.routeSummary.slice(0, 8)}
+                    {day.dayNumber === 1 ? '精河·沙漠' : day.dayNumber === 2 ? '赛里木湖' : day.dayNumber === 3 ? '独山子·奎屯' : day.dayNumber === 4 ? '油田·魔鬼城' : day.dayNumber === 5 ? '五彩滩·冲乎尔' : day.dayNumber === 6 ? '喀纳斯·冲乎尔' : day.dayNumber === 7 ? '布尔津·阿勒泰' : day.routeSummary.slice(0, 8)}
                   </div>
                   <div className="mt-1 flex items-center gap-1">
                     {dayExpCount > 0 ? (
