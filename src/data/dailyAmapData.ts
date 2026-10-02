@@ -957,16 +957,16 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
       },
       {
         id: 'd7-hotel',
-        name: '丽呈别院酒店 (阿勒泰天鹅湖公园店) (已预订 ✅)',
+        name: '漫心酒店 (阿勒泰博物馆雪都汇店) (美团直播特价 ✅)',
         category: 'hotel',
-        categoryLabel: '官方已锁定',
+        categoryLabel: '直播特价锁定',
         icon: '🏨',
-        coords: [47.8450, 88.1350],
+        coords: [47.8420, 88.1320],
         elevation: '887m',
-        tagline: '阿勒泰高档榜 No.18！天鹅湖公园旁，已锁定客房2间，享受现代地暖与卫浴大休整',
-        tips: '飞猪已在线支付实付 ¥1,269.92 (2间)，10/3 18:00前可免费取消。周边散步美食便利',
-        amapUrl: 'https://uri.amap.com/search?keyword=%E4%B8%BD%E5%91%88%E5%88%AB%E9%99%A2%E9%85%92%E5%BA%97%E9%98%BF%E5%8B%92%E6%B3%B0%E5%A4%A9%E9%B9%85%E6%B9%96%E5%85%AC%E5%9B%AD%E5%BA%97',
-        navSearchQuery: '丽呈别院酒店阿勒泰天鹅湖公园店',
+        tagline: '退丽呈换漫心！美团直播间特价锁定华住旗下高品质漫心酒店，全屋智能大休整',
+        tips: '位于红墩路圣祥雪都汇一号楼，步行即可打卡阿勒泰博物馆，距离蓝湾夜市仅约10分钟',
+        amapUrl: 'https://uri.amap.com/search?keyword=%E6%BC%AB%E5%BF%83%E9%85%92%E5%BA%97%E9%98%BF%E5%8B%92%E6%B3%B0%E5%8D%9A%E7%89%A9%E9%A6%86%E5%BA%97',
+        navSearchQuery: '漫心酒店阿勒泰博物馆雪都汇店',
         isPrimary: true
       }
     ],

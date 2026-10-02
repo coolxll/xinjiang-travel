@@ -805,27 +805,27 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
               <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
-                <div className="font-bold text-amber-300 text-[11px] mb-0.5">① 冲乎尔晨光补给</div>
-                <div className="text-white font-semibold">早饭 ¥61 · 1h进山</div>
-                <div className="text-[11px] text-slate-300 mt-0.5">清晨在冲乎尔享用热腾腾早餐¥61，沿S232平稳开往贾登峪，路程仅70km</div>
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">① 06:30起 · 早饭开拔</div>
+                <div className="text-white font-semibold">早饭 ¥61 · S232上坡</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">07:00早饭¥61，07:30启程沿S232上坡向贾登峪开拔，天色渐亮，限速30实测</div>
               </div>
 
               <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
-                <div className="font-bold text-amber-300 text-[11px] mb-0.5">② 贾登峪换乘中心</div>
-                <div className="text-white font-semibold">停车费 ¥20 · 无痛进园</div>
-                <div className="text-[11px] text-slate-300 mt-0.5">捷途停放换乘中心停车场（全天¥20），大行李留车内，换乘区间车刷证入园</div>
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">② 09:00抵 · 0℃添衣</div>
+                <div className="text-white font-semibold">停车场停车费 ¥20</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">9点抵贾登峪直通车中心，0℃严寒迅速添衣，排队刷证坐景交大巴进山</div>
               </div>
 
               <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
-                <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 喀纳斯核心三湾湖区</div>
-                <div className="text-white font-semibold">神仙湾 · 月亮湾 · 卧龙湾</div>
-                <div className="text-[11px] text-slate-300 mt-0.5">深度游览三湾翡翠变色水波与金秋彩林，漫步湖边木栈道，大饱眼福</div>
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 观鱼台1068阶 & 三湾</div>
+                <div className="text-white font-semibold">俯瞰变色湖 · 三湾真经</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">11:30登1068级台阶俯瞰喀纳斯；下午三湾实测：月亮湾看形状最出片、神仙湾看雾、卧龙湾看水位</div>
               </div>
 
               <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
-                <div className="font-bold text-amber-300 text-[11px] mb-0.5">④ 退贾登峪住冲乎尔</div>
-                <div className="text-white font-semibold">怒省¥2289 · 晚饭¥231</div>
-                <div className="text-[11px] text-slate-300 mt-0.5">退订原贾登峪天价房(原¥2778)，下山住望山(¥270)+奇在独一(¥219)，实付¥489省¥2289！晚餐¥231</div>
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">④ 18:00下山 · 怒省¥2289</div>
+                <div className="text-white font-semibold">宿望山+奇在独一 · 晚饭¥231</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">退贾登峪天价房(原¥2778)，19:45回冲乎尔住两间民宿实付¥489省¥2289！晚饭美餐¥231</div>
               </div>
             </div>
           </div>

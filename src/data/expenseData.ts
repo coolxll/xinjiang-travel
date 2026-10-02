@@ -165,14 +165,14 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-7',
     date: '10/3',
     fullDate: '2026年10月3日 (周六)',
-    title: '贾登峪 → G681 阿禾公路 (高山天路纯自驾) → 阿勒泰市',
-    routeSummary: '209km 金秋全新景观天路，穿越大兴安岭级高山彩林，入住阿勒泰天鹅湖',
+    title: '冲乎尔/贾登峪 → G681 阿禾公路 (高山天路纯自驾) → 阿勒泰市漫心酒店',
+    routeSummary: '209km 金秋景观天路直插雪都阿勒泰，美团直播特价入住漫心酒店（阿勒泰博物馆雪都汇店）',
     defaultSplitCount: 4,
     plannedHotel: {
-      name: '丽呈别院酒店阿勒泰天鹅湖店',
-      roomType: '豪华客房 2间',
+      name: '漫心酒店 (阿勒泰博物馆雪都汇店)',
+      roomType: '品质客房 2间 (美团直播特价)',
       cost: 1269.92,
-      payType: '到店付'
+      payType: '已在线支付'
     }
   },
   {
