@@ -18,12 +18,14 @@ interface StandaloneRoadbookPageProps {
   onBackToMain: () => void;
   onOpenPrint: () => void;
   onOpenExpenses?: () => void;
+  onOpenTravelogue?: (dayNum?: number) => void;
 }
 
 export const StandaloneRoadbookPage: React.FC<StandaloneRoadbookPageProps> = ({
   onBackToMain,
   onOpenPrint,
-  onOpenExpenses
+  onOpenExpenses,
+  onOpenTravelogue
 }) => {
   const initial = getInitialTravelProgress();
   const [todayDayNumber, setTodayDayNumber] = useState<number>(initial.todayDayNumber);
@@ -783,9 +785,20 @@ export const StandaloneRoadbookPage: React.FC<StandaloneRoadbookPageProps> = ({
                           已实跑完成
                         </span>
                       </div>
-                      <span className="text-[11px] text-slate-400 font-mono">
-                        实录日期：{activeDay.actualDayLog.recordedDate}
-                      </span>
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        <span className="text-[11px] text-slate-400 font-mono">
+                          实录日期：{activeDay.actualDayLog.recordedDate}
+                        </span>
+                        {onOpenTravelogue && [4, 5, 6, 7].includes(activeDay.dayNumber) && (
+                          <button
+                            onClick={() => onOpenTravelogue(activeDay.dayNumber)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-black shadow-xs transition-all hover:scale-[1.02]"
+                          >
+                            <span>📖 阅读当日完整游记全文</span>
+                            <span className="text-[9px] bg-white/20 px-1 py-0.2 rounded-full font-mono">长文原稿 ➔</span>
+                          </button>
+                        )}
+                      </div>
                     </div>
 
                     <p className="text-xs text-slate-300 leading-relaxed bg-white/5 p-3 rounded-xl border border-white/10">

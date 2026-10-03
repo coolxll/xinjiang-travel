@@ -32,12 +32,14 @@ interface TripExpensesPageProps {
   onBackToMain: () => void;
   onSwitchToRoadbook?: () => void;
   onOpenPrint?: () => void;
+  onOpenTravelogue?: (dayNum?: number) => void;
 }
 
 export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
   onBackToMain,
   onSwitchToRoadbook,
-  onOpenPrint
+  onOpenPrint,
+  onOpenTravelogue
 }) => {
   const [expenses, setExpenses] = useState<ExpenseItem[]>(() => getStoredExpenses());
   const [selectedDayNumber, setSelectedDayNumber] = useState<number>(() => CURRENT_EXPENSE_META.maxDay || 1);
@@ -699,6 +701,14 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
                   已跑完全程
                 </span>
+                {onOpenTravelogue && (
+                  <button
+                    onClick={() => onOpenTravelogue(4)}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-[10px] font-black shadow-xs transition-all hover:scale-105"
+                  >
+                    <span>📖 读当日游记长文</span>
+                  </button>
+                )}
               </div>
               <span className="text-[11px] text-slate-300">
                 奎屯 ➔ 克一号井/大油泡 ➔ 午餐羊排烤串 ➔ 百里油区远眺 ➔ 野生魔鬼城 ➔ 玛纳斯湖捡玉 ➔ 荒野胡杨 ➔ 宿乌尔禾
@@ -751,6 +761,14 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
                   已跑完全程
                 </span>
+                {onOpenTravelogue && (
+                  <button
+                    onClick={() => onOpenTravelogue(5)}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-[10px] font-black shadow-xs transition-all hover:scale-105"
+                  >
+                    <span>📖 读当日游记长文</span>
+                  </button>
+                )}
               </div>
               <span className="text-[11px] text-slate-300">
                 乌尔禾野生胡杨/魔鬼城 ➔ 13点奎阿北上 ➔ 布尔津冷水鱼 ➔ 美团五彩滩至20点 ➔ 宿冲乎尔怡然居
@@ -797,6 +815,14 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
                   已跑完全程 · 怒省¥2289
                 </span>
+                {onOpenTravelogue && (
+                  <button
+                    onClick={() => onOpenTravelogue(6)}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-[10px] font-black shadow-xs transition-all hover:scale-105"
+                  >
+                    <span>📖 读当日游记长文</span>
+                  </button>
+                )}
               </div>
               <span className="text-[11px] text-slate-300">
                 冲乎尔早饭 ➔ 贾登峪停车 ➔ 喀纳斯核心三湾与湖区 ➔ 退贾登峪换冲乎尔 ➔ 宿望山/奇在独一
@@ -843,6 +869,14 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
                   已跑完全程 · 阿禾天路穿越
                 </span>
+                {onOpenTravelogue && (
+                  <button
+                    onClick={() => onOpenTravelogue(7)}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-[10px] font-black shadow-xs transition-all hover:scale-105"
+                  >
+                    <span>📖 读当日游记长文</span>
+                  </button>
+                )}
               </div>
               <span className="text-[11px] text-slate-300">
                 冲乎尔早饭 ➔ 黑流滩加油 ➔ 禾木游客中心 ➔ 托勒海特骑马2h ➔ 通巴草原 ➔ 扶摇关闭 ➔ 19:30抵阿勒泰漫心 ➔ 榜首火锅

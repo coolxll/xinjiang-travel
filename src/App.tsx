@@ -12,6 +12,7 @@ import { OfficialSources } from './components/OfficialSources';
 import { Footer } from './components/Footer';
 
 import { StandaloneRoadbookPage } from './components/StandaloneRoadbookPage';
+import { TravelogueModal } from './components/TravelogueModal';
 
 // Dynamic lazy imports for heavy standalone pages & modals to optimize bundle size
 const AlternativePlansPage = lazy(() =>
@@ -41,6 +42,13 @@ export const App: React.FC = () => {
   });
   const [activeSection, setActiveSection] = useState<string>('overview');
   const [isPrintModalOpen, setIsPrintModalOpen] = useState<boolean>(false);
+  const [isTravelogueModalOpen, setIsTravelogueModalOpen] = useState<boolean>(false);
+  const [travelogueDayNumber, setTravelogueDayNumber] = useState<number>(7);
+
+  const handleOpenTravelogue = (dayNum?: number) => {
+    if (dayNum) setTravelogueDayNumber(dayNum);
+    setIsTravelogueModalOpen(true);
+  };
 
   // Switch Page Mode & URL Hash
   const handleSwitchPageMode = (mode: 'main' | 'roadbook' | 'alternatives' | 'expenses') => {
@@ -69,6 +77,13 @@ export const App: React.FC = () => {
         setPageMode('alternatives');
       } else if (window.location.hash === '#expenses' || window.location.hash === '#billing' || window.location.hash === '#ledger') {
         setPageMode('expenses');
+      } else if (window.location.hash.startsWith('#travelogue') || window.location.hash.startsWith('#journal')) {
+        const parts = window.location.hash.split('-');
+        if (parts[1]) {
+          const num = parseInt(parts[1], 10);
+          if (!isNaN(num)) setTravelogueDayNumber(num);
+        }
+        setIsTravelogueModalOpen(true);
       } else if (window.location.hash === '#main' || !window.location.hash) {
         setPageMode('main');
       }
@@ -144,6 +159,7 @@ export const App: React.FC = () => {
           onOpenPrint={() => setIsPrintModalOpen(true)}
           pageMode={pageMode}
           onSwitchPageMode={handleSwitchPageMode}
+          onOpenTravelogue={handleOpenTravelogue}
         />
 
         {/* Main Content Areas */}
@@ -154,6 +170,7 @@ export const App: React.FC = () => {
               onBackToMain={() => handleSwitchPageMode('main')}
               onOpenPrint={() => setIsPrintModalOpen(true)}
               onOpenExpenses={() => handleSwitchPageMode('expenses')}
+              onOpenTravelogue={handleOpenTravelogue}
             />
           ) : pageMode === 'alternatives' ? (
             /* Dedicated Alternative Plans & Route Visualization Page (Archived) */
@@ -187,6 +204,7 @@ export const App: React.FC = () => {
                 onBackToMain={() => handleSwitchPageMode('main')}
                 onSwitchToRoadbook={() => handleSwitchPageMode('roadbook')}
                 onOpenPrint={() => setIsPrintModalOpen(true)}
+                onOpenTravelogue={handleOpenTravelogue}
               />
             </Suspense>
           ) : (
@@ -217,6 +235,7 @@ export const App: React.FC = () => {
               <DailyRoadbook
                 onSwitchToRoadbookMode={() => handleSwitchPageMode('roadbook')}
                 onOpenExpenses={() => handleSwitchPageMode('expenses')}
+                onOpenTravelogue={handleOpenTravelogue}
               />
 
               {/* 6. Team Consensus & Voting Matrix with Imagery */}
@@ -250,6 +269,13 @@ export const App: React.FC = () => {
           />
         </Suspense>
       )}
+
+      {/* Full Long-form Travelogue Reader Modal */}
+      <TravelogueModal
+        isOpen={isTravelogueModalOpen}
+        onClose={() => setIsTravelogueModalOpen(false)}
+        initialDayNumber={travelogueDayNumber}
+      />
     </div>
   );
 };

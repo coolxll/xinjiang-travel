@@ -18,6 +18,7 @@ interface NavbarProps {
   onOpenPrint: () => void;
   pageMode: 'main' | 'roadbook' | 'alternatives' | 'expenses';
   onSwitchPageMode: (mode: 'main' | 'roadbook' | 'alternatives' | 'expenses') => void;
+  onOpenTravelogue?: (dayNum?: number) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ 
@@ -25,7 +26,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate, 
   onOpenPrint,
   pageMode,
-  onSwitchPageMode
+  onSwitchPageMode,
+  onOpenTravelogue
 }) => {
   const mainNavItems: NavItem[] = [
     { id: 'overview', label: '行程概览', icon: Compass },
@@ -182,6 +184,21 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Action buttons */}
           <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+            {onOpenTravelogue && (
+              <button
+                onClick={() => onOpenTravelogue(7)}
+                className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-xs transition-all hover:scale-[1.02] whitespace-nowrap"
+                title="阅读全行程生动的实战图文长篇游记"
+              >
+                <span>📖</span>
+                <span className="hidden sm:inline">实战</span>
+                <span>游记</span>
+                <span className="hidden md:inline-flex text-[10px] bg-white/20 px-1 py-0.2 rounded-full font-mono">
+                  D4-D7
+                </span>
+              </button>
+            )}
+
             {pageMode !== 'main' ? (
               <button
                 onClick={() => onSwitchPageMode('main')}
