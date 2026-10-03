@@ -549,6 +549,49 @@ export const StandaloneRoadbookPage: React.FC<StandaloneRoadbookPageProps> = ({
                 </div>
               )}
 
+              {/* Day 7 Real Expense Notice Banner */}
+              {activeDay.dayNumber === 7 && (
+                <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-black text-xl flex-shrink-0 shadow-xs">
+                      💰
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-black text-amber-900">
+                          Day 7 今日行程实付账单已录入入账
+                        </span>
+                        <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-extrabold">
+                          团队分摊 ¥836.00 ｜ 4人AA ¥209.00/人 ｜ G681阿禾公路实战穿越！
+                        </span>
+                      </div>
+                      <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+                        包含冲乎尔清晨早餐 ¥51、中国石油黑流滩加油站加满 ¥340（保障全长209km天路续航安全）、漫心周边大众点评排名第一火锅店晚餐 ¥403（4人用餐人均约¥100性价比一般）、漫心周边超市日用品补给 ¥42。08:00早餐、08:45冲乎尔开拔，贾禾绝美秋景，禾木游客中心如厕切入阿禾公路；托勒海特大草原等马队深度骑马近2小时；通巴草原服务区休整；扶摇停车站关闭临时顺延找厕所；19:30顺利进驻阿勒泰漫心酒店！
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 self-end sm:self-auto flex-shrink-0">
+                    <div className="text-right">
+                      <div className="text-lg font-black text-amber-900">¥836.00</div>
+                      <div className="text-xs font-bold text-amber-700">4人AA: ¥209.00/人</div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        if (onOpenExpenses) {
+                          onOpenExpenses();
+                        } else {
+                          window.location.hash = 'expenses';
+                        }
+                      }}
+                      className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold shadow-xs whitespace-nowrap transition-colors"
+                    >
+                      查看完整对账单 ➔
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {/* Day 3 Itinerary Optimization & Flexible Gears Banner */}
               {activeDay.dayNumber === 3 && (
                 <div className="bg-gradient-to-br from-indigo-900 via-slate-900 to-sky-950 text-white rounded-3xl p-5 sm:p-6 border border-indigo-500/40 shadow-xl space-y-5">

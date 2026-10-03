@@ -381,7 +381,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                     </span>
                   </div>
                   <div className="text-[11px] font-medium truncate max-w-[130px] mt-0.5">
-                    {day.dayNumber === 1 ? '精河·沙漠' : day.dayNumber === 2 ? '赛里木湖' : day.dayNumber === 3 ? '独山子·奎屯' : day.dayNumber === 4 ? '油田·魔鬼城' : day.dayNumber === 5 ? '五彩滩·冲乎尔' : day.dayNumber === 6 ? '喀纳斯·冲乎尔' : day.dayNumber === 7 ? '布尔津·阿勒泰' : day.routeSummary.slice(0, 8)}
+                    {day.dayNumber === 1 ? '精河·沙漠' : day.dayNumber === 2 ? '赛里木湖' : day.dayNumber === 3 ? '独山子·奎屯' : day.dayNumber === 4 ? '油田·魔鬼城' : day.dayNumber === 5 ? '五彩滩·冲乎尔' : day.dayNumber === 6 ? '喀纳斯·冲乎尔' : day.dayNumber === 7 ? '阿禾·漫心' : day.routeSummary.slice(0, 8)}
                   </div>
                   <div className="mt-1 flex items-center gap-1">
                     {dayExpCount > 0 ? (
@@ -826,6 +826,58 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <div className="font-bold text-amber-300 text-[11px] mb-0.5">④ 18:00下山 · 怒省¥2289</div>
                 <div className="text-white font-semibold">宿望山+奇在独一 · 晚饭¥231</div>
                 <div className="text-[11px] text-slate-300 mt-0.5">退贾登峪天价房(原¥2778)，19:45回冲乎尔住两间民宿实付¥489省¥2289！晚饭美餐¥231</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Day 7 Actual Route Track Banner (Context for Ledger) */}
+        {selectedDayNumber === 7 && (
+          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 border border-slate-700 shadow-sm space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
+              <div className="flex items-center gap-2">
+                <span className="text-base">📍</span>
+                <span className="text-xs sm:text-sm font-black text-white">
+                  D7 实际行程纪实 · 账单对应自驾足迹
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+                  已跑完全程 · 阿禾天路穿越
+                </span>
+              </div>
+              <span className="text-[11px] text-slate-300">
+                冲乎尔早饭 ➔ 黑流滩加油 ➔ 禾木游客中心 ➔ 托勒海特骑马2h ➔ 通巴草原 ➔ 扶摇关闭 ➔ 19:30抵阿勒泰漫心 ➔ 榜首火锅
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 text-xs">
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">① 08:00起 · 早餐补能</div>
+                <div className="text-white font-semibold">早饭 ¥51 · 加油 ¥340</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">08:00冲乎尔早饭¥51，08:45开拔；黑流滩加油站加满¥340，保障209km天路续航</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">② 贾禾绝美秋景 & 枢纽</div>
+                <div className="text-white font-semibold">金秋层林尽染 · 禾木中心</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">贾登峪岔口往禾木一路秋景绝美；开行约2小时抵禾木游客中心如厕切入阿禾天路</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 托勒海特大草原</div>
+                <div className="text-white font-semibold">阿禾第一大站 · 骑马近2h</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">阿禾首个大停靠点，现场等候马队策马漫游近2小时，雪山草甸天地野趣拉满</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">④ 通巴草原 & 扶摇关闭</div>
+                <div className="text-white font-semibold">高原服务区 · 找厕所插曲</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">通巴大草原休整；遇扶摇停车站关闭被迫顺延至下一服务区如厕，拉长后续节奏</div>
+              </div>
+
+              <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
+                <div className="font-bold text-amber-300 text-[11px] mb-0.5">⑤ 19:30抵漫心 & 晚餐</div>
+                <div className="text-white font-semibold">宿漫心 · 火锅¥403/超市¥42</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">19:30抵漫心酒店(美团直播特价)；吃周边第一名火锅实评性价比一般，超市采购补给</div>
               </div>
             </div>
           </div>

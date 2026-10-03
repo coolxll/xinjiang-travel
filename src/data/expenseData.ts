@@ -165,8 +165,8 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-7',
     date: '10/3',
     fullDate: '2026年10月3日 (周六)',
-    title: '冲乎尔 → S232一路下坡(70km) → 布尔津特色早午餐 → G331开阔平原大道(105km) → 阿勒泰市漫心酒店',
-    routeSummary: '冲乎尔自然醒 · S232顺滑下山70km至布尔津午餐 · G331一马平川平原大道105km至阿勒泰 · 14:30入驻漫心酒店(美团直播特价)大休整',
+    title: '冲乎尔 → 黑流滩加油 → 禾木游客中心 → G681阿禾公路 (托勒海特骑马/通巴草原) → 宿阿勒泰漫心酒店',
+    routeSummary: '早餐¥51 · 黑流滩加油¥340 · 禾木游客中心 · 托勒海特骑马2h · 通巴草原服务区 · 扶摇休息区关闭插曲 · 19:30抵阿勒泰漫心 · 排名第一火锅晚餐¥403 · 超市补给¥42',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '漫心酒店 (阿勒泰博物馆雪都汇店)',
@@ -706,10 +706,74 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     perPerson: 57.75,
     time: '20:10',
     payer: '团队公费'
+  },
+  {
+    id: 'exp-d7-breakfast',
+    dayNumber: 7,
+    dayId: 'day-7',
+    date: '10/3',
+    title: '早饭 (冲乎尔镇整装启程)',
+    category: 'dining',
+    amount: 51,
+    paymentMethod: '微信/支付宝扫码',
+    location: '布尔津县冲乎尔镇',
+    note: '早上8点吃早饭，接近8点45分从冲乎尔整装开拔出发，实付 ¥51.00 (4人AA ¥12.75/人)',
+    splitCount: 4,
+    perPerson: 12.75,
+    time: '08:00',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d7-gas',
+    dayNumber: 7,
+    dayId: 'day-7',
+    date: '10/3',
+    title: '车辆加油 (中国石油黑流滩加油站)',
+    category: 'supplies',
+    amount: 340,
+    paymentMethod: '微信/加油卡扫码',
+    location: '中国石油黑流滩加油站 (S232省道)',
+    note: '进阿禾公路前在黑流滩加油站加满油箱，保障全长209公里无加油站特级盘山公路续航安全，实付 ¥340.00 (4人AA ¥85.00/人)',
+    splitCount: 4,
+    perPerson: 85,
+    time: '09:30',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d7-dinner',
+    dayNumber: 7,
+    dayId: 'day-7',
+    date: '10/3',
+    title: '特色晚餐 (阿勒泰漫心周边榜首火锅店)',
+    category: 'dining',
+    amount: 403,
+    paymentMethod: '微信/支付宝支付',
+    location: '阿勒泰市 · 漫心酒店周边榜首火锅店',
+    note: '穿越阿禾公路19:30抵阿勒泰漫心后，在酒店周边大众点评排名第一火锅店享用晚餐，4人实付 ¥403.00 (人均约¥100，实评性价比一般，4人AA ¥100.75/人)',
+    splitCount: 4,
+    perPerson: 100.75,
+    time: '20:15',
+    payer: '团队公费'
+  },
+  {
+    id: 'exp-d7-supplies',
+    dayNumber: 7,
+    dayId: 'day-7',
+    date: '10/3',
+    title: '超市便利店商品补给',
+    category: 'supplies',
+    amount: 42,
+    paymentMethod: '微信/支付宝扫码',
+    location: '阿勒泰市 · 漫心酒店周边便利超市',
+    note: '晚饭后在漫心酒店周边便利超市采购饮用水、随身日用品及零食补给，实付 ¥42.00 (4人AA ¥10.50/人)',
+    splitCount: 4,
+    perPerson: 10.5,
+    time: '21:30',
+    payer: '团队公费'
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v9';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v10';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;
