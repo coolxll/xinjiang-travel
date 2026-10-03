@@ -227,7 +227,7 @@ export const dailyAmapSchedules: Record<string, DayAmapSchedule> = {
         icon: '🏨',
         coords: [44.6000, 82.8900],
         elevation: '320m',
-        tagline: '傍晚出沙漠驱车直达酒店顺利入住，并在精河县城享用丰盛晚餐（姐姐妹妹买单 ¥191 免分摊）',
+        tagline: '傍晚出沙漠驱车直达酒店顺利入住，并在精河县城享用丰盛晚餐（姐夫一家买单 ¥191 免分摊）',
         tips: '沙漠往酒店公路通行费 ¥21.00，酒店院内停车便利，连霍高速路口出口即达',
         amapUrl: 'https://uri.amap.com/marker?position=82.8900,44.6000&name=%E6%98%9F%E7%A8%8B%E7%B2%BE%E6%B2%B3%E8%BF%9E%E9%9C%87%E9%AB%98%E9%80%9F%E8%B7%AF%E5%8F%A3%E9%85%92%E5%BA%97',
         navSearchQuery: '星程精河连霍高速路口酒店',

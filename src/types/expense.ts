@@ -25,7 +25,7 @@ export interface ExpenseItem {
   subItems?: ExpenseSubItem[]; // 子明细 (如大盘鸡套餐 + 酸梅汤)
   isPrebookedHotel?: boolean;  // 是否为行前已预订酒店
   excludeFromSplit?: boolean;  // 是否不计入分摊账单（如他人请客/个人单独承担）
-  treatBy?: string;            // 付款人/请客方（如"同行人（姐姐妹妹）"）
+  treatBy?: string;            // 付款人/请客方（如"姐夫一家"）
 }
 
 export interface DayExpenseConfig {

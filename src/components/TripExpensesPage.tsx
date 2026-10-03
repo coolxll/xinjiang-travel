@@ -225,7 +225,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
     text += `👥 团队分摊人数：${activeDayConfig.defaultSplitCount} 人\n`;
     text += `👤 团队 AA 人均分摊：¥${perPersonAA.toFixed(2)} / 人\n`;
     if (excludedTotal > 0) {
-      text += `🎁 同行请客（免分摊）：¥${excludedTotal.toFixed(2)} (由姐姐妹妹支付)\n`;
+      text += `🎁 同行请客（免分摊）：¥${excludedTotal.toFixed(2)} (由姐夫一家支付)\n`;
       text += `📊 全天总流水（含请客）：¥${onRoadAllTotal.toFixed(2)}\n`;
     }
 
@@ -442,7 +442,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
             <div className="text-[11px] font-bold text-emerald-800 flex items-center justify-between">
               <span>同行付款 (免分摊)</span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-900 font-extrabold">
-                🎁 姐姐妹妹付
+                🎁 姐夫一家付
               </span>
             </div>
             <div className="text-2xl sm:text-3xl font-black text-emerald-700 tracking-tight mt-1">
@@ -465,7 +465,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
               ¥{onRoadAllTotal.toFixed(2)}
             </div>
             <p className="text-[10px] text-slate-500 mt-1">
-              公摊 ¥{onRoadSharedTotal.toFixed(0)} + 姐姐妹妹付 ¥{excludedTotal.toFixed(0)}
+              公摊 ¥{onRoadSharedTotal.toFixed(0)} + 姐夫一家付 ¥{excludedTotal.toFixed(0)}
             </p>
           </div>
         </div>
@@ -1298,7 +1298,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                     </label>
                     <input
                       type="text"
-                      placeholder="例如：同行人（姐姐妹妹）"
+                      placeholder="例如：同行人（姐夫一家）"
                       value={newTreatBy}
                       onChange={(e) => setNewTreatBy(e.target.value)}
                       className="w-full px-3 py-1.5 rounded-lg border border-emerald-300 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white font-medium"

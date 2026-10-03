@@ -337,13 +337,13 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     amount: 191,
     paymentMethod: '同行人支付 (微信/支付宝)',
     location: '精河县城美食街',
-    note: '抵达精河县城入住后晚餐：由同行人（姐姐妹妹）付款，已完整记录入账，但明确不计入团队AA分摊',
+    note: '抵达精河县城入住后晚餐：由姐夫一家付款请客，已完整记录入账，明确不计入团队AA分摊',
     splitCount: 4,
     perPerson: 0,
     time: '20:30',
-    payer: '同行人（姐姐妹妹）',
+    payer: '姐夫一家',
     excludeFromSplit: true,
-    treatBy: '同行人（姐姐妹妹）'
+    treatBy: '姐夫一家'
   },
   {
     id: 'exp-d2-gas',

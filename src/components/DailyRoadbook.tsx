@@ -414,11 +414,11 @@ export const DailyRoadbook: React.FC<DailyRoadbookProps> = ({
                                 今日实付账单已录入入账 (Day 1 · 9/27)
                               </span>
                               <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 font-extrabold">
-                                团队分摊 ¥505.00 ｜ 姐姐妹妹请客晚餐 ¥191.00
+                                团队分摊 ¥505.00 ｜ 姐夫一家请客晚餐 ¥191.00
                               </span>
                             </div>
                             <p className="text-xs text-amber-800 mt-1 leading-relaxed">
-                              乌市-军垦通行费 ¥51 · 沙湾鼎吉香大盘鸡 ¥187 · 沙漠路费 ¥66 · 木特塔尔沙漠门票+区间车 ¥180 · 精河路费 ¥21（晚餐 ¥191 同行姐姐妹妹付，不计分摊）
+                              乌市-军垦通行费 ¥51 · 沙湾鼎吉香大盘鸡 ¥187 · 沙漠路费 ¥66 · 木特塔尔沙漠门票+区间车 ¥180 · 精河路费 ¥21（晚餐 ¥191 姐夫一家付，不计分摊）
                             </p>
                           </div>
                         </div>
