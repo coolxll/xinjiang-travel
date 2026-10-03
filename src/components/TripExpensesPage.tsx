@@ -563,6 +563,14 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
                   已跑完全程
                 </span>
+                {onOpenTravelogue && (
+                  <button
+                    onClick={() => onOpenTravelogue(1)}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-[10px] font-black shadow-xs transition-all hover:scale-105"
+                  >
+                    <span>📖 读当日游记长文</span>
+                  </button>
+                )}
               </div>
               <span className="text-[11px] text-slate-300">
                 乌市 ➔ 华润万家 ➔ 石河子 ➔ 沙湾 ➔ 沙漠 ➔ 精河
@@ -615,6 +623,14 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
                   已跑完全程
                 </span>
+                {onOpenTravelogue && (
+                  <button
+                    onClick={() => onOpenTravelogue(2)}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-[10px] font-black shadow-xs transition-all hover:scale-105"
+                  >
+                    <span>📖 读当日游记长文</span>
+                  </button>
+                )}
               </div>
               <span className="text-[11px] text-slate-300">
                 精河 ➔ 中石油托里加满 ➔ G30连霍 ➔ 赛里木湖环湖 ➔ 大河宴椒麻鱼火锅 ➔ 宿赛湖城际
@@ -655,6 +671,14 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
                   已跑完全程
                 </span>
+                {onOpenTravelogue && (
+                  <button
+                    onClick={() => onOpenTravelogue(3)}
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-[10px] font-black shadow-xs transition-all hover:scale-105"
+                  >
+                    <span>📖 读当日游记长文</span>
+                  </button>
+                )}
               </div>
               <span className="text-[11px] text-slate-300">
                 赛里木湖 ➔ 托托服务区加油 ➔ G30连霍 ➔ 独山子独库公路博物馆 ➔ 市区手抓饭 ➔ 泥火山 ➔ 宿奎屯星程

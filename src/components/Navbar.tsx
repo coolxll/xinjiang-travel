@@ -194,7 +194,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="hidden sm:inline">实战</span>
                 <span>游记</span>
                 <span className="hidden md:inline-flex text-[10px] bg-white/20 px-1 py-0.2 rounded-full font-mono">
-                  D4-D7
+                  D1-D7
                 </span>
               </button>
             )}

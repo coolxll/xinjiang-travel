@@ -789,7 +789,7 @@ export const StandaloneRoadbookPage: React.FC<StandaloneRoadbookPageProps> = ({
                         <span className="text-[11px] text-slate-400 font-mono">
                           实录日期：{activeDay.actualDayLog.recordedDate}
                         </span>
-                        {onOpenTravelogue && [4, 5, 6, 7].includes(activeDay.dayNumber) && (
+                        {onOpenTravelogue && [1, 2, 3, 4, 5, 6, 7].includes(activeDay.dayNumber) && (
                           <button
                             onClick={() => onOpenTravelogue(activeDay.dayNumber)}
                             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-black shadow-xs transition-all hover:scale-[1.02]"
