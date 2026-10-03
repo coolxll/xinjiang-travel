@@ -306,11 +306,11 @@ export const StandaloneRoadbookPage: React.FC<StandaloneRoadbookPageProps> = ({
                           Day 1 今日行程实付账单已录入入账
                         </span>
                         <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-200 text-amber-900 font-extrabold">
-                          团队公摊 ¥505.00 ｜ 姐夫一家请客晚餐 ¥191.00
+                          团队公摊 ¥505.00 ｜ 晚餐请客 ¥191.00 (不计分摊)
                         </span>
                       </div>
                       <p className="text-xs text-amber-800 mt-1 leading-relaxed">
-                        包含乌市-军垦通行费 ¥51、沙湾鼎吉香大盘鸡 ¥187、木特塔尔沙漠路费 ¥66、4人门票 ¥120 与区间车 ¥60、精河酒店路费 ¥21（晚餐 ¥191 由姐夫一家付，不计分摊）。
+                        包含乌市-军垦通行费 ¥51、沙湾鼎吉香大盘鸡 ¥187、木特塔尔沙漠路费 ¥66、4人门票 ¥120 与区间车 ¥60、精河酒店路费 ¥21（晚餐 ¥191 由我们一家请客付，不计入分摊）。
                       </p>
                     </div>
                   </div>
