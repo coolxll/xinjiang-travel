@@ -564,19 +564,19 @@ export const StandaloneRoadbookPage: React.FC<StandaloneRoadbookPageProps> = ({
                           Day 7 今日行程实付账单已录入入账
                         </span>
                         <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-extrabold">
-                          团队分摊 ¥836.00 ｜ 4人AA ¥209.00/人 ｜ G681阿禾公路实战穿越！
+                          团队分摊 ¥941.00 ｜ 4人AA ¥235.25/人 ｜ 含羊肉串¥55与补早餐¥50(姐夫付)
                         </span>
                       </div>
                       <p className="text-xs text-amber-800 mt-1 leading-relaxed">
-                        包含冲乎尔清晨早餐 ¥51、中国石油黑流滩加油站加满 ¥340（保障全长209km天路续航安全）、漫心周边大众点评排名第一火锅店晚餐 ¥403（4人用餐人均约¥100性价比一般）、漫心周边超市日用品补给 ¥42。08:00早餐、08:45冲乎尔开拔，贾禾绝美秋景，禾木游客中心如厕切入阿禾公路；托勒海特大草原等马队深度骑马近2小时；通巴草原服务区休整；扶摇停车站关闭临时顺延找厕所；19:30顺利进驻阿勒泰漫心酒店！
+                        包含冲乎尔清晨早餐 ¥51、中国石油黑流滩加油站加满 ¥340、阿禾天路途中烤羊肉串 ¥55 (姐夫付)、漫心酒店补早餐费 ¥50 (姐夫付)、阿勒泰榜首火锅店晚餐 ¥403、周边便利超市补给 ¥42。08:00早餐、08:45冲乎尔开拔，贾禾绝美秋景，禾木游客中心切入阿禾天路；托勒海特策马近2小时；通巴草原休整；19:30顺利进驻阿勒泰漫心酒店！
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4 self-end sm:self-auto flex-shrink-0">
                     <div className="text-right">
-                      <div className="text-lg font-black text-amber-900">¥836.00</div>
-                      <div className="text-xs font-bold text-amber-700">4人AA: ¥209.00/人</div>
+                      <div className="text-lg font-black text-amber-900">¥941.00</div>
+                      <div className="text-xs font-bold text-amber-700">4人AA: ¥235.25/人</div>
                     </div>
                     <button
                       onClick={() => {

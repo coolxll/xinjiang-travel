@@ -903,7 +903,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
                 )}
               </div>
               <span className="text-[11px] text-slate-300">
-                冲乎尔早饭 ➔ 黑流滩加油 ➔ 禾木游客中心 ➔ 托勒海特骑马2h ➔ 通巴草原 ➔ 扶摇关闭 ➔ 19:30抵阿勒泰漫心 ➔ 榜首火锅
+                冲乎尔早饭 ➔ 黑流滩加油 ➔ 禾木中心 ➔ 托勒海特骑马2h ➔ 途中羊肉串¥55 ➔ 通巴草原 ➔ 19:30抵漫心(补早餐¥50) ➔ 榜首火锅
               </span>
             </div>
 
@@ -923,7 +923,7 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
               <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
                 <div className="font-bold text-amber-300 text-[11px] mb-0.5">③ 托勒海特大草原</div>
                 <div className="text-white font-semibold">阿禾第一大站 · 骑马近2h</div>
-                <div className="text-[11px] text-slate-300 mt-0.5">阿禾首个大停靠点，现场等候马队策马漫游近2小时，雪山草甸天地野趣拉满</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">阿禾首个大停靠点，等马队策马漫游近2小时；途中品尝现烤羊肉串¥55(姐夫付)</div>
               </div>
 
               <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
@@ -934,8 +934,8 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
 
               <div className="bg-white/10 p-2.5 rounded-xl border border-white/10">
                 <div className="font-bold text-amber-300 text-[11px] mb-0.5">⑤ 19:30抵漫心 & 晚餐</div>
-                <div className="text-white font-semibold">宿漫心 · 火锅¥403/超市¥42</div>
-                <div className="text-[11px] text-slate-300 mt-0.5">19:30抵漫心酒店(美团直播特价)；吃周边第一名火锅实评性价比一般，超市采购补给</div>
+                <div className="text-white font-semibold">宿漫心¥850 · 火锅¥403/超市¥42</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">漫心直播特价2间¥850，补早餐¥50(姐夫付)；吃周边第一名火锅实评性价比一般，超市补给</div>
               </div>
             </div>
           </div>

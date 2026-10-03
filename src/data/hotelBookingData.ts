@@ -206,14 +206,14 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     brand: '华住会 / 漫心酒店 (Manxin Hotel · 2.5城市版)',
     roomType: '品质客房 2间 (美团直播特价 · 4人入住)',
     roomCount: 2,
-    totalCost: 1269.92,
+    totalCost: 850.00,
     payType: '已在线支付',
-    avgPricePerRoom: 634.96,
+    avgPricePerRoom: 425.00,
     cancellationPolicy: '美团直播特价锁定 (原丽呈别院酒店已全额退订免扣费)',
     freeCancelDeadline: '美团直播特价规则',
     address: '新疆维吾尔自治区阿勒泰地区阿勒泰市红墩路272号圣祥雪都汇一号楼',
-    notes: '【退丽呈换漫心 · 美团直播特价大升级】：原丽呈别院酒店（原价 ¥1,269.92）已顺利全额退订！在美团直播间成功抢购到华住旗下高品质阿勒泰漫心酒店特价房。全屋智能客房、舒适地暖、卫浴干湿分离，楼下即是雪都不夜城商场，步行即可打卡阿勒泰博物馆，距离蓝湾夜市仅约10分钟。翻越阿禾天路出山后在此享受高品质现代城市休整！',
-    features: ['华住中高端漫心轻奢品牌', '美团直播特价超高性价比', '紧邻阿勒泰博物馆与雪都不夜城', '全屋智能+高品质地暖大休整', '步行10分钟可达蓝湾夜市'],
+    notes: '【退丽呈换漫心 · 美团直播特价大升级】：原丽呈别院酒店已顺利全额退订！在美团直播间成功抢购到华住旗下高品质阿勒泰漫心酒店特价房（2间实付仅 ¥850.00，单间仅 ¥425.00！）。全屋智能客房、舒适地暖、卫浴干湿分离，楼下即是雪都不夜城商场，步行即可打卡阿勒泰博物馆，距离蓝湾夜市仅约10分钟。翻越阿禾天路出山后在此享受高品质现代城市休整！',
+    features: ['华住中高端漫心轻奢品牌', '美团直播特价超高性价比(2间仅¥850)', '紧邻阿勒泰博物馆与雪都不夜城', '全屋智能+高品质地暖大休整', '步行10分钟可达蓝湾夜市'],
     bookingChannel: '美团直播特价预订 (已在线付)',
     amapSearchUrl: 'https://uri.amap.com/search?keyword=漫心酒店阿勒泰博物馆店'
   },
@@ -269,10 +269,10 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
 export const HOTEL_BOOKING_SUMMARY = {
   totalNights: 10,
   confirmedNights: 10,
-  confirmedTotalCost: 6735.32, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 489.00 (10/2) + 1269.92 (10/3) + 498.90 (10/4) + 491.30 (10/5)
+  confirmedTotalCost: 6315.40, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 489.00 (10/2) + 850.00 (10/3) + 498.90 (10/4) + 491.30 (10/5)
   confirmedRooms: 20,
-  estimatedTotalHotelBudget: 6735.32,
-  estimatedSavings: 13789,
+  estimatedTotalHotelBudget: 6315.40,
+  estimatedSavings: 14208,
   freeCancellationDeadlines: [
     { hotel: '星程乌鲁木齐机场迎宾路店 (9/26)', deadline: '2026-09-25 23:00', cost: 420.70 },
     { hotel: '星程精河连霍高速路口酒店 (9/27)', deadline: '2026-09-27 20:00', cost: 389.30 },
@@ -281,7 +281,7 @@ export const HOTEL_BOOKING_SUMMARY = {
     { hotel: '克拉玛依龙谷精品酒店 (9/30)', deadline: '2026-09-30 20:00', cost: 312.00 },
     { hotel: '布尔津冲乎尔怡然居民宿 (10/1)', deadline: '2026-10-01 14:00', cost: 395.00 },
     { hotel: '冲乎尔望山民宿+奇在独一民宿 (10/2)', deadline: '已入住结清 (原贾登峪退订省¥2289)', cost: 489.00 },
-    { hotel: '阿勒泰漫心酒店 (10/3)', deadline: '美团直播特价锁定 (原丽呈退订)', cost: 1269.92 },
+    { hotel: '阿勒泰漫心酒店 (10/3)', deadline: '美团直播特价锁定 (原丽呈退订)', cost: 850.00 },
     { hotel: '全季昌吉东方广场酒店 (10/4)', deadline: '2026-10-03 23:00', cost: 498.90 },
     { hotel: '星程乌鲁木齐机场迎宾路店 (10/5)', deadline: '2026-10-05 20:00', cost: 491.30 }
   ]

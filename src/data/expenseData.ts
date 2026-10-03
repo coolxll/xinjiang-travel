@@ -166,12 +166,12 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     date: '10/3',
     fullDate: '2026年10月3日 (周六)',
     title: '冲乎尔 → 黑流滩加油 → 禾木游客中心 → G681阿禾公路 (托勒海特骑马/通巴草原) → 宿阿勒泰漫心酒店',
-    routeSummary: '早餐¥51 · 黑流滩加油¥340 · 禾木游客中心 · 托勒海特骑马2h · 通巴草原服务区 · 扶摇休息区关闭插曲 · 19:30抵阿勒泰漫心 · 排名第一火锅晚餐¥403 · 超市补给¥42',
+    routeSummary: '早餐¥51 · 黑流滩加油¥340 · 途中羊肉串¥55(姐夫付) · 漫心补早餐¥50(姐夫付) · 禾木中心 · 托勒海特骑马2h · 通巴草原 · 漫心火锅¥403 · 超市¥42',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '漫心酒店 (阿勒泰博物馆雪都汇店)',
       roomType: '品质客房 2间 (美团直播特价)',
-      cost: 1269.92,
+      cost: 850.00,
       payType: '已在线支付'
     }
   },
@@ -770,10 +770,42 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     perPerson: 10.5,
     time: '21:30',
     payer: '团队公费'
+  },
+  {
+    id: 'exp-d7-skewers',
+    dayNumber: 7,
+    dayId: 'day-7',
+    date: '10/3',
+    title: '途中特色烤羊肉串 (阿禾公路)',
+    category: 'dining',
+    amount: 55,
+    paymentMethod: '微信/支付宝扫码',
+    location: 'G681 阿禾公路沿途特色烤肉',
+    note: '阿禾天路途中品尝现烤特色羊肉串，肉质鲜美，由姐夫一家付款垫付，计入团队AA公摊 (4人AA ¥13.75/人)',
+    splitCount: 4,
+    perPerson: 13.75,
+    time: '14:20',
+    payer: '姐夫一家'
+  },
+  {
+    id: 'exp-d7-breakfast-extra',
+    dayNumber: 7,
+    dayId: 'day-7',
+    date: '10/3',
+    title: '漫心酒店补充早餐费',
+    category: 'dining',
+    amount: 50,
+    paymentMethod: '现场微信/支付宝支付',
+    location: '阿勒泰漫心酒店 (餐厅/前台)',
+    note: '漫心酒店特价房补充购买早餐费用，由姐夫一家付款垫付，计入团队AA公摊 (4人AA ¥12.50/人)',
+    splitCount: 4,
+    perPerson: 12.5,
+    time: '20:00',
+    payer: '姐夫一家'
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v10';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v11';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;
