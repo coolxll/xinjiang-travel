@@ -141,22 +141,29 @@ export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
       ? '已含喀纳斯+赛湖线上大门票代订(¥660)' 
       : '不含喀纳斯赛湖大门票(自理)';
 
+    const onRoadShareAmount = settlementScope === 'full' 
+      ? (brotherInLawNetOnRoadShare + remainingProjectedShare).toFixed(2)
+      : brotherInLawNetOnRoadShare.toFixed(2);
+
     return `【北疆秋季自驾 · 姐夫一家 AA 对账结算单】
 结算口径：${scopeLabel}
-门票状态：${ticketLabel}
+门票代订：${ticketLabel}
 -----------------------------
 1. 酒店住宿（单间 50%）：¥${brotherInLawHotelShare.toFixed(2)}
    • 包含赛里木湖城际高奢、冲乎尔民宿、阿勒泰漫心、昌吉全季等
 2. 租车自驾（捷途旅行者 SUV 50%）：¥${brotherInLawCarShare.toFixed(2)}
-3. 在途公共流水（油费+餐费+路费+超市）：¥${(totalAccruedShared / 2).toFixed(2)}
+3. 在途公共流水（油费+餐费+路费+超市+现场门票¥176）：¥${onRoadShareAmount}
+   • 全团流水50%分摊：¥${(totalAccruedShared / 2).toFixed(2)}
    • 减去姐夫已垫付冲抵款（羊肉串55+早餐50）：-¥${brotherInLawOffsetCredit.toFixed(2)}
-   • 在途公费净应付：¥${brotherInLawNetOnRoadShare.toFixed(2)}
-${includeBigTickets ? `4. 线上代订大门票（2人）：¥${bigOnlineTicketsTotal.toFixed(2)}
+   • 在途公费净应付：¥${brotherInLawNetOnRoadShare.toFixed(2)}${settlementScope === 'full' ? '（含D9-D10预估+¥287.50）' : ''}
+${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥${bigOnlineTicketsTotal.toFixed(2)}
    • 喀纳斯一进门票+大巴 ¥460（观鱼台中巴免费¥0）
-   • 赛里木湖门票+自驾车费分摊 ¥200` : `4. 线上大门票：已由姐夫手机自行购票，不计入对账`}
+   • 赛里木湖门票+自驾车费分摊 ¥200
+   （注：木特塔尔¥90与五彩滩¥86已包含在第3项在途流水中，绝不重复收取）` : `4. 线上大门票：已由姐夫手机自行购票，不计入对账`}
 -----------------------------
+【对账验算】：卡片1 ¥${brotherInLawHotelShare.toFixed(2)} + 卡片2 ¥${brotherInLawCarShare.toFixed(2)} + 卡片3 ¥${onRoadShareAmount} + 卡片4 ¥${includeBigTickets ? bigOnlineTicketsTotal.toFixed(2) : '0.00'} = ¥${grandTotal.toFixed(2)}
 【姐夫一家本次应结转账总额】：¥${grandTotal.toFixed(2)} 元
-（人均才 ¥${(grandTotal / 2).toFixed(2)} 元，比携程私家团人均1.2万+省下了整整一大截！玩的超开心，感谢姐夫一路接力代驾！）`;
+（两人人均仅 ¥${(grandTotal / 2).toFixed(2)} 元，比携程私家团人均1.2万+省下了整整一大截！玩的超开心，感谢姐夫一路接力代驾！）`;
   };
 
   const handleCopyText = () => {
@@ -381,10 +388,12 @@ ${includeBigTickets ? `4. 线上代订大门票（2人）：¥${bigOnlineTickets
             <div className="mt-2">
               <p className="text-xs text-slate-500 font-medium">在途流水公摊</p>
               <p className="text-lg font-black text-slate-900 mt-0.5">
-                ¥{brotherInLawNetOnRoadShare.toFixed(2)}
+                ¥{settlementScope === 'full' 
+                  ? (brotherInLawNetOnRoadShare + remainingProjectedShare).toFixed(2) 
+                  : brotherInLawNetOnRoadShare.toFixed(2)}
               </p>
               <p className="text-[11px] text-cyan-700 font-medium mt-0.5">
-                油费+餐饮+路费
+                {settlementScope === 'full' ? '含D9-D10预估+¥287.5' : '油费+餐饮+现场小门票'}
               </p>
             </div>
           </div>
@@ -401,16 +410,19 @@ ${includeBigTickets ? `4. 线上代订大门票（2人）：¥${bigOnlineTickets
             <div className="flex items-center justify-between">
               <span className="text-xl">🎟️</span>
               <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">
-                {includeBigTickets ? '全部门票' : '仅在途小票'}
+                {includeBigTickets ? '独立代订项' : '自理(不计入)'}
               </span>
             </div>
             <div className="mt-2">
-              <p className="text-xs text-slate-500 font-medium">景区门票与景交</p>
+              <p className="text-xs text-slate-500 font-medium">线上代订大门票</p>
               <p className="text-lg font-black text-slate-900 mt-0.5">
-                ¥{includeBigTickets ? (bigOnlineTicketsTotal + totalOnRoadTickets / 2).toFixed(2) : (totalOnRoadTickets / 2).toFixed(2)}
+                ¥{includeBigTickets ? bigOnlineTicketsTotal.toFixed(2) : '0.00'}
               </p>
               <p className="text-[11px] text-emerald-700 font-medium mt-0.5">
-                4大核心景区 2人
+                喀纳斯+赛湖 (2人)
+              </p>
+              <p className="text-[10px] text-slate-400 mt-0.5">
+                现场票¥176已在卡片3
               </p>
             </div>
           </div>
@@ -540,16 +552,16 @@ ${includeBigTickets ? `4. 线上代订大门票（2人）：¥${bigOnlineTickets
                 </div>
                 <div>
                   <h3 className="font-extrabold text-slate-900 text-sm sm:text-base">
-                    3. 在途公共流水（加油+17顿特色餐+高速费+小门票+超市）
+                    3. 在途公共流水（加油+17顿特色餐+高速费+现场小门票¥176+超市）
                   </h3>
                   <p className="text-xs text-slate-500">
-                    全团 8 天流水 ¥{totalAccruedShared.toFixed(2)} · 50%分摊 ¥{(totalAccruedShared / 2).toFixed(2)} · 扣除垫付后净应付 = <strong className="text-cyan-700">¥{brotherInLawNetOnRoadShare.toFixed(2)}</strong>
+                    全团 8 天流水 ¥{totalAccruedShared.toFixed(2)} · 50%分摊 ¥{(totalAccruedShared / 2).toFixed(2)} · 扣除垫付后净应付 = <strong className="text-cyan-700">¥{(settlementScope === 'full' ? brotherInLawNetOnRoadShare + remainingProjectedShare : brotherInLawNetOnRoadShare).toFixed(2)}</strong>{settlementScope === 'full' ? '（含D9-D10预估公摊+¥287.50）' : ''}
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-xs font-black text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-1 rounded-lg">
-                  ¥{brotherInLawNetOnRoadShare.toFixed(2)}
+                  ¥{(settlementScope === 'full' ? brotherInLawNetOnRoadShare + remainingProjectedShare : brotherInLawNetOnRoadShare).toFixed(2)}
                 </span>
                 {expandedSection === 'onroad' ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
               </div>
@@ -586,9 +598,9 @@ ${includeBigTickets ? `4. 线上代订大门票（2人）：¥${bigOnlineTickets
                     <span className="text-[10px] text-slate-400">姐夫摊 ¥{(totalTollAmount / 2).toFixed(2)}</span>
                   </div>
                   <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
-                    <span className="text-slate-500">现场小门票+超市：</span>
+                    <span className="text-slate-500">现场小门票+补给：</span>
                     <p className="font-black text-slate-900 mt-0.5">¥{(totalOnRoadTickets + totalGroceryAmount).toFixed(2)}</p>
-                    <span className="text-[10px] text-slate-400">姐夫摊 ¥{((totalOnRoadTickets + totalGroceryAmount) / 2).toFixed(2)}</span>
+                    <span className="text-[10px] text-slate-400">含木特塔尔+五彩滩2人¥176</span>
                   </div>
                 </div>
 
@@ -624,67 +636,167 @@ ${includeBigTickets ? `4. 线上代订大门票（2人）：¥${bigOnlineTickets
                 </div>
                 <div>
                   <h3 className="font-extrabold text-slate-900 text-sm sm:text-base">
-                    4. 全部核心景区门票景交盘点（实打实 2 人份 · 绝无重复）
+                    4. 景区门票与景交明细（线上代订 ¥660 + 现场流水已结 ¥176）
                   </h3>
                   <p className="text-xs text-slate-500">
-                    4 个大景区全部刚需门票总计 <strong className="text-emerald-700">¥836.00</strong> · 骑马已各自付清结清
+                    清晰分流 · 本次仅结代订 <strong className="text-emerald-700">¥{includeBigTickets ? bigOnlineTicketsTotal.toFixed(2) : '0.00'}</strong> · 现场票已在卡片3公费流水 · 绝不重复收费
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-black text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-1 rounded-lg">
-                  ¥836.00
-                </span>
+                <div className="text-right">
+                  <span className="text-xs font-black text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-1 rounded-lg inline-block">
+                    本次代订应结：¥{includeBigTickets ? bigOnlineTicketsTotal.toFixed(2) : '0.00'}
+                  </span>
+                  <p className="text-[10px] text-slate-400 mt-0.5 sm:block hidden">
+                    总门票 ¥836.00 (¥176已在流水)
+                  </p>
+                </div>
                 {expandedSection === 'tickets' ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
               </div>
             </button>
 
             {expandedSection === 'tickets' && (
-              <div className="px-5 pb-5 pt-1 border-t border-slate-100 space-y-2.5 text-xs">
-                <div className="divide-y divide-slate-100">
-                  <div className="py-2 flex items-center justify-between">
-                    <div>
-                      <span className="font-bold text-slate-900">1. 喀纳斯景区门票 + 往返大巴 (10/2)</span>
-                      <p className="text-slate-500 text-[11px]">旺季一进大门票 ¥230/人 × 2人</p>
+              <div className="px-5 pb-5 pt-2 border-t border-slate-100 space-y-4 text-xs">
+                
+                {/* Block A: Online Tickets */}
+                <div className="bg-emerald-50/50 rounded-xl p-3.5 border border-emerald-200/80 space-y-2.5">
+                  <div className="flex items-center justify-between pb-2 border-b border-emerald-200/60">
+                    <div className="flex items-center gap-2">
+                      <span className="font-black text-emerald-950 text-sm">
+                        板块 A：【本次独立结算】线上代订大门票
+                      </span>
+                      <span className="bg-emerald-200/70 text-emerald-900 font-extrabold text-[10px] px-2 py-0.5 rounded-full">
+                        计入上方卡片 4
+                      </span>
                     </div>
-                    <span className="font-black text-slate-800">¥460.00</span>
+                    <span className="font-black text-emerald-800 text-sm">
+                      应付 ¥{bigOnlineTicketsTotal.toFixed(2)}
+                    </span>
                   </div>
-                  <div className="py-2 flex items-center justify-between">
-                    <div>
-                      <span className="font-bold text-slate-900">2. 喀纳斯观鱼台 2 号线换乘中巴</span>
-                      <p className="text-emerald-600 font-medium text-[11px]">实测经验：往返完全免费，凭大门票直接换乘！</p>
+
+                  <div className="divide-y divide-emerald-100">
+                    <div className="py-2 flex items-center justify-between">
+                      <div>
+                        <span className="font-bold text-slate-900">1. 喀纳斯景区门票 + 往返大巴 (10/2)</span>
+                        <p className="text-slate-500 text-[11px]">旺季一进大门票 ¥230/人 × 2人（线上提前代订锁定）</p>
+                      </div>
+                      <span className="font-black text-slate-900">¥460.00</span>
                     </div>
-                    <span className="font-black text-emerald-600">¥0.00 (免费)</span>
+
+                    <div className="py-2 flex items-center justify-between">
+                      <div>
+                        <span className="font-bold text-slate-900">2. 喀纳斯观鱼台 2 号线换乘中巴 (10/2)</span>
+                        <p className="text-emerald-700 font-medium text-[11px]">实测经验：往返完全免费，凭大门票直接换乘！</p>
+                      </div>
+                      <span className="font-black text-emerald-700">¥0.00 (免费)</span>
+                    </div>
+
+                    <div className="py-2 flex items-center justify-between">
+                      <div>
+                        <span className="font-bold text-slate-900">3. 赛里木湖门票 + 自驾车费分摊 (9/28)</span>
+                        <p className="text-slate-500 text-[11px]">门票 ¥70×2人(¥140) + 自驾车费50%分摊(¥60)</p>
+                      </div>
+                      <span className="font-black text-slate-900">¥200.00</span>
+                    </div>
                   </div>
-                  <div className="py-2 flex items-center justify-between">
-                    <div>
-                      <span className="font-bold text-slate-900">3. 赛里木湖门票 + 自驾车费分摊 (9/28)</span>
-                      <p className="text-slate-500 text-[11px]">门票 ¥70×2人(¥140) + 自驾车费50%分摊(¥60)</p>
-                    </div>
-                    <span className="font-black text-slate-800">¥200.00</span>
-                  </div>
-                  <div className="py-2 flex items-center justify-between">
-                    <div>
-                      <span className="font-bold text-slate-900">4. 木特塔尔沙漠公园门票+景交 (9/27)</span>
-                      <p className="text-slate-500 text-[11px]">门票¥30×2 + 摆渡车¥15×2（已记在公费流水中）</p>
-                    </div>
-                    <span className="font-black text-slate-800">¥90.00</span>
-                  </div>
-                  <div className="py-2 flex items-center justify-between">
-                    <div>
-                      <span className="font-bold text-slate-900">5. 五彩滩风景区美团门票 (10/1)</span>
-                      <p className="text-slate-500 text-[11px]">美团特惠票 ¥43×2人（已记在公费流水中）</p>
-                    </div>
-                    <span className="font-black text-slate-800">¥86.00</span>
+
+                  <div className="pt-1 flex items-center justify-between text-slate-600 text-[11px] font-medium border-t border-emerald-200/60">
+                    <span>未在日常在途流水中记账，由本次结算独立收款</span>
+                    <span className="font-bold text-emerald-900">板块 A 小计：¥{bigOnlineTicketsTotal.toFixed(2)}</span>
                   </div>
                 </div>
 
-                <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-900 space-y-1">
-                  <p className="font-bold">⚠️ 防重复对账物理隔离原则：</p>
-                  <p className="text-emerald-800">
-                    木特塔尔（¥90）和五彩滩（¥86）在平时的在途公费流水里已经支付并记录。因此在上方结算总账中，只把未在流水里的<strong>喀纳斯+赛湖线上大门票（¥660.00）</strong>作为代订项结算，绝无任何重复计费！
+                {/* Block B: On-road tickets already settled */}
+                <div className="bg-slate-50 rounded-xl p-3.5 border border-slate-200 space-y-2.5">
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+                    <div className="flex items-center gap-2">
+                      <span className="font-black text-slate-800 text-sm">
+                        板块 B：【已在在途流水中结清】现场门票与自选项目
+                      </span>
+                      <span className="bg-cyan-100 text-cyan-800 font-extrabold text-[10px] px-2 py-0.5 rounded-full">
+                        已含在卡片 3 · 本次 0 元重复
+                      </span>
+                    </div>
+                    <span className="font-bold text-slate-500 text-xs">
+                      本次应结：¥0.00
+                    </span>
+                  </div>
+
+                  <div className="divide-y divide-slate-200/70">
+                    <div className="py-2 flex items-center justify-between">
+                      <div>
+                        <span className="font-bold text-slate-800">4. 木特塔尔国家沙漠公园门票 + 摆渡车 (9/27)</span>
+                        <p className="text-slate-500 text-[11px]">全团门票¥120+摆渡车¥60=¥180，姐夫一家50%应摊 ¥90.00</p>
+                      </div>
+                      <div className="text-right">
+                        <span className="line-through text-slate-400 font-bold mr-1.5">¥90.00</span>
+                        <span className="font-bold text-cyan-700 bg-cyan-50 px-1.5 py-0.5 rounded border border-cyan-200 text-[10px]">
+                          已在卡片3流水结清
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="py-2 flex items-center justify-between">
+                      <div>
+                        <span className="font-bold text-slate-800">5. 五彩滩风景区美团门票 (10/1)</span>
+                        <p className="text-slate-500 text-[11px]">全团4人美团门票 ¥172，姐夫一家50%应摊 ¥86.00</p>
+                      </div>
+                      <div className="text-right">
+                        <span className="line-through text-slate-400 font-bold mr-1.5">¥86.00</span>
+                        <span className="font-bold text-cyan-700 bg-cyan-50 px-1.5 py-0.5 rounded border border-cyan-200 text-[10px]">
+                          已在卡片3流水结清
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="py-2 flex items-center justify-between">
+                      <div>
+                        <span className="font-bold text-slate-800">6. 喀纳斯禾木草原骑马自选项目</span>
+                        <p className="text-slate-500 text-[11px]">实测经验：现场微信扫码各付各的，各自当场已结清</p>
+                      </div>
+                      <div className="text-right">
+                        <span className="font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 text-[10px]">
+                          现场各自已结清
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-1 flex items-center justify-between text-slate-500 text-[11px]">
+                    <span>木特塔尔(¥90)+五彩滩(¥86)共 ¥176 已平摊计入在途公费（卡片 3）</span>
+                    <span className="font-bold text-slate-700">板块 B 本次额外收取：¥0.00</span>
+                  </div>
+                </div>
+
+                {/* Reconciliation Box */}
+                <div className="p-3.5 bg-gradient-to-r from-emerald-50 via-teal-50 to-cyan-50 rounded-xl border border-emerald-200 text-xs text-slate-800 space-y-2">
+                  <div className="flex items-center gap-1.5 font-black text-emerald-950">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                    <span>门票费用闭环防重对账（100% 账目透明，绝无重复）：</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px]">
+                    <div className="bg-white/90 p-2.5 rounded-lg border border-emerald-100 shadow-2xs">
+                      <span className="text-slate-500">① 4大景区2人总门票：</span>
+                      <p className="text-sm font-black text-slate-900 mt-0.5">¥836.00</p>
+                      <span className="text-[10px] text-slate-400">全部真实票务总开销</span>
+                    </div>
+                    <div className="bg-white/90 p-2.5 rounded-lg border border-cyan-100 shadow-2xs">
+                      <span className="text-slate-500">② 已在卡片3在途流水结清：</span>
+                      <p className="text-sm font-black text-cyan-700 mt-0.5">¥176.00</p>
+                      <span className="text-[10px] text-cyan-600">木特塔尔¥90 + 五彩滩¥86</span>
+                    </div>
+                    <div className="bg-white/90 p-2.5 rounded-lg border border-emerald-100 shadow-2xs">
+                      <span className="text-slate-500">③ 本次卡片4独立收取：</span>
+                      <p className="text-sm font-black text-emerald-700 mt-0.5">¥{includeBigTickets ? bigOnlineTicketsTotal.toFixed(2) : '0.00'}</p>
+                      <span className="text-[10px] text-emerald-600">喀纳斯¥460 + 赛湖¥200</span>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-emerald-900 leading-relaxed pt-1 border-t border-emerald-200/50">
+                    💡 <strong>对账防重公式：</strong>总门票 ¥836.00 = 卡片3已结 ¥176.00 + 卡片4应收 ¥660.00。四个卡片金额之和（卡片1 + 卡片2 + 卡片3 + 卡片4）严格等于顶部应结总额 <strong>¥{grandTotal.toFixed(2)}</strong>，一分不差！
                   </p>
                 </div>
+
               </div>
             )}
           </div>
