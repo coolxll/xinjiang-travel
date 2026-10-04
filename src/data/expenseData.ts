@@ -201,8 +201,8 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     plannedHotel: {
       name: '星程乌鲁木齐天山国际机场迎宾路酒店',
       roomType: '大床房 2间',
-      cost: 491.30,
-      payType: '到店付'
+      cost: 367.76,
+      payType: '携程已在线支付'
     }
   },
   {

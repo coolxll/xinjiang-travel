@@ -252,16 +252,16 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
     brand: '华住会 / 星程酒店',
     roomType: '大床房 2间 (4人入住)',
     roomCount: 2,
-    totalCost: 491.30,
+    totalCost: 367.76,
     payType: '已在线支付',
-    avgPricePerRoom: 245.65,
-    cancellationPolicy: '10月05日 20:00 前可免费取消 (20:00后不可取消)',
+    avgPricePerRoom: 183.88,
+    cancellationPolicy: '携程预订政策 (10/5入住)',
     freeCancelDeadline: '2026-10-05 20:00',
     address: '新疆维吾尔自治区乌鲁木齐市头屯河区乌昌路252号九方财富广场B座',
     phone: '0991-3705888',
     features: ['距离天山国际机场车程仅10分钟', '大床房2间', '21:00还车后无缝入住', '锁定次日07:00早班机'],
-    notes: '【极其关键 · 锁定次日 07:00 早班机】：已锁定 10/5 晚大床房。21:00 完成机场还车后直接入住，次日清晨 05:00 快速抵达候机楼，100% 稳妥返程！',
-    bookingChannel: '华住会官方预订',
+    notes: '【携程特惠 · 锁定次日 07:00 早班机】：已通过携程特惠重新锁定 10/5 晚大床房 2 间（实付仅 ¥367.76，单间仅 ¥183.88）。21:00 完成机场还车后直接入住，次日清晨 05:00 快速抵达候机楼，100% 稳妥返程！',
+    bookingChannel: '携程旅行预订',
     amapSearchUrl: 'https://uri.amap.com/search?keyword=星程乌鲁木齐天山国际机场迎宾路酒店'
   }
 ];
@@ -269,10 +269,10 @@ export const DAILY_HOTEL_BOOKINGS: DailyHotelBooking[] = [
 export const HOTEL_BOOKING_SUMMARY = {
   totalNights: 10,
   confirmedNights: 10,
-  confirmedTotalCost: 6315.40, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 489.00 (10/2) + 850.00 (10/3) + 498.90 (10/4) + 491.30 (10/5)
+  confirmedTotalCost: 6191.86, // 420.70 (9/26) + 389.30 (9/27) + 1970.30 (9/28) + 498.90 (9/29) + 312.00 (9/30) + 395.00 (10/1) + 489.00 (10/2) + 850.00 (10/3) + 498.90 (10/4) + 367.76 (10/5)
   confirmedRooms: 20,
-  estimatedTotalHotelBudget: 6315.40,
-  estimatedSavings: 14208,
+  estimatedTotalHotelBudget: 6191.86,
+  estimatedSavings: 14332,
   freeCancellationDeadlines: [
     { hotel: '星程乌鲁木齐机场迎宾路店 (9/26)', deadline: '2026-09-25 23:00', cost: 420.70 },
     { hotel: '星程精河连霍高速路口酒店 (9/27)', deadline: '2026-09-27 20:00', cost: 389.30 },
@@ -283,6 +283,6 @@ export const HOTEL_BOOKING_SUMMARY = {
     { hotel: '冲乎尔望山民宿+奇在独一民宿 (10/2)', deadline: '已入住结清 (原贾登峪退订省¥2289)', cost: 489.00 },
     { hotel: '阿勒泰漫心酒店 (10/3)', deadline: '美团直播特价锁定 (原丽呈退订)', cost: 850.00 },
     { hotel: '全季昌吉东方广场酒店 (10/4)', deadline: '2026-10-03 23:00', cost: 498.90 },
-    { hotel: '星程乌鲁木齐机场迎宾路店 (10/5)', deadline: '2026-10-05 20:00', cost: 491.30 }
+    { hotel: '星程乌鲁木齐机场迎宾路店 (10/5 携程特惠)', deadline: '携程特惠已锁定', cost: 367.76 }
   ]
 };
