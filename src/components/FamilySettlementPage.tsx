@@ -605,7 +605,7 @@ ${includeBigTickets ? `4. 线上代订大门票（2人）：¥${bigOnlineTickets
                   </p>
                   <p className="text-slate-600 flex justify-between">
                     <span>5. D7 黑流滩加油站加满：¥340.00</span>
-                    <span>6. D8 S21克拉美丽服务区加满：¥478.00</span>
+                    <span>6. D8 S21克拉美丽沙漠公园服务区：¥478.00</span>
                   </p>
                 </div>
               </div>
