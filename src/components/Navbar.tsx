@@ -16,8 +16,8 @@ interface NavbarProps {
   activeSection: string;
   onNavigate: (sectionId: string) => void;
   onOpenPrint: () => void;
-  pageMode: 'main' | 'roadbook' | 'alternatives' | 'expenses';
-  onSwitchPageMode: (mode: 'main' | 'roadbook' | 'alternatives' | 'expenses') => void;
+  pageMode: 'main' | 'roadbook' | 'alternatives' | 'expenses' | 'settlement';
+  onSwitchPageMode: (mode: 'main' | 'roadbook' | 'alternatives' | 'expenses' | 'settlement') => void;
   onOpenTravelogue?: (dayNum?: number) => void;
 }
 
@@ -72,6 +72,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                     ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                     : pageMode === 'expenses'
                     ? 'bg-amber-100 text-amber-800 border border-amber-300'
+                    : pageMode === 'settlement'
+                    ? 'bg-rose-100 text-rose-800 border border-rose-300'
                     : pageMode === 'alternatives'
                     ? 'bg-purple-100 text-purple-800 border border-purple-200'
                     : 'bg-amber-100 text-amber-800 border border-amber-200'
@@ -80,6 +82,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                     ? '每日路书 · 独立伴侣'
                     : pageMode === 'expenses'
                     ? '行程账单 · 实时记账'
+                    : pageMode === 'settlement'
+                    ? '姐夫一家 · AA对账单'
                     : pageMode === 'alternatives'
                     ? '备选方案选线库'
                     : '阿禾公路主线'}
@@ -140,6 +144,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                 pageMode === 'expenses' ? 'bg-white/20 text-white' : 'bg-amber-500 text-white'
               }`}>
                 {CURRENT_EXPENSE_META.badgeText}
+              </span>
+            </button>
+
+            {/* 4. Family Settlement Mode (Brother-in-law AA) */}
+            <button
+              onClick={() => onSwitchPageMode('settlement')}
+              className={`flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-xs font-black transition-all ${
+                pageMode === 'settlement'
+                  ? 'bg-rose-600 text-white shadow-xs'
+                  : 'text-rose-800 hover:bg-rose-50'
+              }`}
+              title="姐夫一家专属对账与AA明细分账结算单"
+            >
+              <span>🤝</span>
+              <span>姐夫对账</span>
+              <span className={`hidden sm:inline-flex text-[9px] px-1 py-0.2 rounded font-black ${
+                pageMode === 'settlement' ? 'bg-white/20 text-white' : 'bg-rose-500 text-white'
+              }`}>
+                AA
               </span>
             </button>
           </div>

@@ -33,13 +33,15 @@ interface TripExpensesPageProps {
   onSwitchToRoadbook?: () => void;
   onOpenPrint?: () => void;
   onOpenTravelogue?: (dayNum?: number) => void;
+  onSwitchToSettlement?: () => void;
 }
 
 export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
   onBackToMain,
   onSwitchToRoadbook,
   onOpenPrint,
-  onOpenTravelogue
+  onOpenTravelogue,
+  onSwitchToSettlement
 }) => {
   const [expenses, setExpenses] = useState<ExpenseItem[]>(() => getStoredExpenses());
   const [selectedDayNumber, setSelectedDayNumber] = useState<number>(() => CURRENT_EXPENSE_META.maxDay || 1);
@@ -303,6 +305,41 @@ export const TripExpensesPage: React.FC<TripExpensesPageProps> = ({
             >
               <RotateCcw className="w-4 h-4" />
             </button>
+          </div>
+        </div>
+
+        {/* Shortcut Banner to Brother-in-law Settlement */}
+        <div 
+          onClick={() => {
+            if (onSwitchToSettlement) {
+              onSwitchToSettlement();
+            } else {
+              window.location.hash = 'settlement';
+            }
+          }}
+          className="bg-gradient-to-r from-rose-500/10 via-amber-500/10 to-rose-500/10 border border-rose-300/80 hover:border-rose-400 rounded-2xl p-3.5 flex items-center justify-between gap-3 cursor-pointer group transition-all shadow-2xs"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500 to-rose-600 text-white flex items-center justify-center font-bold text-base shadow-xs group-hover:scale-105 transition-transform flex-shrink-0">
+              🤝
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-slate-900 text-sm">
+                  姐夫一家专属对账与 AA 明细分账单
+                </span>
+                <span className="px-1.5 py-0.2 rounded text-[10px] font-black bg-rose-100 text-rose-800 border border-rose-200">
+                  一站式结算
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                住宿1间(50%) + 租车(50%) + 6箱油与全餐 + 门票核算 · 已扣姐夫垫付 ¥52.50 · 点击即看
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 text-xs font-black text-rose-700 bg-white px-3 py-1.5 rounded-xl border border-rose-200 shadow-2xs group-hover:bg-rose-50 transition-colors flex-shrink-0">
+            <span>查看对账单</span>
+            <ChevronRight className="w-3.5 h-3.5" />
           </div>
         </div>
 

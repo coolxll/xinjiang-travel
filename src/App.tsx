@@ -33,11 +33,18 @@ const PrintRoadbookModal = lazy(() =>
   }))
 );
 
+const FamilySettlementPage = lazy(() =>
+  import('./components/FamilySettlementPage').then((m) => ({
+    default: m.FamilySettlementPage,
+  }))
+);
+
 export const App: React.FC = () => {
-  const [pageMode, setPageMode] = useState<'main' | 'roadbook' | 'alternatives' | 'expenses'>(() => {
+  const [pageMode, setPageMode] = useState<'main' | 'roadbook' | 'alternatives' | 'expenses' | 'settlement'>(() => {
     if (window.location.hash === '#roadbook') return 'roadbook';
     if (window.location.hash === '#alternatives') return 'alternatives';
     if (window.location.hash === '#expenses' || window.location.hash === '#billing' || window.location.hash === '#ledger') return 'expenses';
+    if (window.location.hash === '#settlement' || window.location.hash === '#split' || window.location.hash === '#family') return 'settlement';
     return 'main';
   });
   const [activeSection, setActiveSection] = useState<string>('overview');
@@ -51,7 +58,7 @@ export const App: React.FC = () => {
   };
 
   // Switch Page Mode & URL Hash
-  const handleSwitchPageMode = (mode: 'main' | 'roadbook' | 'alternatives' | 'expenses') => {
+  const handleSwitchPageMode = (mode: 'main' | 'roadbook' | 'alternatives' | 'expenses' | 'settlement') => {
     setPageMode(mode);
     if (mode === 'roadbook') {
       window.location.hash = 'roadbook';
@@ -61,6 +68,9 @@ export const App: React.FC = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (mode === 'expenses') {
       window.location.hash = 'expenses';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (mode === 'settlement') {
+      window.location.hash = 'settlement';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       window.location.hash = 'main';
@@ -77,6 +87,8 @@ export const App: React.FC = () => {
         setPageMode('alternatives');
       } else if (window.location.hash === '#expenses' || window.location.hash === '#billing' || window.location.hash === '#ledger') {
         setPageMode('expenses');
+      } else if (window.location.hash === '#settlement' || window.location.hash === '#split' || window.location.hash === '#family') {
+        setPageMode('settlement');
       } else if (window.location.hash.startsWith('#travelogue') || window.location.hash.startsWith('#journal')) {
         const parts = window.location.hash.split('-');
         if (parts[1]) {
@@ -205,6 +217,25 @@ export const App: React.FC = () => {
                 onSwitchToRoadbook={() => handleSwitchPageMode('roadbook')}
                 onOpenPrint={() => setIsPrintModalOpen(true)}
                 onOpenTravelogue={handleOpenTravelogue}
+                onSwitchToSettlement={() => handleSwitchPageMode('settlement')}
+              />
+            </Suspense>
+          ) : pageMode === 'settlement' ? (
+            /* Dedicated Family Settlement & Brother-in-law AA Split Page */
+            <Suspense
+              fallback={
+                <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white p-8">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin" />
+                    <span className="text-sm font-bold text-slate-300">正在加载姐夫分账明细结算单...</span>
+                  </div>
+                </div>
+              }
+            >
+              <FamilySettlementPage
+                onBackToMain={() => handleSwitchPageMode('main')}
+                onSwitchToExpenses={() => handleSwitchPageMode('expenses')}
+                onSwitchToRoadbook={() => handleSwitchPageMode('roadbook')}
               />
             </Suspense>
           ) : (
