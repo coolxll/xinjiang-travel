@@ -181,7 +181,7 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     date: '10/4',
     fullDate: '2026年10月4日 (周日)',
     title: '阿勒泰市 → S21 阿乌沙漠高速 → 昌吉东方广场',
-    routeSummary: '穿越准噶尔盆地与古尔班通古特沙漠，抵达天山北麓美食之城昌吉',
+    routeSummary: '漫心休整 · S21阿乌沙漠高速 · 克拉美丽服务区加油¥478 · 姐夫接力代驾 · 宿昌吉全季 · 西域那依新疆菜晚饭¥291',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '全季昌吉东方广场酒店',
@@ -802,10 +802,42 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     perPerson: 12.5,
     time: '20:00',
     payer: '姐夫一家'
+  },
+  {
+    id: 'exp-d8-gas',
+    dayNumber: 8,
+    dayId: 'day-8',
+    date: '10/4',
+    title: '车辆加油 (S21 克拉美丽服务区排队加油)',
+    category: 'supplies',
+    amount: 478,
+    paymentMethod: '支付宝/加油站扫码',
+    location: 'S21 阿乌沙漠高速 · 克拉美丽服务区加油站',
+    note: '穿越准噶尔古尔班通古特沙漠南下，在克拉美丽服务区排队加满油箱，保障后续路段与抵昌吉无忧续航，实付 ¥478.00 (4人AA ¥119.50/人)',
+    splitCount: 4,
+    perPerson: 119.50,
+    time: '16:20',
+    payer: '我们一家 (支付宝)'
+  },
+  {
+    id: 'exp-d8-dinner',
+    dayNumber: 8,
+    dayId: 'day-8',
+    date: '10/4',
+    title: '特色晚餐 (西域那依·新疆菜 昌吉宁边路店)',
+    category: 'dining',
+    amount: 291,
+    paymentMethod: '支付宝扫码支付',
+    location: '昌吉市 · 西域那依·新疆菜 (宁边路店)',
+    note: '抵达昌吉入住全季酒店休息后，在酒店周边西域那依新疆菜享用丰盛地道的新疆菜晚餐，实付 ¥291.00 (4人AA ¥72.75/人)',
+    splitCount: 4,
+    perPerson: 72.75,
+    time: '20:10',
+    payer: '我们一家 (支付宝)'
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v11';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v12';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;
