@@ -12,13 +12,15 @@ interface FamilySettlementPageProps {
   onSwitchToRoadbook?: () => void;
 }
 
+export type SettlementScope = 'full' | 'lodging_locked' | 'accrued';
+
 export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
   onBackToMain,
   onSwitchToExpenses,
   onSwitchToRoadbook
 }) => {
-  // Mode: 'accrued' (已发生 D0-D8) vs 'full' (全程 10天预计)
-  const [settlementScope, setSettlementScope] = useState<'accrued' | 'full'>('accrued');
+  // Mode: 'full' (10天全盘全包一口价 · 包含明天D9) vs 'lodging_locked' (含明天已付房费·流水现场付) vs 'accrued' (已发生 D0-D8)
+  const [settlementScope, setSettlementScope] = useState<SettlementScope>('full');
   // Whether big online tickets (Kanas + Sayram = ¥660) are booked by organizer and need to be included in transfer
   const [includeBigTickets, setIncludeBigTickets] = useState<boolean>(true);
   // Expandable sections
@@ -136,34 +138,52 @@ export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
 
   // Generate WeChat share text
   const generateWechatText = () => {
-    const scopeLabel = settlementScope === 'accrued' ? '截止第八天（已住9晚已加6箱油）' : '全程10天全包落地';
+    let scopeLabel = '';
+    let lodgingDesc = '';
+    let onRoadShareAmount = '';
+    let onRoadLineNote = '';
+
+    if (settlementScope === 'full') {
+      scopeLabel = '10天全程全盘全包（含明天D9酒店+在途预估封账）';
+      lodgingDesc = '全部 10 晚（已含明天10/5迎宾路星程¥183.88）';
+      onRoadShareAmount = (brotherInLawNetOnRoadShare + remainingProjectedShare).toFixed(2);
+      onRoadLineNote = '（含D9明天还车加油/洗车/餐饮预估公摊+¥287.50，全包后明天无需再掏钱）';
+    } else if (settlementScope === 'lodging_locked') {
+      scopeLabel = '含明天D9房费锁账（流水结至D8·明天现场AA）';
+      lodgingDesc = '全部 10 晚（已含明天10/5迎宾路星程¥183.88）';
+      onRoadShareAmount = brotherInLawNetOnRoadShare.toFixed(2);
+      onRoadLineNote = '（在途流水结至D8，D9明天白天加油/餐饮现场AA）';
+    } else {
+      scopeLabel = '截止第八天实付（已住9晚已加6箱油）';
+      lodgingDesc = '已住满 9 晚';
+      onRoadShareAmount = brotherInLawNetOnRoadShare.toFixed(2);
+      onRoadLineNote = '';
+    }
+
     const ticketLabel = includeBigTickets 
       ? '已含喀纳斯+赛湖线上大门票代订(¥660)' 
       : '不含喀纳斯赛湖大门票(自理)';
-
-    const onRoadShareAmount = settlementScope === 'full' 
-      ? (brotherInLawNetOnRoadShare + remainingProjectedShare).toFixed(2)
-      : brotherInLawNetOnRoadShare.toFixed(2);
 
     return `【北疆秋季自驾 · 姐夫一家 AA 对账结算单】
 结算口径：${scopeLabel}
 门票代订：${ticketLabel}
 -----------------------------
 1. 酒店住宿（单间 50%）：¥${brotherInLawHotelShare.toFixed(2)}
-   • 包含赛里木湖城际高奢、冲乎尔民宿、阿勒泰漫心、昌吉全季等
+   • ${lodgingDesc}，包含赛里木湖城际高奢、冲乎尔民宿、阿勒泰漫心、昌吉全季、机场迎宾路星程等
 2. 租车自驾（捷途旅行者 SUV 50%）：¥${brotherInLawCarShare.toFixed(2)}
+   • 8.5 天全租期整车全款 ¥2,200.00，合同全额结清无后续追加
 3. 在途公共流水（油费+餐费+路费+超市+现场门票¥176）：¥${onRoadShareAmount}
    • 全团流水50%分摊：¥${(totalAccruedShared / 2).toFixed(2)}
    • 减去姐夫已垫付冲抵款（羊肉串55+早餐50）：-¥${brotherInLawOffsetCredit.toFixed(2)}
-   • 在途公费净应付：¥${brotherInLawNetOnRoadShare.toFixed(2)}${settlementScope === 'full' ? '（含D9-D10预估+¥287.50）' : ''}
+   • 在途公费净应付：¥${brotherInLawNetOnRoadShare.toFixed(2)}${onRoadLineNote}
 ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥${bigOnlineTicketsTotal.toFixed(2)}
    • 喀纳斯一进门票+大巴 ¥460（观鱼台中巴免费¥0）
    • 赛里木湖门票+自驾车费分摊 ¥200
    （注：木特塔尔¥90与五彩滩¥86已包含在第3项在途流水中，绝不重复收取）` : `4. 线上大门票：已由姐夫手机自行购票，不计入对账`}
 -----------------------------
-【对账验算】：卡片1 ¥${brotherInLawHotelShare.toFixed(2)} + 卡片2 ¥${brotherInLawCarShare.toFixed(2)} + 卡片3 ¥${onRoadShareAmount} + 卡片4 ¥${includeBigTickets ? bigOnlineTicketsTotal.toFixed(2) : '0.00'} = ¥${grandTotal.toFixed(2)}
+【对账验算】：卡片1 住宿 ¥${brotherInLawHotelShare.toFixed(2)} + 卡片2 租车 ¥${brotherInLawCarShare.toFixed(2)} + 卡片3 在途流水 ¥${onRoadShareAmount} + 卡片4 代订门票 ¥${includeBigTickets ? bigOnlineTicketsTotal.toFixed(2) : '0.00'} = ¥${grandTotal.toFixed(2)}
 【姐夫一家本次应结转账总额】：¥${grandTotal.toFixed(2)} 元
-（两人人均仅 ¥${(grandTotal / 2).toFixed(2)} 元，比携程私家团人均1.2万+省下了整整一大截！玩的超开心，感谢姐夫一路接力代驾！）`;
+（两人人均仅 ¥${(grandTotal / 2).toFixed(2)} 元，全程人均不到4000元，比携程私家团人均1.2万+省下了整整一大截！玩的超开心，感谢姐夫一路接力代驾！）`;
   };
 
   const handleCopyText = () => {
@@ -242,18 +262,31 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
                   <ShieldCheck className="w-3.5 h-3.5" />
-                  对账状态：已复核 · 无重复计费
+                  {settlementScope === 'full' ? '对账状态：10天全程总账闭环' : '对账状态：已复核 · 无重复计费'}
                 </span>
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
                   <HeartHandshake className="w-3.5 h-3.5" />
                   已冲抵姐夫垫付 ¥52.50
                 </span>
+                {settlementScope !== 'accrued' && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-400/20 text-purple-300 border border-purple-400/30">
+                    🏨 已含 D9 迎宾路星程 1间(¥183.88)
+                  </span>
+                )}
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-white">
-                {settlementScope === 'accrued' ? '截止第八天（已住9晚）应结金额' : '10天全程全包预估总额'}
+                {settlementScope === 'full'
+                  ? '10天全程全盘全包一口价（含明天全在途）'
+                  : settlementScope === 'lodging_locked'
+                  ? '包含明天第10晚酒店锁账（流水结至D8）'
+                  : '截止第八天（已住9晚）实付金额'}
               </h2>
               <p className="text-xs sm:text-sm text-slate-300">
-                姐夫一家 2 人对半分摊（承担 1 间房 + 50% 租车油费 + 50% 在途公费餐费）
+                {settlementScope === 'full'
+                  ? '含全部10晚酒店 + 8.5天租车 + 喀纳斯赛湖大门票 + D1~D8已发流水 + D9明天全天加油洗车餐饮预估'
+                  : settlementScope === 'lodging_locked'
+                  ? '含全部10晚酒店 + 8.5天租车 + 喀纳斯赛湖大门票 + D1~D8已发流水（明天白天现场随手付）'
+                  : '姐夫一家 2 人对半分摊（承担 1 间房 + 50% 租车油费 + 50% 在途公费餐费）'}
               </p>
             </div>
 
@@ -280,17 +313,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
           {/* Controls: Mode Switch & Big Tickets Toggle */}
           <div className="relative z-10 mt-6 pt-5 border-t border-slate-700/60 flex flex-wrap items-center justify-between gap-4">
             {/* Scope Switcher */}
-            <div className="bg-slate-800/90 p-1 rounded-xl border border-slate-700 flex items-center gap-1">
-              <button
-                onClick={() => setSettlementScope('accrued')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
-                  settlementScope === 'accrued'
-                    ? 'bg-amber-500 text-slate-900 shadow-sm'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                已发生实付 (D0~D8)
-              </button>
+            <div className="bg-slate-800/90 p-1 rounded-xl border border-slate-700 flex flex-wrap items-center gap-1">
               <button
                 onClick={() => setSettlementScope('full')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
@@ -299,7 +322,27 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                     : 'text-slate-300 hover:text-white'
                 }`}
               >
-                10天全盘全包
+                10天全盘全包 (含明天预估)
+              </button>
+              <button
+                onClick={() => setSettlementScope('lodging_locked')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
+                  settlementScope === 'lodging_locked'
+                    ? 'bg-amber-500 text-slate-900 shadow-sm'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                含明天房费锁账 (流水现场付)
+              </button>
+              <button
+                onClick={() => setSettlementScope('accrued')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
+                  settlementScope === 'accrued'
+                    ? 'bg-amber-500 text-slate-900 shadow-sm'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                仅截止D8实付 (已住9晚)
               </button>
             </div>
 
@@ -339,7 +382,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                 ¥{brotherInLawHotelShare.toFixed(2)}
               </p>
               <p className="text-[11px] text-purple-700 font-medium mt-0.5">
-                {settlementScope === 'accrued' ? '已住满 9 晚' : '全部 10 晚'}
+                {settlementScope === 'accrued' ? '已住满 9 晚' : '全部 10 晚 (含明天星程)'}
               </p>
             </div>
           </div>
@@ -393,7 +436,11 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                   : brotherInLawNetOnRoadShare.toFixed(2)}
               </p>
               <p className="text-[11px] text-cyan-700 font-medium mt-0.5">
-                {settlementScope === 'full' ? '含D9-D10预估+¥287.5' : '油费+餐饮+现场小门票'}
+                {settlementScope === 'full' 
+                  ? '含D9明天在途预估+¥287.5' 
+                  : settlementScope === 'lodging_locked'
+                  ? 'D1~D8实付(D9现场AA)'
+                  : '油费+餐饮+现场小门票'}
               </p>
             </div>
           </div>
@@ -620,6 +667,18 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                     <span>6. D8 S21克拉美丽沙漠公园服务区：¥478.00</span>
                   </p>
                 </div>
+
+                {settlementScope === 'full' && (
+                  <div className="bg-cyan-50/70 p-3 rounded-xl border border-cyan-200 text-xs text-cyan-950 space-y-1.5">
+                    <p className="font-bold flex items-center gap-1.5 text-cyan-900">
+                      <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
+                      <span>Day 9 明天收官在途预估公摊（¥287.50 / 姐夫一家）：</span>
+                    </p>
+                    <p className="text-[11px] text-cyan-800 leading-relaxed">
+                      包含明天 21:00 机场还车前在迎宾路加满油（约¥160）、洗车店清洗车辆外观（约¥35）、领馆巷特色午餐（约¥120）、全团返程散伙晚宴（约¥260）全团共约 ¥575 的 50% 预算公摊。一口价封账后，明天全天在途消费无需姐夫再掏一分钱！
+                    </p>
+                  </div>
+                )}
               </div>
             )}
           </div>
