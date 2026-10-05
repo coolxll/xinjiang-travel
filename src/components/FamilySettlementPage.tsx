@@ -70,10 +70,15 @@ export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
   }, [currentSharedExpenses]);
   const totalDiningAmount = useMemo(() => diningItems.reduce((sum, item) => sum + item.amount, 0), [diningItems]);
 
-  const tollItems = useMemo(() => {
-    return currentSharedExpenses.filter((item) => item.category === 'transport');
+  const highwayTollItems = useMemo(() => {
+    return currentSharedExpenses.filter((item) => item.category === 'transport' && item.title.includes('通行费'));
   }, [currentSharedExpenses]);
-  const totalTollAmount = useMemo(() => tollItems.reduce((sum, item) => sum + item.amount, 0), [tollItems]);
+  const totalHighwayTollAmount = useMemo(() => highwayTollItems.reduce((sum, item) => sum + item.amount, 0), [highwayTollItems]);
+
+  const localTransportItems = useMemo(() => {
+    return currentSharedExpenses.filter((item) => item.category === 'transport' && !item.title.includes('通行费'));
+  }, [currentSharedExpenses]);
+  const totalLocalTransportAmount = useMemo(() => localTransportItems.reduce((sum, item) => sum + item.amount, 0), [localTransportItems]);
 
   const groceryItems = useMemo(() => {
     return currentSharedExpenses.filter((item) => item.category === 'supplies' && !item.title.includes('加油'));
@@ -133,50 +138,53 @@ export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
   const generateWechatText = () => {
     let scopeLabel = '';
     let lodgingDesc = '';
-    let onRoadShareAmount = '';
-    let onRoadLineNote = '';
 
     if (settlementScope === 'full') {
       scopeLabel = '10天全程实际发生实结（D0~D9 全部出账结清）';
       lodgingDesc = '全部 10 晚（已含10/5迎宾路星程¥183.88）';
-      onRoadShareAmount = brotherInLawNetOnRoadShare.toFixed(2);
-      onRoadLineNote = '（含D9午餐抓饭127+老托克逊打车33.73+楼兰烧烤204+还车加油190+还车洗车费50+星程停车2）';
     } else if (settlementScope === 'lodging_locked') {
       scopeLabel = '含明天D9房费锁账（流水结至D8·D9现场AA）';
       lodgingDesc = '全部 10 晚（已含10/5迎宾路星程¥183.88）';
-      onRoadShareAmount = brotherInLawNetOnRoadShare.toFixed(2);
-      onRoadLineNote = '（在途流水结至D8，D9白天加油/餐饮现场AA）';
     } else {
       scopeLabel = '截止第八天实付（已住9晚已加6箱油）';
       lodgingDesc = '已住满 9 晚';
-      onRoadShareAmount = brotherInLawNetOnRoadShare.toFixed(2);
-      onRoadLineNote = '';
     }
 
-    const ticketLabel = includeBigTickets 
-      ? '已含喀纳斯+赛湖线上大门票代订(¥660)' 
-      : '不含喀纳斯赛湖大门票(自理)';
-
-    return `【北疆秋季自驾 · 姐夫一家 AA 对账结算单】
+    return `【北疆秋季自驾 · 姐夫一家 AA 对账最终结算单 (清晰分类版)】
 结算口径：${scopeLabel}
-门票代订：${ticketLabel}
 -----------------------------
+一、三大固定项与代订（单间/50%/代订）：
 1. 酒店住宿（单间 50%）：¥${brotherInLawHotelShare.toFixed(2)}
-   • ${lodgingDesc}，包含赛里木湖城际高奢、冲乎尔民宿、阿勒泰漫心、昌吉全季、机场迎宾路星程等
+   • ${lodgingDesc}，含赛里木湖城际高奢、冲乎尔民宿、阿勒泰漫心、昌吉全季、机场迎宾路星程等
 2. 租车自驾（捷途旅行者 SUV 50%）：¥${brotherInLawCarShare.toFixed(2)}
-   • 8.5 天全租期整车全款 ¥2,200.00，合同全额结清并顺利交接还车
-3. 在途公共流水（油费+餐费+路费+超市+现场门票¥176）：¥${onRoadShareAmount}
-   • 全团流水50%分摊：¥${(totalAccruedShared / 2).toFixed(2)}
-   • 减去姐夫已垫付冲抵款（羊肉串55+早餐50${settlementScope === 'full' ? '+停车2' : ''}）：-¥${brotherInLawOffsetCredit.toFixed(2)}
-   • 在途公费净应付：¥${brotherInLawNetOnRoadShare.toFixed(2)}${onRoadLineNote}
-${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥${bigOnlineTicketsTotal.toFixed(2)}
+   • 8.5 天全租期整车全款 ¥2,200.00，合同结清并已在酒店顺利交接还车
+${includeBigTickets ? `3. 线上代订大门票（喀纳斯+赛湖 2人）：¥${bigOnlineTicketsTotal.toFixed(2)}
    • 喀纳斯一进门票+大巴 ¥460（观鱼台中巴免费¥0）
    • 赛里木湖门票+自驾车费分摊 ¥200
-   （注：木特塔尔¥90与五彩滩¥86已包含在第3项在途流水中，绝不重复收取）` : `4. 线上大门票：已由姐夫手机自行购票，不计入对账`}
+   （注：木特塔尔¥90与五彩滩¥86已计入在途小门票，绝不重复收取）` : `3. 线上大门票：已由姐夫手机自行购票，不计入对账`}
+
+二、在途实际流水清晰分类明细（全团流水实付 ¥${totalAccruedShared.toFixed(2)} · 50%对半分摊）：
+4. 车辆加油费（${gasItems.length} 箱油 50%）：¥${(totalGasAmount / 2).toFixed(2)}
+   • 全团 7 箱油实打实跑满北疆 2,700+ 公里，总油费 ¥${totalGasAmount.toFixed(2)}
+5. 餐饮美食费（${diningItems.length} 顿正餐 50%）：¥${(totalDiningAmount / 2).toFixed(2)}
+   • 全团 20 顿餐饮 ¥${totalDiningAmount.toFixed(2)}（大盘鸡/手抓肉/冷水鱼/火锅/抓饭/楼兰烧烤等，D1晚餐我们请客已剔除）
+6. 高速公路通行费（${highwayTollItems.length} 笔 50%）：¥${(totalHighwayTollAmount / 2).toFixed(2)}
+   • 全团连霍高速通行费共 ¥${totalHighwayTollAmount.toFixed(2)}（乌市-石河子-沙湾-精河-赛湖-奎屯）
+7. 市内交通、打车、停车与洗车费（${localTransportItems.length} 笔 50%）：¥${(totalLocalTransportAmount / 2).toFixed(2)}
+   • 全团打车停车洗车共 ¥${totalLocalTransportAmount.toFixed(2)}（奎屯打车7.7+贾登峪停车20+老托克逊打车33.73+还车洗车50+星程停车2）
+8. 现场景区小门票（${onRoadTicketItems.length} 笔 50%）：¥${(totalOnRoadTickets / 2).toFixed(2)}
+   • 全团现场小门票 ¥${totalOnRoadTickets.toFixed(2)}（木特塔尔沙漠门票摆渡车¥90/人 + 五彩滩特惠门票¥86/人）
+9. 超市物资与随车水饮补给（${groceryItems.length} 笔 50%）：¥${(totalGroceryAmount / 2).toFixed(2)}
+   • 全团随车矿泉水、水果、干粮零食共 ¥${totalGroceryAmount.toFixed(2)}
+
+三、姐夫途中垫付款直接冲减抵扣：
+10. 减去姐夫垫付冲减抵扣款：-¥${brotherInLawOffsetCredit.toFixed(2)}
+   • 阿禾公路烤肉串¥55 + 漫心酒店早餐¥50${settlementScope === 'full' ? ' + 迎宾路星程停车¥2' : ''} = 姐夫垫付¥${brotherInLawPaidTotal.toFixed(2)}，对半直接扣除 ¥${brotherInLawOffsetCredit.toFixed(2)}
 -----------------------------
-【对账验算】：卡片1 住宿 ¥${brotherInLawHotelShare.toFixed(2)} + 卡片2 租车 ¥${brotherInLawCarShare.toFixed(2)} + 卡片3 在途流水 ¥${onRoadShareAmount} + 卡片4 代订门票 ¥${includeBigTickets ? bigOnlineTicketsTotal.toFixed(2) : '0.00'} = ¥${grandTotal.toFixed(2)}
-【姐夫一家本次应结转账总额】：¥${grandTotal.toFixed(2)} 元
-（两人人均仅 ¥${(grandTotal / 2).toFixed(2)} 元，全程人均不到4000元，比携程私家团人均1.2万+省下了整整一大截！玩的超开心，感谢姐夫一路接力代驾！）`;
+【对账严密验算】：
+固定三项(住宿+租车+门票) ¥${(brotherInLawHotelShare + brotherInLawCarShare + (includeBigTickets ? bigOnlineTicketsTotal : 0)).toFixed(2)} + 在途流水净额 ¥${brotherInLawNetOnRoadShare.toFixed(2)} = ¥${grandTotal.toFixed(2)}
+【姐夫一家本次应结转账总额】：¥${grandTotal.toFixed(2)} 元（建议直接转 ¥${Math.floor(grandTotal)} 元即可）
+（两人人均仅 ¥${(grandTotal / 2).toFixed(2)} 元，全程人均不到3900元，每一类目清清楚楚、无一笔糊涂账！玩的超开心，感谢姐夫一路接力代驾！）`;
   };
 
   const handleCopyText = () => {
@@ -422,16 +430,14 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
               </span>
             </div>
             <div className="mt-2">
-              <p className="text-xs text-slate-500 font-medium">在途流水公摊</p>
+              <p className="text-xs text-slate-500 font-medium">在途流水公摊 (已细分)</p>
               <p className="text-lg font-black text-slate-900 mt-0.5">
                 ¥{brotherInLawNetOnRoadShare.toFixed(2)}
               </p>
               <p className="text-[11px] text-cyan-700 font-medium mt-0.5">
                 {settlementScope === 'full' 
-                  ? '已含D9全天实付 (共7箱油+19顿饭)' 
-                  : settlementScope === 'lodging_locked'
-                  ? 'D1~D8实付 (D9现场AA)'
-                  : 'D1~D8油费+餐饮+现场门票'}
+                  ? '7箱油+20顿餐+高速+打车洗车+门票' 
+                  : 'D1~D8油费+餐饮+高速路桥'}
               </p>
             </div>
           </div>
@@ -463,6 +469,86 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                 现场票¥176已在卡片3
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Sub-breakdown banner for In-Transit Expenses */}
+        <div className="bg-gradient-to-r from-cyan-50/90 via-sky-50/90 to-blue-50/90 rounded-2xl border border-cyan-200/80 p-4 shadow-2xs space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-cyan-200/60 pb-2.5">
+            <div className="flex items-center gap-2">
+              <span className="text-base">📊</span>
+              <span className="font-black text-cyan-950 text-sm">
+                在途实际流水六大分类速览（全团流水实付 ¥{totalAccruedShared.toFixed(2)} · 姐夫50%分摊 ¥{(totalAccruedShared / 2).toFixed(2)} · 扣除垫付后净应付 ¥{brotherInLawNetOnRoadShare.toFixed(2)}）
+              </span>
+            </div>
+            <span className="text-xs text-cyan-800 bg-white/80 px-2.5 py-1 rounded-full border border-cyan-200 font-bold self-start sm:self-auto shadow-2xs">
+              每一类目清晰独立 · 绝无糊涂账
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
+            <div className="bg-white/95 p-2.5 rounded-xl border border-cyan-100 shadow-2xs">
+              <div className="flex items-center justify-between text-slate-500 text-[11px]">
+                <span>⛽ 车辆加油</span>
+                <span className="font-semibold text-slate-400">{gasItems.length}箱</span>
+              </div>
+              <p className="font-black text-slate-900 text-sm mt-1">¥{(totalGasAmount / 2).toFixed(2)}</p>
+              <p className="text-[10px] text-slate-400">全团 ¥{totalGasAmount.toFixed(2)}</p>
+            </div>
+
+            <div className="bg-white/95 p-2.5 rounded-xl border border-cyan-100 shadow-2xs">
+              <div className="flex items-center justify-between text-slate-500 text-[11px]">
+                <span>🍽️ 餐饮美食</span>
+                <span className="font-semibold text-slate-400">{diningItems.length}顿</span>
+              </div>
+              <p className="font-black text-slate-900 text-sm mt-1">¥{(totalDiningAmount / 2).toFixed(2)}</p>
+              <p className="text-[10px] text-slate-400">全团 ¥{totalDiningAmount.toFixed(2)}</p>
+            </div>
+
+            <div className="bg-white/95 p-2.5 rounded-xl border border-cyan-100 shadow-2xs">
+              <div className="flex items-center justify-between text-slate-500 text-[11px]">
+                <span>🛣️ 高速通行</span>
+                <span className="font-semibold text-slate-400">{highwayTollItems.length}笔</span>
+              </div>
+              <p className="font-black text-slate-900 text-sm mt-1">¥{(totalHighwayTollAmount / 2).toFixed(2)}</p>
+              <p className="text-[10px] text-slate-400">全团 ¥{totalHighwayTollAmount.toFixed(2)}</p>
+            </div>
+
+            <div className="bg-white/95 p-2.5 rounded-xl border border-cyan-100 shadow-2xs">
+              <div className="flex items-center justify-between text-slate-500 text-[11px]">
+                <span>🚕 市内打车/洗车</span>
+                <span className="font-semibold text-slate-400">{localTransportItems.length}笔</span>
+              </div>
+              <p className="font-black text-slate-900 text-sm mt-1">¥{(totalLocalTransportAmount / 2).toFixed(2)}</p>
+              <p className="text-[10px] text-slate-400">全团 ¥{totalLocalTransportAmount.toFixed(2)}</p>
+            </div>
+
+            <div className="bg-white/95 p-2.5 rounded-xl border border-cyan-100 shadow-2xs">
+              <div className="flex items-center justify-between text-slate-500 text-[11px]">
+                <span>🎟️ 现场小门票</span>
+                <span className="font-semibold text-slate-400">{onRoadTicketItems.length}处</span>
+              </div>
+              <p className="font-black text-slate-900 text-sm mt-1">¥{(totalOnRoadTickets / 2).toFixed(2)}</p>
+              <p className="text-[10px] text-slate-400">全团 ¥{totalOnRoadTickets.toFixed(2)}</p>
+            </div>
+
+            <div className="bg-white/95 p-2.5 rounded-xl border border-cyan-100 shadow-2xs">
+              <div className="flex items-center justify-between text-slate-500 text-[11px]">
+                <span>🛒 超市随车补给</span>
+                <span className="font-semibold text-slate-400">{groceryItems.length}笔</span>
+              </div>
+              <p className="font-black text-slate-900 text-sm mt-1">¥{(totalGroceryAmount / 2).toFixed(2)}</p>
+              <p className="text-[10px] text-slate-400">全团 ¥{totalGroceryAmount.toFixed(2)}</p>
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-cyan-200/50 flex flex-wrap items-center justify-between text-xs text-cyan-950">
+            <span>
+              💡 <strong>在途流水结清公式：</strong>(加油 ¥{(totalGasAmount / 2).toFixed(2)} + 餐饮 ¥{(totalDiningAmount / 2).toFixed(2)} + 高速 ¥{(totalHighwayTollAmount / 2).toFixed(2)} + 交通洗车 ¥{(totalLocalTransportAmount / 2).toFixed(2)} + 现场小门票 ¥{(totalOnRoadTickets / 2).toFixed(2)} + 超市 ¥{(totalGroceryAmount / 2).toFixed(2)}) - 姐夫垫付冲抵 ¥{brotherInLawOffsetCredit.toFixed(2)}
+            </span>
+            <span className="font-black text-cyan-900 bg-white/90 px-2 py-0.5 rounded border border-cyan-200">
+              = 净应付 ¥{brotherInLawNetOnRoadShare.toFixed(2)}
+            </span>
           </div>
         </div>
 
@@ -590,7 +676,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                 </div>
                 <div>
                   <h3 className="font-extrabold text-slate-900 text-sm sm:text-base">
-                    3. 在途公共流水（{settlementScope === 'full' ? '7箱油+19顿特色餐+路费/洗车+现场小门票¥176+超市' : '6箱油+17顿特色餐+高速费+现场小门票¥176+超市'}）
+                    3. 在途实际流水细分（油费+餐饮+高速路费+市内交通打车洗车+现场小门票+超市）
                   </h3>
                   <p className="text-xs text-slate-500">
                     全团 {sharedDayLimit} 天流水 ¥{totalAccruedShared.toFixed(2)} · 50%分摊 ¥{(totalAccruedShared / 2).toFixed(2)} · 扣除垫付后净应付 = <strong className="text-cyan-700">¥{brotherInLawNetOnRoadShare.toFixed(2)}</strong>
@@ -618,8 +704,8 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                   </div>
                 </div>
 
-                {/* Subcategories Breakdown */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                {/* Subcategories Breakdown: 6 categories */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
                   <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
                     <span className="text-slate-500">已加 {gasItems.length} 箱油：</span>
                     <p className="font-black text-slate-900 mt-0.5">¥{totalGasAmount.toFixed(2)}</p>
@@ -631,20 +717,30 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                     <span className="text-[10px] text-slate-400">姐夫摊 ¥{(totalDiningAmount / 2).toFixed(2)}</span>
                   </div>
                   <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
-                    <span className="text-slate-500">高速通行/停车/洗车：</span>
-                    <p className="font-black text-slate-900 mt-0.5">¥{totalTollAmount.toFixed(2)}</p>
-                    <span className="text-[10px] text-slate-400">姐夫摊 ¥{(totalTollAmount / 2).toFixed(2)}</span>
+                    <span className="text-slate-500">高速通行费({highwayTollItems.length}笔)：</span>
+                    <p className="font-black text-slate-900 mt-0.5">¥{totalHighwayTollAmount.toFixed(2)}</p>
+                    <span className="text-[10px] text-slate-400">姐夫摊 ¥{(totalHighwayTollAmount / 2).toFixed(2)}</span>
                   </div>
                   <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
-                    <span className="text-slate-500">现场小门票+补给：</span>
-                    <p className="font-black text-slate-900 mt-0.5">¥{(totalOnRoadTickets + totalGroceryAmount).toFixed(2)}</p>
-                    <span className="text-[10px] text-slate-400">含木特塔尔+五彩滩2人¥176</span>
+                    <span className="text-slate-500">打车/洗车/停车({localTransportItems.length}笔)：</span>
+                    <p className="font-black text-slate-900 mt-0.5">¥{totalLocalTransportAmount.toFixed(2)}</p>
+                    <span className="text-[10px] text-slate-400">姐夫摊 ¥{(totalLocalTransportAmount / 2).toFixed(2)}</span>
+                  </div>
+                  <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
+                    <span className="text-slate-500">现场景区小门票：</span>
+                    <p className="font-black text-slate-900 mt-0.5">¥{totalOnRoadTickets.toFixed(2)}</p>
+                    <span className="text-[10px] text-slate-400">木特塔尔+五彩滩¥176</span>
+                  </div>
+                  <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
+                    <span className="text-slate-500">超市随车补给({groceryItems.length}笔)：</span>
+                    <p className="font-black text-slate-900 mt-0.5">¥{totalGroceryAmount.toFixed(2)}</p>
+                    <span className="text-[10px] text-slate-400">姐夫摊 ¥{(totalGroceryAmount / 2).toFixed(2)}</span>
                   </div>
                 </div>
 
                 {/* Detailed Gas list */}
                 <div className="bg-slate-50 p-3 rounded-xl space-y-1.5 text-xs">
-                  <p className="font-extrabold text-slate-700">⛽ {gasItems.length} 次加油实录明细：</p>
+                  <p className="font-extrabold text-slate-700">⛽ {gasItems.length} 次加油实录明细（全团 ¥{totalGasAmount.toFixed(2)} · 姐夫摊 ¥{(totalGasAmount / 2).toFixed(2)}）：</p>
                   <p className="text-slate-600 flex justify-between">
                     <span>1. D2 托里加油站加满：¥360.00</span>
                     <span>2. D3 托托服务区兵团石油：¥200.00</span>
@@ -663,6 +759,26 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                       <span className="font-bold text-emerald-700">7次加油总计 ¥2,104.00</span>
                     </p>
                   )}
+                </div>
+
+                {/* Detailed Tolls & Local Transport List */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  <div className="bg-slate-50 p-3 rounded-xl space-y-1">
+                    <p className="font-extrabold text-slate-700">🛣️ 连霍高速通行费（5笔 · 全团 ¥279 · 姐夫摊 ¥139.50）：</p>
+                    <p className="text-slate-600 flex justify-between"><span>1. D1 乌市至石河子军垦博</span><strong>¥51.00</strong></p>
+                    <p className="text-slate-600 flex justify-between"><span>2. D1 沙湾至木特塔尔段</span><strong>¥66.00</strong></p>
+                    <p className="text-slate-600 flex justify-between"><span>3. D1 木特塔尔至精河段</span><strong>¥21.00</strong></p>
+                    <p className="text-slate-600 flex justify-between"><span>4. D2 精河至赛里木湖段</span><strong>¥36.00</strong></p>
+                    <p className="text-slate-600 flex justify-between"><span>5. D3 赛湖至奎屯出口段</span><strong>¥105.00</strong></p>
+                  </div>
+                  <div className="bg-slate-50 p-3 rounded-xl space-y-1">
+                    <p className="font-extrabold text-slate-700">🚕 市内打车/洗车/停车（5笔 · 全团 ¥113.43 · 姐夫摊 ¥56.72）：</p>
+                    <p className="text-slate-600 flex justify-between"><span>1. D3 奎屯星程打车</span><strong>¥7.70</strong></p>
+                    <p className="text-slate-600 flex justify-between"><span>2. D6 贾登峪停车场全天停车</span><strong>¥20.00</strong></p>
+                    <p className="text-slate-600 flex justify-between"><span>3. D9 赴老托克逊打车遇火车折返</span><strong>¥33.73</strong></p>
+                    <p className="text-slate-600 flex justify-between"><span>4. D9 租车交接验收洗车费</span><strong>¥50.00</strong></p>
+                    <p className="text-slate-600 flex justify-between"><span>5. D9 迎宾路星程临时停车</span><strong className="text-cyan-800">¥2.00 (姐夫付)</strong></p>
+                  </div>
                 </div>
 
                 {settlementScope === 'full' && (
