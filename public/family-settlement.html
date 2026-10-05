@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 北疆秋季自驾大环线 · 姐夫一家 AA 对账最终结算单</title>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-light: #e0f2fe;
+      --primary-dark: #0369a1;
+      --accent: #f59e0b;
+      --accent-light: #fef3c7;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --success: #10b981;
+      --success-light: #d1fae5;
+      --danger: #ef4444;
+      --danger-light: #fee2e2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      line-height: 1.6;
+      padding: 24px 16px 60px;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+      border: 1px solid var(--slate-200);
+      overflow: hidden;
+    }
+
+    /* Top Hero Header */
+    .hero-header {
+      background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%);
+      color: #ffffff;
+      padding: 36px 32px 30px;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .hero-title {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: #bae6fd;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Grand Total Banner */
+    .grand-total-banner {
+      background: linear-gradient(to right, #fffbeb, #fef3c7);
+      border-bottom: 1px solid #fde68a;
+      padding: 24px 32px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .total-left p {
+      font-size: 13px;
+      font-weight: 700;
+      color: #92400e;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .total-left .amount {
+      font-size: 38px;
+      font-weight: 900;
+      color: #78350f;
+      line-height: 1.1;
+      margin: 4px 0;
+      font-feature-settings: "tnum";
+    }
+
+    .total-left .amount span {
+      font-size: 20px;
+      font-weight: 700;
+      color: #b45309;
+      margin-left: 4px;
+    }
+
+    .total-left .subtext {
+      font-size: 13px;
+      color: #b45309;
+      font-weight: 600;
+    }
+
+    .total-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .badge-paid {
+      background: #059669;
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-copy {
+      background: #ffffff;
+      color: #92400e;
+      border: 1px solid #d97706;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: #fef3c7;
+      color: #78350f;
+    }
+
+    /* Content Body */
+    .content-body {
+      padding: 32px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 4px solid var(--primary);
+      padding-left: 10px;
+    }
+
+    /* Four Pillars Grid */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .pillar-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 14px;
+      padding: 16px;
+      position: relative;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .pillar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .pillar-icon {
+      font-size: 24px;
+    }
+
+    .pillar-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--slate-200);
+      color: var(--slate-700);
+    }
+
+    .pillar-card.hotel .pillar-tag { background: #ede9fe; color: #6d28d9; }
+    .pillar-card.car .pillar-tag { background: #dbeafe; color: #1d4ed8; }
+    .pillar-card.onroad .pillar-tag { background: #cffafe; color: #0e7490; }
+    .pillar-card.ticket .pillar-tag { background: #d1fae5; color: #047857; }
+
+    .pillar-title {
+      font-size: 12px;
+      color: var(--slate-600);
+      font-weight: 600;
+    }
+
+    .pillar-amount {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--slate-900);
+      margin: 2px 0;
+      font-feature-settings: "tnum";
+    }
+
+    .pillar-desc {
+      font-size: 11px;
+      color: var(--slate-600);
+    }
+
+    /* Six In-Transit Categories Grid */
+    .flow-breakdown-box {
+      background: linear-gradient(to bottom, #f0f9ff, #e0f2fe);
+      border: 1px solid #bae6fd;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 32px;
+    }
+
+    .flow-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #bae6fd;
+    }
+
+    .flow-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0369a1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .flow-subtitle {
+      font-size: 12px;
+      color: #0284c7;
+      font-weight: 600;
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .flow-item {
+      background: #ffffff;
+      border: 1px solid #bae6fd;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .flow-item-name {
+      font-size: 11px;
+      color: var(--slate-600);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .flow-item-amount {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--slate-900);
+      margin: 4px 0 2px;
+    }
+
+    .flow-item-sub {
+      font-size: 10px;
+      color: var(--slate-500);
+    }
+
+    .flow-offset-note {
+      background: #ffffff;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: #9a3412;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .flow-offset-note strong {
+      color: #7c2d12;
+    }
+
+    /* Table Styles */
+    .table-container {
+      margin-bottom: 32px;
+      border: 1px solid var(--slate-200);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    thead {
+      background: var(--slate-100);
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    th {
+      padding: 10px 14px;
+      font-weight: 800;
+      color: var(--slate-700);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--slate-100);
+      color: var(--slate-700);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fafbfc;
+    }
+
+    .td-num {
+      text-align: right;
+      font-feature-settings: "tnum";
+    }
+
+    .td-bold {
+      font-weight: 800;
+      color: var(--slate-900);
+    }
+
+    .highlight-row {
+      background: #fffbeb !important;
+      font-weight: 700;
+    }
+
+    .highlight-row td {
+      color: #92400e;
+    }
+
+    /* Day 9 Highlight Box */
+    .day9-box {
+      background: #ecfeff;
+      border: 1px solid #a5f3fc;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 32px;
+    }
+
+    .day9-header {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0e7490;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .day9-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .day9-card {
+      background: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #cffafe;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Formula Box */
+    .formula-box {
+      background: #f8fafc;
+      border: 1px dashed var(--slate-300);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 12px;
+      color: var(--slate-700);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .formula-box code {
+      font-weight: 800;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Footer Note */
+    .footer {
+      border-top: 1px solid var(--slate-200);
+      padding: 24px 32px;
+      background: var(--slate-50);
+      font-size: 12px;
+      color: var(--slate-600);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Print styling */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .container {
+        box-shadow: none;
+        border: none;
+        max-width: 100%;
+      }
+      .btn-copy {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="hero-header">
+      <div class="hero-badge">🌟 北疆自驾 10 晚 11 天 · 全程圆满封账核对</div>
+      <h1 class="hero-title">姐夫一家 AA 对账最终结算单</h1>
+      <div class="hero-subtitle">
+        <span>📅 出行周期：2026/09/26 (D0) ～ 2026/10/06 (D10)</span>
+        <span>👥 出行队伍：两家共 4 人（我们一家 2 人 + 姐夫一家 2 人）</span>
+        <span>⚖️ 分摊原则：团队共同开销 50% 对半分摊 · 垫付全额冲抵</span>
+      </div>
+    </header>
+
+    <!-- Grand Total Banner -->
+    <div class="grand-total-banner">
+      <div class="total-left">
+        <p>姐夫一家本次应结转账总额 (2人份)</p>
+        <div class="amount">¥7,743.15 <span>(建议转账整取：¥7,743 元)</span></div>
+        <div class="subtext">两位人均仅 ¥3,871.57 元 · 全程 10 晚 11 天 100% 实打实结清</div>
+      </div>
+      <div class="total-right">
+        <span class="badge-paid">✓ 捷途旅行者已还车交接 · 全部账目出账完毕</span>
+        <button class="btn-copy" onclick="copyWechatText()">📋 一键复制微信对账文本</button>
+      </div>
+    </div>
+
+    <div class="content-body">
+      <!-- Four Pillars Overview -->
+      <h2 class="section-title">一、四大核心支柱汇总概览</h2>
+      <div class="pillars-grid">
+        <div class="pillar-card hotel">
+          <div class="pillar-header">
+            <span class="pillar-icon">🏨</span>
+            <span class="pillar-tag">单间 50%</span>
+          </div>
+          <p class="pillar-title">1. 酒店住宿费 (10晚)</p>
+          <p class="pillar-amount">¥3,095.93</p>
+          <p class="pillar-desc">全团 10 晚共 ¥6,191.86，单间每晚均仅 ¥309</p>
+        </div>
+
+        <div class="pillar-card car">
+          <div class="pillar-header">
+            <span class="pillar-icon">🚗</span>
+            <span class="pillar-tag">整单 50%</span>
+          </div>
+          <p class="pillar-title">2. 捷途旅行者租车 (8.5天)</p>
+          <p class="pillar-amount">¥1,100.00</p>
+          <p class="pillar-desc">全款 ¥2,200.00，已在星程酒店顺利上门交车</p>
+        </div>
+
+        <div class="pillar-card onroad">
+          <div class="pillar-header">
+            <span class="pillar-icon">⛽</span>
+            <span class="pillar-tag">6大分类拆解</span>
+          </div>
+          <p class="pillar-title">3. 在途实际流水净额</p>
+          <p class="pillar-amount">¥2,887.22</p>
+          <p class="pillar-desc">毛摊 ¥2,940.72 减去姐夫垫付冲抵 ¥53.50</p>
+        </div>
+
+        <div class="pillar-card ticket">
+          <div class="pillar-header">
+            <span class="pillar-icon">🎟️</span>
+            <span class="pillar-tag">2人实付</span>
+          </div>
+          <p class="pillar-title">4. 线上代订大门票</p>
+          <p class="pillar-amount">¥660.00</p>
+          <p class="pillar-desc">喀纳斯 ¥460 + 赛湖 ¥200 (现场小门票已在流水)</p>
+        </div>
+      </div>
+
+      <!-- In-Transit Six Categories Breakdown -->
+      <h2 class="section-title">二、在途实际流水（¥2,887.22）六大类目清晰拆解</h2>
+      <div class="flow-breakdown-box">
+        <div class="flow-header">
+          <div class="flow-title">📊 拒绝笼统大锅饭 · 42 笔流水 100% 分门别类</div>
+          <div class="flow-subtitle">全团在途实付：¥5,881.43 ➔ 姐夫一家 50% 应摊：¥2,940.72</div>
+        </div>
+
+        <div class="flow-grid">
+          <div class="flow-item">
+            <div class="flow-item-name">⛽ 车辆加油费</div>
+            <div class="flow-item-amount">¥1,052.00</div>
+            <div class="flow-item-sub">全团7箱油 ¥2,104</div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-item-name">🍽️ 餐饮美食费</div>
+            <div class="flow-item-amount">¥1,454.50</div>
+            <div class="flow-item-sub">全团20顿饭 ¥2,909</div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-item-name">🛣️ 连霍高速通行</div>
+            <div class="flow-item-amount">¥139.50</div>
+            <div class="flow-item-sub">全团5笔路费 ¥279</div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-item-name">🚕 市内打车/洗车</div>
+            <div class="flow-item-amount">¥56.72</div>
+            <div class="flow-item-sub">全团5笔杂费 ¥113.43</div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-item-name">🎟️ 现场景区小门票</div>
+            <div class="flow-item-amount">¥176.00</div>
+            <div class="flow-item-sub">沙漠+五彩滩 ¥352</div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-item-name">🛒 超市随车水饮</div>
+            <div class="flow-item-amount">¥62.00</div>
+            <div class="flow-item-sub">2笔采购 ¥124</div>
+          </div>
+        </div>
+
+        <div class="flow-offset-note">
+          <span>🤝</span>
+          <div>
+            <strong>姐夫垫付款自动冲减抵扣：-¥53.50</strong><br>
+            阿禾天路途中烤肉串(¥55) + 漫心酒店加早餐(¥50) + 迎宾路星程酒店临时停车(¥2) = 姐夫现场实付 ¥107.00。按对半平摊后，姐夫多垫付了 <strong>¥53.50</strong>，已在此直接扣减抵扣！
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 9 Episode Highlight -->
+      <div class="day9-box">
+        <div class="day9-header">
+          <span>✨ Day 9 收官日实录流水（全团实付 ¥606.73 · 姐夫净摊 ¥302.37 · 已结清）</span>
+        </div>
+        <div class="day9-grid">
+          <div class="day9-card"><span>1. 午餐：新疆特色手抓饭</span><strong>¥127.00</strong></div>
+          <div class="day9-card"><span>2. 晚餐打车插曲：老托克逊等火车折返</span><strong>¥33.73</strong></div>
+          <div class="day9-card"><span>3. 晚餐：楼兰烧烤 (团购¥112+加点¥92)</span><strong>¥204.00</strong></div>
+          <div class="day9-card"><span>4. 加油：迎宾路加油站加满还车</span><strong>¥190.00</strong></div>
+          <div class="day9-card"><span>5. 洗车：租车公司上门交接验车洗车费</span><strong>¥50.00</strong></div>
+          <div class="day9-card"><span>6. 停车：迎宾路星程临时停车 (姐夫付)</span><strong style="color: #0891b2;">¥2.00 (已冲抵)</strong></div>
+        </div>
+        <p style="font-size: 11px; color: #155e75; line-height: 1.5;">
+          💡 <strong>趣味插曲：</strong>晚饭原打车前往塘沽路227号“老托克逊老四号”（营业至21:30），因途中遭遇小火车经过原地等了一刻钟，快到打烊时间果断改签折返星程酒店门口的“楼兰烧烤”（打车费 ¥33.73），临机应变彰显自驾老手风范！
+        </p>
+      </div>
+
+      <!-- Detailed Breakdown Tables -->
+      <h2 class="section-title">三、全程十大账目逐项明细对账表</h2>
+
+      <!-- 1. Hotels -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>晚次</th>
+              <th>日期</th>
+              <th>入住酒店与房型</th>
+              <th>预订渠道</th>
+              <th class="td-num">全团总价 (2间)</th>
+              <th class="td-num">姐夫分摊 (50%)</th>
+              <th>状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>D0</td><td>9/26</td><td>星程乌鲁木齐天山机场迎宾路酒店 (大床2间)</td><td>华住商旅</td><td class="td-num">¥420.70</td><td class="td-num td-bold">¥210.35</td><td>已住已结</td></tr>
+            <tr><td>D1</td><td>9/27</td><td>星程精河连霍高速路口酒店 (大床2间)</td><td>华住商旅</td><td class="td-num">¥389.30</td><td class="td-num td-bold">¥194.65</td><td>已住已结</td></tr>
+            <tr><td>D2</td><td>9/28</td><td>赛里木湖城际酒店 (湖景高端客房 2间)</td><td>华住商旅</td><td class="td-num">¥1,970.30</td><td class="td-num td-bold">¥985.15</td><td>已住已结</td></tr>
+            <tr><td>D3</td><td>9/29</td><td>星程奎屯体育中心西公园酒店 (双床2间)</td><td>华住商旅</td><td class="td-num">¥498.90</td><td class="td-num td-bold">¥249.45</td><td>已住已结</td></tr>
+            <tr><td>D4</td><td>9/30</td><td>克拉玛依龙谷精品酒店(魔鬼城店) (双人间2间)</td><td>美团预订</td><td class="td-num">¥312.00</td><td class="td-num td-bold">¥156.00</td><td>已住已结</td></tr>
+            <tr><td>D5</td><td>10/1</td><td>布尔津冲乎尔怡然居民宿 (特色客房 2间)</td><td>飞猪信用住</td><td class="td-num">¥395.00</td><td class="td-num td-bold">¥197.50</td><td>已住已结</td></tr>
+            <tr><td>D6</td><td>10/2</td><td>冲乎尔望山民宿 + 奇在独一客栈 (2间)</td><td>现场入住</td><td class="td-num">¥489.00</td><td class="td-num td-bold">¥244.50</td><td>已住已结</td></tr>
+            <tr><td>D7</td><td>10/3</td><td>漫心酒店(阿勒泰博物馆雪都汇店) (2间)</td><td>美团直播</td><td class="td-num">¥850.00</td><td class="td-num td-bold">¥425.00</td><td>已住已结</td></tr>
+            <tr><td>D8</td><td>10/4</td><td>全季昌吉东方广场酒店 (大床房 2间)</td><td>华住商旅</td><td class="td-num">¥498.90</td><td class="td-num td-bold">¥249.45</td><td>已住已结</td></tr>
+            <tr><td>D9</td><td>10/5</td><td>星程乌鲁木齐机场迎宾路酒店 (更换大床2间)</td><td>携程在线付</td><td class="td-num">¥367.76</td><td class="td-num td-bold">¥183.88</td><td>已入住</td></tr>
+            <tr class="highlight-row">
+              <td colspan="4"><strong>酒店住宿费合计 (全程 10 晚 · 极佳舒适度)</strong></td>
+              <td class="td-num"><strong>¥6,191.86</strong></td>
+              <td class="td-num"><strong>¥3,095.93</strong></td>
+              <td><strong>全部结清</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 2. Gas -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>加油日期</th>
+              <th>加油站点与路线说明</th>
+              <th class="td-num">全团实付</th>
+              <th class="td-num">姐夫分摊 (50%)</th>
+              <th>经手渠道</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>D2 (9/28)</td><td>中国石油托里加油站加满 (北上进博尔塔拉)</td><td class="td-num">¥360.00</td><td class="td-num td-bold">¥180.00</td><td>团队公费卡</td></tr>
+            <tr><td>2</td><td>D3 (9/29)</td><td>连霍高速托托服务区兵团石油加油</td><td class="td-num">¥200.00</td><td class="td-num td-bold">¥100.00</td><td>团队公费卡</td></tr>
+            <tr><td>3</td><td>D4 (9/30)</td><td>克拉玛依备战北上阿勒泰加油加满</td><td class="td-num">¥336.00</td><td class="td-num td-bold">¥168.00</td><td>团队公费卡</td></tr>
+            <tr><td>4</td><td>D5 (10/1)</td><td>布尔津县城加油站补能</td><td class="td-num">¥200.00</td><td class="td-num td-bold">¥100.00</td><td>团队公费卡</td></tr>
+            <tr><td>5</td><td>D7 (10/3)</td><td>中国石油黑流滩加油站加满 (进阿禾天路前)</td><td class="td-num">¥340.00</td><td class="td-num td-bold">¥170.00</td><td>团队公费卡</td></tr>
+            <tr><td>6</td><td>D8 (10/4)</td><td>S21 克拉美丽沙漠公园服务区加满</td><td class="td-num">¥478.00</td><td class="td-num td-bold">¥239.00</td><td>团队公费卡</td></tr>
+            <tr><td>7</td><td>D9 (10/5)</td><td>乌市天山机场迎宾路还车加油加满</td><td class="td-num">¥190.00</td><td class="td-num td-bold">¥95.00</td><td>我们一家</td></tr>
+            <tr class="highlight-row">
+              <td colspan="3"><strong>车辆加油费小计 (7 箱油跑满 2,700+ 公里)</strong></td>
+              <td class="td-num"><strong>¥2,104.00</strong></td>
+              <td class="td-num"><strong>¥1,052.00</strong></td>
+              <td><strong>全部加满</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 3. Highway Tolls & Local Transport -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>类型</th>
+              <th>日期</th>
+              <th>费用项目与路段说明</th>
+              <th class="td-num">全团实付</th>
+              <th class="td-num">姐夫分摊 (50%)</th>
+              <th>支付说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>高速</td><td>D1 (9/27)</td><td>乌市到石河子军垦博物馆通行费</td><td class="td-num">¥51.00</td><td class="td-num td-bold">¥25.50</td><td>ETC/公费</td></tr>
+            <tr><td>高速</td><td>D1 (9/27)</td><td>沙湾往木特塔尔沙漠车辆通行费</td><td class="td-num">¥66.00</td><td class="td-num td-bold">¥33.00</td><td>ETC/公费</td></tr>
+            <tr><td>高速</td><td>D1 (9/27)</td><td>木特塔尔沙漠往精河县城通行费</td><td class="td-num">¥21.00</td><td class="td-num td-bold">¥10.50</td><td>ETC/公费</td></tr>
+            <tr><td>高速</td><td>D2 (9/28)</td><td>连霍高速精河至赛湖路段通行费</td><td class="td-num">¥36.00</td><td class="td-num td-bold">¥18.00</td><td>ETC/公费</td></tr>
+            <tr><td>高速</td><td>D3 (9/29)</td><td>连霍高速赛里木湖至奎屯出口通行费</td><td class="td-num">¥105.00</td><td class="td-num td-bold">¥52.50</td><td>ETC/公费</td></tr>
+            <tr style="background:#f8fafc; font-weight:700;">
+              <td colspan="3">高速通行费小计 (5 笔连霍高速 ETC)</td>
+              <td class="td-num">¥279.00</td>
+              <td class="td-num td-bold">¥139.50</td>
+              <td>ETC 结清</td>
+            </tr>
+            <tr><td>交通</td><td>D3 (9/29)</td><td>奎屯星程酒店至商业街滴滴快车</td><td class="td-num">¥7.70</td><td class="td-num td-bold">¥3.85</td><td>滴滴打车</td></tr>
+            <tr><td>停车</td><td>D6 (10/2)</td><td>喀纳斯贾登峪换乘中心全天停车费</td><td class="td-num">¥20.00</td><td class="td-num td-bold">¥10.00</td><td>扫码支付</td></tr>
+            <tr><td>打车</td><td>D9 (10/5)</td><td>晚间赴老托克逊等火车改折返楼兰烧烤</td><td class="td-num">¥33.73</td><td class="td-num td-bold">¥16.87</td><td>打车平台</td></tr>
+            <tr><td>洗车</td><td>D9 (10/5)</td><td>租车公司上门交接验车洗车费</td><td class="td-num">¥50.00</td><td class="td-num td-bold">¥25.00</td><td>现场结清</td></tr>
+            <tr><td>停车</td><td>D9 (10/5)</td><td>迎宾路星程酒店临时停车费</td><td class="td-num">¥2.00</td><td class="td-num td-bold">¥1.00</td><td>姐夫垫付</td></tr>
+            <tr style="background:#f8fafc; font-weight:700;">
+              <td colspan="3">市内交通、打车、停车与洗车小计 (5 笔)</td>
+              <td class="td-num">¥113.43</td>
+              <td class="td-num td-bold">¥56.72</td>
+              <td>全部结清</td>
+            </tr>
+            <tr class="highlight-row">
+              <td colspan="3"><strong>路费与交通杂费合计 (10 笔)</strong></td>
+              <td class="td-num"><strong>¥392.43</strong></td>
+              <td class="td-num"><strong>¥196.22</strong></td>
+              <td><strong>全部结清</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 4. Grand Formula Verification -->
+      <h2 class="section-title">四、严密公式核验与总账对齐</h2>
+      <div class="formula-box">
+        <p><strong>四大支柱结清核验公式：</strong></p>
+        <p>
+          <code>住宿 ¥3,095.93</code> + <code>租车 ¥1,100.00</code> + <code>在途流水净额 ¥2,887.22</code> + <code>大门票 ¥660.00</code>
+          = <strong>¥7,743.15 元</strong>
+        </p>
+        <p style="margin-top: 8px;"><strong>在途流水细分展开核验公式：</strong></p>
+        <p>
+          <code>加油 ¥1,052.00</code> + <code>餐饮 ¥1,454.50</code> + <code>高速 ¥139.50</code> + <code>交通洗车 ¥56.72</code> + <code>现场小门票 ¥176.00</code> + <code>超市 ¥62.00</code> - <code>姐夫垫付 ¥53.50</code>
+          = <strong>¥2,887.22 元</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>
+        <strong>北疆自驾大环线 · 圆满收官</strong> · 每一分钱清晰透明 · 感谢姐夫一路接力代驾！
+      </div>
+      <div>
+        建议直接转账：<strong>¥7,743.00 元整</strong> (人均 ¥3,871.57)
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyWechatText() {
+      const text = `【北疆秋季自驾 · 姐夫一家 AA 对账最终结算单 (清晰分类版)】
+结算口径：10天全程实际开销已全部发生完毕·100%封账结清
+-----------------------------
+一、三大固定项与代订（单间/50%/代订）：
+1. 酒店住宿（单间 50%）：¥3,095.93
+   • 全部 10 晚客房（含今晚迎宾路星程已换房入住¥183.88）
+2. 租车自驾（捷途旅行者 SUV 50%）：¥1,100.00
+   • 8.5 天全租期全款 ¥2,200.00，合同结清并已在酒店顺利交接还车
+3. 线上代订大门票（喀纳斯+赛湖 2人）：¥660.00
+   • 喀纳斯一进门票+区间车 ¥460 + 赛湖门票及自驾车费分摊 ¥200
+   （注：木特塔尔¥90与五彩滩¥86已计入在途小门票，绝不重复收取）
+
+二、在途实际流水清晰分类明细（全团流水实付 ¥5,881.43 · 50%对半分摊）：
+4. 车辆加油费（7 箱油 50%）：¥1,052.00
+   • 全团 7 箱油实打实跑满北疆 2,700+ 公里，总油费 ¥2,104.00
+5. 餐饮美食费（20 顿正餐 50%）：¥1,454.50
+   • 全团 20 顿餐饮共 ¥2,909.00（大盘鸡/手抓肉/冷水鱼/火锅/抓饭/楼兰烧烤等，D1晚餐我们请客已剔除）
+6. 高速公路通行费（5 笔 50%）：¥139.50
+   • 全团连霍高速通行费共 ¥279.00（乌市-石河子-沙湾-精河-赛湖-奎屯）
+7. 市内交通、打车、停车与洗车费（5 笔 50%）：¥56.72
+   • 全团打车停车洗车共 ¥113.43（奎屯打车7.7+贾登峪停车20+老托克逊打车33.73+还车洗车50+星程停车2）
+8. 现场景区小门票（3 笔 50%）：¥176.00
+   • 全团现场小门票共 ¥352.00（木特塔尔沙漠门票摆渡车¥90/人 + 五彩滩特惠门票¥86/人）
+9. 超市物资与随车水饮补给（2 笔 50%）：¥62.00
+   • 全团随车矿泉水、水果、干粮零食共 ¥124.00
+
+三、姐夫途中垫付款直接冲减抵扣：
+10. 减去姐夫垫付冲减抵扣款：-¥53.50
+   • 阿禾公路烤肉串¥55 + 漫心酒店早餐¥50 + 迎宾路星程停车¥2 = 姐夫垫付¥107.00，对半直接扣除 ¥53.50
+-----------------------------
+【对账严密验算】：
+固定三项(住宿+租车+门票) ¥4,855.93 + 在途流水净额 ¥2,887.22 = ¥7,743.15
+【姐夫一家本次应结转账总额】：¥7,743.15 元（建议直接转 ¥7,743 元即可）
+（两人人均仅 ¥3,871.57 元，全程人均不到3900元，每一类目清清楚楚、无一笔糊涂账！玩的超开心，感谢姐夫一路接力代驾！）`;
+
+      navigator.clipboard.writeText(text).then(function() {
+        alert("已成功复制微信对账文本！可以直接粘贴发给姐夫。");
+      }).catch(function() {
+        alert("复制失败，请手动选择复制。");
+      });
+    }
+  </script>
+</body>
+</html>
