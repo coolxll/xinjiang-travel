@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2026 北疆秋季自驾大环线 · 姐夫一家 AA 对账最终结算单</title>
+  <title>2026 北疆秋季自驾大环线 · 姐夫一家 AA 对账最终结算单 (完整明细版)</title>
   <style>
     :root {
       --primary: #0284c7;
@@ -15,6 +15,7 @@
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
       --slate-300: #cbd5e1;
+      --slate-500: #64748b;
       --slate-600: #475569;
       --slate-700: #334155;
       --slate-800: #1e293b;
@@ -178,12 +179,32 @@
       font-size: 18px;
       font-weight: 800;
       color: var(--slate-900);
+      margin-top: 16px;
       margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
       border-left: 4px solid var(--primary);
       padding-left: 10px;
+    }
+
+    .sub-section-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--slate-800);
+      margin: 20px 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sub-section-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
     }
 
     /* Four Pillars Grid */
@@ -340,7 +361,7 @@
 
     /* Table Styles */
     .table-container {
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       border: 1px solid var(--slate-200);
       border-radius: 14px;
       overflow: hidden;
@@ -369,7 +390,7 @@
     }
 
     td {
-      padding: 10px 14px;
+      padding: 9px 14px;
       border-bottom: 1px solid var(--slate-100);
       color: var(--slate-700);
     }
@@ -399,6 +420,14 @@
 
     .highlight-row td {
       color: #92400e;
+    }
+
+    .offset-row {
+      background: #fef2f2 !important;
+    }
+
+    .offset-row td {
+      color: #b91c1c;
     }
 
     /* Day 9 Highlight Box */
@@ -610,7 +639,7 @@
           <span>🤝</span>
           <div>
             <strong>姐夫垫付款自动冲减抵扣：-¥53.50</strong><br>
-            阿禾天路途中烤肉串(¥55) + 漫心酒店加早餐(¥50) + 迎宾路星程酒店临时停车(¥2) = 姐夫现场实付 ¥107.00。按对半平摊后，姐夫多垫付了 <strong>¥53.50</strong>，已在此直接扣减抵扣！
+            阿禾天路烤羊肉串(¥55) + 漫心酒店加早餐(¥50) + 迎宾路星程酒店临时停车(¥2) = 姐夫现场实付 ¥107.00。按对半平摊后，姐夫多垫付了 <strong>¥53.50</strong>，已在此直接扣减抵扣！
           </div>
         </div>
       </div>
@@ -634,9 +663,13 @@
       </div>
 
       <!-- Detailed Breakdown Tables -->
-      <h2 class="section-title">三、全程十大账目逐项明细对账表</h2>
+      <h2 class="section-title">三、全程逐项明细对账表（含餐饮全部20顿明细）</h2>
 
       <!-- 1. Hotels -->
+      <div class="sub-section-title">
+        <span>🏨 1. 酒店住宿费明细（全程 10 晚 · 极佳舒适度与控盘战绩）</span>
+        <span class="sub-section-badge">全团 ¥6,191.86 · 姐夫摊 ¥3,095.93</span>
+      </div>
       <div class="table-container">
         <table>
           <thead>
@@ -662,7 +695,7 @@
             <tr><td>D8</td><td>10/4</td><td>全季昌吉东方广场酒店 (大床房 2间)</td><td>华住商旅</td><td class="td-num">¥498.90</td><td class="td-num td-bold">¥249.45</td><td>已住已结</td></tr>
             <tr><td>D9</td><td>10/5</td><td>星程乌鲁木齐机场迎宾路酒店 (更换大床2间)</td><td>携程在线付</td><td class="td-num">¥367.76</td><td class="td-num td-bold">¥183.88</td><td>已入住</td></tr>
             <tr class="highlight-row">
-              <td colspan="4"><strong>酒店住宿费合计 (全程 10 晚 · 极佳舒适度)</strong></td>
+              <td colspan="4"><strong>酒店住宿费合计 (全程 10 晚全部结清)</strong></td>
               <td class="td-num"><strong>¥6,191.86</strong></td>
               <td class="td-num"><strong>¥3,095.93</strong></td>
               <td><strong>全部结清</strong></td>
@@ -671,7 +704,67 @@
         </table>
       </div>
 
-      <!-- 2. Gas -->
+      <!-- 2. Dining (ALL 20 MEALS) -->
+      <div class="sub-section-title">
+        <span>🍽️ 2. 餐饮美食费明细（全程共 20 顿特色正餐逐笔实录）</span>
+        <span class="sub-section-badge">全团 ¥2,909.00 · 姐夫摊 ¥1,454.50</span>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>日期</th>
+              <th>餐饮项目与特色名店</th>
+              <th>用餐地点 / 说明</th>
+              <th class="td-num">全团实付</th>
+              <th class="td-num">姐夫分摊 (50%)</th>
+              <th>付款渠道 / 经手人</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>D1 (9/27)</td><td>午餐：沙湾鼎吉香大盘鸡配皮带面</td><td>沙湾市大盘鸡核心总店</td><td class="td-num">¥187.00</td><td class="td-num td-bold">¥93.50</td><td>团队公费</td></tr>
+            <tr style="background: #f1f5f9; color: #64748b; font-style: italic;">
+              <td>—</td><td>D1 (9/27)</td><td>晚餐：精河县城特色手抓肉配拌面</td><td>精河老店 (我们一家请客买单)</td><td class="td-num">¥191.00</td><td class="td-num">¥0.00</td><td>我们一家请客 (已剔除不摊)</td>
+            </tr>
+            <tr><td>2</td><td>D2 (9/28)</td><td>晚餐：大河宴椒麻鱼火锅</td><td>博乐/赛里木湖周边大河宴</td><td class="td-num">¥232.00</td><td class="td-num td-bold">¥116.00</td><td>团队公费</td></tr>
+            <tr><td>3</td><td>D3 (9/29)</td><td>下午饭：独山子羊肉手抓饭 4 碗配烤串</td><td>独山子市区特色餐厅</td><td class="td-num">¥120.00</td><td class="td-num td-bold">¥60.00</td><td>团队公费</td></tr>
+            <tr><td>4</td><td>D3 (9/29)</td><td>加餐：手抓饭加羊肉</td><td>独山子市区特色餐厅</td><td class="td-num">¥20.00</td><td class="td-num td-bold">¥10.00</td><td>团队公费</td></tr>
+            <tr><td>5</td><td>D3 (9/29)</td><td>夜宵：奎屯商圈特色小吃烤串</td><td>奎屯商业街夜市</td><td class="td-num">¥20.00</td><td class="td-num td-bold">¥10.00</td><td>团队公费</td></tr>
+            <tr><td>6</td><td>D4 (9/30)</td><td>午餐：克拉玛依老城区清真特色餐</td><td>克一号井周边清真餐厅</td><td class="td-num">¥175.00</td><td class="td-num td-bold">¥87.50</td><td>团队公费</td></tr>
+            <tr><td>7</td><td>D4 (9/30)</td><td>晚餐：乌尔禾羊杂汤+羊肉汤配热馕</td><td>乌尔禾龙谷周边特色餐厅</td><td class="td-num">¥179.00</td><td class="td-num td-bold">¥89.50</td><td>团队公费</td></tr>
+            <tr><td>8</td><td>D5 (10/1)</td><td>早餐：乌尔禾四十九丸子汤老店</td><td>乌尔禾四十九丸子汤</td><td class="td-num">¥96.00</td><td class="td-num td-bold">¥48.00</td><td>团队公费</td></tr>
+            <tr><td>9</td><td>D5 (10/1)</td><td>午餐：布尔津特色冷水鱼（烤狗头鱼）</td><td>布尔津额河美食街</td><td class="td-num">¥159.00</td><td class="td-num td-bold">¥79.50</td><td>团队公费</td></tr>
+            <tr><td>10</td><td>D5 (10/1)</td><td>晚餐：布尔津/冲乎尔毕马宴快餐厅</td><td>毕马宴快餐厅</td><td class="td-num">¥248.00</td><td class="td-num td-bold">¥124.00</td><td>团队公费</td></tr>
+            <tr><td>11</td><td>D6 (10/2)</td><td>早餐：冲乎尔清晨进山前营养早餐</td><td>冲乎尔镇早餐铺</td><td class="td-num">¥61.00</td><td class="td-num td-bold">¥30.50</td><td>团队公费</td></tr>
+            <tr><td>12</td><td>D6 (10/2)</td><td>晚餐：出喀纳斯下山暖心大餐</td><td>冲乎尔镇特色餐厅</td><td class="td-num">¥231.00</td><td class="td-num td-bold">¥115.50</td><td>团队公费</td></tr>
+            <tr><td>13</td><td>D7 (10/3)</td><td>早餐：冲乎尔镇整装启程早餐</td><td>冲乎尔镇早餐铺</td><td class="td-num">¥51.00</td><td class="td-num td-bold">¥25.50</td><td>团队公费</td></tr>
+            <tr class="offset-row">
+              <td>14</td><td>D7 (10/3)</td><td>加餐：G681阿禾天路途中现烤羊肉串</td><td>阿禾公路沿途烤肉铺</td><td class="td-num">¥55.00</td><td class="td-num td-bold">¥27.50</td><td><strong>姐夫微信垫付 (已冲抵)</strong></td>
+            </tr>
+            <tr><td>15</td><td>D7 (10/3)</td><td>晚餐：阿勒泰漫心周边榜首火锅店</td><td>阿勒泰雪都汇商圈火锅店</td><td class="td-num">¥403.00</td><td class="td-num td-bold">¥201.50</td><td>团队公费</td></tr>
+            <tr class="offset-row">
+              <td>16</td><td>D7 (10/3)</td><td>早餐补充：阿勒泰漫心酒店加早餐费</td><td>漫心酒店前台餐厅</td><td class="td-num">¥50.00</td><td class="td-num td-bold">¥25.00</td><td><strong>姐夫现场垫付 (已冲抵)</strong></td>
+            </tr>
+            <tr><td>17</td><td>D8 (10/4)</td><td>晚餐：西域那依·新疆菜 (昌吉宁边路店)</td><td>昌吉市西域那依</td><td class="td-num">¥291.00</td><td class="td-num td-bold">¥145.50</td><td>我们一家 (支付宝)</td></tr>
+            <tr><td>18</td><td>D9 (10/5)</td><td>午餐：新疆特色地道羊肉手抓饭</td><td>昌吉/乌市周边手抓饭店</td><td class="td-num">¥127.00</td><td class="td-num td-bold">¥63.50</td><td>我们一家</td></tr>
+            <tr><td>19</td><td>D9 (10/5)</td><td>晚餐：楼兰烧烤 (美团团购套餐券)</td><td>乌鲁木齐楼兰烧烤</td><td class="td-num">¥112.00</td><td class="td-num td-bold">¥56.00</td><td>我们一家 (美团团购)</td></tr>
+            <tr><td>20</td><td>D9 (10/5)</td><td>晚餐加点：楼兰烧烤 (现场加单补差)</td><td>乌鲁木齐楼兰烧烤</td><td class="td-num">¥92.00</td><td class="td-num td-bold">¥46.00</td><td>我们一家扫码</td></tr>
+            <tr class="highlight-row">
+              <td colspan="4"><strong>餐饮美食费小计 (20 顿特色正餐与名店大餐)</strong></td>
+              <td class="td-num"><strong>¥2,909.00</strong></td>
+              <td class="td-num"><strong>¥1,454.50</strong></td>
+              <td><strong>全部结清</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 3. Gas -->
+      <div class="sub-section-title">
+        <span>⛽ 3. 车辆加油费明细（共 7 箱油 · 跑满 2,700+ 公里）</span>
+        <span class="sub-section-badge">全团 ¥2,104.00 · 姐夫摊 ¥1,052.00</span>
+      </div>
       <div class="table-container">
         <table>
           <thead>
@@ -693,7 +786,7 @@
             <tr><td>6</td><td>D8 (10/4)</td><td>S21 克拉美丽沙漠公园服务区加满</td><td class="td-num">¥478.00</td><td class="td-num td-bold">¥239.00</td><td>团队公费卡</td></tr>
             <tr><td>7</td><td>D9 (10/5)</td><td>乌市天山机场迎宾路还车加油加满</td><td class="td-num">¥190.00</td><td class="td-num td-bold">¥95.00</td><td>我们一家</td></tr>
             <tr class="highlight-row">
-              <td colspan="3"><strong>车辆加油费小计 (7 箱油跑满 2,700+ 公里)</strong></td>
+              <td colspan="3"><strong>车辆加油费小计 (7 箱油实打实跑满北疆)</strong></td>
               <td class="td-num"><strong>¥2,104.00</strong></td>
               <td class="td-num"><strong>¥1,052.00</strong></td>
               <td><strong>全部加满</strong></td>
@@ -702,36 +795,42 @@
         </table>
       </div>
 
-      <!-- 3. Highway Tolls & Local Transport -->
+      <!-- 4. Highway Tolls & Local Transport -->
+      <div class="sub-section-title">
+        <span>🛣️ 4. 高速路费、市内交通、打车与洗车费明细（共 10 笔）</span>
+        <span class="sub-section-badge">全团 ¥392.43 · 姐夫摊 ¥196.22</span>
+      </div>
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th>类型</th>
+              <th>类别</th>
               <th>日期</th>
               <th>费用项目与路段说明</th>
               <th class="td-num">全团实付</th>
               <th class="td-num">姐夫分摊 (50%)</th>
-              <th>支付说明</th>
+              <th>经手渠道 / 说明</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>高速</td><td>D1 (9/27)</td><td>乌市到石河子军垦博物馆通行费</td><td class="td-num">¥51.00</td><td class="td-num td-bold">¥25.50</td><td>ETC/公费</td></tr>
-            <tr><td>高速</td><td>D1 (9/27)</td><td>沙湾往木特塔尔沙漠车辆通行费</td><td class="td-num">¥66.00</td><td class="td-num td-bold">¥33.00</td><td>ETC/公费</td></tr>
-            <tr><td>高速</td><td>D1 (9/27)</td><td>木特塔尔沙漠往精河县城通行费</td><td class="td-num">¥21.00</td><td class="td-num td-bold">¥10.50</td><td>ETC/公费</td></tr>
-            <tr><td>高速</td><td>D2 (9/28)</td><td>连霍高速精河至赛湖路段通行费</td><td class="td-num">¥36.00</td><td class="td-num td-bold">¥18.00</td><td>ETC/公费</td></tr>
-            <tr><td>高速</td><td>D3 (9/29)</td><td>连霍高速赛里木湖至奎屯出口通行费</td><td class="td-num">¥105.00</td><td class="td-num td-bold">¥52.50</td><td>ETC/公费</td></tr>
+            <tr><td>高速</td><td>D1 (9/27)</td><td>乌市到石河子军垦博物馆通行费</td><td class="td-num">¥51.00</td><td class="td-num td-bold">¥25.50</td><td>ETC / 公费</td></tr>
+            <tr><td>高速</td><td>D1 (9/27)</td><td>沙湾往木特塔尔沙漠车辆通行费</td><td class="td-num">¥66.00</td><td class="td-num td-bold">¥33.00</td><td>ETC / 公费</td></tr>
+            <tr><td>高速</td><td>D1 (9/27)</td><td>木特塔尔沙漠往精河县城通行费</td><td class="td-num">¥21.00</td><td class="td-num td-bold">¥10.50</td><td>ETC / 公费</td></tr>
+            <tr><td>高速</td><td>D2 (9/28)</td><td>连霍高速精河至赛湖路段通行费</td><td class="td-num">¥36.00</td><td class="td-num td-bold">¥18.00</td><td>ETC / 公费</td></tr>
+            <tr><td>高速</td><td>D3 (9/29)</td><td>连霍高速赛里木湖至奎屯出口通行费</td><td class="td-num">¥105.00</td><td class="td-num td-bold">¥52.50</td><td>ETC / 公费</td></tr>
             <tr style="background:#f8fafc; font-weight:700;">
-              <td colspan="3">高速通行费小计 (5 笔连霍高速 ETC)</td>
+              <td colspan="3">连霍高速通行费小计 (5 笔高速 ETC)</td>
               <td class="td-num">¥279.00</td>
               <td class="td-num td-bold">¥139.50</td>
               <td>ETC 结清</td>
             </tr>
             <tr><td>交通</td><td>D3 (9/29)</td><td>奎屯星程酒店至商业街滴滴快车</td><td class="td-num">¥7.70</td><td class="td-num td-bold">¥3.85</td><td>滴滴打车</td></tr>
-            <tr><td>停车</td><td>D6 (10/2)</td><td>喀纳斯贾登峪换乘中心全天停车费</td><td class="td-num">¥20.00</td><td class="td-num td-bold">¥10.00</td><td>扫码支付</td></tr>
-            <tr><td>打车</td><td>D9 (10/5)</td><td>晚间赴老托克逊等火车改折返楼兰烧烤</td><td class="td-num">¥33.73</td><td class="td-num td-bold">¥16.87</td><td>打车平台</td></tr>
-            <tr><td>洗车</td><td>D9 (10/5)</td><td>租车公司上门交接验车洗车费</td><td class="td-num">¥50.00</td><td class="td-num td-bold">¥25.00</td><td>现场结清</td></tr>
-            <tr><td>停车</td><td>D9 (10/5)</td><td>迎宾路星程酒店临时停车费</td><td class="td-num">¥2.00</td><td class="td-num td-bold">¥1.00</td><td>姐夫垫付</td></tr>
+            <tr><td>停车</td><td>D6 (10/2)</td><td>喀纳斯贾登峪换乘中心全天停车费</td><td class="td-num">¥20.00</td><td class="td-num td-bold">¥10.00</td><td>景区扫码</td></tr>
+            <tr><td>打车</td><td>D9 (10/5)</td><td>晚间赴老托克逊等火车折返楼兰烧烤</td><td class="td-num">¥33.73</td><td class="td-num td-bold">¥16.87</td><td>打车平台</td></tr>
+            <tr><td>洗车</td><td>D9 (10/5)</td><td>租车公司上门交接验车洗车费</td><td class="td-num">¥50.00</td><td class="td-num td-bold">¥25.00</td><td>现场扫码结清</td></tr>
+            <tr class="offset-row">
+              <td>停车</td><td>D9 (10/5)</td><td>迎宾路星程酒店临时停车费</td><td class="td-num">¥2.00</td><td class="td-num td-bold">¥1.00</td><td><strong>姐夫现场垫付 (已冲抵)</strong></td>
+            </tr>
             <tr style="background:#f8fafc; font-weight:700;">
               <td colspan="3">市内交通、打车、停车与洗车小计 (5 笔)</td>
               <td class="td-num">¥113.43</td>
@@ -748,7 +847,83 @@
         </table>
       </div>
 
-      <!-- 4. Grand Formula Verification -->
+      <!-- 5. Tickets & Supplies -->
+      <div class="sub-section-title">
+        <span>🎟️ 5. 现场景区小门票与超市物资采购（共 5 笔）</span>
+        <span class="sub-section-badge">全团 ¥476.00 · 姐夫摊 ¥238.00 (门票¥176+超市¥62)</span>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>类别</th>
+              <th>日期</th>
+              <th>项目与景区 / 采购地点</th>
+              <th class="td-num">全团实付</th>
+              <th class="td-num">姐夫分摊 (50%)</th>
+              <th>说明备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>小门票</td><td>D1 (9/27)</td><td>木特塔尔国家沙漠公园门票 (4人)</td><td class="td-num">¥120.00</td><td class="td-num td-bold">¥60.00</td><td>售票处现场扫码</td></tr>
+            <tr><td>小门票</td><td>D1 (9/27)</td><td>木特塔尔沙漠公园区间摆渡车 (4人)</td><td class="td-num">¥60.00</td><td class="td-num td-bold">¥30.00</td><td>售票处现场扫码</td></tr>
+            <tr><td>小门票</td><td>D5 (10/1)</td><td>布尔津五彩滩风景区特惠门票 (4人)</td><td class="td-num">¥172.00</td><td class="td-num td-bold">¥86.00</td><td>美团官方特惠购票</td></tr>
+            <tr style="background:#f8fafc; font-weight:700;">
+              <td colspan="3">现场小门票小计 (上方线上大门票不再重复收)</td>
+              <td class="td-num">¥352.00</td>
+              <td class="td-num td-bold">¥176.00</td>
+              <td>现场门票结清</td>
+            </tr>
+            <tr><td>超市</td><td>D5 (10/1)</td><td>布尔津便利超市生活用品与随车零食水</td><td class="td-num">¥82.00</td><td class="td-num td-bold">¥41.00</td><td>团队公费</td></tr>
+            <tr><td>超市</td><td>D7 (10/3)</td><td>阿勒泰漫心周边便利店水果与饮用水</td><td class="td-num">¥42.00</td><td class="td-num td-bold">¥21.00</td><td>团队公费</td></tr>
+            <tr style="background:#f8fafc; font-weight:700;">
+              <td colspan="3">超市物资与随车水饮小计 (2 笔)</td>
+              <td class="td-num">¥124.00</td>
+              <td class="td-num td-bold">¥62.00</td>
+              <td>随车物资结清</td>
+            </tr>
+            <tr class="highlight-row">
+              <td colspan="3"><strong>小门票与超市补给合计 (5 笔)</strong></td>
+              <td class="td-num"><strong>¥476.00</strong></td>
+              <td class="td-num"><strong>¥238.00</strong></td>
+              <td><strong>全部结清</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 6. Offset Table -->
+      <div class="sub-section-title">
+        <span>🤝 6. 姐夫途中垫付款冲减抵扣表（实打实抵扣 ¥53.50）</span>
+        <span class="sub-section-badge" style="background:#fee2e2; color:#b91c1c;">姐夫多垫 50% 冲减 -¥53.50</span>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>垫付项目</th>
+              <th>发生日期</th>
+              <th>发生场景 / 地点</th>
+              <th class="td-num">姐夫实付金额</th>
+              <th class="td-num">全团平摊后姐夫应付</th>
+              <th class="td-num">姐夫超额多垫付 (直接冲减)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>G681 阿禾公路特色烤羊肉串</td><td>D7 (10/3)</td><td>阿禾天路沿途特色烤肉铺</td><td class="td-num">¥55.00</td><td class="td-num">¥27.50</td><td class="td-num td-bold" style="color:#b91c1c;">¥27.50</td></tr>
+            <tr><td>阿勒泰漫心酒店加早餐费</td><td>D7 (10/3)</td><td>漫心酒店餐厅前台</td><td class="td-num">¥50.00</td><td class="td-num">¥25.00</td><td class="td-num td-bold" style="color:#b91c1c;">¥25.00</td></tr>
+            <tr><td>迎宾路星程酒店临时停车费</td><td>D9 (10/5)</td><td>星程酒店临时停车交车</td><td class="td-num">¥2.00</td><td class="td-num">¥1.00</td><td class="td-num td-bold" style="color:#b91c1c;">¥1.00</td></tr>
+            <tr class="highlight-row">
+              <td colspan="3"><strong>姐夫垫付冲减合计 (直接在总账中对半扣除)</strong></td>
+              <td class="td-num"><strong>¥107.00</strong></td>
+              <td class="td-num"><strong>¥53.50</strong></td>
+              <td class="td-num td-bold" style="color:#b91c1c;"><strong>-¥53.50 (冲减)</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 7. Grand Formula Verification -->
       <h2 class="section-title">四、严密公式核验与总账对齐</h2>
       <div class="formula-box">
         <p><strong>四大支柱结清核验公式：</strong></p>
