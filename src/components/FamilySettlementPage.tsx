@@ -44,59 +44,61 @@ export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
   const carRentalTotal = 2200.00;
   const brotherInLawCarShare = carRentalTotal / 2; // ¥1,100.00
 
-  // 3. On-road Expenses from D1 to D8 (from initial data)
-  // Shared expenses:
-  const accruedSharedExpenses = useMemo(() => {
+  // 3. On-road Expenses
+  // If 'full', includes D9 actual expenses (dayNumber <= 9)
+  // If 'accrued' or 'lodging_locked', strictly up to D8 (dayNumber <= 8)
+  const sharedDayLimit = settlementScope === 'full' ? 9 : 8;
+
+  const currentSharedExpenses = useMemo(() => {
     return INITIAL_EXPENSE_ITEMS.filter(
-      (item) => item.dayNumber >= 1 && item.dayNumber <= 8 && !item.excludeFromSplit
+      (item) => item.dayNumber >= 1 && item.dayNumber <= sharedDayLimit && !item.excludeFromSplit
     );
-  }, []);
+  }, [sharedDayLimit]);
 
   const totalAccruedShared = useMemo(() => {
-    return accruedSharedExpenses.reduce((sum, item) => sum + item.amount, 0);
-  }, [accruedSharedExpenses]);
+    return currentSharedExpenses.reduce((sum, item) => sum + item.amount, 0);
+  }, [currentSharedExpenses]);
 
   // Specific on-road categories
   const gasItems = useMemo(() => {
-    return accruedSharedExpenses.filter((item) => item.category === 'supplies' && item.title.includes('加油'));
-  }, [accruedSharedExpenses]);
+    return currentSharedExpenses.filter((item) => item.category === 'supplies' && item.title.includes('加油'));
+  }, [currentSharedExpenses]);
   const totalGasAmount = useMemo(() => gasItems.reduce((sum, item) => sum + item.amount, 0), [gasItems]);
 
   const diningItems = useMemo(() => {
-    return accruedSharedExpenses.filter((item) => item.category === 'dining');
-  }, [accruedSharedExpenses]);
+    return currentSharedExpenses.filter((item) => item.category === 'dining');
+  }, [currentSharedExpenses]);
   const totalDiningAmount = useMemo(() => diningItems.reduce((sum, item) => sum + item.amount, 0), [diningItems]);
 
   const tollItems = useMemo(() => {
-    return accruedSharedExpenses.filter((item) => item.category === 'transport');
-  }, [accruedSharedExpenses]);
+    return currentSharedExpenses.filter((item) => item.category === 'transport');
+  }, [currentSharedExpenses]);
   const totalTollAmount = useMemo(() => tollItems.reduce((sum, item) => sum + item.amount, 0), [tollItems]);
 
   const groceryItems = useMemo(() => {
-    return accruedSharedExpenses.filter((item) => item.category === 'supplies' && !item.title.includes('加油'));
-  }, [accruedSharedExpenses]);
+    return currentSharedExpenses.filter((item) => item.category === 'supplies' && !item.title.includes('加油'));
+  }, [currentSharedExpenses]);
   const totalGroceryAmount = useMemo(() => groceryItems.reduce((sum, item) => sum + item.amount, 0), [groceryItems]);
 
   const onRoadTicketItems = useMemo(() => {
-    return accruedSharedExpenses.filter((item) => item.category === 'tickets');
-  }, [accruedSharedExpenses]);
+    return currentSharedExpenses.filter((item) => item.category === 'tickets');
+  }, [currentSharedExpenses]);
   const totalOnRoadTickets = useMemo(() => onRoadTicketItems.reduce((sum, item) => sum + item.amount, 0), [onRoadTicketItems]);
 
   // 4. Brother-in-law already paid / advanced payment offset
-  // D7 skewers ¥55 + D7 Manxin breakfast ¥50 = ¥105. 
-  // His family's 50% share is ¥52.50, so he overpaid ¥52.50 for the other family.
+  // D7 skewers ¥55 + D7 Manxin breakfast ¥50 = ¥105 (+ D9 parking ¥2 = ¥107 if in full mode)
   const brotherInLawPaidItems = useMemo(() => {
-    return INITIAL_EXPENSE_ITEMS.filter((item) => item.payer === '姐夫一家');
-  }, []);
+    return INITIAL_EXPENSE_ITEMS.filter((item) => item.payer === '姐夫一家' && item.dayNumber <= sharedDayLimit);
+  }, [sharedDayLimit]);
   const brotherInLawPaidTotal = useMemo(() => {
-    return brotherInLawPaidItems.reduce((sum, item) => sum + item.amount, 0); // ¥105
+    return brotherInLawPaidItems.reduce((sum, item) => sum + item.amount, 0);
   }, [brotherInLawPaidItems]);
-  const brotherInLawOffsetCredit = brotherInLawPaidTotal / 2; // ¥52.50
+  const brotherInLawOffsetCredit = brotherInLawPaidTotal / 2;
 
-  // Net On-road share for brother-in-law (D1-D8)
+  // Net On-road share for brother-in-law
   const brotherInLawNetOnRoadShare = useMemo(() => {
-    const rawShare = totalAccruedShared / 2; // ¥5,274.70 / 2 = ¥2,637.35
-    return rawShare - brotherInLawOffsetCredit; // ¥2,584.85
+    const rawShare = totalAccruedShared / 2;
+    return rawShare - brotherInLawOffsetCredit;
   }, [totalAccruedShared, brotherInLawOffsetCredit]);
 
   // 5. Big Online Tickets (Kanas + Sayram for 2 people)
@@ -107,18 +109,11 @@ export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
   const sayramTicket = 200.00;
   const bigOnlineTicketsTotal = kanasTicket + sayramTicket; // ¥660.00
 
-  // Remaining Days (D9-D10) projected increment for 'full' mode:
-  // Food ~¥300, Gas ~¥200, Toll ~¥75 -> total ~¥575, brother-in-law share ~¥287.50
-  const remainingProjectedShare = 287.50;
-
   // Final Total Calculation for brother-in-law's family
   const grandTotal = useMemo(() => {
     let sum = brotherInLawHotelShare + brotherInLawCarShare + brotherInLawNetOnRoadShare;
     if (includeBigTickets) {
       sum += bigOnlineTicketsTotal;
-    }
-    if (settlementScope === 'full') {
-      sum += remainingProjectedShare;
     }
     return sum;
   }, [
@@ -126,9 +121,7 @@ export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
     brotherInLawCarShare, 
     brotherInLawNetOnRoadShare, 
     includeBigTickets, 
-    bigOnlineTicketsTotal, 
-    settlementScope, 
-    remainingProjectedShare
+    bigOnlineTicketsTotal
   ]);
 
   // Toggle accordion section
@@ -144,15 +137,15 @@ export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
     let onRoadLineNote = '';
 
     if (settlementScope === 'full') {
-      scopeLabel = '10天全程全盘全包（含明天D9酒店+在途预估封账）';
-      lodgingDesc = '全部 10 晚（已含明天10/5迎宾路星程¥183.88）';
-      onRoadShareAmount = (brotherInLawNetOnRoadShare + remainingProjectedShare).toFixed(2);
-      onRoadLineNote = '（含D9明天还车加油/洗车/餐饮预估公摊+¥287.50，全包后明天无需再掏钱）';
-    } else if (settlementScope === 'lodging_locked') {
-      scopeLabel = '含明天D9房费锁账（流水结至D8·明天现场AA）';
-      lodgingDesc = '全部 10 晚（已含明天10/5迎宾路星程¥183.88）';
+      scopeLabel = '10天全程实际发生实结（D0~D9 全部出账结清）';
+      lodgingDesc = '全部 10 晚（已含10/5迎宾路星程¥183.88）';
       onRoadShareAmount = brotherInLawNetOnRoadShare.toFixed(2);
-      onRoadLineNote = '（在途流水结至D8，D9明天白天加油/餐饮现场AA）';
+      onRoadLineNote = '（含D9午餐抓饭127+晚餐楼兰烧烤204+还车加油190+还车洗车费50+星程停车2）';
+    } else if (settlementScope === 'lodging_locked') {
+      scopeLabel = '含明天D9房费锁账（流水结至D8·D9现场AA）';
+      lodgingDesc = '全部 10 晚（已含10/5迎宾路星程¥183.88）';
+      onRoadShareAmount = brotherInLawNetOnRoadShare.toFixed(2);
+      onRoadLineNote = '（在途流水结至D8，D9白天加油/餐饮现场AA）';
     } else {
       scopeLabel = '截止第八天实付（已住9晚已加6箱油）';
       lodgingDesc = '已住满 9 晚';
@@ -171,10 +164,10 @@ export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
 1. 酒店住宿（单间 50%）：¥${brotherInLawHotelShare.toFixed(2)}
    • ${lodgingDesc}，包含赛里木湖城际高奢、冲乎尔民宿、阿勒泰漫心、昌吉全季、机场迎宾路星程等
 2. 租车自驾（捷途旅行者 SUV 50%）：¥${brotherInLawCarShare.toFixed(2)}
-   • 8.5 天全租期整车全款 ¥2,200.00，合同全额结清无后续追加
+   • 8.5 天全租期整车全款 ¥2,200.00，合同全额结清并顺利交接还车
 3. 在途公共流水（油费+餐费+路费+超市+现场门票¥176）：¥${onRoadShareAmount}
    • 全团流水50%分摊：¥${(totalAccruedShared / 2).toFixed(2)}
-   • 减去姐夫已垫付冲抵款（羊肉串55+早餐50）：-¥${brotherInLawOffsetCredit.toFixed(2)}
+   • 减去姐夫已垫付冲抵款（羊肉串55+早餐50${settlementScope === 'full' ? '+停车2' : ''}）：-¥${brotherInLawOffsetCredit.toFixed(2)}
    • 在途公费净应付：¥${brotherInLawNetOnRoadShare.toFixed(2)}${onRoadLineNote}
 ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥${bigOnlineTicketsTotal.toFixed(2)}
    • 喀纳斯一进门票+大巴 ¥460（观鱼台中巴免费¥0）
@@ -266,7 +259,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                 </span>
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
                   <HeartHandshake className="w-3.5 h-3.5" />
-                  已冲抵姐夫垫付 ¥52.50
+                  已冲抵姐夫垫付 ¥{brotherInLawOffsetCredit.toFixed(2)}
                 </span>
                 {settlementScope !== 'accrued' && (
                   <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-400/20 text-purple-300 border border-purple-400/30">
@@ -276,16 +269,16 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-white">
                 {settlementScope === 'full'
-                  ? '10天全程全盘全包一口价（含明天全在途）'
+                  ? '10天全程实际发生实结（D0~D9 全部出账结清）'
                   : settlementScope === 'lodging_locked'
-                  ? '包含明天第10晚酒店锁账（流水结至D8）'
+                  ? '包含全部10晚酒店锁账（流水结至D8）'
                   : '截止第八天（已住9晚）实付金额'}
               </h2>
               <p className="text-xs sm:text-sm text-slate-300">
                 {settlementScope === 'full'
-                  ? '含全部10晚酒店 + 8.5天租车 + 喀纳斯赛湖大门票 + D1~D8已发流水 + D9明天全天加油洗车餐饮预估'
+                  ? '含全部10晚酒店 + 8.5天租车 + 喀纳斯赛湖大门票 + D1~D9全部实付流水（含D9加油/洗车/餐饮）'
                   : settlementScope === 'lodging_locked'
-                  ? '含全部10晚酒店 + 8.5天租车 + 喀纳斯赛湖大门票 + D1~D8已发流水（明天白天现场随手付）'
+                  ? '含全部10晚酒店 + 8.5天租车 + 喀纳斯赛湖大门票 + D1~D8已发流水（D9白天现场随手付）'
                   : '姐夫一家 2 人对半分摊（承担 1 间房 + 50% 租车油费 + 50% 在途公费餐费）'}
               </p>
             </div>
@@ -322,7 +315,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                     : 'text-slate-300 hover:text-white'
                 }`}
               >
-                10天全盘全包 (含明天预估)
+                10天全程实付封账 (¥7,726.28)
               </button>
               <button
                 onClick={() => setSettlementScope('lodging_locked')}
@@ -332,7 +325,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                     : 'text-slate-300 hover:text-white'
                 }`}
               >
-                含明天房费锁账 (流水现场付)
+                含全部房费锁账 (流水至D8 ¥7,440.78)
               </button>
               <button
                 onClick={() => setSettlementScope('accrued')}
@@ -342,7 +335,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                     : 'text-slate-300 hover:text-white'
                 }`}
               >
-                仅截止D8实付 (已住9晚)
+                仅截止D8实付 (已住9晚 ¥7,256.90)
               </button>
             </div>
 
@@ -382,7 +375,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                 ¥{brotherInLawHotelShare.toFixed(2)}
               </p>
               <p className="text-[11px] text-purple-700 font-medium mt-0.5">
-                {settlementScope === 'accrued' ? '已住满 9 晚' : '全部 10 晚 (含明天星程)'}
+                {settlementScope === 'accrued' ? '已住满 9 晚' : '全部 10 晚 (含星程换房型)'}
               </p>
             </div>
           </div>
@@ -408,7 +401,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                 ¥{brotherInLawCarShare.toFixed(2)}
               </p>
               <p className="text-[11px] text-blue-700 font-medium mt-0.5">
-                8.5 天 SUV 全租期
+                8.5天全租期 · 已交接还车
               </p>
             </div>
           </div>
@@ -431,16 +424,14 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
             <div className="mt-2">
               <p className="text-xs text-slate-500 font-medium">在途流水公摊</p>
               <p className="text-lg font-black text-slate-900 mt-0.5">
-                ¥{settlementScope === 'full' 
-                  ? (brotherInLawNetOnRoadShare + remainingProjectedShare).toFixed(2) 
-                  : brotherInLawNetOnRoadShare.toFixed(2)}
+                ¥{brotherInLawNetOnRoadShare.toFixed(2)}
               </p>
               <p className="text-[11px] text-cyan-700 font-medium mt-0.5">
                 {settlementScope === 'full' 
-                  ? '含D9明天在途预估+¥287.5' 
+                  ? '已含D9全天实付 (共7箱油+19顿饭)' 
                   : settlementScope === 'lodging_locked'
-                  ? 'D1~D8实付(D9现场AA)'
-                  : '油费+餐饮+现场小门票'}
+                  ? 'D1~D8实付 (D9现场AA)'
+                  : 'D1~D8油费+餐饮+现场门票'}
               </p>
             </div>
           </div>
@@ -599,16 +590,16 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                 </div>
                 <div>
                   <h3 className="font-extrabold text-slate-900 text-sm sm:text-base">
-                    3. 在途公共流水（加油+17顿特色餐+高速费+现场小门票¥176+超市）
+                    3. 在途公共流水（{settlementScope === 'full' ? '7箱油+19顿特色餐+路费/洗车+现场小门票¥176+超市' : '6箱油+17顿特色餐+高速费+现场小门票¥176+超市'}）
                   </h3>
                   <p className="text-xs text-slate-500">
-                    全团 8 天流水 ¥{totalAccruedShared.toFixed(2)} · 50%分摊 ¥{(totalAccruedShared / 2).toFixed(2)} · 扣除垫付后净应付 = <strong className="text-cyan-700">¥{(settlementScope === 'full' ? brotherInLawNetOnRoadShare + remainingProjectedShare : brotherInLawNetOnRoadShare).toFixed(2)}</strong>{settlementScope === 'full' ? '（含D9-D10预估公摊+¥287.50）' : ''}
+                    全团 {sharedDayLimit} 天流水 ¥{totalAccruedShared.toFixed(2)} · 50%分摊 ¥{(totalAccruedShared / 2).toFixed(2)} · 扣除垫付后净应付 = <strong className="text-cyan-700">¥{brotherInLawNetOnRoadShare.toFixed(2)}</strong>
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-xs font-black text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-1 rounded-lg">
-                  ¥{(settlementScope === 'full' ? brotherInLawNetOnRoadShare + remainingProjectedShare : brotherInLawNetOnRoadShare).toFixed(2)}
+                  ¥{brotherInLawNetOnRoadShare.toFixed(2)}
                 </span>
                 {expandedSection === 'onroad' ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
               </div>
@@ -622,7 +613,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                   <div>
                     <span className="font-bold text-amber-900">姐夫一家垫付冲抵：</span>
                     <span className="text-amber-800">
-                      阿禾公路烤羊肉串(¥55) + 漫心酒店加早餐(¥50)，共垫付 ¥105.00。全团对半分摊后，姐夫一家多垫了 <strong>¥52.50</strong>，已直接在公费中抵扣！
+                      阿禾公路烤羊肉串(¥55) + 漫心酒店加早餐(¥50){settlementScope === 'full' ? ' + 迎宾路星程停车费(¥2)' : ''}，共垫付 ¥{brotherInLawPaidTotal.toFixed(2)}。全团对半分摊后，姐夫一家多垫了 <strong>¥{brotherInLawOffsetCredit.toFixed(2)}</strong>，已直接在公费中抵扣！
                     </span>
                   </div>
                 </div>
@@ -630,17 +621,17 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                 {/* Subcategories Breakdown */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                   <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
-                    <span className="text-slate-500">已加 6 箱油：</span>
+                    <span className="text-slate-500">已加 {gasItems.length} 箱油：</span>
                     <p className="font-black text-slate-900 mt-0.5">¥{totalGasAmount.toFixed(2)}</p>
                     <span className="text-[10px] text-slate-400">姐夫摊 ¥{(totalGasAmount / 2).toFixed(2)}</span>
                   </div>
                   <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
-                    <span className="text-slate-500">17顿餐饮大餐：</span>
+                    <span className="text-slate-500">{diningItems.length} 顿餐饮大餐：</span>
                     <p className="font-black text-slate-900 mt-0.5">¥{totalDiningAmount.toFixed(2)}</p>
                     <span className="text-[10px] text-slate-400">姐夫摊 ¥{(totalDiningAmount / 2).toFixed(2)}</span>
                   </div>
                   <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60">
-                    <span className="text-slate-500">高速通行/停车：</span>
+                    <span className="text-slate-500">高速通行/停车/洗车：</span>
                     <p className="font-black text-slate-900 mt-0.5">¥{totalTollAmount.toFixed(2)}</p>
                     <span className="text-[10px] text-slate-400">姐夫摊 ¥{(totalTollAmount / 2).toFixed(2)}</span>
                   </div>
@@ -651,9 +642,9 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                   </div>
                 </div>
 
-                {/* Detailed 6 Gas list */}
+                {/* Detailed Gas list */}
                 <div className="bg-slate-50 p-3 rounded-xl space-y-1.5 text-xs">
-                  <p className="font-extrabold text-slate-700">⛽ 6 次加油实录明细：</p>
+                  <p className="font-extrabold text-slate-700">⛽ {gasItems.length} 次加油实录明细：</p>
                   <p className="text-slate-600 flex justify-between">
                     <span>1. D2 托里加油站加满：¥360.00</span>
                     <span>2. D3 托托服务区兵团石油：¥200.00</span>
@@ -666,16 +657,49 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                     <span>5. D7 黑流滩加油站加满：¥340.00</span>
                     <span>6. D8 S21克拉美丽沙漠公园服务区：¥478.00</span>
                   </p>
+                  {settlementScope === 'full' && (
+                    <p className="text-slate-600 flex justify-between">
+                      <span>7. D9 乌市天山机场迎宾路还车加油加满：¥190.00</span>
+                      <span className="font-bold text-emerald-700">7次加油总计 ¥2,104.00</span>
+                    </p>
+                  )}
                 </div>
 
                 {settlementScope === 'full' && (
-                  <div className="bg-cyan-50/70 p-3 rounded-xl border border-cyan-200 text-xs text-cyan-950 space-y-1.5">
-                    <p className="font-bold flex items-center gap-1.5 text-cyan-900">
-                      <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
-                      <span>Day 9 明天收官在途预估公摊（¥287.50 / 姐夫一家）：</span>
-                    </p>
-                    <p className="text-[11px] text-cyan-800 leading-relaxed">
-                      包含明天 21:00 机场还车前在迎宾路加满油（约¥160）、洗车店清洗车辆外观（约¥35）、领馆巷特色午餐（约¥120）、全团返程散伙晚宴（约¥260）全团共约 ¥575 的 50% 预算公摊。一口价封账后，明天全天在途消费无需姐夫再掏一分钱！
+                  <div className="bg-cyan-50/70 p-3.5 rounded-xl border border-cyan-200 text-xs text-cyan-950 space-y-2">
+                    <div className="flex items-center justify-between border-b border-cyan-200/80 pb-1.5">
+                      <p className="font-black flex items-center gap-1.5 text-cyan-950 text-sm">
+                        <Sparkles className="w-4 h-4 text-cyan-600" />
+                        <span>Day 9 收官日实录流水（全团实付 ¥573.00 · 姐夫净摊 ¥285.50）</span>
+                      </p>
+                      <span className="bg-cyan-200/80 text-cyan-900 font-extrabold text-[10px] px-2 py-0.5 rounded-full">
+                        已全部真实结清
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-700 pt-1">
+                      <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100">
+                        <span>1. 午餐：新疆特色手抓饭</span>
+                        <strong className="text-slate-900">¥127.00</strong>
+                      </div>
+                      <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100">
+                        <span>2. 晚餐：楼兰烧烤 (团购¥112+加点¥92)</span>
+                        <strong className="text-slate-900">¥204.00</strong>
+                      </div>
+                      <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100">
+                        <span>3. 加油：迎宾路加油站加满还车</span>
+                        <strong className="text-slate-900">¥190.00</strong>
+                      </div>
+                      <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100">
+                        <span>4. 洗车：租车公司上门交接验车洗车费</span>
+                        <strong className="text-slate-900">¥50.00</strong>
+                      </div>
+                      <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100 sm:col-span-2">
+                        <span>5. 停车：迎宾路星程酒店临时停车费（姐夫现场扫码垫付）</span>
+                        <strong className="text-cyan-800">¥2.00 (姐夫垫付)</strong>
+                      </div>
+                    </div>
+                    <p className="text-[11px] text-cyan-900 pt-1">
+                      💡 <strong>D9 收官核算：</strong>全团实付 ¥573.00，姐夫一家 50% 应摊 ¥286.50，扣除垫付停车费 ¥1.00，净应付 <strong>¥285.50</strong>，与此前预估（¥287.50）仅差 2 元，已完美实现 100% 真实对账闭环！
                     </p>
                   </div>
                 )}

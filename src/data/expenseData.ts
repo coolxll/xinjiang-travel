@@ -195,12 +195,12 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     dayId: 'day-9',
     date: '10/5',
     fullDate: '2026年10月5日 (周一)',
-    title: '昌吉 → 乌鲁木齐大巴扎/自治区博物馆 → 机场还车',
-    routeSummary: '市区漫步品尝新疆烤包子/手抓饭，18:00 机场无缝还车，宿机场迎宾路',
+    title: '昌吉东方广场全季 → 乌市迎宾路星程 → 自治区博物馆 → 金泉商场大巴扎民族街 → 租车交接还车',
+    routeSummary: '昌吉13:00出发 · 迎宾路星程换房型入住 · 自治区博物馆打卡 · 金泉商场民族街采买 · 午餐手抓饭¥127 · 晚饭楼兰烧烤¥204 · 还车加油¥190+自动洗车 · 酒店交接还车洗车费¥50 · 姐夫付停车费¥2',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '星程乌鲁木齐天山国际机场迎宾路酒店',
-      roomType: '大床房 2间',
+      roomType: '大床房 2间 (已办理入住并更换房型)',
       cost: 367.76,
       payType: '携程已在线支付'
     }
@@ -834,10 +834,106 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     perPerson: 72.75,
     time: '20:10',
     payer: '我们一家 (支付宝)'
+  },
+  {
+    id: 'exp-d9-lunch',
+    dayNumber: 9,
+    dayId: 'day-9',
+    date: '10/5',
+    title: '特色午餐 (新疆特色手抓饭)',
+    category: 'dining',
+    amount: 127,
+    paymentMethod: '微信/支付宝扫码',
+    location: '昌吉/乌鲁木齐特色手抓饭店',
+    note: '出昌吉抵达乌市后享用新疆地道特色手抓饭午餐，实付 ¥127.00 (4人AA ¥31.75/人)',
+    splitCount: 4,
+    perPerson: 31.75,
+    time: '13:40',
+    payer: '我们一家'
+  },
+  {
+    id: 'exp-d9-dinner-1',
+    dayNumber: 9,
+    dayId: 'day-9',
+    date: '10/5',
+    title: '特色晚餐 (楼兰烧烤 · 美团团购套餐)',
+    category: 'dining',
+    amount: 112,
+    paymentMethod: '美团团购线上支付',
+    location: '乌鲁木齐市 · 楼兰烧烤',
+    note: '晚饭打卡乌鲁木齐特色烤肉名店楼兰烧烤，使用美团团购套餐券，实付 ¥112.00 (4人AA ¥28.00/人)',
+    splitCount: 4,
+    perPerson: 28.00,
+    time: '19:15',
+    payer: '我们一家'
+  },
+  {
+    id: 'exp-d9-dinner-2',
+    dayNumber: 9,
+    dayId: 'day-9',
+    date: '10/5',
+    title: '晚餐加点 (楼兰烧烤 · 现场加点补差)',
+    category: 'dining',
+    amount: 92,
+    paymentMethod: '现场微信/支付宝扫码',
+    location: '乌鲁木齐市 · 楼兰烧烤',
+    note: '楼兰烧烤晚餐现场加点特色菜品及烤串，补付差额实付 ¥92.00 (4人AA ¥23.00/人)',
+    splitCount: 4,
+    perPerson: 23.00,
+    time: '20:00',
+    payer: '我们一家'
+  },
+  {
+    id: 'exp-d9-gas',
+    dayNumber: 9,
+    dayId: 'day-9',
+    date: '10/5',
+    title: '车辆还车前加油 (迎宾路加油站)',
+    category: 'supplies',
+    amount: 190,
+    paymentMethod: '加油站微信/支付宝扫码',
+    location: '乌鲁木齐天山机场迎宾路加油站',
+    note: '晚饭后在迎宾路加油站将油箱彻底加满，完成还车满油验收要求，实付 ¥190.00 (4人AA ¥47.50/人)',
+    splitCount: 4,
+    perPerson: 47.50,
+    time: '20:30',
+    payer: '我们一家'
+  },
+  {
+    id: 'exp-d9-carwash',
+    dayNumber: 9,
+    dayId: 'day-9',
+    date: '10/5',
+    title: '租车还车洗车费 (租车公司上门交接验收洗车费)',
+    category: 'transport',
+    amount: 50,
+    paymentMethod: '现场扫码支付',
+    location: '星程乌鲁木齐天山国际机场迎宾路酒店',
+    note: '加油后在加油站做了自动洗车，回酒店后租车公司上门取车验收，提出自动洗车不够干净，爽快补付洗车费 ¥50.00 完成车辆顺利还车交接 (4人AA ¥12.50/人)',
+    splitCount: 4,
+    perPerson: 12.50,
+    time: '21:15',
+    payer: '我们一家'
+  },
+  {
+    id: 'exp-d9-parking',
+    dayNumber: 9,
+    dayId: 'day-9',
+    date: '10/5',
+    title: '迎宾路星程酒店临时停车费 (姐夫垫付)',
+    category: 'transport',
+    amount: 2,
+    paymentMethod: '微信扫码支付',
+    location: '星程乌鲁木齐天山国际机场迎宾路酒店',
+    note: '星程酒店临时停车，因省去向前台索取停车券的时间，姐夫现场直接扫码付款 ¥2.00，计入垫付冲抵 (4人AA ¥0.50/人)',
+    splitCount: 4,
+    perPerson: 0.50,
+    time: '21:30',
+    payer: '姐夫一家'
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v12';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v13';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;
