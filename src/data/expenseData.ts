@@ -196,7 +196,7 @@ export const DAY_EXPENSE_CONFIGS: DayExpenseConfig[] = [
     date: '10/5',
     fullDate: '2026年10月5日 (周一)',
     title: '昌吉东方广场全季 → 乌市迎宾路星程 → 自治区博物馆 → 金泉商场大巴扎民族街 → 租车交接还车',
-    routeSummary: '昌吉13:00出发 · 迎宾路星程换房型入住 · 自治区博物馆打卡 · 金泉商场民族街采买 · 午餐手抓饭¥127 · 晚饭楼兰烧烤¥204 · 还车加油¥190+自动洗车 · 酒店交接还车洗车费¥50 · 姐夫付停车费¥2',
+    routeSummary: '昌吉13:00出发 · 迎宾路星程换房型入住 · 自治区博物馆打卡 · 金泉商场民族街采买 · 午餐手抓饭¥127 · 晚饭打车去老托克逊老四号等火车折返楼兰烧烤(打车¥33.73+烧烤¥204) · 还车加油¥190+自动洗车 · 酒店交接还车洗车费¥50 · 姐夫付停车费¥2',
     defaultSplitCount: 4,
     plannedHotel: {
       name: '星程乌鲁木齐天山国际机场迎宾路酒店',
@@ -930,10 +930,26 @@ export const INITIAL_EXPENSE_ITEMS: ExpenseItem[] = [
     perPerson: 0.50,
     time: '21:30',
     payer: '姐夫一家'
+  },
+  {
+    id: 'exp-d9-taxi-detour',
+    dayNumber: 9,
+    dayId: 'day-9',
+    date: '10/5',
+    title: '晚餐打车插曲 (塘沽路老托克逊老四号等火车遇阻折返楼兰烧烤)',
+    category: 'transport',
+    amount: 33.73,
+    paymentMethod: '打车平台线上支付',
+    location: '乌鲁木齐市区 · 塘沽路227号沿线',
+    note: '晚饭原计划打车去塘沽路227号“老托克逊老四号”(营业至21:30)，途中遇小火车经过如等红灯般等候约一刻钟，临近打烊时间果断改签折返星程酒店周边的楼兰烧烤，打车实付 ¥33.73 (4人AA ¥8.43/人)',
+    splitCount: 4,
+    perPerson: 8.43,
+    time: '18:50',
+    payer: '我们一家'
   }
 ];
 
-const STORAGE_KEY = 'xinjiang_travel_expenses_v13';
+const STORAGE_KEY = 'xinjiang_travel_expenses_v14';
 
 export function getStoredExpenses(): ExpenseItem[] {
   if (typeof window === 'undefined') return INITIAL_EXPENSE_ITEMS;

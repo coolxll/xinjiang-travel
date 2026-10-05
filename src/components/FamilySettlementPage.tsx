@@ -140,7 +140,7 @@ export const FamilySettlementPage: React.FC<FamilySettlementPageProps> = ({
       scopeLabel = '10天全程实际发生实结（D0~D9 全部出账结清）';
       lodgingDesc = '全部 10 晚（已含10/5迎宾路星程¥183.88）';
       onRoadShareAmount = brotherInLawNetOnRoadShare.toFixed(2);
-      onRoadLineNote = '（含D9午餐抓饭127+晚餐楼兰烧烤204+还车加油190+还车洗车费50+星程停车2）';
+      onRoadLineNote = '（含D9午餐抓饭127+老托克逊打车33.73+楼兰烧烤204+还车加油190+还车洗车费50+星程停车2）';
     } else if (settlementScope === 'lodging_locked') {
       scopeLabel = '含明天D9房费锁账（流水结至D8·D9现场AA）';
       lodgingDesc = '全部 10 晚（已含10/5迎宾路星程¥183.88）';
@@ -670,7 +670,7 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                     <div className="flex items-center justify-between border-b border-cyan-200/80 pb-1.5">
                       <p className="font-black flex items-center gap-1.5 text-cyan-950 text-sm">
                         <Sparkles className="w-4 h-4 text-cyan-600" />
-                        <span>Day 9 收官日实录流水（全团实付 ¥573.00 · 姐夫净摊 ¥285.50）</span>
+                        <span>Day 9 收官日实录流水（全团实付 ¥606.73 · 姐夫净摊 ¥302.37）</span>
                       </p>
                       <span className="bg-cyan-200/80 text-cyan-900 font-extrabold text-[10px] px-2 py-0.5 rounded-full">
                         已全部真实结清
@@ -682,24 +682,28 @@ ${includeBigTickets ? `4. 线上代订大门票（喀纳斯+赛湖 2人）：¥$
                         <strong className="text-slate-900">¥127.00</strong>
                       </div>
                       <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100">
-                        <span>2. 晚餐：楼兰烧烤 (团购¥112+加点¥92)</span>
+                        <span>2. 晚餐插曲打车：老托克逊等火车折返</span>
+                        <strong className="text-slate-900">¥33.73</strong>
+                      </div>
+                      <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100">
+                        <span>3. 晚餐：楼兰烧烤 (团购¥112+加点¥92)</span>
                         <strong className="text-slate-900">¥204.00</strong>
                       </div>
                       <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100">
-                        <span>3. 加油：迎宾路加油站加满还车</span>
+                        <span>4. 加油：迎宾路加油站加满还车</span>
                         <strong className="text-slate-900">¥190.00</strong>
                       </div>
                       <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100">
-                        <span>4. 洗车：租车公司上门交接验车洗车费</span>
+                        <span>5. 洗车：租车公司上门交接验车洗车费</span>
                         <strong className="text-slate-900">¥50.00</strong>
                       </div>
-                      <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100 sm:col-span-2">
-                        <span>5. 停车：迎宾路星程酒店临时停车费（姐夫现场扫码垫付）</span>
+                      <div className="flex justify-between bg-white/80 p-2 rounded-lg border border-cyan-100">
+                        <span>6. 停车：迎宾路星程酒店临时停车费</span>
                         <strong className="text-cyan-800">¥2.00 (姐夫垫付)</strong>
                       </div>
                     </div>
                     <p className="text-[11px] text-cyan-900 pt-1">
-                      💡 <strong>D9 收官核算：</strong>全团实付 ¥573.00，姐夫一家 50% 应摊 ¥286.50，扣除垫付停车费 ¥1.00，净应付 <strong>¥285.50</strong>，与此前预估（¥287.50）仅差 2 元，已完美实现 100% 真实对账闭环！
+                      💡 <strong>D9 收官核算：</strong>全团实付 ¥606.73，姐夫一家 50% 应摊 ¥303.37，扣除垫付停车费 ¥1.00，净应付 <strong>¥302.37</strong>，已完美实现 100% 真实对账闭环！
                     </p>
                   </div>
                 )}
